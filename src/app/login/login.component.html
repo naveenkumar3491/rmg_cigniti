@@ -1,0 +1,60 @@
+<!-- Header start-->
+<header class="header">
+    <div class="container-fluid color-overlay">
+        <div class="col-lg-12" style="padding: 0 100px;">
+            <div class="page-scroll nav-logo">
+                <a class="navbar-brand page-scroll" href="http://www.cigniti.com/" target="_blank"> <img src="/assets/images/cigniti-logo.png" class="img-responsive img-centered" alt="Cigniti Technologies"></a>
+                <a class="navbar-brand page-scroll" href="http://www.cigniti.com/blueswan/" target="_blank" style="float: right;"> <img src="/assets/images/blueswan.png" class="img-responsive img-centered" alt="BlueSwan"></a>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Header end-->
+
+<div class="bodyContent content-wrapper">
+    <div class="container-fluid" style="margin-top:0px;height:auto;">
+        <div class="row" style="margin-bottom: 10%;">
+            <div class="col-lg-8">
+                <div class="header-subtext" style="padding-top:15px;">
+                    <h1 style="font-size: 40px;">MyTe</h1>
+                    <p style="font-size: 18px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce pulvinar ullamcorper orci, eu pretium
+                        dolor mollis eu. Proin vulputate molestie quam nec laoreet. Nunc ac urna molestie, dapibus purus
+                        ac, ultricies sem.</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-bg">
+                    <!-- Register Form Grid Section -->
+                    <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" novalidate>
+                        <h1 class="login-title">MyTE LOGIN</h1>
+                        <div class="form-group" [ngClass]="displayFieldCss('username')">
+                            <input class="form-control" type="text" placeholder="UserName" formControlName="username" />
+                            <app-error [displayError]="isFieldValid('username')" errorMsg="Username is required">
+                            </app-error>
+                        </div>
+                        <div class="form-group" [ngClass]="displayFieldCss('password')">
+                            <input class="form-control" type="password" placeholder="Password" formControlName="password" />
+                            <app-error [displayError]="isFieldValid('password')" errorMsg="Password is required">
+                            </app-error>
+                        </div>
+                        <button type="submit" class="btn-xl cta-btn-login">LOGIN</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear-block"></div>
+</div>
+
+<!-- Footer start-->
+<footer class="footer">
+    <div class="container">
+        <div class="row text-center">
+            <div id="copyright">
+                Copyright © 2017, <b>Independent Software Testing Services
+						Company | Cigniti Technologies</b>, All rights reserved
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Footer end-->

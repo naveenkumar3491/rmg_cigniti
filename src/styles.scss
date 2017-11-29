@@ -1,0 +1,100 @@
+$padding-5: 5px;
+$padding-10: 10px;
+body,html{
+	height: 100%;
+}
+body {
+	// font-family: 'Lato', sans-serif;
+	font-family: 'robotoregular', sans-serif;
+	background: #eeeeee;
+	color: #333;
+}
+hr{
+	margin:5px 0;
+}
+a{
+	color: #565656;
+}
+table tr th,strong,b,label{
+	font-weight: normal;
+	font-family: 'robotomedium', sans-serif;
+}
+.logo-1{
+	padding: 5px 0;
+}
+.bodyContent {
+    display: block;
+    background: rgba(71, 80, 60, 0.9);
+    background-image: url(/assets/images/bg.jpg);
+    background-attachment: fixed;
+    background-size: cover;
+    text-align: center;
+    color: white;
+    height: auto;
+    background-position: center;
+}
+.cta-btn-login {
+    width: 200px;
+    font-family: 'Lato', sans-serif;
+    background-color: #ff9600;
+}
+.btn-xl {
+	margin-top: 5px;
+	width: 200px;
+	border: none;
+    font-family: 'Lato', sans-serif;
+    margin-top: 5px;
+    background-color: #ff9600;
+    border: none;
+	font-size: 16px;
+	padding: 15px 0;
+	border-radius: 3px;
+}
+
+.btn-xl:hover, .btn-xl:focus, .btn-xl:active, .btn-xl.active, .open .dropdown-toggle.btn-xl
+	{
+	color: white;
+	background-color: #ec8702;
+	border-color: #ec8702;
+}
+
+.btn-xl:active, .btn-xl.active, .open .dropdown-toggle.btn-xl {
+	background-image: none;
+}
+
+.btn-xl .badge {
+	color: #fed136;
+	background-color: white;
+}
+.content-wrapper{
+	padding: 90px 0 0 0;
+	height: 100%;
+	min-height: 100%;
+	min-height: auto !important;
+	margin-bottom: -40px;
+}
+.header{
+	background: #ffffff;
+	box-shadow: 0 0 15px rgba(0,0,0,0.03);
+	border-bottom: 1px solid #e6e6e6;
+	position: fixed;
+	width: 100%;
+	z-index: 3;
+}
+.footer{
+	height: 40px;
+	line-height: 40px;
+}
+.form-bg {
+	background-color: rgba(0, 0, 0, 0.2);
+	padding: 5px 15px 20px 15px;
+	margin-top: 25px;
+	border-radius: 10px;
+	border: 1px solid rgba(255, 2555, 2555, .5);
+}
+
+.form-bg h2 {
+	margin: 10px 0;
+	font-family: 'Lato', sans-serif;
+	font-size: 24px;
+}
