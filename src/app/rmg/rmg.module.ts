@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 
 import {DataTableModule,SharedModule} from 'primeng/primeng';
+import {PaginatorModule} from 'primeng/primeng';
 
 
 import { RmgComponent } from './rmg.component';
@@ -21,6 +22,7 @@ import { DashboardComponent } from "./components/dashboard/dashboard.component";
     CommonModule,
     SharedModule,
     DataTableModule,
+    PaginatorModule,
     RmgRoutes
   ],
   declarations: [

@@ -1,4 +1,5 @@
-<p-dataTable [value]="cars" selectionMode="single">
+<p-dataTable [value]="cars" selectionMode="single" [paginator]="true" [rows]="10" [responsive]="true">
+  <p-header>List of Cars</p-header>
     <p-column 
       *ngFor="let col of headers" 
       [field]="col.field" 
