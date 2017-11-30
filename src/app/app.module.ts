@@ -77,7 +77,7 @@ import 'rxjs/add/operator/toPromise';
 import { AppComponent } from './app.component';
 import { LoginModule } from "./login/login.module";
 import { RmgModule } from "./rmg/rmg.module";
-import { TableComponent } from './common/table/table.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 @NgModule({
@@ -92,7 +92,7 @@ import { TableComponent } from './common/table/table.component';
     ],
     declarations: [
         AppComponent,
-        TableComponent
+        NotFoundComponent
     ],
 
     providers: [

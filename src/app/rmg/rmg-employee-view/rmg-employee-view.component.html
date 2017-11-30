@@ -1,0 +1,17 @@
+
+        <div class="layout-menu" [ngClass]="{'layout-menu-dark':darkMenu}" (click)="onMenuClick($event)">
+            <div #layoutMenuScroller class="nano">
+                <div class="nano-content menu-scroll-content">
+                    <!--<app-inline-profile></app-inline-profile>-->
+                    <app-menu [reset]="resetMenu"></app-menu>
+                </div>
+            </div>
+        </div>
+        
+        <div class="layout-main">
+            <router-outlet></router-outlet>    
+             rmgemployee works here!       
+            <app-footer></app-footer>
+        </div>
+        <div class="layout-mask"></div>
+        

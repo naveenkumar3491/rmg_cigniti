@@ -7,14 +7,14 @@ enum MenuOrientation {
     HORIZONTAL
 }
 
-declare var jQuery: any;
+//declare var jQuery: any;
 
 @Component({
   selector: 'val-rmg',
   templateUrl: './rmg.component.html',
   styleUrls: ['./rmg.component.css']
 })
-export class RmgComponent implements OnInit, AfterViewInit, OnDestroy {
+export class RmgComponent implements OnInit, AfterViewInit {
 
   layoutCompact = true;
 
@@ -40,7 +40,7 @@ export class RmgComponent implements OnInit, AfterViewInit, OnDestroy {
 
     layoutContainer: HTMLDivElement;
 
-    layoutMenuScroller: HTMLDivElement;
+    //layoutMenuScroller: HTMLDivElement;
 
     menuClick: boolean;
 
@@ -54,7 +54,7 @@ export class RmgComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @ViewChild('layoutContainer') layourContainerViewChild: ElementRef;
 
-    @ViewChild('layoutMenuScroller') layoutMenuScrollerViewChild: ElementRef;
+    //@ViewChild('layoutMenuScroller') layoutMenuScrollerViewChild: ElementRef;
 
     constructor(public renderer: Renderer) { }
 
@@ -62,17 +62,17 @@ export class RmgComponent implements OnInit, AfterViewInit, OnDestroy {
     ngOnInit() {
     }
 
-    ngOnDestroy() {
-        jQuery(this.layoutMenuScroller).nanoScroller({flash: true});
-    }
+    // ngOnDestroy() {
+    //     jQuery(this.layoutMenuScroller).nanoScroller({flash: true});
+    // }
 
     ngAfterViewInit() {
         this.layoutContainer = <HTMLDivElement> this.layourContainerViewChild.nativeElement;
-        this.layoutMenuScroller = <HTMLDivElement> this.layoutMenuScrollerViewChild.nativeElement;
+       // this.layoutMenuScroller = <HTMLDivElement> this.layoutMenuScrollerViewChild.nativeElement;
 
-        setTimeout(() => {
-            jQuery(this.layoutMenuScroller).nanoScroller({flash: true});
-        }, 10);
+        // setTimeout(() => {
+        //     jQuery(this.layoutMenuScroller).nanoScroller({flash: true});
+        // }, 10);
     }
 
     onLayoutClick() {
@@ -118,16 +118,16 @@ export class RmgComponent implements OnInit, AfterViewInit, OnDestroy {
         event.preventDefault();
     }
 
-    onMenuClick($event) {
-        this.menuClick = true;
-        this.resetMenu = false;
+    // onMenuClick($event) {
+    //     this.menuClick = true;
+    //     this.resetMenu = false;
 
-        if (!this.isHorizontal()) {
-            setTimeout(() => {
-                jQuery(this.layoutMenuScroller).nanoScroller();
-            }, 500);
-        }
-    }
+    //     if (!this.isHorizontal()) {
+    //         setTimeout(() => {
+    //             jQuery(this.layoutMenuScroller).nanoScroller();
+    //         }, 500);
+    //     }
+    // }
 
     onTopbarMenuButtonClick(event) {
         this.topbarItemClick = true;
