@@ -11,6 +11,7 @@ import { Component, Input } from '@angular/core';
     styles: [`
         .error-msg {
           color: #880300;
+          background-color: #ec8702;
         }
     `]
 })

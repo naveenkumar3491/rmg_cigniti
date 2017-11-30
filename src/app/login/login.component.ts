@@ -39,8 +39,7 @@ export class LoginComponent implements OnInit {
 
   displayFieldCss(field: string) {
     return {
-      'has-error': this.isFieldValid(field),
-      'has-feedback': this.isFieldValid(field)
+      'has-error': this.isFieldValid(field)
     };
   }
 
