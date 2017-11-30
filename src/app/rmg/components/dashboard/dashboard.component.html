@@ -1,3 +1,8 @@
-<p>
-  dashboard works!
-</p>
+<p-dataTable [value]="cars" selectionMode="single">
+    <p-column 
+      *ngFor="let col of headers" 
+      [field]="col.field" 
+      [header]="col.header" 
+      [sortable]="true"
+      ></p-column>
+</p-dataTable>

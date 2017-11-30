@@ -1,5 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+
+import {DataTableModule,SharedModule} from 'primeng/primeng';
+
+
 import { RmgComponent } from './rmg.component';
 import { AppMenuComponent, AppSubMenuComponent } from "../common/side-nav/app.menu.component";
 import { AppTopbarComponent } from "../common/topbar/app.topbar.component";
@@ -14,6 +19,8 @@ import { DashboardComponent } from "./components/dashboard/dashboard.component";
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
+    DataTableModule,
     RmgRoutes
   ],
   declarations: [
