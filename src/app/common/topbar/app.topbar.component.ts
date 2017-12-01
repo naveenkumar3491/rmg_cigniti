@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RmgComponent } from "../../rmg/rmg.component";
+import { RmgAppComponent } from "../../rmg-app/rmg-app.component";
 
 @Component({
     selector: 'app-topbar',
@@ -19,6 +19,6 @@ import { RmgComponent } from "../../rmg/rmg.component";
 })
 export class AppTopbarComponent {
 
-    constructor(public app: RmgComponent) { }
+    constructor(public app: RmgAppComponent) { }
 
 }

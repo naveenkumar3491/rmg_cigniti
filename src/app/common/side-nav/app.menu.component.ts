@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {trigger, state, style, transition, animate} from '@angular/animations';
 import { MenuItem } from 'primeng/primeng';
-import { RmgComponent } from "../../rmg/rmg.component";
+import { RmgAppComponent } from "../../rmg-app/rmg-app.component";
 
 @Component({
     selector: 'app-menu',
@@ -15,11 +15,11 @@ export class AppMenuComponent implements OnInit {
 
     model: any[];
 
-    constructor(public app: RmgComponent) {}
+    constructor(public app: RmgAppComponent) {}
 
     ngOnInit() {
         this.model = [
-            {label: 'Dashboard', icon: 'dashboard', routerLink: ['/']}
+            {label: 'Employee Details', icon: 'dashboard', routerLink: ['/app/employee/personal-du']}
         ];
     }
 
@@ -97,7 +97,7 @@ export class AppSubMenuComponent {
 
     activeIndex: number;
 
-    constructor(public app: RmgComponent) {}
+    constructor(public app: RmgAppComponent) {}
 
     itemClick(event: Event, item: MenuItem, index: number) {
         if (this.root) {

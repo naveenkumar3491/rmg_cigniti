@@ -1,5 +1,4 @@
 import {Component, OnInit, AfterViewInit, ElementRef, Renderer, ViewChild, OnDestroy} from '@angular/core';
-
 enum MenuOrientation {
     STATIC,
     OVERLAY,
@@ -7,16 +6,16 @@ enum MenuOrientation {
     HORIZONTAL
 }
 
-//declare var jQuery: any;
+declare const jQuery: any;
 
 @Component({
-  selector: 'val-rmg',
-  templateUrl: './rmg.component.html',
-  styleUrls: ['./rmg.component.css']
+  selector: 'val-rmg-app',
+  templateUrl: './rmg-app.component.html',
+  styleUrls: ['./rmg-app.component.css']
 })
-export class RmgComponent implements OnInit, AfterViewInit {
+export class RmgAppComponent implements OnInit, AfterViewInit {
 
-  layoutCompact = true;
+   layoutCompact = true;
 
     layoutMode: MenuOrientation = MenuOrientation.STATIC;
 
@@ -40,7 +39,7 @@ export class RmgComponent implements OnInit, AfterViewInit {
 
     layoutContainer: HTMLDivElement;
 
-    //layoutMenuScroller: HTMLDivElement;
+    layoutMenuScroller: HTMLDivElement;
 
     menuClick: boolean;
 
@@ -54,7 +53,7 @@ export class RmgComponent implements OnInit, AfterViewInit {
 
     @ViewChild('layoutContainer') layourContainerViewChild: ElementRef;
 
-    //@ViewChild('layoutMenuScroller') layoutMenuScrollerViewChild: ElementRef;
+    @ViewChild('layoutMenuScroller') layoutMenuScrollerViewChild: ElementRef;
 
     constructor(public renderer: Renderer) { }
 
@@ -62,17 +61,17 @@ export class RmgComponent implements OnInit, AfterViewInit {
     ngOnInit() {
     }
 
-    // ngOnDestroy() {
-    //     jQuery(this.layoutMenuScroller).nanoScroller({flash: true});
-    // }
+    ngOnDestroy() {
+        jQuery(this.layoutMenuScroller).nanoScroller({flash: true});
+    }
 
     ngAfterViewInit() {
         this.layoutContainer = <HTMLDivElement> this.layourContainerViewChild.nativeElement;
-       // this.layoutMenuScroller = <HTMLDivElement> this.layoutMenuScrollerViewChild.nativeElement;
+       this.layoutMenuScroller = <HTMLDivElement> this.layoutMenuScrollerViewChild.nativeElement;
 
-        // setTimeout(() => {
-        //     jQuery(this.layoutMenuScroller).nanoScroller({flash: true});
-        // }, 10);
+        setTimeout(() => {
+            jQuery(this.layoutMenuScroller).nanoScroller({flash: true});
+        }, 10);
     }
 
     onLayoutClick() {
@@ -118,16 +117,16 @@ export class RmgComponent implements OnInit, AfterViewInit {
         event.preventDefault();
     }
 
-    // onMenuClick($event) {
-    //     this.menuClick = true;
-    //     this.resetMenu = false;
+    onMenuClick($event) {
+        this.menuClick = true;
+        this.resetMenu = false;
 
-    //     if (!this.isHorizontal()) {
-    //         setTimeout(() => {
-    //             jQuery(this.layoutMenuScroller).nanoScroller();
-    //         }, 500);
-    //     }
-    // }
+        if (!this.isHorizontal()) {
+            setTimeout(() => {
+                jQuery(this.layoutMenuScroller).nanoScroller();
+            }, 500);
+        }
+    }
 
     onTopbarMenuButtonClick(event) {
         this.topbarItemClick = true;
@@ -204,7 +203,5 @@ export class RmgComponent implements OnInit, AfterViewInit {
     changeToSlimMenu() {
         this.layoutMode = MenuOrientation.SLIM;
     }
-
-
 
 }

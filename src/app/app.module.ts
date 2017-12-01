@@ -1,11 +1,11 @@
-import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
-import {HttpClientModule} from '@angular/common/http';
-import {BrowserModule} from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {LocationStrategy, HashLocationStrategy} from '@angular/common';
-import {AppRoutes} from './app.routes';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { AppRoutes } from './app.routes';
 import 'rxjs/add/operator/toPromise';
 
 // import {AccordionModule} from 'primeng/primeng';
@@ -76,8 +76,9 @@ import 'rxjs/add/operator/toPromise';
 
 import { AppComponent } from './app.component';
 import { LoginModule } from "./login/login.module";
-import { RmgModule } from "./rmg/rmg.module";
+
 import { NotFoundComponent } from './not-found/not-found.component';
+import { RmgAppModule } from "./rmg-app/rmg-app.module";
 
 
 @NgModule({
@@ -85,10 +86,10 @@ import { NotFoundComponent } from './not-found/not-found.component';
         BrowserModule,
         FormsModule,
         AppRoutes,
-        HttpModule, 
+        HttpModule,
         BrowserAnimationsModule,
         LoginModule,
-        RmgModule
+        RmgAppModule
     ],
     declarations: [
         AppComponent,
@@ -96,7 +97,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     ],
 
     providers: [
-        {provide: LocationStrategy, useClass: HashLocationStrategy}
+        { provide: LocationStrategy, useClass: HashLocationStrategy }
     ],
     bootstrap: [AppComponent]
 })

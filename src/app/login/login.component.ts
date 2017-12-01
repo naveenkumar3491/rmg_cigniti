@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
     this.formSubmitAttempt = true;
     if (this.loginForm.valid) {
       console.log('form submitted');
-      this.router.navigate(['rmg']);
+      this.router.navigate(['app/employee']);
     } else {
       Object.keys(this.loginForm.controls).forEach(field => { 
         const control = this.loginForm.get(field);            

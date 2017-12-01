@@ -1,5 +1,5 @@
 import { Component, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { AppComponent } from "../../app.component";
+import { RmgAppComponent } from "../../rmg-app/rmg-app.component";
 
 declare var jQuery: any;
 @Component({
@@ -67,7 +67,7 @@ export class AppRightpanelComponent implements OnDestroy, AfterViewInit {
 
     @ViewChild('rightPanelMenuScroller') rightPanelMenuScrollerViewChild: ElementRef;
 
-    constructor(public app: AppComponent) {}
+    constructor(public app: RmgAppComponent) {}
 
     ngAfterViewInit() {
         this.rightPanelMenuScroller = <HTMLDivElement> this.rightPanelMenuScrollerViewChild.nativeElement;

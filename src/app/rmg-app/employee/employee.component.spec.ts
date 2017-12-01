@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RmgEmployeeViewComponent } from './rmg-employee-view.component';
+import { EmployeeComponent } from './employee.component';
 
-describe('RmgEmployeeViewComponent', () => {
-  let component: RmgEmployeeViewComponent;
-  let fixture: ComponentFixture<RmgEmployeeViewComponent>;
+describe('EmployeeComponent', () => {
+  let component: EmployeeComponent;
+  let fixture: ComponentFixture<EmployeeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RmgEmployeeViewComponent ]
+      declarations: [ EmployeeComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RmgEmployeeViewComponent);
+    fixture = TestBed.createComponent(EmployeeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
