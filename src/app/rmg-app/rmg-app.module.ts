@@ -15,6 +15,9 @@ import { PersonalAndDudetailsComponent } from "./employee/personal-and-dudetails
 import { DashboardComponent } from "./rmg/components/dashboard/dashboard.component";
 import { ContactAndExperienceDetailsComponent } from './employee/contact-and-experience-details/contact-and-experience-details.component';
 import { EmployeeComponent } from "./employee/employee.component";
+import { ProjectDetailsComponent } from './employee/project-details/project-details.component';
+import { SkillDetailsComponent } from './employee/skill-details/skill-details.component';
+import { CertificationDetailsComponent } from './employee/certification-details/certification-details.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -33,7 +36,10 @@ import { EmployeeComponent } from "./employee/employee.component";
     AppInlineProfileComponent,
     PersonalAndDudetailsComponent,
     DashboardComponent,
-    ContactAndExperienceDetailsComponent
+    ContactAndExperienceDetailsComponent,
+    ProjectDetailsComponent,
+    SkillDetailsComponent,
+    CertificationDetailsComponent
     ]
 })
 export class RmgAppModule { }
