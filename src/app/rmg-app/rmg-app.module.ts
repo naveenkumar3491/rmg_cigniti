@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {DataTableModule, SharedModule} from 'primeng/primeng';
-
+import {ChartModule} from 'primeng/primeng';
 
 import { RmgAppComponent } from './rmg-app.component';
 import { AppMenuComponent, AppSubMenuComponent } from "../common/side-nav/app.menu.component";
@@ -20,7 +20,8 @@ import { ProjectDetailsComponent } from './employee/project-details/project-deta
     CommonModule,
     RmgAppRoutes,
     DataTableModule,
-    SharedModule
+    SharedModule,
+    ChartModule
   ],
   declarations: [
     RmgAppComponent,

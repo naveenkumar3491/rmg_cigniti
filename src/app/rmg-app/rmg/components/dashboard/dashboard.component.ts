@@ -129,7 +129,27 @@ export class DashboardComponent implements OnInit {
   totUtilzationTotal:"91.4%"
  }
 };      
-  constructor() { }
+data: any;
+  constructor() { 
+
+    this.data = {
+            labels: ['A', 'B', 'C'],
+            datasets: [
+                {
+                    data: [300, 50, 100],
+                    backgroundColor: [
+                        '#FFC107',
+                        '#03A9F4',
+                        '#4CAF50'
+                    ],
+                    hoverBackgroundColor: [
+                        '#FFE082',
+                        '#81D4FA',
+                        '#A5D6A7'
+                    ]
+                }]
+            };
+  }
 
   ngOnInit() {
 
