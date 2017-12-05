@@ -21,6 +21,7 @@ import { ContactDetailsComponent } from './employee/contact-details/contact-deta
 import { CertificationDetailsComponent } from './employee/certification-details/certification-details.component';
 import { ProjectDetailsComponent } from './employee/project-details/project-details.component';
 import { BUDetailsComponent } from './employee/bu-details/bu-details.component';
+import { RmgComponent } from "./rmg/rmg.component";
 @NgModule({
   imports: [
     CommonModule,
@@ -33,6 +34,7 @@ import { BUDetailsComponent } from './employee/bu-details/bu-details.component';
   declarations: [
     RmgAppComponent,
     EmployeeComponent,
+    RmgComponent,
     AppMenuComponent,
     AppSubMenuComponent,
     AppTopbarComponent,

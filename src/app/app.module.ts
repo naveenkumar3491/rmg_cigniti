@@ -79,6 +79,10 @@ import { LoginModule } from "./login/login.module";
 
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RmgAppModule } from "./rmg-app/rmg-app.module";
+import { DataService } from "./services/DataService";
+import { LiveDataService } from "./services/LiveDataService";
+import { Ng2Storage } from "./services/storage";
+import { AuthgaurdService } from "./services/authgaurd.service";
 
 
 @NgModule({
@@ -97,7 +101,10 @@ import { RmgAppModule } from "./rmg-app/rmg-app.module";
     ],
 
     providers: [
-        { provide: LocationStrategy, useClass: HashLocationStrategy }
+        { provide: LocationStrategy, useClass: HashLocationStrategy },
+        Ng2Storage,
+        AuthgaurdService,
+        { provide: DataService, useClass: LiveDataService }
     ],
     bootstrap: [AppComponent]
 })

@@ -27,9 +27,9 @@
                     <!-- Register Form Grid Section -->
                     <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" novalidate>
                         <h1 class="login-title">MyTE LOGIN</h1>
-                        <div class="form-group" [ngClass]="displayFieldCss('username')">
-                            <input class="form-control" type="text" placeholder="UserName" formControlName="username" />
-                            <app-error [displayError]="isFieldValid('username')" errorMsg="Username is required">
+                        <div class="form-group" [ngClass]="displayFieldCss('userId')">
+                            <input class="form-control" type="text" placeholder="UserName" formControlName="userId" />
+                            <app-error [displayError]="isFieldValid('userId')" errorMsg="Username is required">
                             </app-error>
                         </div>
                         <div class="form-group" [ngClass]="displayFieldCss('password')">

@@ -1,28 +1,38 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot,Router } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { Ng2Storage } from "./storage";
+import { ILoginResponse } from "../app.interface";
 
 @Injectable()
 export class AuthgaurdService implements CanActivate {
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-     const url= route.routeConfig.path;
-    
+  private adminRoles:string[]=['rmg'];
+  constructor(private router: Router, private storage: Ng2Storage) { }
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    const url = route.routeConfig.path;
     return this.checkLogin(url);
+  }
+
+  checkLogin(url) {
+    let userData:ILoginResponse = this.storage.getSession('user_data');
+    if(!userData){
+      this.router.navigate(['/login']);
+      return false;
     }
-checkLogin(url){
-   const session=true;
-  if(url=='rmgEmployee' && session){
-    return true
-  }
-  else if(url=='rmgEmployee' && !session){
-    this.router.navigate(['/login']);
-    return false;
-  }
-  else if(url=='employee' && session){
-    return true
+    let userRole = userData.employeeRoleName.toLowerCase();
+    if(this.adminRoles.indexOf(userRole) !== -1 && url === 'rmg'){
+      return true;
+    }else if(this.adminRoles.indexOf(userRole) !== -1 && url === 'employee'){
+      return false;
+    }else if(this.adminRoles.indexOf(userRole) === -1 && url === 'rmg'){
+      return false;
+    }else if(this.adminRoles.indexOf(userRole) === -1 && url === 'employee'){
+      return true;
+    }
+      
+
   }
 
-}
 
-  constructor(private router:Router) { }
 
 }

@@ -1,7 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {trigger, state, style, transition, animate} from '@angular/animations';
+import { Component, Input, OnInit } from '@angular/core';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { MenuItem } from 'primeng/primeng';
 import { RmgAppComponent } from "../../rmg-app/rmg-app.component";
+import { Ng2Storage } from "../../services/storage";
+import { ILoginResponse } from "../../app.interface";
 
 @Component({
     selector: 'app-menu',
@@ -15,18 +17,25 @@ export class AppMenuComponent implements OnInit {
 
     model: any[];
 
-    constructor(public app: RmgAppComponent) {}
+    constructor(public app: RmgAppComponent, private storage: Ng2Storage) { }
 
     ngOnInit() {
-        this.model = [
-            {label: 'Employee Details', icon: 'dashboard', routerLink: ['/app/employee/personal-details']},
-            {label: 'Rmg Details', icon: 'dashboard', routerLink: ['/app/rmg/dashboard']}
-        ];
+        let userData: ILoginResponse = this.storage.getSession('user_data');
+        if (userData.employeeRoleName === 'RMG') {
+            this.model = [
+                { label: 'Rmg Details', icon: 'dashboard', routerLink: ['/app/rmg/dashboard'] }
+            ];
+        } else {
+            this.model = [
+                { label: 'Employee Details', icon: 'dashboard', routerLink: ['/app/employee/personal-details'] }
+            ];
+        }
+
     }
 
     changeTheme(theme) {
-        const themeLink: HTMLLinkElement = <HTMLLinkElement> document.getElementById('theme-css');
-        const layoutLink: HTMLLinkElement = <HTMLLinkElement> document.getElementById('layout-css');
+        const themeLink: HTMLLinkElement = <HTMLLinkElement>document.getElementById('theme-css');
+        const layoutLink: HTMLLinkElement = <HTMLLinkElement>document.getElementById('layout-css');
 
         themeLink.href = 'assets/theme/theme-' + theme + '.css';
         layoutLink.href = 'assets/layout/css/layout-' + theme + '.css';
@@ -34,9 +43,9 @@ export class AppMenuComponent implements OnInit {
 }
 
 @Component({
-	/* tslint:disable:component-selector */
+    /* tslint:disable:component-selector */
     selector: '[app-submenu]',
-	/* tslint:enable:component-selector */
+    /* tslint:enable:component-selector */
     template: `
         <ng-template ngFor let-child let-i="index" [ngForOf]="(root ? item : item.items)">
             <li [ngClass]="{'active-menuitem': isActive(i)}" [class]="child.badgeStyleClass" *ngIf="child.visible === false ? false : true">
@@ -98,9 +107,9 @@ export class AppSubMenuComponent {
 
     activeIndex: number;
 
-    constructor(public app: RmgAppComponent) {}
+    constructor(public app: RmgAppComponent) { }
 
-    itemClick(event: Event, item: MenuItem, index: number) {
+    itemClick(event: Event, item: MenuItem, index: number)  {
         if (this.root) {
             this.app.menuHoverActive = !this.app.menuHoverActive;
         }
@@ -116,7 +125,7 @@ export class AppSubMenuComponent {
 
         // execute command
         if (item.command) {
-            item.command({originalEvent: event, item: item});
+            item.command({ originalEvent: event, item: item });
         }
 
         // prevent hash change
@@ -127,8 +136,10 @@ export class AppSubMenuComponent {
         // hide menu
         if (!item.items) {
             if (this.app.isHorizontal() || this.app.isSlim()) {
-                this.app.resetMenu = true; } else {
-                this.app.resetMenu = false; }
+                this.app.resetMenu = true;
+            } else {
+                this.app.resetMenu = false;
+            }
 
             this.app.overlayMenuActive = false;
             this.app.staticMenuMobileActive = false;
@@ -153,7 +164,7 @@ export class AppSubMenuComponent {
     set reset(val: boolean) {
         this._reset = val;
 
-        if (this._reset && (this.app.isHorizontal() || this.app.isSlim())) {
+        if (this._reset && (this.app.isHorizontal() ||  this.app.isSlim())) {
             this.activeIndex = null;
         }
     }

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DataService } from "../services/DataService";
+import { ILoginResponse } from "../app.interface";
+import { Ng2Storage } from "../services/storage";
 
 @Component({
   selector: 'val-login',
@@ -10,23 +13,38 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   private formSubmitAttempt: boolean;
-  constructor(private fb: FormBuilder, private router: Router) { }
+  constructor(private fb: FormBuilder, private router: Router,
+    private dataService: DataService, private storage: Ng2Storage) { }
 
   ngOnInit() {
+    let userData = this.storage.getSession('user_data');
+    if (userData && userData.employeeRoleName === 'RMG') {
+      this.router.navigate(['app/rmg']);
+    } else {
+      this.router.navigate(['app/employee']);
+    }
     this.loginForm = this.fb.group({
-      username: ['', [Validators.required]],
+      userId: ['', [Validators.required]],
       password: ['', [Validators.required]]
     })
   }
   onSubmit() {
     this.formSubmitAttempt = true;
     if (this.loginForm.valid) {
-      console.log('form submitted');
-      this.router.navigate(['app/employee']);
+      this.dataService.loginUser(this.loginForm.value).subscribe((data: ILoginResponse) => {
+        if (data.employeeRoleName === 'RMG') {
+          this.router.navigate(['app/rmg']);
+        } else {
+          this.router.navigate(['app/employee']);
+        }
+      }, (err) => {
+        console.log(err)
+      })
+
     } else {
-      Object.keys(this.loginForm.controls).forEach(field => { 
-        const control = this.loginForm.get(field);            
-        control.markAsTouched({ onlySelf: true });       
+      Object.keys(this.loginForm.controls).forEach(field => {
+        const control = this.loginForm.get(field);
+        control.markAsTouched({ onlySelf: true });
       });
     }
 
@@ -34,7 +52,7 @@ export class LoginComponent implements OnInit {
 
   isFieldValid(field: string) {
     return (!this.loginForm.get(field).valid && this.loginForm.get(field).touched) ||
-    (this.loginForm.get(field).untouched && this.formSubmitAttempt);
+      (this.loginForm.get(field).untouched && this.formSubmitAttempt);
   }
 
   displayFieldCss(field: string) {
