@@ -1,5 +1,7 @@
 $padding-5: 5px;
 $padding-10: 10px;
+$tab-active-border-color: #424242;
+$rmg-orange: #FF5722; 
 body,html{
 	height: 100%;
 }
@@ -18,6 +20,19 @@ a{
 table tr th,strong,b,label{
 	font-weight: normal;
 	font-family: 'robotomedium', sans-serif;
+}
+body .ui-tabview .ui-tabview-nav > li.ui-state-active {
+    background-color: $rmg-orange;
+    border-color: $tab-active-border-color;
+	a{
+		color: #fff;
+		.ui-tabview-left-icon{
+			color: #fff;
+		}
+	}
+}
+.panel-default>.panel-heading{
+	font-weight: bold;
 }
 .logo-1{
 	padding: 5px 0;
@@ -126,3 +141,4 @@ padding: 0px 8px;
 .curosr-p{
 	cursor: pointer;
 }
+
