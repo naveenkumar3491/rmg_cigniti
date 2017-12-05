@@ -14,7 +14,6 @@ import { RmgAppRoutes } from "./rmg-app-routes";
 import { PersonalDetailsComponent } from "./employee/personal-details/personal-details.component";
 import { DashboardComponent } from "./rmg/components/dashboard/dashboard.component";
 import { EmployeeComponent } from "./employee/employee.component";
-import { ProjectDetailsComponent } from './employee/project-details/project-details.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -33,8 +32,7 @@ import { ProjectDetailsComponent } from './employee/project-details/project-deta
     AppRightpanelComponent,
     AppInlineProfileComponent,
     PersonalDetailsComponent,
-    DashboardComponent,
-    ProjectDetailsComponent
+    DashboardComponent
     ]
 })
 export class RmgAppModule { }
