@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import {DataTableModule, SharedModule} from 'primeng/primeng';
 import {ChartModule} from 'primeng/primeng';
+import {TabViewModule} from 'primeng/primeng';
 
 import { RmgAppComponent } from './rmg-app.component';
 import { AppMenuComponent, AppSubMenuComponent } from "../common/side-nav/app.menu.component";
@@ -14,13 +15,20 @@ import { RmgAppRoutes } from "./rmg-app-routes";
 import { PersonalDetailsComponent } from "./employee/personal-details/personal-details.component";
 import { DashboardComponent } from "./rmg/components/dashboard/dashboard.component";
 import { EmployeeComponent } from "./employee/employee.component";
+import { ExperienceDetailsComponent } from './employee/experience-details/experience-details.component';
+import { SkillDetailsComponent } from './employee/skill-details/skill-details.component';
+import { ContactDetailsComponent } from './employee/contact-details/contact-details.component';
+import { CertificationDetailsComponent } from './employee/certification-details/certification-details.component';
+import { ProjectDetailsComponent } from './employee/project-details/project-details.component';
+import { BUDetailsComponent } from './employee/bu-details/bu-details.component';
 @NgModule({
   imports: [
     CommonModule,
     RmgAppRoutes,
     DataTableModule,
     SharedModule,
-    ChartModule
+    ChartModule,
+    TabViewModule
   ],
   declarations: [
     RmgAppComponent,
@@ -32,7 +40,13 @@ import { EmployeeComponent } from "./employee/employee.component";
     AppRightpanelComponent,
     AppInlineProfileComponent,
     PersonalDetailsComponent,
-    DashboardComponent
+    DashboardComponent,
+    ExperienceDetailsComponent,
+    SkillDetailsComponent,
+    ContactDetailsComponent,
+    CertificationDetailsComponent,
+    ProjectDetailsComponent,
+    BUDetailsComponent
     ]
 })
 export class RmgAppModule { }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'val-personal-details',
@@ -6,36 +6,45 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./personal-details.component.css']
 })
 export class PersonalDetailsComponent implements OnInit {
-  public activeTab: string = 'contact-details'
   public employeeInfoTabs: any = [
     {
       name: 'Contact Details',
-      field: 'contact-details'
+      field: 'contact-details',
+      icon: 'ui-icon-contact-phone'
     },
     {
       name: 'Experience Details',
-      field: 'experience-details'
+      field: 'experience-details',
+      icon: 'ui-icon-format-align-justify'
     },
     {
       name: 'Skill Details',
-      field: 'skill-details'
+      field: 'skill-details',
+      icon: 'ui-icon-contact-phone'
     },
     {
       name: 'Certification Details',
-      field: 'certification-details'
+      field: 'certification-details',
+      icon: 'ui-icon-content-paste'
     },
     {
       name: 'Project Details',
-      field: 'project-details'
+      field: 'project-details',
+      icon: 'ui-icon-call-to-action'
     },
     {
       name: 'BU Details',
-      field: 'bu-details'
+      field: 'bu-details',
+      icon: 'ui-icon-featured-play-list'
     }
   ];
-  constructor() { }
+  constructor(public cdRef:ChangeDetectorRef) { }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+    this.cdRef.detectChanges();
   }
 
 }
