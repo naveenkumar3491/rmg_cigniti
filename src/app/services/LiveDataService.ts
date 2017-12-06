@@ -12,6 +12,7 @@ export class LiveDataService extends DataService {
     private readonly basePath = 'http://172.16.28.27:8080/';
     private readonly MyTrUrl = 'rmg/mytr/';
     private readonly userLoginUrl =  this.getBaseURI()+'authenticate';
+    private readonly employeeDetails =  this.getBaseURI()+'employeedetails';
 
     private readonly REQUEST_HEADERS: Headers = new Headers({ 
         'Content-Type': 'application/json; charset=utf-8',
@@ -33,6 +34,12 @@ export class LiveDataService extends DataService {
             if( resp.employeeId ){
                 this.storage.setSession('user_data', resp);
             }
+            return response.json();
+        })
+    }
+
+    public getEmployeeDetails(empId:string): Observable<any>{
+        return this.http.get(`${this.employeeDetails}?empId=${empId}`, this.REQUEST_OPTIONS).map((response: Response) => {
             return response.json();
         })
     }

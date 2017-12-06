@@ -1,7 +1,7 @@
-<div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12">
+<div class="skill-details">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
 
-        <div class="panel panel-default" style="margin-top:10px;">
             <!--<div class="panel-heading">
                 <div class="row">
                     <div class="col-lg-11">
@@ -12,33 +12,55 @@
                     </div>
                 </div>
             </div>-->
-            <div class="row" style="text-align: right;
+            <!--<div class="row" style="text-align: right;
                 padding: 10px 30px 0px 0px;">
                 <button class="btn btn-warning">Add skills</button>
-            </div>
+            </div>-->
             <div class="panel-body">
-                <table class="table table-bordered table-inverse table-time table-responsive">
-                    <thead>
-                        <tr>
-                            <th>Skill category</th>
-                            <th>Skill</th>
-                            <th>Skill rating</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        <tr style="padding:0px;">
-                            <td>Automation Testing</td>
-                            <td>Selenium-Java</td>
-                            <td>3</td>
-                            <td>
-                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                            </td>
-                        </tr>
-
-                    </tbody>
-                </table>
+                <form #skillForm="ngForm">
+                    <p-fieldset legend="Skill Details" [toggleable]="true" collapsed="true">
+                        <table class="table table-bordered table-inverse table-time table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Skill Category</th>
+                                    <th>Skill</th>
+                                    <th>Skill Rating</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let skill of skillList; let index = index;">
+                                    <td>{{skill.selectedCategory}}</td>
+                                    <td>{{skill.selectedSkill}}</td>
+                                    <td>{{skill.selectedRating}}</td>
+                                    <td style="text-align: center;"><a class="curosr-p" (click)="editSkill(skill, index)"><i class="fa ui-icon-edit"></i></a>
+                                        <a
+                                            class="curosr-p" (click)="deleteSkill(index)"><i class="fa ui-icon-delete"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p-dropdown [options]="skillCategoriesList" name="selectedCategory" [(ngModel)]="skillModel.selectedCategory" placeholder="Select a Category"
+                                            optionLabel="label" (onChange)="onCategoryChange()" [style]="{'width':'150px'}"></p-dropdown>
+                                    </td>
+                                    <td>
+                                        <p-dropdown [options]="skillSet" name="selectedSkill" [(ngModel)]="skillModel.selectedSkill" placeholder="Select a Skill"
+                                            optionLabel="label" filter="true" [style]="{'width':'150px'}" [disabled]="!skillModel.selectedCategory"></p-dropdown>
+                                    </td>
+                                    <td>
+                                        <p-rating name="selectedRating" [(ngModel)]="skillModel.selectedRating" [cancel]="false"></p-rating>
+                                    </td>
+                                    <td style="text-align: center;" *ngIf="showButton else showUpdate"><button type="button" [disabled]="!this.skillModel.selectedCategory || !this.skillModel.selectedSkill"
+                                            (click)="saveSkill('add', skillForm)" class="btn btn-success">Add Skill</button></td>
+                                    <ng-template #showUpdate>
+                                        <td style="text-align: center;"><button type="button" (click)="saveSkill('update', skillForm)" [disabled]="!this.skillModel.selectedCategory || !this.skillModel.selectedSkill"
+                                                class="btn btn-success">Update Skill</button></td>
+                                    </ng-template>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </p-fieldset>
+                </form>
             </div>
         </div>
     </div>

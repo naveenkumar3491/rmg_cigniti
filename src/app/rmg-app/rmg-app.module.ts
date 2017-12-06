@@ -1,9 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import {DataTableModule, SharedModule} from 'primeng/primeng';
 import {ChartModule} from 'primeng/primeng';
 import {TabViewModule} from 'primeng/primeng';
+import {DropdownModule} from 'primeng/primeng';
+import {RatingModule} from 'primeng/primeng';
+import {FieldsetModule} from 'primeng/primeng';
+import {BusyModule} from 'angular2-busy';
 
 import { RmgAppComponent } from './rmg-app.component';
 import { AppMenuComponent, AppSubMenuComponent } from "../common/side-nav/app.menu.component";
@@ -26,11 +31,16 @@ import { VisaDetailsComponent } from './employee/visa-details/visa-details.compo
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     RmgAppRoutes,
     DataTableModule,
     SharedModule,
     ChartModule,
-    TabViewModule
+    TabViewModule,
+    DropdownModule,
+    RatingModule,
+    FieldsetModule,
+    BusyModule
   ],
   declarations: [
     RmgAppComponent,

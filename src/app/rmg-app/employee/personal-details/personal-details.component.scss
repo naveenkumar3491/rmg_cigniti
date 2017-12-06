@@ -1,0 +1,35 @@
+.personal-details{
+    padding: 5px 15px;
+}
+
+  body .ui-fileupload .ui-fileupload-content .ui-messages-error .fa {
+    color: #ffffff; }
+.profilePic{
+    position: relative;
+    width:100px;
+    height: 100px;
+}
+.removeImg{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    z-index: 1;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    background-color: gray;
+}
+.removeResume{
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    background-color: gray;
+    display:inline-block;
+}
+.profileBtns{
+    margin-top:5px;
+}
+.profileUserImage{
+    font-size: 96px;
+    color: gray;
+}

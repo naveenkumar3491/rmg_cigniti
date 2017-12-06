@@ -142,3 +142,38 @@ padding: 0px 8px;
 	cursor: pointer;
 }
 
+p-rating .ui-rating .fa-star{
+	color: $rmg-orange
+}
+
+.skill-details{
+	p-fieldset{
+		.ui-fieldset{
+			.ui-fieldset-legend{
+				width: 18%;
+				border: none;
+				.ui-fieldset-toggler{
+					height: 1em;
+					width: 1em;
+					padding: 0em;
+				}
+			}
+		}
+	}
+}
+
+.certification-details{
+	p-fieldset{
+		.ui-fieldset{
+			.ui-fieldset-legend{
+				width: 26%;
+				border: none;
+				.ui-fieldset-toggler{
+					height: 1em;
+					width: 1em;
+					padding: 0em;
+				}
+			}
+		}
+	}
+}

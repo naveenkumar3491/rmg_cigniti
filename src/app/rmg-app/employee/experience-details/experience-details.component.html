@@ -9,22 +9,28 @@
                     <div class="form-group">
                         <span class="help-block pro-title">CIGNITI EXPERIENCE</span>
                         <div> </div>
-                        <p class="form-control-static"> 0.6 Years</p>
+                        <p class="form-control-static"> {{personalDetails.cignitiExperience}}</p>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12">
                     <div class="form-group">
                         <span class="help-block pro-title">TOTAL EXPERIENCE</span>
-                        <p class="form-control-static">N/A</p>
+                        <p class="form-control-static">{{personalDetails.totalExperience}}</p>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12">
                     <div class="form-group">
-                        <span class="help-block pro-title">RESUME LAST UPDATED</span>
-                        <p class="form-control-static">
-                            Not Yet Uploaded
-                        </p>
-                    </div>
+							<span class="help-block pro-title">RESUME LAST UPDATED</span>
+							<div class="form-control-static">
+								<span class="label label-success">{{resumeName}}</span>
+								<span (click)="removeResume()" class="removeResume" *ngIf="!emptyResume">
+									<span class="glyphicon glyphicon-remove"></span>
+								</span>
+                                <button *ngIf="emptyResume" (click)="getResumeFile.click()" class="btn btn-primary">Browse</button>
+							</div>
+						</div>
+                        <input type="file" accept=".doc,.docx" style="visibility:hidden;" #getResumeFile (change)="readResume($event)"/>
+					
                 </div>
                 <!--<div class="col-md-4">
             <span data-toggle="modal" data-target="#myresumeModal"><a href="#"><i class="fa fa-file-word-o" id="download_resume" style="display:none;"> View Resume</i></a></span>

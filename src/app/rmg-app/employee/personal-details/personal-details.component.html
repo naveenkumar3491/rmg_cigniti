@@ -1,93 +1,136 @@
+<div [ngBusy]="busy"></div>
 <div class="row">
-	<div class="col-md-12 col-sm-12 col-xs-12">
-		<div class="panel panel-default">
-		<div class="panel-heading">Personal Details</div>
-		<div class="panel-body">
-			
-				<div class="col-md-3 col-sm-3 col-xs-12 ">
-					<div class="profilePic">
-					<img alt="User Pic" src="http://172.16.2.47/RMG-Tool/assets/img/logo/avatar.png" class="img-square img-responsive" id="image_upload_preview" style="width:100%; height:120px;">  
+	<div class="col-md-12">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				Personal Details
+			</div>
+			<div class="panel-body">
+				<div class="col-lg-3 col-md-3">
+					<!--<form method="post" id="profile_form_step_1" action="http://172.16.2.47/RMG-Tool/index.php/fileupload/profile_upload" enctype="multipart/form-data">-->
+					<div class="panel-body">
+						<div class="" align="center">
+							<div class="profilePic">
+								<div *ngIf="emptyImage">
+									<span class="glyphicon glyphicon-user profileUserImage"></span>
+								</div>
+								<img [src]="url" width="100" height="100" *ngIf="!emptyImage">
+								<input type='file' style="visibility:hidden;" #getFile accept="image/*" (change)="readUrl($event)">
+								<div (click)="removeImg()" class="removeImg" *ngIf="!emptyImage">
+									<span class="glyphicon glyphicon-remove"></span>
+								</div>
+							</div>
+							<div class="profileBtns">
+								<button (click)="uploadFile()" class="btn btn-primary" *ngIf="!emptyImage">Upload</button>
+								<button (click)="getFile.click()" class="btn btn-primary" *ngIf="emptyImage">Browse</button>
+							</div>
+						</div><br>
+					</div>
+					<!--</form>-->
 
-					</div>
 				</div>
-				<div class="col-md-3 col-sm-3 col-xs-12 ">
-					<div class="form-group">
-						<span class="help-block pro-title">EMPLOYEE ID</span>
-						<p class="form-control-static">E003801</p>
+				<div class="col-lg-9 col-md-9">
+					<div class="row">
+						<div class="col-lg-12 col-md-12">
+							<div class="col-lg-4 col-md-4 pad-l-0">
+								<div class="">
+									<span class="help-block pro-title">EMPLOYEE ID</span>
+									<p class="form-control-static">E003923</p>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-4 no-padding">
+								<div class="">
+
+									<span class="help-block pro-title">EMPLOYEE NAME</span>
+									<p class="form-control-static">Chippa Vijay Kumar</p>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-4 pad-l-0">
+								<div class="">
+									<span class="help-block pro-title">DESIGNATION</span>
+									<p class="form-control-static"> N/A</p>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="form-group">
-						<span class="help-block pro-title">DATE OF JOINING</span>
-						<p class="form-control-static">17 April, 2017</p>
+					<div class="row">
+						<div class="col-lg-12 col-md-12">
+							<div class="col-lg-4 col-md-4 pad-l-0">
+								<div class="">
+									<span class="help-block pro-title">DATE OF JOINING</span>
+									<p class="form-control-static">16 August, 2017</p>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-4 pad-l-0">
+								<div class="">
+									<span class="help-block pro-title">JOINING LOCATION</span>
+									<p class="form-control-static"> HYD</p>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-4 no-padding">
+								<div class="">
+									<span class="help-block pro-title">CURRENT LOCATION</span>
+									<p class="form-control-static"> HYD</p>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="form-group">
-						<span class="help-block pro-title">EMPLOYEMENT TYPE</span>
-						<p class="form-control-static">India Regular</p>
-					</div>  
+					<div class="row">
+						<div class="col-lg-4 col-md-4 pad-l-0">
+							<div class="" style="margin-left:8px;">
+								<span class="help-block pro-title">EMPLOYEMENT TYPE</span>
+								<p class="form-control-static">India Regular</p>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 pad-l-0">
+							<div class="">
+								<span class="help-block pro-title">REPORTING MANAGER</span>
+								<p class="form-control-static">N/A</p>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 no-padding">
+							<div class="">
+								<span class="help-block pro-title">RMG Spoc</span>
+								<p class="form-control-static">Spoc</p>
+							</div>
+						</div>
+					</div>
+
 				</div>
-				<div class="col-md-3 col-sm-3 col-xs-12 ">
-					<div class="form-group">
-						<span class="help-block pro-title">EMPLOYEE NAME</span>
-						<p class="form-control-static">Shanker Kalluri</p>
-					</div>
-					
-					<div class="form-group">
-							<span class="help-block pro-title">JOINING LOCATION</span>
-							<p class="form-control-static">HYD</p>
-					</div>
-					<div class="form-group">
-						<span class="help-block pro-title">REPORTING MANAGER</span>
-						<p class="form-control-static">Sudheer Kumar Chiluvuri</p>
-					</div>
-				</div>
-				<div class="col-md-3 col-sm-3 col-xs-12">
-					<div class="form-group">
-						<span class="help-block pro-title">DESIGNATION</span>
-						<p class="form-control-static">Senior Engineer, Development</p>
-					</div> 
-					
-					<div class="form-group">
-						<span class="help-block pro-title">CURRENT LOCATION</span>
-						<p class="form-control-static">HYD</p>
-					</div>
-					<div class="form-group">
-						<span class="help-block pro-title">VISA</span>
-						<p class="form-control-static">No Visa</p>
-					</div>
-				</div>
-			
-		</div>
+			</div>
+
 		</div>
 	</div>
+
 </div>
 
 <div class="row">
 	<div class="card card-w-title">
 		<p-tabView>
-			<p-tabPanel *ngFor="let empTab of employeeInfoTabs;"
-			header="{{empTab.name}}" 
-			leftIcon="{{empTab.icon}}">
+			<p-tabPanel *ngFor="let empTab of employeeInfoTabs;" header="{{empTab.name}}" leftIcon="{{empTab.icon}}">
 				<div [ngSwitch]="empTab.field">
 					<ng-template [ngSwitchCase]="'experience-details'">
-						<val-experience-details></val-experience-details>
+						<val-experience-details *ngIf="personalDetails" [personalDetails]="personalDetails"></val-experience-details>
 					</ng-template>
 					<ng-template [ngSwitchCase]="'contact-details'">
-						<val-contact-details></val-contact-details>
+						<val-contact-details *ngIf="personalDetails" [personalDetails]="personalDetails"></val-contact-details>
 					</ng-template>
 					<ng-template [ngSwitchCase]="'skill-details'">
-							<val-skill-details></val-skill-details>
+						<val-skill-details></val-skill-details>
+						<val-certification-details></val-certification-details>
 					</ng-template>
-					<ng-template [ngSwitchCase]="'certification-details'">
+					<!--<ng-template [ngSwitchCase]="'certification-details'">
 							<val-certification-details></val-certification-details>
-					</ng-template>
+					</ng-template>-->
 					<ng-template [ngSwitchCase]="'project-details'">
-							<val-project-details></val-project-details>
+						<val-project-details></val-project-details>
 					</ng-template>
 					<ng-template [ngSwitchCase]="'bu-details'">
-							<val-bu-details></val-bu-details>
+						<val-bu-details></val-bu-details>
 					</ng-template>
 					<ng-template [ngSwitchCase]="'visa-details'">
 						<val-visa-details></val-visa-details>
-				</ng-template>
+					</ng-template>
 				</div>
 			</p-tabPanel>
 		</p-tabView>
