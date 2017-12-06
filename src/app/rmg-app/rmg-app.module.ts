@@ -22,6 +22,7 @@ import { CertificationDetailsComponent } from './employee/certification-details/
 import { ProjectDetailsComponent } from './employee/project-details/project-details.component';
 import { BUDetailsComponent } from './employee/bu-details/bu-details.component';
 import { RmgComponent } from "./rmg/rmg.component";
+import { VisaDetailsComponent } from './employee/visa-details/visa-details.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -48,7 +49,8 @@ import { RmgComponent } from "./rmg/rmg.component";
     ContactDetailsComponent,
     CertificationDetailsComponent,
     ProjectDetailsComponent,
-    BUDetailsComponent
+    BUDetailsComponent,
+    VisaDetailsComponent
     ]
 })
 export class RmgAppModule { }
