@@ -36,6 +36,11 @@ export class PersonalDetailsComponent implements OnInit {
       name: 'BU Details',
       field: 'bu-details',
       icon: 'ui-icon-featured-play-list'
+    },
+    {
+      name: 'VISA Details',
+      field: 'visa-details',
+      icon: 'ui-icon-featured-play-list'
     }
   ];
   constructor(public cdRef:ChangeDetectorRef) { }
