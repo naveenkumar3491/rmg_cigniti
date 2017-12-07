@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'val-domain-details',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./domain-details.component.scss']
 })
 export class DomainDetailsComponent implements OnInit {
-
+  @Input() domainDetails;
   constructor() { }
 
   ngOnInit() {

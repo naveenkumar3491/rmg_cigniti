@@ -20,7 +20,9 @@ export class ExperienceDetailsComponent implements OnInit {
   ngOnInit() {
     this.resumeName = "Not Yet Upload";
     this.emptyResume = true;
-    this.personalDetails.totalExperience = '4 years 6 months'
+    let doj = new Date(this.personalDetails.doj);
+    let todayDate = new Date();
+    this.personalDetails.cignitiExperience = `${todayDate.getFullYear() - doj.getFullYear()} years ${todayDate.getMonth() - doj.getMonth()} months`;
     if (!this.personalDetails.totalExperience) {
       this.editMode = false;
     }

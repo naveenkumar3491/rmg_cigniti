@@ -1,7 +1,7 @@
 <p-growl [(value)]="msgs"></p-growl>
 
 <div class="personal-details" style="position:relative">
-	<div [ngBusy]="busy"></div>
+	<div [ngBusy]="personalBusy"></div>
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-primary">
@@ -28,6 +28,7 @@
 								<button (click)="getFile.click()" class="btn btn-primary" *ngIf="emptyImage">Browse</button>
 							</div>
 						</div><br>
+						<p-progressBar [value]="profileProgress" [showValue]="true"></p-progressBar>
 					</div>
 					<!--</form>-->
 
@@ -112,18 +113,19 @@
 		<p-tabView (onChange)="onTabChange($event)">
 			<p-tabPanel *ngFor="let empTab of employeeInfoTabs;" 
 			header="{{empTab.name}}" leftIcon="{{empTab.icon}}" >
-				<div [ngSwitch]="empTab.field">
+				<div [ngSwitch]="empTab.field" style="position: relative">
 					<ng-template [ngSwitchCase]="'experience-details'">
 						<val-experience-details *ngIf="personalDetails" [personalDetails]="personalDetails"></val-experience-details>
 					</ng-template>
 					<ng-template [ngSwitchCase]="'contact-details'">
 						<val-contact-details *ngIf="personalDetails" [personalDetails]="personalDetails"></val-contact-details>
 					</ng-template>
+					<div [ngBusy]="skillBusy">
 					<ng-template [ngSwitchCase]="'skill-details'">
-						<val-skill-details></val-skill-details>
-						<val-certification-details></val-certification-details>
-						<val-domain-details></val-domain-details>
-					</ng-template>
+						<val-skill-details *ngIf="masterDetails" [skillDetails]="masterDetails.skill_List"></val-skill-details>
+						<val-certification-details *ngIf="masterDetails" [certificationDetails]="masterDetails.certification_List"></val-certification-details>
+						<val-domain-details *ngIf="masterDetails" [domainDetails]="masterDetails.domain_List"></val-domain-details>
+					</ng-template></div>
 					<!--<ng-template [ngSwitchCase]="'certification-details'">
 							<val-certification-details></val-certification-details>
 					</ng-template>-->

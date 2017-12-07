@@ -1,25 +1,53 @@
 <div class="skill-details">
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
-
-            <!--<div class="panel-heading">
-                <div class="row">
-                    <div class="col-lg-11">
-                        <h3 class="panel-title">Skill Details</h3>
-                    </div>
-                    <div class="">
-                        <button class="btn btn-warning btnpadding" style="margin-right:5px;">Add skills</button>
-                    </div>
-                </div>
-            </div>-->
-            <!--<div class="row" style="text-align: right;
-                padding: 10px 30px 0px 0px;">
-                <button class="btn btn-warning">Add skills</button>
-            </div>-->
             <div class="panel-body">
                 <form #skillForm="ngForm">
                     <p-fieldset legend="Skill Details" [toggleable]="true" collapsed="true">
-                        <table class="table table-bordered table-inverse table-time table-responsive">
+
+                        <div class="row" style="margin-bottom: 10px;">
+                            <div class="col-md-4">
+                                <p-dropdown [options]="skillCategoriesList" name="skillCategory" [(ngModel)]="skillModel.skillCategory" placeholder="Select a Category"
+                                    optionLabel="label" (onChange)="onCategoryChange()" [style]="{'width':'150px'}"></p-dropdown>
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="skillSet" name="skill" [(ngModel)]="skillModel.skill" placeholder="Select a Skill" optionLabel="label"
+                                    filter="true" [style]="{'width':'150px'}" [disabled]="!skillModel.skillCategory"></p-dropdown>
+                            </div>
+                            <div class="col-md-4">
+                                <p-rating name="skillRating" [(ngModel)]="skillModel.skillRating" [cancel]="false"></p-rating>
+                                <div class="btn-skill">
+                                    <button *ngIf="showButton" type="button" [disabled]="!this.skillModel.skillCategory || !this.skillModel.skill" (click)="saveSkill('add', skillForm)"
+                                        class="btn btn-success">Add Skill</button>
+                                    <button *ngIf="!showButton" type="button" (click)="saveSkill('update', skillForm)" [disabled]="!this.skillModel.skillCategory || !this.skillModel.skill"
+                                        class="btn btn-success">Update Skill</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<table class="table table-bordered table-inverse table-time table-responsive table-fixed">
+                            <thead>
+                                <tr>
+                                    <th class="col-xs-3">Skill Category</th>
+                                    <th class="col-xs-3">Skill</th>
+                                    <th class="col-xs-3">Skill Rating</th>
+                                    <th class="col-xs-3"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let skill of skillList; let index = index;">
+                                    <td class="col-xs-3" >{{skill.skillCategory}}</td>
+                                    <td class="col-xs-3">{{skill.skill}}</td>
+                                    <td class="col-xs-3">{{skill.skillRating}}</td>
+                                    <td class="col-xs-3" style="text-align: center;"><a class="curosr-p" (click)="editSkill(skill, index)"><i class="fa ui-icon-edit"></i></a>
+                                        <a
+                                            class="curosr-p" (click)="deleteSkill(index)"><i class="fa ui-icon-delete"></i></a>
+                                    </td>
+                                </tr>
+                               
+                            </tbody>
+                        </table>-->
+
+                        <!--<table class="table table-bordered table-inverse table-time table-responsive">
                             <thead>
                                 <tr>
                                     <th>Skill Category</th>
@@ -30,15 +58,32 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let skill of skillList; let index = index;">
-                                    <td>{{skill.selectedCategory}}</td>
-                                    <td>{{skill.selectedSkill}}</td>
-                                    <td>{{skill.selectedRating}}</td>
+                                    <td>{{skill.skillCategory}}</td>
+                                    <td>{{skill.skill}}</td>
+                                    <td>{{skill.skillRating}}</td>
                                     <td style="text-align: center;"><a class="curosr-p" (click)="editSkill(skill, index)"><i class="fa ui-icon-edit"></i></a>
-                                        <a
-                                            class="curosr-p" (click)="deleteSkill(index)"><i class="fa ui-icon-delete"></i></a>
+                                        <a class="curosr-p" (click)="deleteSkill(index)"><i class="fa ui-icon-delete"></i></a>
                                     </td>
                                 </tr>
-                                <tr>
+
+                            </tbody>
+                        </table>-->
+                        <p-dataTable [value]="skillList" scrollable="true" [sortField]="sortF" (onSort)="changeSort($event)"
+                        scrollHeight="200px">
+                            <p-column [sortable]="true" *ngFor="let col of skillHeader" [field]="col.field" [header]="col.header"></p-column>
+                            <p-column styleClass="col-button">
+                                <ng-template pTemplate="header">
+                                  Action
+                                </ng-template>
+                                <ng-template let-car="rowData" let-i="rowIndex" pTemplate="body">
+                                    <a class="curosr-p" (click)="editSkill(car, i)"><i class="fa ui-icon-edit"></i></a>
+                                    <a class="curosr-p" (click)="deleteSkill(index)"><i class="fa ui-icon-delete"></i></a>
+                                </ng-template>
+                            </p-column>
+                        </p-dataTable>
+                    </p-fieldset>
+                </form>
+                <!--<tr>
                                     <td>
                                         <p-dropdown [options]="skillCategoriesList" name="selectedCategory" [(ngModel)]="skillModel.selectedCategory" placeholder="Select a Category"
                                             optionLabel="label" (onChange)="onCategoryChange()" [style]="{'width':'150px'}"></p-dropdown>
@@ -56,11 +101,7 @@
                                         <td style="text-align: center;"><button type="button" (click)="saveSkill('update', skillForm)" [disabled]="!this.skillModel.selectedCategory || !this.skillModel.selectedSkill"
                                                 class="btn btn-success">Update Skill</button></td>
                                     </ng-template>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </p-fieldset>
-                </form>
+                                </tr>-->
             </div>
         </div>
     </div>

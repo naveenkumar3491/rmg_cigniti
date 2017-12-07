@@ -160,6 +160,20 @@ p-rating .ui-rating .fa-star{
 			}
 		}
 	}
+	.ui-fieldset-content{
+		p-rating{
+    .ui-rating{
+        display: inline;
+        margin-left: 28px;
+    }
+    
+}
+.btn-skill{
+        display: inline;
+        margin-left: 45px; 
+    }
+	}
+	
 }
 
 .certification-details{
@@ -177,3 +191,23 @@ p-rating .ui-rating .fa-star{
 		}
 	}
 }
+.personal-details{
+	p-progressBar{
+		.ui-progressbar {
+			    height: 1em;
+			.ui-progressbar-value{
+				    background-color: #286090;
+					height: 1em;
+			}
+			.ui-progressbar-label{
+				    display: block !important;
+    				margin-top: -2px;
+			}
+		}
+		
+		.ui-widget-content{
+			border: 1px solid #bdbdbd;
+		}
+	}
+}
+

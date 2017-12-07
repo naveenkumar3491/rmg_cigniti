@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'val-certification-details',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./certification-details.component.scss']
 })
 export class CertificationDetailsComponent implements OnInit {
-
+  @Input() certificationDetails;
   constructor() { }
 
   ngOnInit() {
