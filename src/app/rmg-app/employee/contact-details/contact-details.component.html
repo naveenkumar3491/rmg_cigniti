@@ -10,69 +10,35 @@
             </div>-->
             <div class="panel-body">
                 
-                    <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="col-md-3 col-sm-3 col-xs-12">
                         <div class="form-group">
                             <span class="help-block pro-title">OFFICIAL EMAIL ID</span>
-                            <p style="margin-top: 10px;">shanker.kalluri@cigniti.com</p>
+                            <p style="margin-top: 10px;">{{personalDetails.officialEmailId}}</p>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-12">
                         <div class="form-group">
                             <span class="help-block pro-title">PERSONAL EMAIL ID</span>
-                            <p style="margin-top: 10px;">shankerkalluri@gmail.com</p>
+                            <input type="email" *ngIf="!editMode" class="form-control"
+                            [(ngModel)]="personalDetails.personalEmailId"/>
+                            <p *ngIf="editMode" style="margin-top: 10px;">{{personalDetails.personalEmailId}}</p>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-12">
                         <div class="form-group">
                             <span class="help-block pro-title">MOBILE</span>
-                            <p style="margin-top: 10px;">9848186770</p>
+                            <input type="text" *ngIf="!editMode" class="form-control"
+                            [(ngModel)]="personalDetails.mobile"/>
+                            <p *ngIf="editMode" style="margin-top: 10px;">{{personalDetails.mobile}}</p>
                         </div>
                     </div>
-                    <!--<div class="col-md-3 col-sm-3 col-xs-12">
-                        <a href="#" class="btn btn-primary a-btn-slide-text">
-                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                            <span><strong>Edit</strong></span>            
-                        </a>
-                    </div>-->
-                
+                    <div class="col-md-1 col-sm-1 col-xs-12" style="margin-top: 19px">
+                        <button *ngIf="editMode" class="btn btn-primary" (click)="onContactDetChange('edit')">Edit</button>
+                        <button *ngIf="!editMode" class="btn btn-primary" [disabled]="!personalDetails.personalEmailId || !personalDetails.mobile"
+                        (click)="onContactDetChange('save')">Save</button>
+                    </div>
             </div>
         </div>
     </div>
-    
-    <!-- <div class="col-md-6">
-        <div class="panel panel-primary">
-            <div class="panel-heading">Experience Details</div>
-            <div class="panel-body">
-                <div class="row">
-
-                    <div class="col-md-4 pad-l-0">
-                        <div class="form-group">
-                            <span class="help-block pro-title">CIGNITI EXPERIENCE</span>
-                            <div> </div>
-                            <p class="form-control-static"> 0.6 Years</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4 no-padding">
-                        <div class="form-group">
-                            <span class="help-block pro-title">TOTAL EXPERIENCE</span>
-                            <p class="form-control-static">N/A</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4 pad-l-0">
-                        <div class="form-group">
-                            <span class="help-block pro-title">RESUME LAST UPDATED</span>
-                            <p class="form-control-static">
-                                Not Yet Uploaded
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                <span data-toggle="modal" data-target="#myresumeModal"><a href="#"><i class="fa fa-file-word-o" id="download_resume" style="display:none;"> View Resume</i></a></span>
-                </div>
-
-                </div>
-            </div>
-        </div>
-    </div>-->
 </div>
 

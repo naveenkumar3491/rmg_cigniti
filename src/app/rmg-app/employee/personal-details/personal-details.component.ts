@@ -10,7 +10,7 @@ import { Ng2Storage } from "../../../services/storage";
 })
 export class PersonalDetailsComponent implements OnInit {
   http: any;
-
+  msgs: any = [];
   url: any;
   public imageView = true;
 
@@ -74,6 +74,10 @@ export class PersonalDetailsComponent implements OnInit {
     this.cdRef.detectChanges();
   }
 
+  onTabChange(e){
+  console.log(e);
+  }
+
 
   uploadFile(): void {
     let fi = this.fileInput.nativeElement;
@@ -103,14 +107,13 @@ export class PersonalDetailsComponent implements OnInit {
 
     if (event.target.files && event.target.files[0]) {
       if (event.target.files[0].size > maxImgLSize) {
-        alert("Selected image size is more than 100KB");
+        this.msgs = [];
+        this.msgs.push({severity:'error', summary:'Error', detail:'Selected image size is more than 100KB'});
       } else {
         var reader = new FileReader();
-
         reader.onload = (event: any) => {
           this.url = event.target.result;
         }
-
         reader.readAsDataURL(event.target.files[0]);
         this.emptyImage = false;
       }

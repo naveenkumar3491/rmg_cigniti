@@ -1,4 +1,7 @@
-<div [ngBusy]="busy"></div>
+<p-growl [(value)]="msgs"></p-growl>
+
+<div class="personal-details" style="position:relative">
+	<div [ngBusy]="busy"></div>
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-primary">
@@ -35,20 +38,20 @@
 							<div class="col-lg-4 col-md-4 pad-l-0">
 								<div class="">
 									<span class="help-block pro-title">EMPLOYEE ID</span>
-									<p class="form-control-static">E003923</p>
+									<p class="form-control-static">{{personalDetails?.emp_id}}</p>
 								</div>
 							</div>
 							<div class="col-lg-4 col-md-4 no-padding">
 								<div class="">
 
 									<span class="help-block pro-title">EMPLOYEE NAME</span>
-									<p class="form-control-static">Chippa Vijay Kumar</p>
+									<p class="form-control-static">{{personalDetails?.employeeName}}</p>
 								</div>
 							</div>
 							<div class="col-lg-4 col-md-4 pad-l-0">
 								<div class="">
 									<span class="help-block pro-title">DESIGNATION</span>
-									<p class="form-control-static"> N/A</p>
+									<p class="form-control-static"> {{personalDetails?.designation}}</p>
 								</div>
 							</div>
 						</div>
@@ -58,19 +61,19 @@
 							<div class="col-lg-4 col-md-4 pad-l-0">
 								<div class="">
 									<span class="help-block pro-title">DATE OF JOINING</span>
-									<p class="form-control-static">16 August, 2017</p>
+									<p class="form-control-static">{{personalDetails?.doj}}</p>
 								</div>
 							</div>
 							<div class="col-lg-4 col-md-4 pad-l-0">
 								<div class="">
 									<span class="help-block pro-title">JOINING LOCATION</span>
-									<p class="form-control-static"> HYD</p>
+									<p class="form-control-static"> {{personalDetails?.joinginLocation}}</p>
 								</div>
 							</div>
 							<div class="col-lg-4 col-md-4 no-padding">
 								<div class="">
 									<span class="help-block pro-title">CURRENT LOCATION</span>
-									<p class="form-control-static"> HYD</p>
+									<p class="form-control-static"> {{personalDetails?.currentLocation}}</p>
 								</div>
 							</div>
 						</div>
@@ -79,13 +82,13 @@
 						<div class="col-lg-4 col-md-4 pad-l-0">
 							<div class="" style="margin-left:8px;">
 								<span class="help-block pro-title">EMPLOYEMENT TYPE</span>
-								<p class="form-control-static">India Regular</p>
+								<p class="form-control-static">{{personalDetails?.employeementType}}</p>
 							</div>
 						</div>
 						<div class="col-lg-4 col-md-4 pad-l-0">
 							<div class="">
 								<span class="help-block pro-title">REPORTING MANAGER</span>
-								<p class="form-control-static">N/A</p>
+								<p class="form-control-static">{{personalDetails?.reportingManager}}</p>
 							</div>
 						</div>
 						<div class="col-lg-4 col-md-4 no-padding">
@@ -106,8 +109,9 @@
 
 <div class="row">
 	<div class="card card-w-title">
-		<p-tabView>
-			<p-tabPanel *ngFor="let empTab of employeeInfoTabs;" header="{{empTab.name}}" leftIcon="{{empTab.icon}}">
+		<p-tabView (onChange)="onTabChange($event)">
+			<p-tabPanel *ngFor="let empTab of employeeInfoTabs;" 
+			header="{{empTab.name}}" leftIcon="{{empTab.icon}}" >
 				<div [ngSwitch]="empTab.field">
 					<ng-template [ngSwitchCase]="'experience-details'">
 						<val-experience-details *ngIf="personalDetails" [personalDetails]="personalDetails"></val-experience-details>
@@ -118,6 +122,7 @@
 					<ng-template [ngSwitchCase]="'skill-details'">
 						<val-skill-details></val-skill-details>
 						<val-certification-details></val-certification-details>
+						<val-domain-details></val-domain-details>
 					</ng-template>
 					<!--<ng-template [ngSwitchCase]="'certification-details'">
 							<val-certification-details></val-certification-details>
@@ -126,7 +131,7 @@
 						<val-project-details></val-project-details>
 					</ng-template>
 					<ng-template [ngSwitchCase]="'bu-details'">
-						<val-bu-details></val-bu-details>
+						<val-bu-details *ngIf="personalDetails" [personalDetails]="personalDetails"></val-bu-details>
 					</ng-template>
 					<ng-template [ngSwitchCase]="'visa-details'">
 						<val-visa-details></val-visa-details>
@@ -135,4 +140,5 @@
 			</p-tabPanel>
 		</p-tabView>
 	</div>
+</div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'val-bu-details',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bu-details.component.scss']
 })
 export class BUDetailsComponent implements OnInit {
-
+  @Input() personalDetails;
   constructor() { }
 
   ngOnInit() {

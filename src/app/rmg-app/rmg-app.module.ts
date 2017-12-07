@@ -8,6 +8,7 @@ import {TabViewModule} from 'primeng/primeng';
 import {DropdownModule} from 'primeng/primeng';
 import {RatingModule} from 'primeng/primeng';
 import {FieldsetModule} from 'primeng/primeng';
+import {GrowlModule} from 'primeng/primeng';
 import {BusyModule} from 'angular2-busy';
 
 import { RmgAppComponent } from './rmg-app.component';
@@ -28,6 +29,7 @@ import { ProjectDetailsComponent } from './employee/project-details/project-deta
 import { BUDetailsComponent } from './employee/bu-details/bu-details.component';
 import { RmgComponent } from "./rmg/rmg.component";
 import { VisaDetailsComponent } from './employee/visa-details/visa-details.component';
+import { DomainDetailsComponent } from './employee/domain-details/domain-details.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -40,6 +42,7 @@ import { VisaDetailsComponent } from './employee/visa-details/visa-details.compo
     DropdownModule,
     RatingModule,
     FieldsetModule,
+    GrowlModule,
     BusyModule
   ],
   declarations: [
@@ -60,7 +63,8 @@ import { VisaDetailsComponent } from './employee/visa-details/visa-details.compo
     CertificationDetailsComponent,
     ProjectDetailsComponent,
     BUDetailsComponent,
-    VisaDetailsComponent
+    VisaDetailsComponent,
+    DomainDetailsComponent
     ]
 })
 export class RmgAppModule { }

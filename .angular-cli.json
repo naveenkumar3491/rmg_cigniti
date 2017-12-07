@@ -21,7 +21,8 @@
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "styles.scss",
-        "../node_modules/primeng/resources/primeng.css"
+        "../node_modules/primeng/resources/primeng.css",
+        "../node_modules/angular2-busy/build/style/busy.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",

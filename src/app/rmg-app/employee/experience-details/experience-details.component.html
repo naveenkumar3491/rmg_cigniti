@@ -1,43 +1,55 @@
-<div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="panel panel-default">
-        <!--<div class="panel-heading">Experience Details</div>-->
-        <div class="panel-body">
-            
+<div class="experience-details">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="panel panel-default">
+                <!--<div class="panel-heading">Experience Details</div>-->
+                <div class="panel-body">
 
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                    <div class="form-group">
-                        <span class="help-block pro-title">CIGNITI EXPERIENCE</span>
-                        <div> </div>
-                        <p class="form-control-static"> {{personalDetails.cignitiExperience}}</p>
+
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <span class="help-block pro-title">CIGNITI EXPERIENCE</span>
+                            <div> </div>
+                            <p class="form-control-static"> {{personalDetails.cignitiExperience}}</p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                    <div class="form-group">
-                        <span class="help-block pro-title">TOTAL EXPERIENCE</span>
-                        <p class="form-control-static">{{personalDetails.totalExperience}}</p>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <span class="help-block pro-title">TOTAL EXPERIENCE
+                            <span *ngIf="editMode">
+                            <a class="curosr-p" (click)="saveExp('edit')"><i class="fa ui-icon-edit" style="font-size: 15px;"></i></a></span>
+                            <span *ngIf="!editMode"><a class="curosr-p" (click)="saveExp('save')"><i class="fa ui-icon-save" style="font-size: 15px;"></i></a></span>
+                            </span>
+                            <div *ngIf="!editMode">
+                                <span>Years</span> <span style="margin-left:30px;">Months</span></div>
+                            <div class="total-exp" *ngIf="!editMode">
+                                <input type="number" min="0" max="30" class="form-control" [(ngModel)]="exp.years"/>
+                                <input type="number" min="0" max="12" class="form-control" [(ngModel)]="exp.months"/>
+                            </div>
+                            <p *ngIf="editMode" class="form-control-static">{{personalDetails.totalExperience}}</p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                    <div class="form-group">
-							<span class="help-block pro-title">RESUME LAST UPDATED</span>
-							<div class="form-control-static">
-								<span class="label label-success">{{resumeName}}</span>
-								<span (click)="removeResume()" class="removeResume" *ngIf="!emptyResume">
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <span class="help-block pro-title">RESUME LAST UPDATED</span>
+                            <div class="form-control-static">
+                                <span class="label label-success">{{resumeName}}</span>
+                                <span (click)="removeResume()" class="removeResume" *ngIf="!emptyResume">
 									<span class="glyphicon glyphicon-remove"></span>
-								</span>
+                                </span>
                                 <button *ngIf="emptyResume" (click)="getResumeFile.click()" class="btn btn-primary">Browse</button>
-							</div>
-						</div>
-                        <input type="file" accept=".doc,.docx" style="visibility:hidden;" #getResumeFile (change)="readResume($event)"/>
-					
-                </div>
-                <!--<div class="col-md-4">
+                            </div>
+                        </div>
+                        <input type="file" accept=".doc,.docx" style="visibility:hidden;" #getResumeFile (change)="readResume($event)" />
+
+                    </div>
+                    <!--<div class="col-md-4">
             <span data-toggle="modal" data-target="#myresumeModal"><a href="#"><i class="fa fa-file-word-o" id="download_resume" style="display:none;"> View Resume</i></a></span>
             </div>-->
 
-            
-        </div>
+
+                </div>
+            </div>
         </div>
     </div>
 </div>
