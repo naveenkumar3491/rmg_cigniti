@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { DataService } from "../../../services/DataService";
 
 @Component({
   selector: 'val-experience-details',
@@ -15,7 +16,7 @@ export class ExperienceDetailsComponent implements OnInit {
   }
   @Input() personalDetails;
   @ViewChild('getResumeFile') resumeInput: ElementRef;
-  constructor() { }
+  constructor(private dataService: DataService) { }
 
   ngOnInit() {
     this.resumeName = "Not Yet Upload";
@@ -43,6 +44,7 @@ export class ExperienceDetailsComponent implements OnInit {
   saveExp(type) {
     if (type === 'save') {
       this.editMode = true;
+      this.dataService.profilePercentage.emit(10);
       this.personalDetails.totalExperience = `${this.exp.years} years ${this.exp.months} months`;
     }else{
       this.editMode = false;

@@ -122,16 +122,16 @@
 					</ng-template>
 					<div [ngBusy]="skillBusy">
 					<ng-template [ngSwitchCase]="'skill-details'">
-						<val-skill-details *ngIf="masterDetails" [skillDetails]="masterDetails.skill_List"></val-skill-details>
-						<val-certification-details *ngIf="masterDetails" [certificationDetails]="masterDetails.certification_List"></val-certification-details>
-						<val-domain-details *ngIf="masterDetails" [domainDetails]="masterDetails.domain_List"></val-domain-details>
+						<val-skill-details *ngIf="skillsMasterData" 
+						[skillDetails]="skillsMasterData[0].details.skill_List"
+						[skillMasterData]="skillsMasterData[1]"></val-skill-details>
+						<val-domain-details *ngIf="skillsMasterData" [domainDetails]="skillsMasterData[0].details.domain_List"></val-domain-details>
+						<val-certification-details *ngIf="skillsMasterData" [certificationDetails]="skillsMasterData[0].details.certification_List"></val-certification-details>
 					</ng-template></div>
-					<!--<ng-template [ngSwitchCase]="'certification-details'">
-							<val-certification-details></val-certification-details>
-					</ng-template>-->
+					<div [ngBusy]="projectBusy">
 					<ng-template [ngSwitchCase]="'project-details'">
-						<val-project-details></val-project-details>
-					</ng-template>
+						<val-project-details *ngIf="projectDetails" [projectDetails]="projectDetails"></val-project-details>
+					</ng-template></div>
 					<ng-template [ngSwitchCase]="'bu-details'">
 						<val-bu-details *ngIf="personalDetails" [personalDetails]="personalDetails"></val-bu-details>
 					</ng-template>

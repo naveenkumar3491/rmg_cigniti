@@ -1,43 +1,7 @@
 <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-    
-            <div class="panel panel-default" style="margin-top:10px;">
-                <!--<div class="panel-heading">
-                    <div class="row">
-                        <div class="col-md-10">
-                            <h3 class="panel-title">Project Details</h3>
-                        </div>
-                        
-                    </div>
-                </div>-->
-                <div class="panel-body">
-                    <table class="table table-bordered table-responsive">
-                        <thead>
-                            <tr>
-                                <th>Project Name</th>
-                                <th>PROJECT START DATE</th>
-                                <th>PROJECT END DATE</th>
-                                <th>ALLOCATION START DATE</th>
-                                <th>ALLOCATION END DATE</th>
-                                <th>Allocation Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-    
-                            <tr style="padding:0px;">
-                                <td>Cubic Transportation</td>
-                                <td>23-12-2015</td>
-                                <td>31-12-2017</td>
-                                <td>25-10-2017</td>
-                                <td>31-12-2017</td>
-                                <td> Buffer                                 
-                                </td>
-                            </tr>
-    
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <p-dataTable [value]="projectDetails" scrollable="true" scrollHeight="200px">
+            <p-column [sortable]="true" *ngFor="let col of projectHeader" [field]="col.field" [header]="col.header"></p-column>
+        </p-dataTable>
     </div>
-    
+</div>

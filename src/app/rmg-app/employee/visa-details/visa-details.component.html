@@ -1,1 +1,3 @@
-VISA Details
+<p-dataTable [value]="visaList" scrollable="true" scrollHeight="200px">
+    <p-column [sortable]="true" *ngFor="let col of visaHeader" [field]="col.field" [header]="col.header"></p-column>
+</p-dataTable>

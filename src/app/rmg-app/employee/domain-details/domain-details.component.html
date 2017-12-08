@@ -1,3 +1,49 @@
-<p>
-  domain-details works!
-</p>
+<div class="domain-details">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+       <div class="panel-body">
+      <p-fieldset legend="Domain Details" [toggleable]="true" collapsed="true">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="row" style="margin: 10px;">
+              <div class="col-md-3">
+                <p-dropdown name="domainCategory" [(ngModel)]="domainModel.domainCategory" placeholder="Select a Domain" optionLabel="label"
+                  [style]="{'width':'150px'}"></p-dropdown>
+              </div>
+              <div class="col-md-3">
+                <p-dropdown name="subDomain" [(ngModel)]="domainModel.subDomain" placeholder="Select a Sub Domain" optionLabel="label" filter="true"
+                  [style]="{'width':'150px'}"></p-dropdown>
+              </div>
+              <div class="col-md-2">
+                <input class="form-control" type="text" placeholder="Experience"
+                name="yearOfExperience" [(ngModel)]="domainModel.yearOfExperience" />
+              </div>
+              <div class="col-md-4">
+                <p-rating name="domainRating" [(ngModel)]="domainModel.domainRating" [cancel]="false"></p-rating>
+                <button type="button" class="btn btn-success" style="float: right">Add Domain</button>
+                <!--<div class="btn-skill">
+                  <button type="button" class="btn btn-success">Add Domain</button>
+                  <button *ngIf="!showButton" type="button" (click)="saveSkill('update', skillForm)" [disabled]="!this.skillModel.skillCategory || !this.skillModel.skill"
+                    class="btn btn-success">Update Skill</button>
+                </div>-->
+              </div>
+            </div>
+          </div>
+        </div>
+        <p-dataTable [value]="domainDetails" scrollable="true" scrollHeight="200px">
+          <p-column [sortable]="true" *ngFor="let col of domainHeader" [field]="col.field" [header]="col.header"></p-column>
+          <p-column styleClass="col-button">
+            <ng-template pTemplate="header">
+              Action
+            </ng-template>
+            <ng-template let-car="rowData" let-i="rowIndex" pTemplate="body">
+              <a class="curosr-p"><i class="fa ui-icon-edit"></i></a>
+              <a class="curosr-p"><i class="fa ui-icon-delete"></i></a>
+            </ng-template>
+          </p-column>
+        </p-dataTable>
+      </p-fieldset>
+    </div>
+  </div>
+</div>
+</div>

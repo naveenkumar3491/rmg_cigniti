@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { DataService } from "../../../services/DataService";
 
 @Component({
   selector: 'val-skill-details',
@@ -7,29 +8,16 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class SkillDetailsComponent implements OnInit {
   @Input() skillDetails;
-  public sortF: string = 'skillCategory';
+  @Input() skillMasterData;
+  public sortF: string;
   public skillHeader:any = [
       {field: 'skillCategory', header: 'Skill Category'},
       {field: 'skill', header: 'Skill'},
       {field: 'skillRating', header: 'Skill Rating'}
   ];
-  public skillCategoriesList: any = [
-    { label: 'Automation Testing', value: 'Automation Testing' },
-    { label: 'Performance Testing', value: 'Performance Testing' },
-    { label: 'Security Testing', value: 'Security Testing' },
-    { label: 'Manual Testing', value: 'Manual Testing' },
-    { label: 'SME', value: 'SME' },
-    { label: 'Developer', value: 'Developer' }
-  ];
+  public skillCategoriesList: any;
   public skillSet: any = [];
-  public categoryList: any = [
-    { category: 'Automation Testing', skillSet: [{ label: 'testing1', value: 'testing1' }] },
-    { category: 'Performance Testing', skillSet: [{ label: 'performance', value: 'performance' }] },
-    { category: 'Security Testing', skillSet: [{ label: 'security', value: 'security' }] },
-    { category: 'Manual Testing', skillSet: [{ label: 'manual', value: 'manual' }] },
-    { category: 'SME', skillSet: [{ label: 'sme', value: 'sme' }] },
-    { category: 'Developer', skillSet: [{ label: 'Java', value: 'Java' }] }
-  ];
+  public categoryList: any;
   public skillModel: any = {
     skillCategory: '',
     skill: '',
@@ -38,23 +26,47 @@ export class SkillDetailsComponent implements OnInit {
   public skillList: any = [];
   public editedSkillIndex: number;
   public showButton: boolean = true;
-  constructor() { }
+  constructor(private dataService: DataService) { }
 
   ngOnInit() {
     console.log('init');
   }
 
   ngOnChanges() {
-    console.log(this.skillDetails)
+    console.log(this.skillDetails);
+    console.log(this.skillMasterData);
     this.skillList = this.skillDetails;
+    this.categoryList = this.skillMasterData.categoryList;
+    this.skillCategoriesList = this.skillMasterData.skillCategoriesList;
   }
 
   changeSort(event) {
-        if (!event.order) {
-          this.sortF = 'year';
-        } else {
+        if (event.order) {
           this.sortF = event.field;
         }
+        console.log(this.sortF);
+         console.log(event.order);
+      //  var arr =  this.skillList.sort((a, b)=>{
+      //     let x = a[this.sortF].toLowerCase();
+      //     let y = b[this.sortF].toLowerCase();
+         
+      //    if(event.order == - 1){
+      //      if(x < y){
+      //        return -1;
+      //      }
+      //    }
+      //     if(event.order == 1){
+      //       if(x > y){
+      //       return 1;
+      //       }
+      //     }
+      //     return x-y;
+
+      //     // return 0
+      //   });
+      //   console.log(arr);
+      //   console.log(this.skillList);
+      //   this.skillList = this.skillList.slice();
     }
 
   onCategoryChange() {
@@ -69,6 +81,9 @@ export class SkillDetailsComponent implements OnInit {
 
   saveSkill(type: string, form) {
     if (type === 'add') {
+      if(this.skillList.length === 0){
+        this.dataService.profilePercentage.emit(25);
+      }
       this.skillList.push(Object.assign({}, this.skillModel));
     } else {
       this.skillList[this.editedSkillIndex] = this.skillModel;
@@ -91,5 +106,9 @@ export class SkillDetailsComponent implements OnInit {
 
   deleteSkill(index) {
     this.skillList.splice(index, 1);
+    this.skillList=this.skillList.slice();
+    if(this.skillList.length === 0){
+        this.dataService.profilePercentage.emit(-25);
+      }
   }
 }

@@ -146,17 +146,25 @@ p-rating .ui-rating .fa-star{
 	color: $rmg-orange
 }
 
-.skill-details{
-	p-fieldset{
+p-fieldset{
 		.ui-fieldset{
 			.ui-fieldset-legend{
-				width: 18%;
 				border: none;
+				font-size: 17px;
 				.ui-fieldset-toggler{
 					height: 1em;
 					width: 1em;
 					padding: 0em;
 				}
+			}
+		}
+	}
+
+.skill-details{
+	p-fieldset{
+		.ui-fieldset{
+			.ui-fieldset-legend{
+				width: 15%;
 			}
 		}
 	}
@@ -180,17 +188,21 @@ p-rating .ui-rating .fa-star{
 	p-fieldset{
 		.ui-fieldset{
 			.ui-fieldset-legend{
-				width: 26%;
-				border: none;
-				.ui-fieldset-toggler{
-					height: 1em;
-					width: 1em;
-					padding: 0em;
-				}
+				width: 21%;
 			}
 		}
 	}
 }
+.domain-details{
+	p-fieldset{
+		.ui-fieldset{
+			.ui-fieldset-legend{
+				width: 18%;
+			}
+		}
+	}
+}
+
 .personal-details{
 	p-progressBar{
 		.ui-progressbar {
@@ -202,6 +214,7 @@ p-rating .ui-rating .fa-star{
 			.ui-progressbar-label{
 				    display: block !important;
     				margin-top: -2px;
+					color: #000;
 			}
 		}
 		
@@ -209,5 +222,15 @@ p-rating .ui-rating .fa-star{
 			border: 1px solid #bdbdbd;
 		}
 	}
+}
+
+.domain-details{
+	p-rating{
+		display: inline-block;
+	}
+}
+
+.ui-datatable.ui-datatable-scrollable thead tr th{
+	    font-size: 12px !important;
 }
 

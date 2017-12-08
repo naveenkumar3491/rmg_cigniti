@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { DataService } from "../../../services/DataService";
 
 @Component({
   selector: 'val-contact-details',
@@ -8,7 +9,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ContactDetailsComponent implements OnInit {
   @Input() personalDetails;
   public editMode: boolean = true;
-  constructor() { }
+  constructor(private dataService: DataService) { }
 
   ngOnInit() {
     if(!this.personalDetails.personalEmailId && !this.personalDetails.mobile){
@@ -19,6 +20,7 @@ export class ContactDetailsComponent implements OnInit {
   onContactDetChange(type){
     if(type === 'save'){
       this.editMode = true;
+      this.dataService.profilePercentage.emit(20);
     }else{
       this.editMode = false;
     }
