@@ -234,3 +234,16 @@ p-fieldset{
 	    font-size: 12px !important;
 }
 
+.ui-datatable-scrollable-body{
+		.ui-widget-content{
+			.ui-datatable-emptymessage-row{
+				.ui-datatable-emptymessage{
+					text-align: center;
+    				color: red;
+				}
+			}
+		}
+}   
+.app-error-msg{
+	color: red;
+}

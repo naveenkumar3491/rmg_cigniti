@@ -124,8 +124,8 @@
 					<ng-template [ngSwitchCase]="'skill-details'">
 						<val-skill-details *ngIf="skillsMasterData" 
 						[skillDetails]="skillsMasterData[0].details.skill_List"
-						[skillMasterData]="skillsMasterData[1]"></val-skill-details>
-						<val-domain-details *ngIf="skillsMasterData" [domainDetails]="skillsMasterData[0].details.domain_List"></val-domain-details>
+						[skillMasterData]="skillsMasterData[2]"></val-skill-details>
+						<val-domain-details *ngIf="skillsMasterData" [domainDetails]="skillsMasterData[0].details.domain_List" [masterDomains]="skillsMasterData[1]"></val-domain-details>
 						<val-certification-details *ngIf="skillsMasterData" [certificationDetails]="skillsMasterData[0].details.certification_List"></val-certification-details>
 					</ng-template></div>
 					<div [ngBusy]="projectBusy">

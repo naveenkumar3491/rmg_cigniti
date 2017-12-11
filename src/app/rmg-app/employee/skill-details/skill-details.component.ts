@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DataService } from "../../../services/DataService";
+import { MessageService } from "primeng/components/common/messageservice";
 
 @Component({
   selector: 'val-skill-details',
@@ -26,26 +27,23 @@ export class SkillDetailsComponent implements OnInit {
   public skillList: any = [];
   public editedSkillIndex: number;
   public showButton: boolean = true;
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private messageService: MessageService) { }
 
   ngOnInit() {
     console.log('init');
   }
 
   ngOnChanges() {
-    console.log(this.skillDetails);
-    console.log(this.skillMasterData);
     this.skillList = this.skillDetails;
     this.categoryList = this.skillMasterData.categoryList;
     this.skillCategoriesList = this.skillMasterData.skillCategoriesList;
+    console.log(this.categoryList);
   }
-
+  
   changeSort(event) {
         if (event.order) {
           this.sortF = event.field;
         }
-        console.log(this.sortF);
-         console.log(event.order);
       //  var arr =  this.skillList.sort((a, b)=>{
       //     let x = a[this.sortF].toLowerCase();
       //     let y = b[this.sortF].toLowerCase();
@@ -79,14 +77,16 @@ export class SkillDetailsComponent implements OnInit {
     }
   }
 
-  saveSkill(type: string, form) {
+  saveSkill(type: string) {
     if (type === 'add') {
       if(this.skillList.length === 0){
         this.dataService.profilePercentage.emit(25);
       }
       this.skillList.push(Object.assign({}, this.skillModel));
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Skill added successfully!!' });
     } else {
       this.skillList[this.editedSkillIndex] = this.skillModel;
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Skill updated successfully!!' });
     }
     this.skillList=this.skillList.slice();
     this.showButton = true;
@@ -97,7 +97,7 @@ export class SkillDetailsComponent implements OnInit {
     };
   }
 
-  editSkill(skill, index) {
+  onEdit(skill, index) {
     this.showButton = false;
     this.editedSkillIndex = index;
     this.skillModel = Object.assign({}, skill);
@@ -107,6 +107,7 @@ export class SkillDetailsComponent implements OnInit {
   deleteSkill(index) {
     this.skillList.splice(index, 1);
     this.skillList=this.skillList.slice();
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Skill deleted successfully!!' });
     if(this.skillList.length === 0){
         this.dataService.profilePercentage.emit(-25);
       }
