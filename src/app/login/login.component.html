@@ -29,13 +29,19 @@
                         <h1 class="login-title">MyTE LOGIN</h1>
                         <div class="form-group" [ngClass]="displayFieldCss('userId')">
                             <input class="form-control" type="text" placeholder="UserName" formControlName="userId" />
-                            <app-error [displayError]="isFieldValid('userId')" errorMsg="Username is required">
-                            </app-error>
+                            <div *ngIf="isFieldValid('userId')">
+                                <div class="error-msg">
+                                    Username is required
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group" [ngClass]="displayFieldCss('password')">
                             <input class="form-control" type="password" placeholder="Password" formControlName="password" />
-                            <app-error [displayError]="isFieldValid('password')" errorMsg="Password is required">
-                            </app-error>
+                            <div *ngIf="isFieldValid('password')">
+                                <div class="error-msg">
+                                    Password is required
+                                </div>
+                            </div>
                         </div>
                         <button type="submit" class="btn-xl cta-btn-login">LOGIN</button>
                     </form>

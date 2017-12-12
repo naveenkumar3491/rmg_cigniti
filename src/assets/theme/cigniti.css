@@ -1,0 +1,16 @@
+.layout-container .topbar .topbar-left{
+	    background-color: #2f62b7 !important;
+}
+
+.layout-container .topbar{
+background-color: #5180ce !important;
+}
+
+.panel-primary>.panel-heading{
+    background-color: #5180ce !important;
+    border-color: #5180ce !important;
+}
+
+body .ui-tabview .ui-tabview-nav > li.ui-state-active{
+	background-color: #5180ce !important;
+}

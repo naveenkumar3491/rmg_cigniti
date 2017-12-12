@@ -9,8 +9,8 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class LiveDataService extends DataService {
-    
-    public profilePercentage : EventEmitter<number> = new EventEmitter();
+
+    public profilePercentage: EventEmitter<number> = new EventEmitter();
     private readonly basePath = 'http://172.16.28.27:8080/';
     private readonly basePath1 = 'http://172.16.28.27:8080/';
     private readonly MyTrUrl = 'rmg/mytr/';
@@ -18,6 +18,9 @@ export class LiveDataService extends DataService {
     private readonly employeeDetails = this.getBaseURI() + 'employeedetails';
     private readonly skillDetails = this.getBaseURI() + 'skillDtls';
     private readonly masterSkillData = this.getBaseURI() + 'skillLookUp';
+    private readonly domainData = this.getBaseURI() + 'domains';
+    private readonly subDomainData = this.getBaseURI() + 'subDomains';
+    private readonly childDomainData = this.getBaseURI() + 'childDomains';
     private readonly projectDetails = this.getBaseURI() + 'projectDtls';
     private readonly uploadImage = this.getBaseURI1() + 'insertImage';
 
@@ -66,9 +69,61 @@ export class LiveDataService extends DataService {
         })
     }
 
+    public getSubDomainDetails(domainId: string): Observable<any> {
+        return this.http.get(`${this.subDomainData}?domainId=${domainId}`, this.REQUEST_OPTIONS).map((res: Response) => {
+                const items = <any[]>res.json();
+                let subDomainData = [];
+                items.forEach((subDomain) => {
+                    subDomainData.push({
+                        label:subDomain.subDomaineName,
+                        value:  {
+                            domainId: subDomain.domainId,
+                            subDomainId: subDomain.id,
+                            subDomaineName: subDomain.subDomaineName
+                        }
+                    })
+                })
+                return subDomainData;
+            })
+    }
+
+    public getChildDomainDetails(domainId: string, subDomainId: string): Observable<any> {
+        return this.http.get(`${this.childDomainData}?domainId=${domainId}&subDomainId=${subDomainId}`, this.REQUEST_OPTIONS).map((res: Response) => {
+                const items = <any[]>res.json();
+                let childDomainData = [];
+                items.forEach((childDomain) => {
+                    childDomainData.push({
+                        label:childDomain.chilDomainName,
+                        value:  {
+                            domainId: childDomain.domainId,
+                            subDomainId: childDomain.subDomainId,
+                            childDomainId: childDomain.id,
+                            childDomaineName: childDomain.chilDomainName
+                        }
+                    })
+                })
+                return childDomainData;
+            })
+    }
+
     public getAllSkillData(empId: string): Observable<any> {
+        let id ="E001272";
         return Observable.forkJoin([
-            this.http.get(`${this.skillDetails}?empId=${empId}`, this.REQUEST_OPTIONS).map((res: Response) => res.json()),
+            this.http.get(`${this.skillDetails}?empId=${id}`, this.REQUEST_OPTIONS).map((res: Response) => res.json()),
+            this.http.get(`${this.domainData}`, this.REQUEST_OPTIONS).map((res: Response) => {
+                const items = <any[]>res.json();
+                let domainData = [];
+                items.forEach((domain) => {
+                    domainData.push({
+                        label:domain.domainName,
+                        value:  {
+                            domainId: domain.id,
+                            domainName: domain.domainName
+                        }
+                    })
+                })
+                return domainData;
+            }),
             this.http.get(`${this.masterSkillData}`, this.REQUEST_OPTIONS)
                 .map((res: Response) => {
                     const items = <any[]>res.json();
@@ -86,14 +141,14 @@ export class LiveDataService extends DataService {
                             category: key,
                             skillSet: new Array()
                         })
-                        for(var j=0; j<items[key].length; j++){
+                        for (var j = 0; j < items[key].length; j++) {
                             data.categoryList[i]['skillSet'].push({
                                 label: items[key][j],
                                 value: items[key][j]
                             })
                         }
                     }
-                   return data;
+                    return data;
                 })
         ]);
     }
@@ -103,5 +158,6 @@ export class LiveDataService extends DataService {
             return response.json();
         })
     }
+    
 }
 

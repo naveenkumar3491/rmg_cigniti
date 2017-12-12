@@ -35,23 +35,23 @@
 				</div>
 				<div class="col-lg-9 col-md-9">
 					<div class="row">
-						<div class="col-lg-12 col-md-12">
+						<div class="col-lg-12 col-md-12 ">
 							<div class="col-lg-4 col-md-4 pad-l-0">
 								<div class="">
-									<span class="help-block pro-title">EMPLOYEE ID</span>
+									<span class="help-block empTitle">EMPLOYEE ID</span>
 									<p class="form-control-static">{{personalDetails?.emp_id}}</p>
 								</div>
 							</div>
 							<div class="col-lg-4 col-md-4 no-padding">
 								<div class="">
 
-									<span class="help-block pro-title">EMPLOYEE NAME</span>
+									<span class="help-block empTitle">EMPLOYEE NAME</span>
 									<p class="form-control-static">{{personalDetails?.employeeName}}</p>
 								</div>
 							</div>
 							<div class="col-lg-4 col-md-4 pad-l-0">
 								<div class="">
-									<span class="help-block pro-title">DESIGNATION</span>
+									<span class="help-block empTitle">DESIGNATION</span>
 									<p class="form-control-static"> {{personalDetails?.designation}}</p>
 								</div>
 							</div>
@@ -61,19 +61,19 @@
 						<div class="col-lg-12 col-md-12">
 							<div class="col-lg-4 col-md-4 pad-l-0">
 								<div class="">
-									<span class="help-block pro-title">DATE OF JOINING</span>
+									<span class="help-block empTitle">DATE OF JOINING</span>
 									<p class="form-control-static">{{personalDetails?.doj}}</p>
 								</div>
 							</div>
 							<div class="col-lg-4 col-md-4 pad-l-0">
 								<div class="">
-									<span class="help-block pro-title">JOINING LOCATION</span>
+									<span class="help-block empTitle">JOINING LOCATION</span>
 									<p class="form-control-static"> {{personalDetails?.joinginLocation}}</p>
 								</div>
 							</div>
 							<div class="col-lg-4 col-md-4 no-padding">
 								<div class="">
-									<span class="help-block pro-title">CURRENT LOCATION</span>
+									<span class="help-block empTitle">CURRENT LOCATION</span>
 									<p class="form-control-static"> {{personalDetails?.currentLocation}}</p>
 								</div>
 							</div>
@@ -82,19 +82,19 @@
 					<div class="row">
 						<div class="col-lg-4 col-md-4 pad-l-0">
 							<div class="" style="margin-left:8px;">
-								<span class="help-block pro-title">EMPLOYEMENT TYPE</span>
+								<span class="help-block empTitle">EMPLOYEMENT TYPE</span>
 								<p class="form-control-static">{{personalDetails?.employeementType}}</p>
 							</div>
 						</div>
 						<div class="col-lg-4 col-md-4 pad-l-0">
 							<div class="">
-								<span class="help-block pro-title">REPORTING MANAGER</span>
+								<span class="help-block empTitle">REPORTING MANAGER</span>
 								<p class="form-control-static">{{personalDetails?.reportingManager}}</p>
 							</div>
 						</div>
 						<div class="col-lg-4 col-md-4 no-padding">
 							<div class="">
-								<span class="help-block pro-title">RMG Spoc</span>
+								<span class="help-block empTitle">RMG Spoc</span>
 								<p class="form-control-static">Spoc</p>
 							</div>
 						</div>
@@ -124,8 +124,8 @@
 					<ng-template [ngSwitchCase]="'skill-details'">
 						<val-skill-details *ngIf="skillsMasterData" 
 						[skillDetails]="skillsMasterData[0].details.skill_List"
-						[skillMasterData]="skillsMasterData[1]"></val-skill-details>
-						<val-domain-details *ngIf="skillsMasterData" [domainDetails]="skillsMasterData[0].details.domain_List"></val-domain-details>
+						[skillMasterData]="skillsMasterData[2]"></val-skill-details>
+						<val-domain-details *ngIf="skillsMasterData" [domainDetails]="skillsMasterData[0].details.domain_List" [masterDomains]="skillsMasterData[1]"></val-domain-details>
 						<val-certification-details *ngIf="skillsMasterData" [certificationDetails]="skillsMasterData[0].details.certification_List"></val-certification-details>
 					</ng-template></div>
 					<div [ngBusy]="projectBusy">

@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { DataService } from "../../../services/DataService";
+import { MessageService } from "primeng/components/common/messageservice";
 
 @Component({
   selector: 'val-experience-details',
@@ -16,7 +17,7 @@ export class ExperienceDetailsComponent implements OnInit {
   }
   @Input() personalDetails;
   @ViewChild('getResumeFile') resumeInput: ElementRef;
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private messageService: MessageService) { }
 
   ngOnInit() {
     this.resumeName = "Not Yet Upload";
@@ -44,6 +45,7 @@ export class ExperienceDetailsComponent implements OnInit {
   saveExp(type) {
     if (type === 'save') {
       this.editMode = true;
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Saved Successfully!!' });
       this.dataService.profilePercentage.emit(10);
       this.personalDetails.totalExperience = `${this.exp.years} years ${this.exp.months} months`;
     }else{

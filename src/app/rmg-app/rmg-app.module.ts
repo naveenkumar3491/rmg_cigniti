@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {DataTableModule, SharedModule} from 'primeng/primeng';
 import {ChartModule} from 'primeng/primeng';
@@ -35,6 +35,7 @@ import { DomainDetailsComponent } from './employee/domain-details/domain-details
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     RmgAppRoutes,
     DataTableModule,
     SharedModule,

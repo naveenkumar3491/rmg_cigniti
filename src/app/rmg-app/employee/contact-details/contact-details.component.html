@@ -1,15 +1,8 @@
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="panel panel-default">
-            <!--<div class="panel-heading">
-                <div class="row">
-                    <div class="col-lg-10">
-                        <h3 class="panel-title">Contact Details</h3>
-                    </div>
-                </div>
-            </div>-->
             <div class="panel-body">
-                
+                <form [formGroup]="contactForm" novalidate>
                     <div class="col-md-3 col-sm-3 col-xs-12">
                         <div class="form-group">
                             <span class="help-block pro-title">OFFICIAL EMAIL ID</span>
@@ -19,26 +12,40 @@
                     <div class="col-md-4 col-sm-4 col-xs-12">
                         <div class="form-group">
                             <span class="help-block pro-title">PERSONAL EMAIL ID</span>
-                            <input type="email" *ngIf="!editMode" class="form-control"
-                            [(ngModel)]="personalDetails.personalEmailId"/>
+                            <input type="email" *ngIf="!editMode" class="form-control" formControlName="pEmailId" [(ngModel)]="personalDetails.personalEmailId"
+                                required/>
                             <p *ngIf="editMode" style="margin-top: 10px;">{{personalDetails.personalEmailId}}</p>
+                            <div *ngIf="contactForm.controls['pEmailId'].errors?.required && formSubmitAttempt">
+                                <div class="app-error-msg">
+                                    Email Id is required
+                                </div>
+                            </div>
+                            <div *ngIf="!contactForm.controls['pEmailId'].errors?.required && contactForm.controls['pEmailId'].errors?.email && formSubmitAttempt">
+                                <div class="app-error-msg">
+                                    Email Id is Invalid
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-12">
                         <div class="form-group">
                             <span class="help-block pro-title">MOBILE</span>
-                            <input type="text" *ngIf="!editMode" class="form-control"
-                            [(ngModel)]="personalDetails.mobile"/>
+                            <input type="text" *ngIf="!editMode" 
+                            class="form-control" formControlName="mobile" [(ngModel)]="personalDetails.mobile" />
                             <p *ngIf="editMode" style="margin-top: 10px;">{{personalDetails.mobile}}</p>
+                            <div *ngIf="contactForm.controls['mobile'].errors?.required && formSubmitAttempt">
+                                <div class="app-error-msg">
+                                    Mobile is required
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-1 col-sm-1 col-xs-12" style="margin-top: 19px">
                         <button *ngIf="editMode" class="btn btn-primary" (click)="onContactDetChange('edit')">Edit</button>
-                        <button *ngIf="!editMode" class="btn btn-primary" [disabled]="!personalDetails.personalEmailId || !personalDetails.mobile"
-                        (click)="onContactDetChange('save')">Save</button>
+                        <button *ngIf="!editMode" class="btn btn-primary" (click)="onContactDetChange('save')">Save</button>
                     </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
-

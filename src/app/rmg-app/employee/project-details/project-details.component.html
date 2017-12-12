@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
-        <p-dataTable [value]="projectDetails" scrollable="true" scrollHeight="200px">
+        <p-dataTable [value]="projectDetails" scrollable="true" scrollHeight="200px" emptyMessage="No projects found">
             <p-column [sortable]="true" *ngFor="let col of projectHeader" [field]="col.field" [header]="col.header"></p-column>
         </p-dataTable>
     </div>
