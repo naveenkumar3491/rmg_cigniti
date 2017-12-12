@@ -206,14 +206,14 @@ p-fieldset{
 .personal-details{
 	p-progressBar{
 		.ui-progressbar {
-			    height: 1em;
+			    height: 25px;
 			.ui-progressbar-value{
 				    background-color: #286090;
-					height: 1em;
+					height:25px;
 			}
 			.ui-progressbar-label{
 				    display: block !important;
-    				margin-top: -2px;
+    				margin-top: 3px;
 					color: #000;
 			}
 		}

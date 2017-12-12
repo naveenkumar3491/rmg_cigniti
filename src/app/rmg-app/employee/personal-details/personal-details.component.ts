@@ -44,7 +44,7 @@ export class PersonalDetailsComponent implements OnInit {
       icon: 'ui-icon-format-align-justify'
     },
     {
-      name: 'Skill Details',
+      name: 'Professional Details',
       field: 'skill-details',
       icon: 'ui-icon-contact-phone'
     },
