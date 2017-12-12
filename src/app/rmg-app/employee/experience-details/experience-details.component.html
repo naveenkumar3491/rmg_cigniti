@@ -10,7 +10,7 @@
                         <div class="form-group">
                             <span class="help-block pro-title">CIGNITI EXPERIENCE</span>
                             <div> </div>
-                            <p class="form-control-static"> {{personalDetails.cignitiExperience}}</p>
+                            <p class="form-control-static"> {{model.cignitiExperience}}</p>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-12">
@@ -26,7 +26,7 @@
                                 <input type="number" min="0" max="30" class="form-control" [(ngModel)]="exp.years"/>
                                 <input type="number" min="0" max="12" class="form-control" [(ngModel)]="exp.months"/>
                             </div>
-                            <p *ngIf="editMode" class="form-control-static">{{personalDetails.totalExperience}}</p>
+                            <p *ngIf="editMode" class="form-control-static">{{model.totalExperience}}</p>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-12">

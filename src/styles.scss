@@ -205,22 +205,22 @@ p-fieldset{
 
 .personal-details{
 	p-progressBar{
-		.ui-progressbar {
-			    height: 25px;
-			.ui-progressbar-value{
-				    background-color: #286090;
-					height:25px;
-			}
-			.ui-progressbar-label{
-				    display: block !important;
-    				margin-top: 3px;
-					color: #000;
-			}
-		}
-		
-		.ui-widget-content{
-			border: 1px solid #bdbdbd;
-		}
+	.ui-progressbar {
+		height: 25px;
+	.ui-progressbar-value{
+			background-color: #286090;
+		height:25px;
+	}
+	.ui-progressbar-label{
+			display: block !important;
+			margin-top: 3px;
+		color: #000;
+	}
+	}
+	
+	.ui-widget-content{
+	border: 1px solid #bdbdbd;
+	}
 	}
 }
 

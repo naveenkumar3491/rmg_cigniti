@@ -22,6 +22,7 @@ export class LiveDataService extends DataService {
     private readonly subDomainData = this.getBaseURI() + 'subDomains';
     private readonly childDomainData = this.getBaseURI() + 'childDomains';
     private readonly projectDetails = this.getBaseURI() + 'projectDtls';
+    private readonly insertContactAndExp = this.getBaseURI() + 'empContactAndExp';
     private readonly uploadImage = this.getBaseURI1() + 'insertImage';
 
     private readonly REQUEST_HEADERS: Headers = new Headers({
@@ -151,6 +152,12 @@ export class LiveDataService extends DataService {
                     return data;
                 })
         ]);
+    }
+
+    public saveContactAndExpDetails(paramObj): Observable<any> {
+        return this.http.post(`${this.insertContactAndExp}`,paramObj, this.REQUEST_OPTIONS).map((response: Response) => {
+            return response.json();
+        })
     }
 
     public uploadProfileImage(obj): Observable<any> {

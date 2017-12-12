@@ -13,9 +13,6 @@ import { RmgAppComponent } from "../../rmg-app/rmg-app.component";
             </div>
 
             <div class="topbar-right">
-            <a id="rightpanel-menu-button" href="#" (click)="app.onRightPanelButtonClick($event)">
-                    <i class="material-icons">more_vert</i>
-                </a>
                 <a id="menu-button" href="#" (click)="app.onMenuButtonClick($event)">
                     <i></i>
                 </a>

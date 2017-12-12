@@ -9,5 +9,6 @@ export abstract class DataService {
     public abstract getProjectDetails( id ): Observable<any>;
     public abstract getSubDomainDetails( id ): Observable<any>;
     public abstract getChildDomainDetails( dId, sId ): Observable<any>;
+    public abstract saveContactAndExpDetails( paramObj ): Observable<any>;
     public abstract profilePercentage: EventEmitter<number>;
 }

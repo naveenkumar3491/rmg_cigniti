@@ -12,9 +12,9 @@
                     <div class="col-md-4 col-sm-4 col-xs-12">
                         <div class="form-group">
                             <span class="help-block pro-title">PERSONAL EMAIL ID</span>
-                            <input type="email" *ngIf="!editMode" class="form-control" formControlName="pEmailId" [(ngModel)]="personalDetails.personalEmailId"
+                            <input type="email" *ngIf="!editMode" class="form-control" formControlName="pEmailId" [(ngModel)]="model.personalEmailId"
                                 required/>
-                            <p *ngIf="editMode" style="margin-top: 10px;">{{personalDetails.personalEmailId}}</p>
+                            <p *ngIf="editMode" style="margin-top: 10px;">{{model.personalEmailId}}</p>
                             <div *ngIf="contactForm.controls['pEmailId'].errors?.required && formSubmitAttempt">
                                 <div class="app-error-msg">
                                     Email Id is required
@@ -31,8 +31,8 @@
                         <div class="form-group">
                             <span class="help-block pro-title">MOBILE</span>
                             <input type="text" *ngIf="!editMode" 
-                            class="form-control" formControlName="mobile" [(ngModel)]="personalDetails.mobile" />
-                            <p *ngIf="editMode" style="margin-top: 10px;">{{personalDetails.mobile}}</p>
+                            class="form-control" formControlName="mobile" [(ngModel)]="model.mobile" />
+                            <p *ngIf="editMode" style="margin-top: 10px;">{{model.mobile}}</p>
                             <div *ngIf="contactForm.controls['mobile'].errors?.required && formSubmitAttempt">
                                 <div class="app-error-msg">
                                     Mobile is required
