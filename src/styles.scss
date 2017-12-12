@@ -21,16 +21,16 @@ table tr th,strong,b,label{
 	font-weight: normal;
 	font-family: 'robotomedium', sans-serif;
 }
-body .ui-tabview .ui-tabview-nav > li.ui-state-active {
-    background-color: $rmg-orange;
-    border-color: $tab-active-border-color;
-	a{
-		color: #fff;
-		.ui-tabview-left-icon{
-			color: #fff;
-		}
-	}
-}
+// body .ui-tabview .ui-tabview-nav > li.ui-state-active {
+//     background-color: $rmg-orange;
+//     border-color: $tab-active-border-color;
+// 	a{
+// 		color: #fff;
+// 		.ui-tabview-left-icon{
+// 			color: #fff;
+// 		}
+// 	}
+// }
 .panel-default>.panel-heading{
 	font-weight: bold;
 }

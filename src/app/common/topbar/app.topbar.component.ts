@@ -15,6 +15,10 @@ import { RmgAppComponent } from "../../rmg-app/rmg-app.component";
                 <a id="menu-button" href="#" (click)="app.onMenuButtonClick($event)">
                     <i></i>
                 </a>
+
+                <a id="rightpanel-menu-button" href="#" (click)="app.onRightPanelButtonClick($event)">
+                    <i class="material-icons">more_vert</i>
+                </a>
                 <ul class="topbar-items animated fadeInDown" [ngClass]="{'topbar-items-visible': app.topbarMenuActive}">
                    
                     <li #settings [ngClass]="{'active-top-menu':app.activeTopbarItem === settings}">

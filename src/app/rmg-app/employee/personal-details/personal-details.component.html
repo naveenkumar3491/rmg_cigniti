@@ -4,17 +4,17 @@
 	<div [ngBusy]="personalBusy"></div>
 <div class="row">
 	<div class="col-md-12">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
+		<div class="theme-panel theme-panel-primary">
+			<div class="theme-panel-heading">
 				Personal Details
 			</div>
-			<div class="panel-body">
+			<div class="theme-panel-body">
 				<div class="col-lg-3 col-md-3">
 					<!--<form method="post" id="profile_form_step_1" action="http://172.16.2.47/RMG-Tool/index.php/fileupload/profile_upload" enctype="multipart/form-data">-->
-					<div class="panel-body">
+					<div class="theme-panel-body">
 						<div class="" align="center">
 							<div class="profilePic">
-								<div *ngIf="emptyImage">
+								<div *ngIf="emptyImage" style="padding:5px;border:1px solid #b5a7a7">
 									<span class="glyphicon glyphicon-user profileUserImage"></span>
 								</div>
 								<img [src]="url" width="100" height="100" *ngIf="!emptyImage">
@@ -24,8 +24,8 @@
 								</div>
 							</div>
 							<div class="profileBtns">
-								<button (click)="uploadFile()" class="btn btn-primary" *ngIf="!emptyImage">Upload</button>
-								<button (click)="getFile.click()" class="btn btn-primary" *ngIf="emptyImage">Browse</button>
+								<button (click)="uploadFile()" class="theme-btn theme-btn-primary" *ngIf="!emptyImage">Upload</button>
+								<button (click)="getFile.click()" class="theme-btn theme-btn-primary" *ngIf="emptyImage">Browse</button>
 							</div>
 						</div><br>
 						<p-progressBar [value]="profileProgress" [showValue]="true"></p-progressBar>
