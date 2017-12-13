@@ -8,5 +8,6 @@ export interface ILoginResponse{
     employeeName: string;
     employeeRoleId: number;
     employeeRoleName: string;
-    deliveryUnit: number
+    deliveryUnit: number;
+    themeCol: number;
 }

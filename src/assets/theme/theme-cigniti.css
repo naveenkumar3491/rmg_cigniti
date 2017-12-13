@@ -3168,7 +3168,7 @@ body .ui-widget-content {
   font-size: 1em;
   border: 1px solid #bdbdbd; }
   body .ui-widget-content .fa {
-    color: #fff; }
+    color: #337ab7; }
 body .ui-widget-header {
   background-color: #757575;
   color: #ffffff;
@@ -4487,9 +4487,11 @@ body .ui-accordion .ui-accordion-header {
     body .ui-accordion .ui-accordion-header.ui-state-active > a {
       color: #ffffff; }
   body .ui-accordion .ui-accordion-header .fa-caret-right {
+    color: #fff;
     margin-top: -.5em;
     font-size: 1.5em; }
   body .ui-accordion .ui-accordion-header .fa-caret-down {
+    color: #fff;
     margin-top: -.5em;
     font-size: 1.5em; }
 body .ui-accordion .ui-accordion-content {

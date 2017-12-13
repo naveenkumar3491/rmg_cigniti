@@ -4,6 +4,7 @@ import { MenuItem } from 'primeng/primeng';
 import { RmgAppComponent } from "../../rmg-app/rmg-app.component";
 import { Ng2Storage } from "../../services/storage";
 import { ILoginResponse } from "../../app.interface";
+import { DataService } from "../../services/DataService";
 
 @Component({
     selector: 'app-menu',
@@ -16,12 +17,20 @@ export class AppMenuComponent implements OnInit {
     @Input() reset: boolean;
 
     model: any[];
+    private userData: ILoginResponse = this.storage.getSession('user_data');
 
-    constructor(public app: RmgAppComponent, private storage: Ng2Storage) { }
+    constructor(public app: RmgAppComponent, private storage: Ng2Storage, private dataService: DataService) { }
 
     ngOnInit() {
-        let userData: ILoginResponse = this.storage.getSession('user_data');
-        if (userData.employeeRoleName === 'RMG') {
+        this.changeTheme(this.userData.themeCol ? this.userData.themeCol : 'cigniti');
+        this.dataService.getThemes().subscribe((data) => {
+            data.items.forEach(theme => {
+                theme.command = (event) => { this.saveTheme(theme); }
+            });
+            this.model.push(data);
+        });
+
+        if (this.userData.employeeRoleName === 'RMG') {
             this.model = [
                 { label: 'Rmg Details', icon: 'dashboard', routerLink: ['/app/rmg/dashboard'] }
             ];
@@ -30,15 +39,24 @@ export class AppMenuComponent implements OnInit {
                 { label: 'Employee Details', icon: 'dashboard', routerLink: ['/app/employee/personal-details'] }
             ];
         }
-
     }
 
     changeTheme(theme) {
         const themeLink: HTMLLinkElement = <HTMLLinkElement>document.getElementById('theme-css');
         const layoutLink: HTMLLinkElement = <HTMLLinkElement>document.getElementById('layout-css');
-
         themeLink.href = 'assets/theme/theme-' + theme + '.css';
         layoutLink.href = 'assets/layout/css/layout-' + theme + '.css';
+    }
+
+    saveTheme(theme) {
+        let paramObj = {
+            employeeId: this.userData.employeeId,
+            themeId: `${theme.id}`
+        }
+        this.dataService.updateTheme(paramObj).subscribe((data) => {
+           this.changeTheme(theme.label);
+        })
+
     }
 }
 
@@ -109,7 +127,7 @@ export class AppSubMenuComponent {
 
     constructor(public app: RmgAppComponent) { }
 
-    itemClick(event: Event, item: MenuItem, index: number)  {
+    itemClick(event: Event, item: MenuItem, index: number) {
         if (this.root) {
             this.app.menuHoverActive = !this.app.menuHoverActive;
         }
@@ -164,7 +182,7 @@ export class AppSubMenuComponent {
     set reset(val: boolean) {
         this._reset = val;
 
-        if (this._reset && (this.app.isHorizontal() ||  this.app.isSlim())) {
+        if (this._reset && (this.app.isHorizontal() || this.app.isSlim())) {
             this.activeIndex = null;
         }
     }

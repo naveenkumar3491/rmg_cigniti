@@ -12,7 +12,6 @@ export class LiveDataService extends DataService {
 
     public profilePercentage: EventEmitter<number> = new EventEmitter();
     private readonly basePath = 'http://172.16.28.27:8080/';
-    private readonly basePath1 = 'http://172.16.28.27:8080/';
     private readonly MyTrUrl = 'rmg/mytr/';
     private readonly userLoginUrl = this.getBaseURI() + 'authenticate';
     private readonly employeeDetails = this.getBaseURI() + 'employeedetails';
@@ -22,26 +21,21 @@ export class LiveDataService extends DataService {
     private readonly subDomainData = this.getBaseURI() + 'subDomains';
     private readonly childDomainData = this.getBaseURI() + 'childDomains';
     private readonly projectDetails = this.getBaseURI() + 'projectDtls';
+    private readonly getAllThemes = this.getBaseURI() + 'themesLookUp';
+    private readonly saveTheme = this.getBaseURI() + 'updateTheme';
     private readonly insertContactAndExp = this.getBaseURI() + 'empContactAndExp';
-    private readonly uploadImage = this.getBaseURI1() + 'insertImage';
+    private readonly uploadImage = this.getBaseURI() + 'uploadImage';
 
     private readonly REQUEST_HEADERS: Headers = new Headers({
         'Content-Type': 'application/json; charset=utf-8',
         'Accept': 'application/json'
     });
-    private readonly REQUEST_HEADERS1: Headers = new Headers({
-        'Content-Type': false,
-        'processData': false
-    });
 
     private readonly REQUEST_OPTIONS: RequestOptionsArgs = new RequestOptions({ headers: this.REQUEST_HEADERS });
-    private readonly REQUEST_OPTIONS1: RequestOptionsArgs = new RequestOptions({ headers: this.REQUEST_HEADERS1 });
+    
 
     private getBaseURI() {
         return this.basePath + this.MyTrUrl;
-    }
-    private getBaseURI1() {
-        return this.basePath1 + this.MyTrUrl;
     }
 
     constructor(private http: Http, private storage: Ng2Storage) {
@@ -72,43 +66,43 @@ export class LiveDataService extends DataService {
 
     public getSubDomainDetails(domainId: string): Observable<any> {
         return this.http.get(`${this.subDomainData}?domainId=${domainId}`, this.REQUEST_OPTIONS).map((res: Response) => {
-                const items = <any[]>res.json();
-                let subDomainData = [];
-                items.forEach((subDomain) => {
-                    subDomainData.push({
-                        label:subDomain.subDomaineName,
-                        value:  {
-                            domainId: subDomain.domainId,
-                            subDomainId: subDomain.id,
-                            subDomaineName: subDomain.subDomaineName
-                        }
-                    })
+            const items = <any[]>res.json();
+            let subDomainData = [];
+            items.forEach((subDomain) => {
+                subDomainData.push({
+                    label: subDomain.subDomaineName,
+                    value: {
+                        domainId: subDomain.domainId,
+                        subDomainId: subDomain.id,
+                        subDomaineName: subDomain.subDomaineName
+                    }
                 })
-                return subDomainData;
             })
+            return subDomainData;
+        })
     }
 
     public getChildDomainDetails(domainId: string, subDomainId: string): Observable<any> {
         return this.http.get(`${this.childDomainData}?domainId=${domainId}&subDomainId=${subDomainId}`, this.REQUEST_OPTIONS).map((res: Response) => {
-                const items = <any[]>res.json();
-                let childDomainData = [];
-                items.forEach((childDomain) => {
-                    childDomainData.push({
-                        label:childDomain.chilDomainName,
-                        value:  {
-                            domainId: childDomain.domainId,
-                            subDomainId: childDomain.subDomainId,
-                            childDomainId: childDomain.id,
-                            childDomaineName: childDomain.chilDomainName
-                        }
-                    })
+            const items = <any[]>res.json();
+            let childDomainData = [];
+            items.forEach((childDomain) => {
+                childDomainData.push({
+                    label: childDomain.chilDomainName,
+                    value: {
+                        domainId: childDomain.domainId,
+                        subDomainId: childDomain.subDomainId,
+                        childDomainId: childDomain.id,
+                        childDomaineName: childDomain.chilDomainName
+                    }
                 })
-                return childDomainData;
             })
+            return childDomainData;
+        })
     }
 
     public getAllSkillData(empId: string): Observable<any> {
-        let id ="E001272";
+        let id = "E001272";
         return Observable.forkJoin([
             this.http.get(`${this.skillDetails}?empId=${id}`, this.REQUEST_OPTIONS).map((res: Response) => res.json()),
             this.http.get(`${this.domainData}`, this.REQUEST_OPTIONS).map((res: Response) => {
@@ -116,8 +110,8 @@ export class LiveDataService extends DataService {
                 let domainData = [];
                 items.forEach((domain) => {
                     domainData.push({
-                        label:domain.domainName,
-                        value:  {
+                        label: domain.domainName,
+                        value: {
                             domainId: domain.id,
                             domainName: domain.domainName
                         }
@@ -154,17 +148,44 @@ export class LiveDataService extends DataService {
         ]);
     }
 
+    public getThemes(): Observable<any> {
+        return this.http.get(`${this.getAllThemes}`, this.REQUEST_OPTIONS).map((res: Response) => {
+            const items = <any[]>res.json();
+            let themeData = {
+                label: 'Themes',
+                icon: 'palette',
+                badge: '4',
+                items: []
+            };
+            
+            items['details'].forEach((theme) => {
+                themeData.items.push({
+                    label: theme.themeName,
+                    id: theme.themeId,
+                    icon: 'brush'
+                })
+            })
+            return themeData;
+        })
+    }
+
+     public updateTheme(obj): Observable<any> {
+        return this.http.post(`${this.saveTheme}`, obj, this.REQUEST_OPTIONS).map((response: Response) => {
+            return response.json();
+        })
+    }
+
     public saveContactAndExpDetails(paramObj): Observable<any> {
-        return this.http.post(`${this.insertContactAndExp}`,paramObj, this.REQUEST_OPTIONS).map((response: Response) => {
+        return this.http.post(`${this.insertContactAndExp}`, paramObj, this.REQUEST_OPTIONS).map((response: Response) => {
             return response.json();
         })
     }
 
     public uploadProfileImage(obj): Observable<any> {
-        return this.http.post(`${this.uploadImage}`, obj, this.REQUEST_OPTIONS1).map((response: Response) => {
+        return this.http.post(`${this.uploadImage}`, obj).map((response: Response) => {
             return response.json();
         })
     }
-    
+
 }
 

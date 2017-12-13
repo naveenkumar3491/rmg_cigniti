@@ -14,10 +14,10 @@
 						<div class="theme-panel-body">
 							<div class="" align="center">
 								<div class="profilePic">
-									<div *ngIf="emptyImage" style="padding:5px;border:1px solid #b5a7a7">
+									<div *ngIf="!url" style="padding:5px;border:1px solid #b5a7a7">
 										<span class="glyphicon glyphicon-user profileUserImage"></span>
 									</div>
-									<img [src]="url" width="100" height="100" *ngIf="!emptyImage">
+									<img [src]="url" width="100" height="100" *ngIf="url">
 									<input type='file' style="visibility:hidden;" #getFile accept="image/*" (change)="readUrl($event)">
 									<div (click)="removeImg()" class="removeImg" *ngIf="!emptyImage">
 										<span class="glyphicon glyphicon-remove"></span>

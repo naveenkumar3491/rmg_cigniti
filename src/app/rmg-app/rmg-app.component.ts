@@ -1,4 +1,5 @@
 import {Component, OnInit, AfterViewInit, ElementRef, Renderer, ViewChild, OnDestroy} from '@angular/core';
+import { Subscription } from 'rxjs';
 enum MenuOrientation {
     STATIC,
     OVERLAY,

@@ -1,5 +1,4 @@
-import { Component, Inject  } from '@angular/core';
-import { DOCUMENT } from '@angular/platform-browser';
+import { Component } from '@angular/core';
 import { Router } from "@angular/router";
 import { Ng2Storage } from "../../services/storage";
 import { RmgAppComponent } from "../../rmg-app/rmg-app.component";
@@ -17,9 +16,6 @@ import { RmgAppComponent } from "../../rmg-app/rmg-app.component";
                     <i></i>
                 </a>
 
-                <a id="rightpanel-menu-button" href="#" (click)="app.onRightPanelButtonClick($event)">
-                    <i class="material-icons">more_vert</i>
-                </a>
                 <ul class="topbar-items animated fadeInDown" [ngClass]="{'topbar-items-visible': app.topbarMenuActive}">
                    
                     <li #settings [ngClass]="{'active-top-menu':app.activeTopbarItem === settings}">
@@ -46,15 +42,11 @@ import { RmgAppComponent } from "../../rmg-app/rmg-app.component";
 export class AppTopbarComponent {
 
     constructor(public app: RmgAppComponent, private storage: Ng2Storage, 
-    private router: Router, @Inject(DOCUMENT) private document) { }
+    private router: Router) { }
 
     onLogout(){
         this.storage.clearAllSession();
         this.router.navigate(['./login'])
-    }
-
-    onThemeChange(){
-        this.document.getElementById('cigniti-css').setAttribute('href', 'assets/theme/cigniti.css');
     }
 
 }
