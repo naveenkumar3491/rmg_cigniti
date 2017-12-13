@@ -7,9 +7,9 @@ import {ChartModule} from 'primeng/primeng';
 import {TabViewModule} from 'primeng/primeng';
 import {DropdownModule} from 'primeng/primeng';
 import {RatingModule} from 'primeng/primeng';
-import {FieldsetModule} from 'primeng/primeng';
 import {GrowlModule} from 'primeng/primeng';
 import {ProgressBarModule} from 'primeng/primeng';
+import {AccordionModule} from 'primeng/primeng';
 import {BusyModule} from 'angular2-busy';
 
 import { RmgAppComponent } from './rmg-app.component';
@@ -43,9 +43,9 @@ import { DomainDetailsComponent } from './employee/domain-details/domain-details
     TabViewModule,
     DropdownModule,
     RatingModule,
-    FieldsetModule,
     GrowlModule,
     ProgressBarModule,
+    AccordionModule,
     BusyModule
   ],
   declarations: [

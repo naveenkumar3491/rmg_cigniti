@@ -3168,7 +3168,7 @@ body .ui-widget-content {
   font-size: 1em;
   border: 1px solid #bdbdbd; }
   body .ui-widget-content .fa {
-    color: #FF5722; }
+    color: #fff; }
 body .ui-widget-header {
   background-color: #757575;
   color: #ffffff;
@@ -6005,6 +6005,7 @@ body .ui-progressbar {
   overflow: hidden;
   border: 0 none; }
   body .ui-progressbar .ui-progressbar-value {
+    background-color: #FF5722;
     height: .5em; }
   body .ui-progressbar .ui-progressbar-label {
     color: #ffffff;

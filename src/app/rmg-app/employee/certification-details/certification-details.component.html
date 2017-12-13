@@ -2,22 +2,18 @@
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="panel-body">
-                <form>
-                    <p-fieldset legend="Certification Details" [toggleable]="true" collapsed="true">
-                        <p-dataTable [value]="certificationDetails" scrollable="true" scrollHeight="200px" emptyMessage="No certifications found">
-                            <p-column [sortable]="true" *ngFor="let col of certificationHeader" [field]="col.field" [header]="col.header"></p-column>
-                            <p-column styleClass="col-button">
-                                <ng-template pTemplate="header">
-                                    Action
-                                </ng-template>
-                                <ng-template let-car="rowData" let-i="rowIndex" pTemplate="body">
-                                    <a class="curosr-p"><i class="fa fa-edit"></i></a>
-                                    <a class="curosr-p"><i class="fa fa-trash"></i></a>
-                                </ng-template>
-                            </p-column>
-                        </p-dataTable>
-                    </p-fieldset>
-                </form>
+                <p-dataTable [value]="certificationDetails" scrollable="true" scrollHeight="200px" emptyMessage="No certifications found">
+                    <p-column [sortable]="true" *ngFor="let col of certificationHeader" [field]="col.field" [header]="col.header"></p-column>
+                    <p-column styleClass="col-button">
+                        <ng-template pTemplate="header">
+                            Action
+                        </ng-template>
+                        <ng-template let-car="rowData" let-i="rowIndex" pTemplate="body">
+                            <a class="curosr-p"><i class="fa fa-edit"></i></a>
+                            <a class="curosr-p"><i class="fa fa-trash"></i></a>
+                        </ng-template>
+                    </p-column>
+                </p-dataTable>
             </div>
         </div>
     </div>

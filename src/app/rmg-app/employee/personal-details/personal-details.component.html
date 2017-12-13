@@ -2,147 +2,155 @@
 
 <div class="personal-details" style="position:relative">
 	<div [ngBusy]="personalBusy"></div>
-<div class="row">
-	<div class="col-md-12">
-		<div class="theme-panel theme-panel-primary">
-			<!--<div class="theme-panel-heading">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="theme-panel theme-panel-primary">
+				<!--<div class="theme-panel-heading">
 				Personal Details
 			</div>-->
-			<div class="theme-panel-body-perosnal">
-				<div class="col-lg-3 col-md-3">
-					<!--<form method="post" id="profile_form_step_1" action="http://172.16.2.47/RMG-Tool/index.php/fileupload/profile_upload" enctype="multipart/form-data">-->
-					<div class="theme-panel-body">
-						<div class="" align="center">
-							<div class="profilePic">
-								<div *ngIf="emptyImage" style="padding:5px;border:1px solid #b5a7a7">
-									<span class="glyphicon glyphicon-user profileUserImage"></span>
+				<div class="theme-panel-body-perosnal">
+					<div class="col-lg-3 col-md-3">
+						<!--<form method="post" id="profile_form_step_1" action="http://172.16.2.47/RMG-Tool/index.php/fileupload/profile_upload" enctype="multipart/form-data">-->
+						<div class="theme-panel-body">
+							<div class="" align="center">
+								<div class="profilePic">
+									<div *ngIf="emptyImage" style="padding:5px;border:1px solid #b5a7a7">
+										<span class="glyphicon glyphicon-user profileUserImage"></span>
+									</div>
+									<img [src]="url" width="100" height="100" *ngIf="!emptyImage">
+									<input type='file' style="visibility:hidden;" #getFile accept="image/*" (change)="readUrl($event)">
+									<div (click)="removeImg()" class="removeImg" *ngIf="!emptyImage">
+										<span class="glyphicon glyphicon-remove"></span>
+									</div>
 								</div>
-								<img [src]="url" width="100" height="100" *ngIf="!emptyImage">
-								<input type='file' style="visibility:hidden;" #getFile accept="image/*" (change)="readUrl($event)">
-								<div (click)="removeImg()" class="removeImg" *ngIf="!emptyImage">
-									<span class="glyphicon glyphicon-remove"></span>
+								<div class="profileBtns">
+									<button (click)="uploadFile()" class="theme-btn theme-btn-primary" *ngIf="!emptyImage">Upload</button>
+									<button (click)="getFile.click()" class="theme-btn theme-btn-primary" *ngIf="emptyImage">Browse</button>
 								</div>
-							</div>
-							<div class="profileBtns">
-								<button (click)="uploadFile()" class="theme-btn theme-btn-primary" *ngIf="!emptyImage">Upload</button>
-								<button (click)="getFile.click()" class="theme-btn theme-btn-primary" *ngIf="emptyImage">Browse</button>
-							</div>
-						</div><br>
-						<p-progressBar [value]="profileProgress" [showValue]="true"></p-progressBar>
-					</div>
-					<!--</form>-->
+							</div><br>
+							<p-progressBar [value]="profileProgress" [showValue]="true"></p-progressBar>
+						</div>
+						<!--</form>-->
 
-				</div>
-				<div class="col-lg-9 col-md-9">
-					<div class="row">
-						<div class="col-lg-12 col-md-12 ">
-							<div class="col-lg-4 col-md-4 pad-l-0">
-								<div class="">
-									<span class="empTitle">EMPLOYEE ID</span>
-									<p class="form-control-static">{{personalDetails?.emp_id}}</p>
-								</div>
-							</div>
-							<div class="col-lg-4 col-md-4 no-padding">
-								<div class="">
-
-									<span class="empTitle">EMPLOYEE NAME</span>
-									<p class="form-control-static">{{personalDetails?.employeeName}}</p>
-								</div>
-							</div>
-							<div class="col-lg-4 col-md-4 pad-l-0">
-								<div class="">
-									<span class="empTitle">DESIGNATION</span>
-									<p class="form-control-static"> {{personalDetails?.designation}}</p>
-								</div>
-							</div>
-						</div>
 					</div>
-					<div class="row">
-						<div class="col-lg-12 col-md-12">
-							<div class="col-lg-4 col-md-4 pad-l-0">
-								<div class="">
-									<span class="empTitle">DATE OF JOINING</span>
-									<p class="form-control-static">{{personalDetails?.doj}}</p>
-								</div>
-							</div>
-							<div class="col-lg-4 col-md-4 pad-l-0">
-								<div class="">
-									<span class="empTitle">JOINING LOCATION</span>
-									<p class="form-control-static"> {{personalDetails?.joinginLocation}}</p>
-								</div>
-							</div>
-							<div class="col-lg-4 col-md-4 no-padding">
-								<div class="">
-									<span class="empTitle">CURRENT LOCATION</span>
-									<p class="form-control-static"> {{personalDetails?.currentLocation}}</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-lg-4 col-md-4 pad-l-0">
-							<div class="" style="margin-left:8px;">
-								<span class="empTitle">EMPLOYEMENT TYPE</span>
-								<p class="form-control-static">{{personalDetails?.employeementType}}</p>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-4 pad-l-0">
+					<div class="col-lg-9 col-md-9">
+						<div class="row">
 							<div class="">
-								<span class="empTitle">REPORTING MANAGER</span>
-								<p class="form-control-static">{{personalDetails?.reportingManager}}</p>
+								<div class="col-lg-4 col-md-4 pad-l-0">
+									<div class="">
+										<span class="empTitle">EMPLOYEE ID</span>
+										<p class="form-control-static">{{personalDetails?.emp_id}}</p>
+									</div>
+								</div>
+								<div class="col-lg-4 col-md-4 no-padding">
+									<div class="">
+
+										<span class="empTitle">EMPLOYEE NAME</span>
+										<p class="form-control-static">{{personalDetails?.employeeName}}</p>
+									</div>
+								</div>
+								<div class="col-lg-4 col-md-4 pad-l-0">
+									<div class="">
+										<span class="empTitle">DESIGNATION</span>
+										<p class="form-control-static"> {{personalDetails?.designation}}</p>
+									</div>
+								</div>
 							</div>
 						</div>
-						<div class="col-lg-4 col-md-4 no-padding">
+						<div class="row">
 							<div class="">
-								<span class="empTitle">RMG Spoc</span>
-								<p class="form-control-static">Spoc</p>
+								<div class="col-lg-4 col-md-4 pad-l-0">
+									<div class="">
+										<span class="empTitle">DATE OF JOINING</span>
+										<p class="form-control-static">{{personalDetails?.doj}}</p>
+									</div>
+								</div>
+								<div class="col-lg-4 col-md-4 pad-l-0">
+									<div class="">
+										<span class="empTitle">JOINING LOCATION</span>
+										<p class="form-control-static"> {{personalDetails?.joinginLocation}}</p>
+									</div>
+								</div>
+								<div class="col-lg-4 col-md-4 no-padding">
+									<div class="">
+										<span class="empTitle">CURRENT LOCATION</span>
+										<p class="form-control-static"> {{personalDetails?.currentLocation}}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="">
+								<div class="col-lg-4 col-md-4 pad-l-0">
+									<div class="">
+										<span class="empTitle">EMPLOYEMENT TYPE</span>
+										<p class="form-control-static">{{personalDetails?.employeementType}}</p>
+									</div>
+								</div>
+								<div class="col-lg-4 col-md-4 pad-l-0">
+									<div class="">
+										<span class="empTitle">REPORTING MANAGER</span>
+										<p class="form-control-static">{{personalDetails?.reportingManager}}</p>
+									</div>
+								</div>
+								<div class="col-lg-4 col-md-4 no-padding">
+									<div class="">
+										<span class="empTitle">RMG Spoc</span>
+										<p class="form-control-static">Spoc</p>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-
 				</div>
+
 			</div>
+		</div>
 
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="cardTabs card-w-title">
+				<p-tabView (onChange)="onTabChange($event)">
+					<p-tabPanel *ngFor="let empTab of employeeInfoTabs;" header="{{empTab.name}}" leftIcon="{{empTab.icon}}">
+						<div [ngSwitch]="empTab.field" style="position: relative">
+							<ng-template [ngSwitchCase]="'experience-details'">
+								<val-experience-details *ngIf="personalDetails" [personalDetails]="personalDetails"></val-experience-details>
+							</ng-template>
+							<ng-template [ngSwitchCase]="'contact-details'">
+								<val-contact-details *ngIf="personalDetails" [personalDetails]="personalDetails"></val-contact-details>
+							</ng-template>
+							<div [ngBusy]="skillBusy">
+								<ng-template [ngSwitchCase]="'skill-details'">
+									<p-accordion>
+										<p-accordionTab header="Skill Details">
+											<val-skill-details *ngIf="skillsMasterData" [skillDetails]="skillsMasterData[0].details.skill_List" [skillMasterData]="skillsMasterData[2]"></val-skill-details>
+										</p-accordionTab>
+										<p-accordionTab header="Domain Details">
+											<val-domain-details *ngIf="skillsMasterData" [domainDetails]="skillsMasterData[0].details.domain_List" [masterDomains]="skillsMasterData[1]"></val-domain-details>
+										</p-accordionTab>
+										<p-accordionTab header="Certification Details">
+											<val-certification-details *ngIf="skillsMasterData" [certificationDetails]="skillsMasterData[0].details.certification_List"></val-certification-details>
+										</p-accordionTab>
+									</p-accordion>
+								</ng-template>
+							</div>
+							<div [ngBusy]="projectBusy">
+								<ng-template [ngSwitchCase]="'project-details'">
+									<val-project-details *ngIf="projectDetails" [projectDetails]="projectDetails"></val-project-details>
+								</ng-template>
+							</div>
+							<ng-template [ngSwitchCase]="'bu-details'">
+								<val-bu-details *ngIf="personalDetails" [personalDetails]="personalDetails"></val-bu-details>
+							</ng-template>
+							<ng-template [ngSwitchCase]="'visa-details'">
+								<val-visa-details></val-visa-details>
+							</ng-template>
+						</div>
+					</p-tabPanel>
+				</p-tabView>
+			</div>
 		</div>
 	</div>
-
-</div>
-
-<div class="row">
-		<div class="col-md-12">
-	<div class="cardTabs card-w-title">
-		<p-tabView (onChange)="onTabChange($event)">
-			<p-tabPanel *ngFor="let empTab of employeeInfoTabs;" 
-			header="{{empTab.name}}" leftIcon="{{empTab.icon}}" >
-				<div [ngSwitch]="empTab.field" style="position: relative">
-					<ng-template [ngSwitchCase]="'experience-details'">
-						<val-experience-details *ngIf="personalDetails" [personalDetails]="personalDetails"></val-experience-details>
-					</ng-template>
-					<ng-template [ngSwitchCase]="'contact-details'">
-						<val-contact-details *ngIf="personalDetails" [personalDetails]="personalDetails"></val-contact-details>
-					</ng-template>
-					<div [ngBusy]="skillBusy">
-					<ng-template [ngSwitchCase]="'skill-details'">
-						<val-skill-details *ngIf="skillsMasterData" 
-						[skillDetails]="skillsMasterData[0].details.skill_List"
-						[skillMasterData]="skillsMasterData[2]"></val-skill-details>
-						<val-domain-details *ngIf="skillsMasterData" [domainDetails]="skillsMasterData[0].details.domain_List" [masterDomains]="skillsMasterData[1]"></val-domain-details>
-						<val-certification-details *ngIf="skillsMasterData" [certificationDetails]="skillsMasterData[0].details.certification_List"></val-certification-details>
-					</ng-template></div>
-					<div [ngBusy]="projectBusy">
-					<ng-template [ngSwitchCase]="'project-details'">
-						<val-project-details *ngIf="projectDetails" [projectDetails]="projectDetails"></val-project-details>
-					</ng-template></div>
-					<ng-template [ngSwitchCase]="'bu-details'">
-						<val-bu-details *ngIf="personalDetails" [personalDetails]="personalDetails"></val-bu-details>
-					</ng-template>
-					<ng-template [ngSwitchCase]="'visa-details'">
-						<val-visa-details></val-visa-details>
-					</ng-template>
-				</div>
-			</p-tabPanel>
-		</p-tabView>
-	</div>
-</div>
-</div>
 </div>
