@@ -36,32 +36,32 @@ export class PersonalDetailsComponent implements OnInit {
     {
       name: 'Contact Details',
       field: 'contact-details',
-      icon: 'ui-icon-contact-phone'
+      icon: 'fa fa-address-book'
     },
     {
       name: 'Experience Details',
       field: 'experience-details',
-      icon: 'ui-icon-format-align-justify'
+      icon: 'fa fa-id-badge'
     },
     {
       name: 'Professional Details',
       field: 'skill-details',
-      icon: 'ui-icon-contact-phone'
+      icon: 'fa fa-mortar-board'
     },
     {
       name: 'Project Details',
       field: 'project-details',
-      icon: 'ui-icon-call-to-action'
+      icon: 'fa fa-user-circle'
     },
     {
       name: 'BU Details',
       field: 'bu-details',
-      icon: 'ui-icon-featured-play-list'
+      icon: 'fa fa-address-card'
     },
     {
       name: 'VISA Details',
       field: 'visa-details',
-      icon: 'ui-icon-featured-play-list'
+      icon: 'fa fa-plane'
     }
   ];
   constructor(public cdRef: ChangeDetectorRef, private messageService: MessageService,

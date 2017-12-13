@@ -1,7 +1,7 @@
 <div class="experience-details">
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="panel panel-default">
+            <div class="panel">
                 <!--<div class="panel-heading">Experience Details</div>-->
                 <div class="panel-body">
 
@@ -17,8 +17,8 @@
                         <div class="form-group">
                             <span class="help-block pro-title">TOTAL EXPERIENCE
                             <span *ngIf="editMode">
-                            <a class="curosr-p" (click)="saveExp('edit')"><i class="fa ui-icon-edit" style="font-size: 15px;"></i></a></span>
-                            <span *ngIf="!editMode"><a class="curosr-p" (click)="saveExp('save')"><i class="fa ui-icon-save" style="font-size: 15px;"></i></a></span>
+                            <a class="curosr-p" (click)="saveExp('edit')"><i class="fa fa-edit" style="font-size: 15px;"></i></a></span>
+                            <span *ngIf="!editMode"><a class="curosr-p" (click)="saveExp('save')"><i class="fa fa-save" style="font-size: 15px;"></i></a></span>
                             </span>
                             <div *ngIf="!editMode">
                                 <span>Years</span> <span style="margin-left:30px;">Months</span></div>

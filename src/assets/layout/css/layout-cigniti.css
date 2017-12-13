@@ -1826,7 +1826,7 @@ body .layout-wrapper.layout-compact {
     .theme-panel {
     margin-bottom: 20px;
     background-color: #fff;
-    border: 1px solid transparent;
+    /*border: 1px solid transparent;*/
     border-radius: 4px;
     box-shadow: 0 1px 1px rgba(0,0,0,.05);
 }
@@ -1847,10 +1847,7 @@ body .layout-wrapper.layout-compact {
     border-top-right-radius: 3px;
 }
 .theme-panel-body {
-    padding: 15px;
    width:100%;
-   float: left;
-   height: auto;
 }
 
 .theme-btn-primary {

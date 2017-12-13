@@ -1,17 +1,19 @@
 <div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="panel panel-default">
+    <div class="">
+        <div class="panel">
             <div class="panel-body">
                 <form [formGroup]="contactForm" novalidate>
                     <div class="col-md-3 col-sm-3 col-xs-12">
                         <div class="form-group">
-                            <span class="help-block pro-title">OFFICIAL EMAIL ID</span>
+                            <span class="pro-title">OFFICIAL EMAIL ID</span>
+                            <span class="fa fa-envelope"></span>
                             <p style="margin-top: 10px;">{{personalDetails.officialEmailId}}</p>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-12">
                         <div class="form-group">
-                            <span class="help-block pro-title">PERSONAL EMAIL ID</span>
+                            <span class="pro-title">PERSONAL EMAIL ID</span>
+                            <span class="fa fa-envelope"></span>
                             <input type="email" *ngIf="!editMode" class="form-control" formControlName="pEmailId" [(ngModel)]="model.personalEmailId"
                                 required/>
                             <p *ngIf="editMode" style="margin-top: 10px;">{{model.personalEmailId}}</p>
@@ -27,9 +29,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="col-md-3 col-sm-3 col-xs-12">
                         <div class="form-group">
-                            <span class="help-block pro-title">MOBILE</span>
+                            <span class="pro-title">MOBILE</span>
+                            <span class="fa fa-mobile-phone"></span>
                             <input type="text" *ngIf="!editMode" 
                             class="form-control" formControlName="mobile" [(ngModel)]="model.mobile" />
                             <p *ngIf="editMode" style="margin-top: 10px;">{{model.mobile}}</p>
@@ -40,9 +43,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-1 col-sm-1 col-xs-12" style="margin-top: 19px">
+                    <div class="col-md-2 col-sm-2 col-xs-12" style="margin-top: 19px">
                         <button *ngIf="editMode" class="btn btn-primary" (click)="onContactDetChange('edit')">Edit</button>
-                        <button *ngIf="!editMode" class="btn btn-primary" (click)="onContactDetChange('save')">Save</button>
+                        <button *ngIf="!editMode" class="btn btn-success" (click)="onContactDetChange('save')">Save</button>
+                        <button *ngIf="!editMode" class="btn btn-default" (click)="editMode=true">Cancel</button>                        
                     </div>
                 </form>
             </div>

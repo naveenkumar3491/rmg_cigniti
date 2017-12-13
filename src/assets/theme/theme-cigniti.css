@@ -3168,7 +3168,7 @@ body .ui-widget-content {
   font-size: 1em;
   border: 1px solid #bdbdbd; }
   body .ui-widget-content .fa {
-    color: #757575; }
+    color: #337ab7; }
 body .ui-widget-header {
   background-color: #757575;
   color: #ffffff;
@@ -4527,16 +4527,16 @@ body .ui-tabview {
         transition: color 0.3s;
         color: #757575; }
       body .ui-tabview .ui-tabview-nav > li .ui-tabview-left-icon, body .ui-tabview .ui-tabview-nav > li .ui-tabview-right-icon {
-        color: #757575;
+        color: #337ab7;
         display: inline-block;
         vertical-align: middle; }
       body .ui-tabview .ui-tabview-nav > li .ui-tabview-title {
         line-height: 1.5em;
         vertical-align: middle; }
       body .ui-tabview .ui-tabview-nav > li.ui-state-default a {
-        color: #757575; }
+        color: #403d3d; }
       body .ui-tabview .ui-tabview-nav > li:not(.ui-state-active):not(.ui-state-disabled):hover {
-        background-color: #ffffff; }
+        background-color: #e8e4e4; }
       body .ui-tabview .ui-tabview-nav > li.ui-state-active {
         background-color: #337ab7;
         border-color: #337ab7;

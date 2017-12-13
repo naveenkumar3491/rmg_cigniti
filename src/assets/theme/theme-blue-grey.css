@@ -3168,7 +3168,7 @@ body .ui-widget-content {
   font-size: 1em;
   border: 1px solid #bdbdbd; }
   body .ui-widget-content .fa {
-    color: #757575; }
+    color: #5e9225; }
 body .ui-widget-header {
   background-color: #607D8B;
   color: #ffffff;
@@ -4527,7 +4527,7 @@ body .ui-tabview {
         transition: color 0.3s;
         color: #757575; }
       body .ui-tabview .ui-tabview-nav > li .ui-tabview-left-icon, body .ui-tabview .ui-tabview-nav > li .ui-tabview-right-icon {
-        color: #757575;
+        color: #5e9225;
         display: inline-block;
         vertical-align: middle; }
       body .ui-tabview .ui-tabview-nav > li .ui-tabview-title {
