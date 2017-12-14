@@ -31,13 +31,15 @@ export class ContactDetailsComponent implements OnInit {
       mobile: ['', [Validators.required]]
     })
   }
+  
 
    onContactDetChange(type) {
 
 
     if (type === 'save') {
+      this.formSubmitAttempt = true;
       if (this.contactForm.valid) {
-        this.formSubmitAttempt = true;
+        
         let paramObj = {
           empId: this.userData.employeeId,
           personalMailId: this.model['personalEmailId'],

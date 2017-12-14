@@ -82,6 +82,11 @@ export class PersonalDetailsComponent implements OnInit {
 
   }
 
+  addValue(){
+    this.profileProgress += 10;
+    this.changeProgressBarColor();
+  }
+
   changeProgressBarColor() {
     if (this.profileProgress <= 30) {
       this.pbarColor = 'pb-low';
