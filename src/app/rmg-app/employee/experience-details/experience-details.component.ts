@@ -47,7 +47,7 @@ export class ExperienceDetailsComponent implements OnInit {
   }
   removeResume() {
     this.emptyResume = true;
-    this.resumeName = "Not Yet Upload"
+    this.resumeName = "Not Yet Uploaded"
   }
 
   saveExp(type) {

@@ -154,7 +154,7 @@ export class LiveDataService extends DataService {
             let themeData = {
                 label: 'Themes',
                 icon: 'palette',
-                badge: '4',
+                badge: '3',
                 items: []
             };
             

@@ -22,7 +22,9 @@ export class AppMenuComponent implements OnInit {
     constructor(public app: RmgAppComponent, private storage: Ng2Storage, private dataService: DataService) { }
 
     ngOnInit() {
-        this.changeTheme(this.userData.themeCol ? this.userData.themeCol : 'cigniti');
+        if(this.userData.themeCol){
+            this.changeTheme(this.userData.themeCol);
+        }
         this.dataService.getThemes().subscribe((data) => {
             data.items.forEach(theme => {
                 theme.command = (event) => { this.saveTheme(theme); }
@@ -42,6 +44,7 @@ export class AppMenuComponent implements OnInit {
     }
 
     changeTheme(theme) {
+        console.log('changed')
         const themeLink: HTMLLinkElement = <HTMLLinkElement>document.getElementById('theme-css');
         const layoutLink: HTMLLinkElement = <HTMLLinkElement>document.getElementById('layout-css');
         themeLink.href = 'assets/theme/theme-' + theme + '.css';
@@ -55,6 +58,9 @@ export class AppMenuComponent implements OnInit {
         }
         this.dataService.updateTheme(paramObj).subscribe((data) => {
            this.changeTheme(theme.label);
+        //    let sessionData = this.storage.getSession('user_data');
+        //    sessionData.themeCol = theme.label;
+           //this.storage.setSession('user_data', sessionData);
         })
 
     }

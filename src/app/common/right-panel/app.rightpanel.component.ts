@@ -46,7 +46,6 @@ declare var jQuery: any;
 export class AppRightpanelComponent implements OnDestroy, AfterViewInit, OnInit {
         public themeName: any;
 
-     public rightPaneSeleTheme:any;
     rightPanelMenuScroller: HTMLDivElement;
 
     @ViewChild('rightPanelMenuScroller') rightPanelMenuScrollerViewChild: ElementRef;
@@ -61,19 +60,9 @@ export class AppRightpanelComponent implements OnDestroy, AfterViewInit, OnInit 
         }, 10);
     }
      ngOnInit() {
-        let userData = this.storage.getSession('user_data');
-        
-        this.onThemeChange(userData.themeCol);
-        this.rightPaneSeleTheme=userData.themeCol;
      }
 
     ngOnDestroy() {
         jQuery(this.rightPanelMenuScroller).nanoScroller({flash: true});
-    }
-    onThemeChange(themeName: string){
-            this.rightPaneSeleTheme=themeName;
-           this.document.getElementById('theme-css').setAttribute('href', `assets/theme/theme-${themeName}.css`);
-            this.document.getElementById('layout-css').setAttribute('href', `assets/layout/css/layout-${themeName}.css`);
-       
     }
 }
