@@ -2,6 +2,38 @@
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="panel-body">
+              <div class="panel panel-default">
+                      <div class="panel-body">
+                        <div class="row" style="margin: 10px;">
+                          <div class="col-md-4">
+                            <p-dropdown [options]="certificationNames" name="certificationDetails" [(ngModel)]="value" placeholder="Certification Name"
+                            optionLabel="label" [style]="{'width':'150px'}" (onChange)="onCertificationChange()" [autoWidth]="false"></p-dropdown>
+                          </div>
+                          <div class="col-md-4">
+                              <input class="form-control" type="text" placeholder="Certification From" name="Certification"  />
+                          </div>
+                          <div class="col-md-4">
+                            <p-dropdown [options]="levelDetails" name="certificationDetails" [(ngModel)]="val" placeholder="Level"
+                              optionLabel="lev" [style]="{'width':'150px'}" (onChange)="onLevelDrpChange()" [autoWidth]="false"></p-dropdown>
+                          </div>
+                        </div>
+                        <div class="row" style="margin: 10px;">
+                          <div class="col-md-3" style="margin-top: 23px;">
+                            <p-calendar [(ngModel)]="date2" [showIcon]="true"></p-calendar>
+                          </div>
+                          <div class="col-md-3" style="margin-top: 23px;">
+                            <p-calendar [(ngModel)]="date3" [showIcon]="true"></p-calendar>
+                              </div>
+                          <div class="col-md-3" style="margin-top: 18px;">
+                            <input class="form-control" type="text" placeholder="description" name="description"  />
+                          </div>
+                          <div class="col-md-3" style="margin-top: 18px;">
+                            <button  type="button" class="btn btn-success">Add</button>
+                            <button  type="button" class="btn btn-success">Update</button>
+                          </div>
+                        </div>
+                      </div>
+              </div>
                 <p-dataTable [value]="certificationDetails" scrollable="true" scrollHeight="200px" emptyMessage="No certifications found">
                     <p-column [sortable]="true" *ngFor="let col of certificationHeader" [field]="col.field" [header]="col.header"></p-column>
                     <p-column styleClass="col-button">
