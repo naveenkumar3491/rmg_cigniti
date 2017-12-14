@@ -200,22 +200,48 @@ p-fieldset{
 }
 
 .personal-details{
+	.pb-low{
+		p-progressBar{
+			.ui-progressbar {
+				.ui-progressbar-value{
+					background-color: red;
+				}
+			}
+		}
+	}
+	.pb-moderate{
+		p-progressBar{
+			.ui-progressbar {
+				.ui-progressbar-value{
+					background-color: orange;
+				}
+			}
+		}
+	}
+	.pb-good{
+		p-progressBar{
+			.ui-progressbar {
+				.ui-progressbar-value{
+					background-color: green;
+				}
+			}
+		}
+	}
 	p-progressBar{
-	.ui-progressbar {
-		height: 25px;
-	.ui-progressbar-value{
-		height:25px;
-	}
-	.ui-progressbar-label{
-			display: block !important;
-			margin-top: 3px;
-		color: #000;
-	}
-	}
-	
-	.ui-widget-content{
-	border: 1px solid #bdbdbd;
-	}
+		.ui-progressbar {
+			height: 25px;
+			.ui-progressbar-value{
+				height:25px;
+			}
+			.ui-progressbar-label{
+				display: block !important;
+				margin-top: 3px;
+				color: #000;
+			}
+		}	
+		.ui-widget-content{
+		border: 1px solid #bdbdbd;
+		}
 	}
 }
 
