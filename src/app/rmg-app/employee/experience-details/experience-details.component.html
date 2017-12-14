@@ -37,6 +37,7 @@
                                 <span (click)="removeResume()" class="removeResume" *ngIf="!emptyResume">
 									<span class="glyphicon glyphicon-remove"></span>
                                 </span>
+                                <button (click)="uploadFile()" class="theme-btn theme-btn-primary" *ngIf="!emptyResume">Upload</button>
                                 <button *ngIf="emptyResume" (click)="getResumeFile.click()" class="btn btn-primary">Browse</button>
                             </div>
                         </div>

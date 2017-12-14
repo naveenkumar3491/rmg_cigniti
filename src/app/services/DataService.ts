@@ -5,6 +5,7 @@ export abstract class DataService {
     public abstract loginUser( obj: ILogin): Observable<ILoginResponse>;
     public abstract getEmployeeDetails( id ): Observable<any>;
     public abstract uploadProfileImage( obj ): Observable<any>;
+    public abstract uploadProfileResume( obj ): Observable<any>;
     public abstract getAllSkillData( id ): Observable<any>;
     public abstract getProjectDetails( id ): Observable<any>;
     public abstract getSubDomainDetails( id ): Observable<any>;

@@ -25,7 +25,7 @@ export class LiveDataService extends DataService {
     private readonly saveTheme = this.getBaseURI() + 'updateTheme';
     private readonly insertContactAndExp = this.getBaseURI() + 'empContactAndExp';
     private readonly uploadImage = this.getBaseURI() + 'uploadImage';
-
+    private readonly uploadResume = this.getBaseURI() + 'uploadResume';
     private readonly REQUEST_HEADERS: Headers = new Headers({
         'Content-Type': 'application/json; charset=utf-8',
         'Accept': 'application/json'
@@ -186,6 +186,12 @@ export class LiveDataService extends DataService {
             return response.json();
         })
     }
+        public uploadProfileResume(obj): Observable<any> {
+        return this.http.post(`${this.uploadResume}`, obj).map((response: Response) => {
+            return response.json();
+        })
+    }
+
 
 }
 
