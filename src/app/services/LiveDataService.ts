@@ -102,9 +102,8 @@ export class LiveDataService extends DataService {
     }
 
     public getAllSkillData(empId: string): Observable<any> {
-        let id = "E001272";
         return Observable.forkJoin([
-            this.http.get(`${this.skillDetails}?empId=${id}`, this.REQUEST_OPTIONS).map((res: Response) => res.json()),
+            this.http.get(`${this.skillDetails}?empId=${empId}`, this.REQUEST_OPTIONS).map((res: Response) => res.json()),
             this.http.get(`${this.domainData}`, this.REQUEST_OPTIONS).map((res: Response) => {
                 const items = <any[]>res.json();
                 let domainData = [];

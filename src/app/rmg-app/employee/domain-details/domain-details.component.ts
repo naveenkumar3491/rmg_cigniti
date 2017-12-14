@@ -12,7 +12,7 @@ export class DomainDetailsComponent implements OnInit {
   @Input() masterDomains;
   public subDomainDetails: any = [];
   public childDomainDetails: any = [];
-  public editedDomainIndex: number;
+  public editedDomainObject: any;
   public showButton: boolean = true;
   public domainHeader: any = [
     { field: 'domain.domainName', header: 'Domain' },
@@ -47,15 +47,18 @@ export class DomainDetailsComponent implements OnInit {
   }
 
   saveDomain(type: string) {
-    console.log(this.domainModel);
     if (type === 'add') {
       if (this.domainDetails.length === 0) {
         this.dataService.profilePercentage.emit(25);
       }
-      this.domainDetails.push(Object.assign({}, this.domainModel));
+      this.domainDetails.unshift(Object.assign({}, this.domainModel));
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domain added successfully!!' });
     } else {
-      this.domainDetails[this.editedDomainIndex] = this.domainModel;
+      this.domainDetails.forEach((domain, index) => {
+        if(domain.domain_row_id === this.editedDomainObject.domain_row_id){
+          this.domainDetails[index] = this.domainModel;
+        }
+      });
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domain updated successfully!!' });
     }
     this.domainDetails = this.domainDetails.slice();
@@ -67,7 +70,7 @@ export class DomainDetailsComponent implements OnInit {
 
   editDomain(domain, index) {
     this.showButton = false;
-    this.editedDomainIndex = index;
+    this.editedDomainObject = domain;
     this.domainModel = Object.assign({}, domain);
     this.dataService.getSubDomainDetails(this.domainModel.domain.domainId).subscribe((data) => {
       this.subDomainDetails = data;

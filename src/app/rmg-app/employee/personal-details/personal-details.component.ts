@@ -14,7 +14,8 @@ export class PersonalDetailsComponent implements OnInit {
   http: any;
   msgs: any = [];
   url: any;
-
+  
+  public pbarColor:string;
   public imageView = true;
   public profileProgress: number;
   public emptyImage: boolean;
@@ -68,6 +69,10 @@ export class PersonalDetailsComponent implements OnInit {
     private dataService: DataService, private storage: Ng2Storage) {
     this.dataService.profilePercentage.subscribe((value) => {
       this.profileProgress += value;
+      if(this.profileProgress > 100){
+        this.profileProgress = 100;
+      }
+      this.changeProgressBarColor();
     });
   }
 
@@ -77,12 +82,25 @@ export class PersonalDetailsComponent implements OnInit {
 
   }
 
-  getEmployeeDetails(){
+  changeProgressBarColor() {
+    if (this.profileProgress <= 30) {
+      this.pbarColor = 'pb-low';
+    } else if (this.profileProgress > 30 && this.profileProgress <= 70) {
+      this.pbarColor = 'pb-moderate';
+    } else if (this.profileProgress > 70) {
+      this.pbarColor = 'pb-good';
+    }
+  }
+
+  getEmployeeDetails() {
     this.personalBusy = this.dataService.getEmployeeDetails(this.userData.employeeId).subscribe((data) => {
-      console.log(data);
       this.personalDetails = data.details;
       this.profileProgress = this.personalDetails.progressbar;
-      this.url = `data:image/png;base64,${this.personalDetails.employeeImage}`;
+      if(this.profileProgress > 100){
+        this.profileProgress = 100;
+      }
+      this.changeProgressBarColor();
+      this.url = this.personalDetails.employeeImage ? `data:image/png;base64,${this.personalDetails.employeeImage}` : null;
     });
   }
 
@@ -120,6 +138,7 @@ export class PersonalDetailsComponent implements OnInit {
     input.append('progressbar', !this.personalDetails.employeeImage ? '20' : '0');
     this.dataService.uploadProfileImage(input).subscribe((data) => {
       this.emptyImage = true;
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Uploaded Successfully!!' });
       this.getEmployeeDetails();
     })
   }

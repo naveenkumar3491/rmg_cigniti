@@ -25,7 +25,7 @@ export class ExperienceDetailsComponent implements OnInit {
   , private storage: Ng2Storage) { }
 
   ngOnInit() {
-    this.resumeName = "Not Yet Upload";
+    this.resumeName = "Not Yet Uploaded";
     this.emptyResume = true;
     let doj = new Date(this.personalDetails.doj);
     let todayDate = new Date();

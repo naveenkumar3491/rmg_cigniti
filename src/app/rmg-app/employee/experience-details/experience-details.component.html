@@ -38,6 +38,7 @@
 									<span class="glyphicon glyphicon-remove"></span>
                                 </span>
                                 <button *ngIf="emptyResume" (click)="getResumeFile.click()" class="btn btn-primary">Browse</button>
+                                <button (click)="uploadFile()" class="theme-btn theme-btn-primary" *ngIf="!emptyResume">Upload</button>
                             </div>
                         </div>
                         <input type="file" accept=".doc,.docx" style="visibility:hidden;" #getResumeFile (change)="readResume($event)" />
