@@ -15,10 +15,10 @@ export class DomainDetailsComponent implements OnInit {
   public editedDomainObject: any;
   public showButton: boolean = true;
   public domainHeader: any = [
-    { field: 'domain.domainName', header: 'Domain' },
-    { field: 'subDomain.subDomaineName', header: 'Sub Domain' },
-    { field: 'childDomain.childDomaineName', header: 'Child Domain' },
-    { field: 'yearOfExperience', header: 'Experience' },
+    { field: 'domain_name', header: 'Domain' },
+    { field: 'sub_domain_name', header: 'Sub Domain' },
+    { field: 'child_domain_name', header: 'Child Domain' },
+    { field: 'domainExperience', header: 'Experience' },
     { field: 'comments', header: 'Comments' }
   ];
   public domainModel: any = {};
