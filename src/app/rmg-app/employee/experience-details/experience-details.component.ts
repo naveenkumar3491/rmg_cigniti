@@ -30,7 +30,13 @@ export class ExperienceDetailsComponent implements OnInit {
     this.emptyResume = true;
     let doj = new Date(this.personalDetails.doj);
     let todayDate = new Date();
-    this.model['cignitiExperience'] = `${todayDate.getFullYear() - doj.getFullYear()} years ${todayDate.getMonth() - doj.getMonth()} months`;
+    let yearCode =todayDate.getFullYear() - doj.getFullYear();
+    let monthCode = todayDate.getMonth() - doj.getMonth();
+          let yearExp = ((yearCode) > 1) ? (yearCode) + ' Years' : (((yearCode)==0 || (yearCode)==undefined)?'': (yearCode) +' Year' );
+          let monthExp = ((monthCode) > 1) ? (monthCode) + ' Months' : (((monthCode)==0 || (monthCode)==undefined)?'': (monthCode) +' Month' );
+      // let monthExp = (parseInt(totExpArray[1]) > 1) ? totExpArray[1] + ' Months' : ((totExpArray[1]=='0' || totExpArray[1]==undefined)?'': totExpArray[1] +' Month' );
+    // this.model['cignitiExperience'] = `${yearCode} years ${monthCode} months`;
+      this.model['cignitiExperience'] =  `${yearExp} ${monthExp}`;
 
     if (this.personalDetails.totalExperience === "0") {
       this.editMode = false;

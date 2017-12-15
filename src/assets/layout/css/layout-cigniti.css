@@ -1065,7 +1065,7 @@ body {
   z-index: 99;
   top: 75px;
   height: 100%;
-  background-color: #ffffff;
+  background-color: #337ab7;
   box-shadow: 3px 0 6px rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: 3px 0 6px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 3px 0 6px rgba(0, 0, 0, 0.3);
@@ -1164,17 +1164,17 @@ body {
   .layout-container .layout-menu .menuitem-badge {
     position: absolute;
     right: 2em;
-    top: .75em;
+    top: .68em;
     display: inline-block;
-    width: 1em;
-    height: 1em;
+    width: 1.4em;
+    height: 1.4em;
     margin-right: .5em;
     text-align: center;
-    background-color: #337ab7;
+    background-color: #225582;
     color: #ffffff;
     font-size: 14px;
     font-weight: 700;
-    line-height: 1em;
+    line-height: 1.3em;
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
     border-radius: 50%; }
@@ -1251,7 +1251,7 @@ body {
     font-size: 1em;
     display: block;
     padding: .5em 1em;
-    color: #212121;
+    color: #FFFFFF;
     width: 100%;
     box-sizing: border-box;
     -moz-transition: background-color 0.3s;
@@ -1260,7 +1260,7 @@ body {
     transition: background-color 0.3s;
     overflow: hidden; }
     .layout-container .ultima-menu li a i {
-      color: #757575; }
+      color: #FFFFFF; }
     .layout-container .ultima-menu li a i:first-child {
       display: inline-block;
       vertical-align: middle;
@@ -1276,23 +1276,23 @@ body {
       -webkit-transition: transform 0.3s;
       transition: transform 0.3s; }
     .layout-container .ultima-menu li a:hover {
-      background-color: #e8e8e8; }
+      background-color: #225582; }
     .layout-container .ultima-menu li a span {
       display: inline-block;
       vertical-align: middle; }
     .layout-container .ultima-menu li a.active-menuitem-routerlink {
-      color: #337ab7; }
+      color: #FFFFFF; }
       .layout-container .ultima-menu li a.active-menuitem-routerlink > i {
-        color: #337ab7; }
+        color: #FFFFFF; }
       .layout-container .ultima-menu li a.active-menuitem-routerlink:hover {
-        color: #212121; }
+        color: #FFFFFF; }
         .layout-container .ultima-menu li a.active-menuitem-routerlink:hover > i {
-          color: #757575; }
+          color: #FFFFFF; }
   .layout-container .ultima-menu li.active-menuitem > a {
-    color: #757575;
-    background-color: #e8e8e8; }
+    color: #FFFFFF;
+    background-color: #225582; }
     .layout-container .ultima-menu li.active-menuitem > a i {
-      color: #757575; }
+      color: #FFFFFF; }
     .layout-container .ultima-menu li.active-menuitem > a i:last-child {
       -webkit-transform: rotate(-180deg);
       -moz-transform: rotate(-180deg);
