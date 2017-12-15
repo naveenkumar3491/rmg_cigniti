@@ -77,8 +77,9 @@ export class ExperienceDetailsComponent implements OnInit {
     let input = new FormData();
     input.append('file', fileToUpload);
     input.append('empId', this.userData.employeeId);
-    input.append('progressbar', !this.personalDetails.employeeImage ? '10' : '0');
+    input.append('progressbar', !this.personalDetails.resume_filename ? '10' : '0');
     this.dataService.uploadProfileResume(input).subscribe((data) => {
+      this.callBackContactDetails.emit('save');
       this.emptyResume = true;
     })
   }

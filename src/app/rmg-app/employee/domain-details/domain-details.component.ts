@@ -49,7 +49,7 @@ export class DomainDetailsComponent implements OnInit {
   saveDomain(type: string) {
     if (type === 'add') {
       if (this.domainDetails.length === 0) {
-        this.dataService.profilePercentage.emit(25);
+        this.dataService.profilePercentage.emit(20);
       }
       this.domainDetails.unshift(Object.assign({}, this.domainModel));
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domain added successfully!!' });
@@ -88,7 +88,7 @@ export class DomainDetailsComponent implements OnInit {
     this.domainDetails = this.domainDetails.slice();
     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domain deleted successfully!!' });
     if (this.domainDetails.length === 0) {
-      this.dataService.profilePercentage.emit(-25);
+      this.dataService.profilePercentage.emit(20);
     }
     this.showButton = true;
   }

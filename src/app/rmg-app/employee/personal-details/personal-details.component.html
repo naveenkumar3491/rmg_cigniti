@@ -111,10 +111,10 @@
 					<p-tabPanel *ngFor="let empTab of employeeInfoTabs;" header="{{empTab.name}}" leftIcon="{{empTab.icon}}">
 						<div [ngSwitch]="empTab.field" style="position: relative">
 							<ng-template [ngSwitchCase]="'experience-details'">
-								<val-experience-details *ngIf="personalDetails" [personalDetails]="personalDetails"></val-experience-details>
+								<val-experience-details *ngIf="personalDetails" [personalDetails]="personalDetails" (callBackContactDetails)="callBackContactDetails()"></val-experience-details>
 							</ng-template>
 							<ng-template [ngSwitchCase]="'contact-details'">
-								<val-contact-details *ngIf="personalDetails" [personalDetails]="personalDetails"></val-contact-details>
+								<val-contact-details *ngIf="personalDetails" [personalDetails]="personalDetails" (callBackContactDetails)="callBackContactDetails()"></val-contact-details>
 							</ng-template>
 							<div [ngBusy]="skillBusy">
 								<ng-template [ngSwitchCase]="'skill-details'">

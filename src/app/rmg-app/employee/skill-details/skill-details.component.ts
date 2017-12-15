@@ -76,7 +76,7 @@ export class SkillDetailsComponent implements OnInit {
   saveSkill(type: string) {
     if (type === 'add') {
       if(this.skillList.length === 0){
-        this.dataService.profilePercentage.emit(25);
+        this.dataService.profilePercentage.emit(20);
       }
       this.skillList.unshift(Object.assign({}, this.skillModel));
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Skill added successfully!!' });
@@ -109,7 +109,7 @@ export class SkillDetailsComponent implements OnInit {
     this.skillList=this.skillList.slice();
     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Skill deleted successfully!!' });
     if(this.skillList.length === 0){
-        this.dataService.profilePercentage.emit(-25);
+        this.dataService.profilePercentage.emit(20);
       }
   }
 }

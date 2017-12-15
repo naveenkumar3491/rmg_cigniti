@@ -96,7 +96,9 @@ export class PersonalDetailsComponent implements OnInit {
       this.pbarColor = 'pb-good';
     }
   }
-
+  callBackContactDetails(){
+    this.getEmployeeDetails();
+  }
   getEmployeeDetails() {
     this.personalBusy = this.dataService.getEmployeeDetails(this.userData.employeeId).subscribe((data) => {
       this.personalDetails = data.details;
