@@ -85,6 +85,7 @@ export class ExperienceDetailsComponent implements OnInit {
     input.append('empId', this.userData.employeeId);
     input.append('progressbar', !this.personalDetails.resume_filename ? '10' : '0');
     this.dataService.uploadProfileResume(input).subscribe((data) => {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Saved Successfully!!' });
       this.callBackContactDetails.emit('save');
       this.emptyResume = true;
     })
