@@ -7,15 +7,15 @@
               <div class="row" style="margin: 10px;">
                 <div class="col-md-4">
                   <p-dropdown [options]="masterDomains" name="domainCategory" [(ngModel)]="domainModel.domain" placeholder="Select a Domain"
-                    optionLabel="label" [style]="{'width':'150px'}" (onChange)="onDomainChange('domain')"></p-dropdown>
+                    optionLabel="label" [style]="{'width':'250px'}" (onChange)="onDomainChange('domain')"></p-dropdown>
                 </div>
                 <div class="col-md-4">
                   <p-dropdown [options]="subDomainDetails" name="subDomain" [(ngModel)]="domainModel.subDomain" placeholder="Select a Sub Domain"
-                    optionLabel="label" [style]="{'width':'150px'}" (onChange)="onDomainChange('subDomain')"></p-dropdown>
+                    optionLabel="label" [style]="{'width':'250px'}" (onChange)="onDomainChange('subDomain')"></p-dropdown>
                 </div>
                 <div class="col-md-4">
                   <p-dropdown [options]="childDomainDetails" name="childDomain" [(ngModel)]="domainModel.childDomain" placeholder="Select a Child Domain"
-                    optionLabel="label" [style]="{'width':'150px'}"></p-dropdown>
+                    optionLabel="label" [style]="{'width':'250px'}"></p-dropdown>
                 </div>
               </div>
               <div class="row" style="margin: 10px;">

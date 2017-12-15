@@ -20,39 +20,39 @@ export class ExperienceDetailsComponent implements OnInit {
   private userData = this.storage.getSession('user_data');
   @Output() callBackContactDetails = new EventEmitter();
   @Input() personalDetails;
-    @ViewChild('getResumeFile') input: ElementRef;
+  @ViewChild('getResumeFile') input: ElementRef;
   @ViewChild('getResumeFile') resumeInput: ElementRef;
   constructor(private dataService: DataService, private messageService: MessageService
     , private storage: Ng2Storage) { }
 
   ngOnInit() {
-    this.resumeName = this.personalDetails.resume_filename?this.personalDetails.resume_filename:"Not Yet Upload";
+    this.resumeName = this.personalDetails.resume_filename ? this.personalDetails.resume_filename : "Not Yet Upload";
     this.emptyResume = true;
     let doj = new Date(this.personalDetails.doj);
     let todayDate = new Date();
-    let yearCode =todayDate.getFullYear() - doj.getFullYear();
+    let yearCode = todayDate.getFullYear() - doj.getFullYear();
     let monthCode = todayDate.getMonth() - doj.getMonth();
-          let yearExp = ((yearCode) > 1) ? (yearCode) + ' Years' : (((yearCode)==0 || (yearCode)==undefined)?'': (yearCode) +' Year' );
-          let monthExp = ((monthCode) > 1) ? (monthCode) + ' Months' : (((monthCode)==0 || (monthCode)==undefined)?'': (monthCode) +' Month' );
-      // let monthExp = (parseInt(totExpArray[1]) > 1) ? totExpArray[1] + ' Months' : ((totExpArray[1]=='0' || totExpArray[1]==undefined)?'': totExpArray[1] +' Month' );
+    let yearExp = ((yearCode) > 1) ? (yearCode) + ' Years' : (((yearCode) == 0 || (yearCode) == undefined) ? '' : (yearCode) + ' Year');
+    let monthExp = ((monthCode) > 1) ? (monthCode) + ' Months' : (((monthCode) == 0 || (monthCode) == undefined) ? '' : (monthCode) + ' Month');
+    // let monthExp = (parseInt(totExpArray[1]) > 1) ? totExpArray[1] + ' Months' : ((totExpArray[1]=='0' || totExpArray[1]==undefined)?'': totExpArray[1] +' Month' );
     // this.model['cignitiExperience'] = `${yearCode} years ${monthCode} months`;
-      this.model['cignitiExperience'] =  `${yearExp} ${monthExp}`;
+    this.model['cignitiExperience'] = `${yearExp} ${monthExp}`;
 
     if (this.personalDetails.totalExperience === "0") {
       this.editMode = false;
       this.exp = {
-    years: 0,
-    months: 0
-  }
+        years: 0,
+        months: 0
+      }
     } else {
       let totExp = this.personalDetails.totalExperience;
       var totExpArray = totExp.split('.');
-      let yearExp = (parseInt(totExpArray[0]) > 1) ? totExpArray[0] + ' Years' : ((totExpArray[0]=='0' || totExpArray[0]==undefined)?'': totExpArray[0] +' Year' );
-      let monthExp = (parseInt(totExpArray[1]) > 1) ? totExpArray[1] + ' Months' : ((totExpArray[1]=='0' || totExpArray[1]==undefined)?'': totExpArray[1] +' Month' );
+      let yearExp = (parseInt(totExpArray[0]) > 1) ? totExpArray[0] + ' Years' : ((totExpArray[0] == '0' || totExpArray[0] == undefined) ? '' : totExpArray[0] + ' Year');
+      let monthExp = (parseInt(totExpArray[1]) > 1) ? totExpArray[1] + ' Months' : ((totExpArray[1] == '0' || totExpArray[1] == undefined) ? '' : totExpArray[1] + ' Month');
       this.model['totalExperience'] = `${yearExp} ${monthExp}`;
-            this.exp = {
-        years: (totExpArray[0]=="0" || totExpArray[0]=== undefined)? "0": totExpArray[0],
-        months: (totExpArray[1]=="0" || totExpArray[1]=== undefined)? "0": totExpArray[1]
+      this.exp = {
+        years: (totExpArray[0] == "0" || totExpArray[0] === undefined) ? "0" : totExpArray[0],
+        months: (totExpArray[1] == "0" || totExpArray[1] === undefined) ? "0" : totExpArray[1]
       }
     }
 
@@ -61,12 +61,18 @@ export class ExperienceDetailsComponent implements OnInit {
   readResume(event: any) {
 
     if (event.target.files && event.target.files[0]) {
-      this.resumeName = event.target.files[0].name;
-      this.emptyResume = false;
+      let fileExtn = event.target.files[0].name.split('.');
+      if (fileExtn[1].toLowerCase() === "doc" || fileExtn[1].toLowerCase() === "docx") {
+        this.resumeName = event.target.files[0].name;
+        this.emptyResume = false;
+      } else {
+        this.messageService.add({ severity: 'danger', summary: 'Danger', detail: `Only Doc and DocX files are allowed!!` });
+      }
+
     }
   }
 
-    uploadFile(): void {
+  uploadFile(): void {
     let fi = this.input.nativeElement;
     if (fi.files && fi.files[0]) {
       let fileToUpload = fi.files[0];
@@ -101,14 +107,14 @@ export class ExperienceDetailsComponent implements OnInit {
         this.callBackContactDetails.emit('save');
         this.editMode = true;
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Saved Successfully!!' });
-        let yearExp = ((this.exp.years) > 1) ? this.exp.years + ' Years' : ((this.exp.years==1) ? this.exp.years +' Year' : '' );
-      let monthExp = ((this.exp.months) > 1) ? this.exp.months + ' months' : ((this.exp.months==1)? this.exp.months +' month':'');
-      if(this.exp.years==0 && this.exp.months==0){
-              this.model['totalExperience'] = `No experience`;
-      }else{
-      this.model['totalExperience'] = `${yearExp} ${monthExp}`;
-      }
-       // this.model['totalExperience'] = `${this.exp.years} years ${this.exp.months} months`;
+        let yearExp = ((this.exp.years) > 1) ? this.exp.years + ' Years' : ((this.exp.years == 1) ? this.exp.years + ' Year' : '');
+        let monthExp = ((this.exp.months) > 1) ? this.exp.months + ' months' : ((this.exp.months == 1) ? this.exp.months + ' month' : '');
+        if (this.exp.years == 0 && this.exp.months == 0) {
+          this.model['totalExperience'] = `No experience`;
+        } else {
+          this.model['totalExperience'] = `${yearExp} ${monthExp}`;
+        }
+        // this.model['totalExperience'] = `${this.exp.years} years ${this.exp.months} months`;
       })
 
     } else {
