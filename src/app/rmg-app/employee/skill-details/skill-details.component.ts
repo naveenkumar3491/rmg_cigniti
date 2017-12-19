@@ -44,23 +44,6 @@ export class SkillDetailsComponent implements OnInit {
         if (event.order) {
           this.sortF = event.field;
         }
-        // this.skillList.sort((a,b) => {
-        //     var x = a[this.sortF].toLowerCase(), y = b[this.sortF].toLowerCase();
-        //     if(event.order == 1){
-        //         if ( x < y )
-        //             return -1;
-        //         if ( x > b )
-        //             return 1;
-        //         return 0;
-        //     }else{
-        //         if ( x < y )
-        //             return 1;
-        //         if ( x > b )
-        //             return -1;
-        //         return 0;
-        //     }
-
-        // });
     }
 
   onCategoryChange() {
@@ -78,6 +61,10 @@ export class SkillDetailsComponent implements OnInit {
       if(this.skillList.length === 0){
         this.dataService.profilePercentage.emit(20);
       }
+      console.log(this.skillModel);
+      // this.dataService.saveSkill().subscribe((data) => {
+
+      // });
       this.skillList.unshift(Object.assign({}, this.skillModel));
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Skill added successfully!!' });
     } else {
@@ -102,6 +89,12 @@ export class SkillDetailsComponent implements OnInit {
     this.editedSkillObject = skill;
     this.skillModel = Object.assign({}, skill);
     this.onCategoryChange();
+  }
+
+  onSkillFocus(sR){
+    setTimeout(() => {
+      sR.el.nativeElement.querySelector('.ui-dropdown-items-wrapper').scrollTop = 0;
+    }, 10)
   }
 
   deleteSkill(index) {

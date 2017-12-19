@@ -21,11 +21,13 @@ export class PersonalDetailsComponent implements OnInit {
   public emptyImage: boolean;
   public personalDetails: any;
   public projectDetails: any;
+  public visaDetails: any;
   public skillsMasterData: any;
 
   public personalBusy: Subscription;
   public skillBusy: Subscription;
   public projectBusy: Subscription;
+  public visaBusy: Subscription;
 
 
   private userData = this.storage.getSession('user_data');
@@ -116,7 +118,6 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   onTabChange(e) {
-    console.log(e);
     if (e.index === 2) {
       this.skillBusy = this.dataService.getAllSkillData(this.userData.employeeId).subscribe((data) => {
         console.log(data);
@@ -126,6 +127,10 @@ export class PersonalDetailsComponent implements OnInit {
     } else if (e.index === 3) {
       this.projectBusy = this.dataService.getProjectDetails(this.userData.employeeId).subscribe((data) => {
         this.projectDetails = data;
+      });
+    } else if(e.index === 5){
+      this.visaBusy = this.dataService.getVisaDetails(this.userData.employeeId).subscribe((data) => {
+        this.visaDetails = data.details;
       });
     }
   }

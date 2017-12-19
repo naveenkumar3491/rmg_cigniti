@@ -14,4 +14,8 @@ export abstract class DataService {
     public abstract updateTheme( paramObj ): Observable<any>;
     public abstract saveContactAndExpDetails( paramObj ): Observable<any>;
     public abstract profilePercentage: EventEmitter<number>;
+    public abstract addUpdateSkill(obj, value): Observable<any>;
+    public abstract addUpdateDomain(obj, value): Observable<any>;
+    public abstract deleteDomain(obj, value): Observable<any>;
+    public abstract getVisaDetails(id) : Observable<any>;
 }

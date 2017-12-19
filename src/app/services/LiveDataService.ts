@@ -26,13 +26,17 @@ export class LiveDataService extends DataService {
     private readonly insertContactAndExp = this.getBaseURI() + 'empContactAndExp';
     private readonly uploadImage = this.getBaseURI() + 'uploadImage';
     private readonly uploadResume = this.getBaseURI() + 'uploadResume';
+    private readonly saveSkillUrl = this.getBaseURI() + 'addEmployeeSkill';
+    private readonly saveDomainUrl = this.getBaseURI() + 'addEmployeeDomain';
+    private readonly visaDetails = this.getBaseURI() + 'visaDetails';
+    private readonly deleteDomainUrl = this.getBaseURI() + 'deleteEmployeeDomain';
     private readonly REQUEST_HEADERS: Headers = new Headers({
         'Content-Type': 'application/json; charset=utf-8',
         'Accept': 'application/json'
     });
 
     private readonly REQUEST_OPTIONS: RequestOptionsArgs = new RequestOptions({ headers: this.REQUEST_HEADERS });
-    
+
 
     private getBaseURI() {
         return this.basePath + this.MyTrUrl;
@@ -156,7 +160,7 @@ export class LiveDataService extends DataService {
                 badge: '3',
                 items: []
             };
-            
+
             items['details'].forEach((theme) => {
                 themeData.items.push({
                     label: theme.themeName,
@@ -168,7 +172,7 @@ export class LiveDataService extends DataService {
         })
     }
 
-     public updateTheme(obj): Observable<any> {
+    public updateTheme(obj): Observable<any> {
         return this.http.post(`${this.saveTheme}`, obj, this.REQUEST_OPTIONS).map((response: Response) => {
             return response.json();
         })
@@ -185,8 +189,32 @@ export class LiveDataService extends DataService {
             return response.json();
         })
     }
-        public uploadProfileResume(obj): Observable<any> {
+    public uploadProfileResume(obj): Observable<any> {
         return this.http.post(`${this.uploadResume}`, obj).map((response: Response) => {
+            return response.json();
+        })
+    }
+
+    public addUpdateSkill(obj, progressbarValue): Observable<any> {
+        return this.http.post(`${this.saveSkillUrl}?progressbar=${progressbarValue}`, obj).map((response: Response) => {
+            return response.json();
+        })
+    }
+
+    public addUpdateDomain(obj, progressbarValue): Observable<any> {
+        return this.http.post(`${this.saveDomainUrl}?progressbar=${progressbarValue}`, obj).map((response: Response) => {
+            return response.json();
+        })
+    }
+
+    public getVisaDetails(id): Observable<any> {
+        return this.http.get(`${this.visaDetails}?empId=${id}`, this.REQUEST_OPTIONS).map((response: Response) => {
+            return response.json();
+        })
+    }
+
+    public deleteDomain(obj, progressbarValue): Observable<any> {
+        return this.http.post(`${this.deleteDomainUrl}?progressbar=${progressbarValue}`, obj).map((response: Response) => {
             return response.json();
         })
     }

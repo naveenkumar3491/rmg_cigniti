@@ -139,9 +139,11 @@
 							<ng-template [ngSwitchCase]="'bu-details'">
 								<val-bu-details *ngIf="personalDetails" [personalDetails]="personalDetails"></val-bu-details>
 							</ng-template>
+							<div [ngBusy]="visaBusy">
 							<ng-template [ngSwitchCase]="'visa-details'">
-								<val-visa-details></val-visa-details>
+								<val-visa-details *ngIf="visaDetails" [visaDetails]="visaDetails"></val-visa-details>
 							</ng-template>
+							</div>
 						</div>
 					</p-tabPanel>
 				</p-tabView>

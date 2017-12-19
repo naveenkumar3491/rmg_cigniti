@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'val-visa-details',
@@ -6,12 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./visa-details.component.scss']
 })
 export class VisaDetailsComponent implements OnInit {
-  public visaList:any = [
-    {country: 'India', visaType: 'Business', status: 'pending', validFrom: '06/12/2017', validTo: '05/04/2019'}
-  ];
+  @Input() visaDetails;
   public visaHeader:any = [
     {field: 'country', header: 'Country'},
-      {field: 'visaType', header: 'Visa Type'},
+      {field: 'visa_type', header: 'Visa Type'},
       {field: 'status', header: 'Status'},
       {field: 'validFrom', header: 'Valid From'},
       {field: 'validTo', header: 'Valid To'}
@@ -19,6 +17,7 @@ export class VisaDetailsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log('visa details', this.visaDetails);
   }
 
 }

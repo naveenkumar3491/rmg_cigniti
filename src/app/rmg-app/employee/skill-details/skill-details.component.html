@@ -1,7 +1,6 @@
 <div class="skill-details">
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="panel-body">
                 <form #skillForm="ngForm">
 
                     <div class="panel panel-default">
@@ -12,7 +11,7 @@
                                         optionLabel="label" (onChange)="onCategoryChange()" [style]="{'width':'200px'}"></p-dropdown>
                                 </div>
                                 <div class="col-md-4">
-                                    <p-dropdown [options]="skillSet" name="skill" [(ngModel)]="skillModel.skill" placeholder="Select a Skill" optionLabel="label"
+                                    <p-dropdown #skillRef [options]="skillSet" name="skill" [(ngModel)]="skillModel.skill" placeholder="Select a Skill" optionLabel="label" (onFocus)="onSkillFocus(skillRef)"
                                         [style]="{'width':'200px'}" [disabled]="!skillModel.skillCategory"></p-dropdown>
                                 </div>
                                 <div class="col-md-4">
@@ -105,7 +104,6 @@
                                                 class="btn btn-success">Update Skill</button></td>
                                     </ng-template>
                                 </tr>-->
-            </div>
         </div>
     </div>
 </div>
