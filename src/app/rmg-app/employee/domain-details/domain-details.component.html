@@ -13,8 +13,8 @@
                     optionLabel="label" [style]="{'width':'250px'}" (onChange)="onDomainChange('subDomain')"></p-dropdown>
                 </div>
                 <div class="col-md-4">
-                  <p-dropdown [options]="childDomainDetails" name="childDomain" [(ngModel)]="domainModel.childDomain" placeholder="Select a Child Domain"
-                    optionLabel="label" [style]="{'width':'250px'}"></p-dropdown>
+                  <p-dropdown #childDomainRef [options]="childDomainDetails" name="childDomain" [(ngModel)]="domainModel.childDomain" placeholder="Select a Child Domain"
+                    optionLabel="label" [style]="{'width':'250px'}" [disabled]="childDomainDetails.length === 0" (onFocus)="onDomainFocus(childDomainRef)"></p-dropdown>
                 </div>
               </div>
               <div class="row" style="margin: 10px;">
@@ -25,14 +25,12 @@
                     <input type="number" min="0" max="30" class="form-control" [(ngModel)]="domainModel.years" />
                     <input type="number" min="0" max="12" class="form-control" [(ngModel)]="domainModel.months" />
                   </div>
-                  <!--<input class="form-control" type="text" placeholder="Experience"
-                name="yearOfExperience" [(ngModel)]="domainModel.yearOfExperience" />-->
                 </div>
                 <div class="col-md-4" style="margin-top: 18px;">
                   <input class="form-control" type="text" placeholder="Comments" name="comments" [(ngModel)]="domainModel.comments" />
                 </div>
                 <div class="col-md-4" style="margin-top: 18px;">
-                  <button *ngIf="showButton" type="button" class="btn btn-success" [disabled]="!domainModel.domain || !domainModel.subDomain || !domainModel.childDomain"
+                  <button *ngIf="showButton" type="button" class="btn btn-success"
                     (click)="saveDomain('add')">Add Domain</button>
                   <button *ngIf="!showButton" type="button" class="btn btn-success" (click)="saveDomain('update')">Update Domain</button>
                 </div>

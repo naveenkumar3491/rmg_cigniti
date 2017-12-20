@@ -22,7 +22,11 @@ export class DomainDetailsComponent implements OnInit {
     { field: 'domainExperience', header: 'Experience' },
     { field: 'comments', header: 'Comments' }
   ];
-  public domainModel: any = {};
+  public domainModel: any = {
+    domain: {},
+    subDomain: {},
+    childDomain: {}
+  };
   private userData = this.storage.getSession('user_data');
   constructor(private dataService: DataService, private messageService: MessageService, private storage: Ng2Storage) { }
 
@@ -32,6 +36,26 @@ export class DomainDetailsComponent implements OnInit {
   ngOnChanges() {
     console.log(this.domainDetails);
     console.log('domains', this.masterDomains);
+  }
+
+  onDomainFocus(dR) {
+    setTimeout(() => {
+      dR.el.nativeElement.querySelector('.ui-dropdown-items-wrapper').scrollTop = 0;
+    }, 10)
+  }
+
+  disableDomain() {
+    let isValid = true;
+    [{ name: 'domain', model: 'domainId' }, { name: 'subDomain', model: 'subDomainId' }, { name: 'childDomain', model: 'childDomainId' }].forEach((obj) => {
+      if (!this.domainModel[obj.name][obj.model]) {
+        isValid = false;
+      }
+    })
+    if (!isValid) {
+      return true
+    } else {
+      return false;
+    }
   }
 
   onDomainChange(type) {
@@ -68,6 +92,9 @@ export class DomainDetailsComponent implements OnInit {
       childDomainId: this.domainModel.childDomain.childDomainId,
       domain_experience: +domainExp,
       comments: this.domainModel.comments
+    }
+    if (type !== 'add') {
+      domainObj['rowid'] = this.editedDomainObject.rowid;
     }
     this.dataService.addUpdateDomain(domainObj, progressValue).subscribe((data) => {
       console.log(data);
@@ -144,33 +171,22 @@ export class DomainDetailsComponent implements OnInit {
       progressBarValue = 20;
     }
     let domainObj = {
-      employeeId: this.userData.employeeId,
-      domain_experience: domain.domainExperience,
-      comments: domain.comments
+      rowid: domain.rowid,
+      employeeId: this.userData.employeeId
     }
-    domainObj['domainId'] = this.getMatchedDomain(domain.domain_name, this.masterDomains).domainId;
-    this.dataService.getSubDomainDetails(domainObj['domainId']).subscribe((data) => {
-      this.subDomainDetails = data;
-      domainObj['subDomainId'] = this.getMatchedDomain(domain.sub_domain_name, this.subDomainDetails).subDomainId;
-      this.dataService.getChildDomainDetails(domainObj['domainId'], domainObj['subDomainId']).subscribe((data) => {
-        this.childDomainDetails = data;
-        domainObj['childDomainId'] = this.getMatchedDomain(domain.child_domain_name, this.childDomainDetails).childDomainId;
-        this.dataService.deleteDomain(domainObj, progressBarValue).subscribe((data) => {
-          console.log(data);
-          if (this.domainDetails.length === 1) {
-            this.dataService.profilePercentage.emit(20);
-          }
-          this.domainDetails.splice(index, 1);
-          this.domainModel = {};
-          this.subDomainDetails = [];
-          this.childDomainDetails = [];
-          this.domainDetails = this.domainDetails.slice();
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domain deleted successfully!!' });
-          this.showButton = true;
-        });
-      })
-    })
-
+    this.dataService.deleteDomain(domainObj, progressBarValue).subscribe((data) => {
+      console.log(data);
+      if (this.domainDetails.length === 1) {
+        this.dataService.profilePercentage.emit(20);
+      }
+      this.domainDetails.splice(index, 1);
+      this.domainModel = {};
+      this.subDomainDetails = [];
+      this.childDomainDetails = [];
+      this.domainDetails = this.domainDetails.slice();
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domain deleted successfully!!' });
+      this.showButton = true;
+    });
 
 
   }
