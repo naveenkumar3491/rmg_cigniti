@@ -12,6 +12,7 @@ import { Ng2Storage } from "../services/storage";
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  disabledBtn:boolean = false;
   private formSubmitAttempt: boolean;
   constructor(private fb: FormBuilder, private router: Router,
     private dataService: DataService, private storage: Ng2Storage) { }
@@ -31,6 +32,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.formSubmitAttempt = true;
     if (this.loginForm.valid) {
+      this.disabledBtn = true;
       this.dataService.loginUser(this.loginForm.value).subscribe((data: ILoginResponse) => {
         if (data.employeeRoleName === 'RMG') {
           this.router.navigate(['app/rmg']);
@@ -38,6 +40,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['app/employee']);
         }
       }, (err) => {
+        this.disabledBtn = false;
         console.log(err)
       })
 
@@ -51,8 +54,7 @@ export class LoginComponent implements OnInit {
   }
 
   isFieldValid(field: string) {
-    return (!this.loginForm.get(field).valid && this.loginForm.get(field).touched) ||
-      (this.loginForm.get(field).untouched && this.formSubmitAttempt);
+    return !this.loginForm.get(field).valid && this.formSubmitAttempt;
   }
 
   displayFieldCss(field: string) {

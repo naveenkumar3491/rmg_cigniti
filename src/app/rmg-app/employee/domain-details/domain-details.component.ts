@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { DataService } from "../../../services/DataService";
 import { MessageService } from "primeng/components/common/messageservice";
 import { Ng2Storage } from "../../../services/storage";
+import { ConfirmationService } from "primeng/primeng";
 
 @Component({
   selector: 'val-domain-details',
@@ -28,7 +29,8 @@ export class DomainDetailsComponent implements OnInit {
     childDomain: {}
   };
   private userData = this.storage.getSession('user_data');
-  constructor(private dataService: DataService, private messageService: MessageService, private storage: Ng2Storage) { }
+  constructor(private dataService: DataService, private messageService: MessageService,
+    private storage: Ng2Storage, private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
   }
@@ -131,13 +133,6 @@ export class DomainDetailsComponent implements OnInit {
     this.callDomainService(type, progressValue);
   }
 
-  getMatchedDomain(domainName, domainData) {
-    let found = domainData.find(obj => obj.label === domainName);
-    if (found) {
-      return found.value;
-    }
-  }
-
   editDomain(domain, index) {
     console.log('each domain', domain);
     this.showButton = false;
@@ -152,17 +147,26 @@ export class DomainDetailsComponent implements OnInit {
       this.domainModel.years = domain.domainExperience;
       this.domainModel.months = 0;
     }
-    this.domainModel.domain = this.getMatchedDomain(domain.domain_name, this.masterDomains);
+    this.domainModel.domain = this.dataService.getMatchedDomain(domain.domain_name, this.masterDomains);
     this.editedDomainObject = domain;
     // this.domainModel = Object.assign({}, domain);
     this.dataService.getSubDomainDetails(this.domainModel.domain.domainId).subscribe((data) => {
       this.subDomainDetails = data;
-      this.domainModel.subDomain = this.getMatchedDomain(domain.sub_domain_name, this.subDomainDetails);
+      this.domainModel.subDomain = this.dataService.getMatchedDomain(domain.sub_domain_name, this.subDomainDetails);
       this.dataService.getChildDomainDetails(this.domainModel.domain.domainId, this.domainModel.subDomain.subDomainId).subscribe((data) => {
         this.childDomainDetails = data;
-        this.domainModel.childDomain = this.getMatchedDomain(domain.child_domain_name, this.childDomainDetails);
+        this.domainModel.childDomain = this.dataService.getMatchedDomain(domain.child_domain_name, this.childDomainDetails);
       })
     })
+  }
+
+  deleteConfirm(domain, index) {
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to delete domain?',
+      accept: () => {
+        this.deleteDomain(domain, index);
+      }
+    });
   }
 
   deleteDomain(domain, index) {
@@ -187,8 +191,6 @@ export class DomainDetailsComponent implements OnInit {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domain deleted successfully!!' });
       this.showButton = true;
     });
-
-
   }
 
 }

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import {DataTableModule, SharedModule} from 'primeng/primeng';
+import {DataTableModule} from 'primeng/primeng';
 import {ChartModule} from 'primeng/primeng';
 import {TabViewModule} from 'primeng/primeng';
 import {DropdownModule} from 'primeng/primeng';
@@ -11,6 +11,8 @@ import {GrowlModule} from 'primeng/primeng';
 import {ProgressBarModule} from 'primeng/primeng';
 import {AccordionModule} from 'primeng/primeng';
 import {CalendarModule} from 'primeng/primeng';
+import {ConfirmDialogModule, ConfirmationService} from 'primeng/primeng';
+import {SharedModule} from 'primeng/primeng';
 import {BusyModule} from 'angular2-busy';
 
 import { RmgAppComponent } from './rmg-app.component';
@@ -48,6 +50,7 @@ import { DomainDetailsComponent } from './employee/domain-details/domain-details
     ProgressBarModule,
     AccordionModule,
     CalendarModule,
+    ConfirmDialogModule,
     BusyModule
   ],
   declarations: [
@@ -70,6 +73,7 @@ import { DomainDetailsComponent } from './employee/domain-details/domain-details
     BUDetailsComponent,
     VisaDetailsComponent,
     DomainDetailsComponent
-    ]
+    ],
+    providers: [ConfirmationService]
 })
 export class RmgAppModule { }

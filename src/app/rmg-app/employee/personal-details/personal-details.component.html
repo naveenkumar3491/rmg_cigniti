@@ -104,6 +104,7 @@
 			</div>
 		</div>
 	</div>
+	<p-confirmDialog header="Confirmation" icon="fa fa-warning" width="425"></p-confirmDialog>
 	<div class="row">
 		<div class="col-md-12">
 			<div class="cardTabs card-w-title">
@@ -126,7 +127,7 @@
 											<val-domain-details *ngIf="skillsMasterData" [domainDetails]="skillsMasterData[0].details.domain_List" [masterDomains]="skillsMasterData[1]"></val-domain-details>
 										</p-accordionTab>
 										<p-accordionTab header="Certification Details">
-											<val-certification-details *ngIf="skillsMasterData" [certificationDetails]="skillsMasterData[0].details.certification_List"></val-certification-details>
+											<val-certification-details *ngIf="skillsMasterData" [certificationDetails]="skillsMasterData[0].details.certification_List" [certificationTechnologies]="skillsMasterData[3]" [certificationInstitues]="skillsMasterData[4]"></val-certification-details>
 										</p-accordionTab>
 									</p-accordion>
 								</ng-template>

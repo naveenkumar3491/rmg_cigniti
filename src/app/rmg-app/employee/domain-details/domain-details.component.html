@@ -1,4 +1,5 @@
 <div class="domain-details">
+
   <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="panel panel-default">
@@ -45,7 +46,7 @@
               </ng-template>
               <ng-template let-car="rowData" let-i="rowIndex" pTemplate="body">
                 <a class="curosr-p"><i class="fa fa-edit" (click)="editDomain(car, i)"></i></a>
-                <a class="curosr-p"><i class="fa fa-trash" (click)="deleteDomain(car, i)"></i></a>
+                <a class="curosr-p"><i class="fa fa-trash" (click)="deleteConfirm(car, i)"></i></a>
               </ng-template>
             </p-column>
           </p-dataTable>

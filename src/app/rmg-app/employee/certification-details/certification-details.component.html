@@ -1,50 +1,65 @@
 <div class="certification-details">
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
+
+            <div class="panel-body">
                 <div class="panel panel-default">
-                        <div class="panel-body">
-                            <div class="row" style="margin: 10px;">
-                                <div class="col-md-4">
-                                <p-dropdown [options]="certificationNames" name="certificationName" [(ngModel)]="certificationModel.certificationName" placeholder="Certification Name"
-                                optionLabel="label" [style]="{'width':'150px'}" (onChange)="onCertificationChange()" [autoWidth]="false"></p-dropdown>
-                                </div>
-                                <div class="col-md-4">
-                                    <input class="form-control" type="text" placeholder="Certification From" [(ngModel)]="certificationModel.certificationFrom"name="Certification" style="width:70%;" />
-                                </div>
-                                <div class="col-md-4">
-                                <p-dropdown [options]="levelDetails" name="certificationLevel" [(ngModel)]="certificationModel.certificationLevel" placeholder="Certification Level"
-                                    optionLabel="lev" [style]="{'width':'150px'}" (onChange)="onLevelDrpChange()" [autoWidth]="false"></p-dropdown>
-                                </div>
+                    <div class="panel-body">
+                        <div class="row" style="margin: 10px;">
+                            <div class="col-md-3">
+                                <p-dropdown [options]="certificationTechnologies" name="certificationTechnologies" [(ngModel)]="certificationModel.certTech"
+                                    placeholder="Certification Technologies" optionLabel="label" [style]="{'width':'185px'}"
+                                    (onChange)="onCertificationTechChange()" [autoWidth]="false"></p-dropdown>
                             </div>
-                            <div class="row" style="margin: 10px;">
-                                <div class="col-md-3" style="margin-top: 23px;">
-                                <p-calendar [(ngModel)]="certificationModel.validFrom" [showIcon]="true" placeholder="Valid From"></p-calendar>
-                                </div>
-                                <div class="col-md-3" style="margin-top: 23px;">
-                                <p-calendar [(ngModel)]="certificationModel.validTo" [showIcon]="true" placeholder="Valid To"></p-calendar>
-                                </div>
-                                <div class="col-md-3" style="margin-top: 18px;">
-                                <input class="form-control" type="text" [(ngModel)]="certificationModel.description"placeholder="description" name="description"  />
-                                </div>
-                                <div class="col-md-3" style="margin-top: 18px;">
-                                <button  type="button" [disabled]="validateFields()" class="btn btn-success">Add</button>
-                                <button  type="button" class="btn btn-success">Update</button>
-                                </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="certificationNames" name="certificationName" [(ngModel)]="certificationModel.certName" placeholder="Certification Name"
+                                    optionLabel="label" [style]="{'width':'250px'}" [autoWidth]="false"></p-dropdown>
+                            </div>
+                            <div class="col-md-5">
+                                <p-dropdown [options]="certificationInstitues" name="certificationFrom" [(ngModel)]="certificationModel.certFrom" placeholder="Certification From"
+                                    optionLabel="label" [style]="{'width':'280px'}" [autoWidth]="false"></p-dropdown>
                             </div>
                         </div>
+                        <div class="row" style="margin: 10px;">
+                            <div class="col-md-3" style="margin-top: 23px;">
+                                <p-dropdown [options]="levelDetails" name="certificationLevel" [(ngModel)]="certificationModel.certLevel" placeholder="Certification Level"
+                                    optionLabel="label" [style]="{'width':'150px'}" [autoWidth]="false"></p-dropdown>
+                            </div>
+                            <div class="col-md-3" style="margin-top: 23px;">
+                                <p-calendar name="validFrom" [(ngModel)]="certificationModel.validFrom" [showIcon]="true" placeholder="Valid From"></p-calendar>
+                            </div>
+                            <div class="col-md-3" style="margin-top: 23px;">
+                                <p-calendar name="validTo" [(ngModel)]="certificationModel.validTo" [showIcon]="true" placeholder="Valid To"></p-calendar>
+                            </div>
+                            <div class="col-md-3" style="margin-top: 18px;">
+                                <input class="form-control" type="text" [(ngModel)]="certificationModel.comments" placeholder="description" name="description"
+                                    style="width:90%;" />
+                            </div>
+                            <!--<div class="col-md-2" style="margin-top: 18px;">
+                                <button type="button" (click)="onCertificationAdd('add')" class="btn btn-success">Add</button>
+                                <button *ngIf="false" type="button" (click)="onCertificationAdd('update')" class="btn btn-success">Update</button>
+                            </div>-->
+                        </div>
+                        <div class="row text-center">
+                            <button *ngIf="showButton" type="button" (click)="onCertificationAdd('add')" class="btn btn-success">Add</button>
+                            <button *ngIf="!showButton" type="button" (click)="onCertificationAdd('update')" class="btn btn-success">Update</button>
+                        </div>
                     </div>
-                    <p-dataTable [value]="certificationDetails" scrollable="true" scrollHeight="200px" emptyMessage="No certifications found">
-                        <p-column [sortable]="true" *ngFor="let col of certificationHeader" [field]="col.field" [header]="col.header"></p-column>
-                        <p-column styleClass="col-button">
-                            <ng-template pTemplate="header">
-                                Action
-                            </ng-template>
-                            <ng-template let-car="rowData" let-i="rowIndex" pTemplate="body">
-                                <a class="curosr-p"><i class="fa fa-edit"></i></a>
-                                <a class="curosr-p"><i class="fa fa-trash"></i></a>
-                            </ng-template>
-                        </p-column>
-                    </p-dataTable>
+                </div>
+                <p-dataTable [value]="certificationDetails" scrollable="true" scrollHeight="200px" emptyMessage="No certifications found">
+                    <p-column [sortable]="true" *ngFor="let col of certificationHeader" [field]="col.field" [header]="col.header"></p-column>
+                    <p-column styleClass="col-button">
+                        <ng-template pTemplate="header">
+                            Action
+                        </ng-template>
+                        <ng-template let-car="rowData" let-i="rowIndex" pTemplate="body">
+                            <a class="curosr-p"><i class="fa fa-edit" (click)="onEdit(car, i)"></i></a>
+                            <a class="curosr-p"><i class="fa fa-trash" (click)="deleteConfirm(car, i)"></i></a>
+                        </ng-template>
+                    </p-column>
+                </p-dataTable>
+            </div>
+
         </div>
     </div>
 </div>

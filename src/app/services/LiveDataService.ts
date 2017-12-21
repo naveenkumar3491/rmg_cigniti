@@ -30,6 +30,11 @@ export class LiveDataService extends DataService {
     private readonly saveDomainUrl = this.getBaseURI() + 'addEmployeeDomain';
     private readonly visaDetails = this.getBaseURI() + 'visaDetails';
     private readonly deleteDomainUrl = this.getBaseURI() + 'deleteEmployeeDomain';
+    private readonly certificationTechUrl = this.getBaseURI() + 'certTechnologies';
+    private readonly certificationNamesUrl = this.getBaseURI() + 'certificationNames';
+    private readonly certificationInstitutesUrl = this.getBaseURI() + 'certificateInstitutes';
+    private readonly saveCertificationUrl = this.getBaseURI() + 'saveOrUpdateEmplCert';
+    private readonly deleteCertificationUrl = this.getBaseURI() + 'deleteEmplCertification';
     private readonly REQUEST_HEADERS: Headers = new Headers({
         'Content-Type': 'application/json; charset=utf-8',
         'Accept': 'application/json'
@@ -44,6 +49,13 @@ export class LiveDataService extends DataService {
 
     constructor(private http: Http, private storage: Ng2Storage) {
         super();
+    }
+
+    public getMatchedDomain(name, data) {
+        let found = data.find(obj => obj.label === name);
+        if (found) {
+            return found.value;
+        }
     }
 
     public loginUser(obj: ILogin): Observable<ILoginResponse> {
@@ -105,6 +117,25 @@ export class LiveDataService extends DataService {
         })
     }
 
+    public getCertificationNames(cTechId: string): Observable<any> {
+        return this.http.get(`${this.certificationNamesUrl}?cert_tech_id=${cTechId}`, this.REQUEST_OPTIONS).map((res: Response) => {
+            const items = <any[]>res.json().details;
+            let data = [];
+            items.forEach((cert) => {
+                data.push({
+                    label: cert.cert_name,
+                    value: {
+                        certTechId: cert.cert_tech_id,
+                        certNameId: cert.cert_id,
+                        name: cert.cert_name
+                    }
+                })
+
+            });
+            return data;
+        })
+    }
+
     public getAllSkillData(empId: string): Observable<any> {
         return Observable.forkJoin([
             this.http.get(`${this.skillDetails}?empId=${empId}`, this.REQUEST_OPTIONS).map((res: Response) => res.json()),
@@ -147,7 +178,37 @@ export class LiveDataService extends DataService {
                         }
                     }
                     return data;
-                })
+                }),
+            this.http.get(`${this.certificationTechUrl}`, this.REQUEST_OPTIONS).map((res: Response) => {
+                const items = <any[]>res.json().details;
+                let data = [];
+                items.forEach((cert) => {
+                    data.push({
+                        label: cert.vert_technology_name,
+                        value: {
+                            certTechId: cert.cert_tech_id,
+                            name: cert.vert_technology_name
+                        }
+                    })
+
+                });
+                return data;
+            }),
+            this.http.get(`${this.certificationInstitutesUrl}`, this.REQUEST_OPTIONS).map((res: Response) => {
+                const items = <any[]>res.json().details;
+                let data = [];
+                items.forEach((cert) => {
+                    data.push({
+                        label: cert.certification_institute_name,
+                        value: {
+                            id: cert.id,
+                            name: cert.certification_institute_name
+                        }
+                    })
+
+                });
+                return data;
+            })
         ]);
     }
 
@@ -207,6 +268,12 @@ export class LiveDataService extends DataService {
         })
     }
 
+    public addUpdateCertification(obj): Observable<any> {
+        return this.http.post(`${this.saveCertificationUrl}`, obj).map((response: Response) => {
+            return response.json();
+        })
+    }
+
     public getVisaDetails(id): Observable<any> {
         return this.http.get(`${this.visaDetails}?empId=${id}`, this.REQUEST_OPTIONS).map((response: Response) => {
             return response.json();
@@ -219,6 +286,11 @@ export class LiveDataService extends DataService {
         })
     }
 
+    public deleteCertification(obj): Observable<any> {
+        return this.http.post(`${this.deleteCertificationUrl}`, obj).map((response: Response) => {
+            return response.json();
+        })
+    }
 
 }
 

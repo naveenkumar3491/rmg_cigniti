@@ -43,7 +43,10 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn-xl cta-btn-login">LOGIN</button>
+                        <button type="submit" class="btn-xl cta-btn-login" [disabled]="disabledBtn">LOGIN
+                            <span class="search-spinner" *ngIf="disabledBtn"><i class="fa-li fa fa-spinner fa-spin"></i></span>
+                        </button>
+                        
                     </form>
                 </div>
             </div>

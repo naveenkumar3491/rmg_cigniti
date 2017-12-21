@@ -16,6 +16,10 @@ export abstract class DataService {
     public abstract profilePercentage: EventEmitter<number>;
     public abstract addUpdateSkill(obj, value): Observable<any>;
     public abstract addUpdateDomain(obj, value): Observable<any>;
+    public abstract addUpdateCertification(obj): Observable<any>;
     public abstract deleteDomain(obj, value): Observable<any>;
+    public abstract deleteCertification(obj): Observable<any>;
     public abstract getVisaDetails(id) : Observable<any>;
+    public abstract getCertificationNames(id) : Observable<any>;
+    public abstract getMatchedDomain(name, data);
 }

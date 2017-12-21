@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DataService } from "../../../services/DataService";
 import { MessageService } from "primeng/components/common/messageservice";
+import { ConfirmationService } from "primeng/primeng";
 
 @Component({
   selector: 'val-skill-details',
@@ -27,7 +28,7 @@ export class SkillDetailsComponent implements OnInit {
   public skillList: any = [];
   public editedSkillObject: any;
   public showButton: boolean = true;
-  constructor(private dataService: DataService, private messageService: MessageService) { }
+  constructor(private dataService: DataService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
     console.log('init');
@@ -95,6 +96,15 @@ export class SkillDetailsComponent implements OnInit {
     setTimeout(() => {
       sR.el.nativeElement.querySelector('.ui-dropdown-items-wrapper').scrollTop = 0;
     }, 10)
+  }
+
+  deleteConfirm(index) {
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to delete skill?',
+      accept: () => {
+        this.deleteSkill(index);
+      }
+    });
   }
 
   deleteSkill(index) {

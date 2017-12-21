@@ -6,13 +6,18 @@
 .has-error .alert{
     padding:4px;
 }
-
-
 .error-msg {
-          color: #880300;
-          background-color: #ec8702;
-        }
-
+    color: #880300;
+    background-color: #ec8702;
+}
 .navbar-brand{
     padding: 10px 10px;
+}
+.search-spinner{
+    .fa-li{
+        position: relative;
+        z-index: 3;
+        top: 0px;
+        left: 0px;
+    }
 }

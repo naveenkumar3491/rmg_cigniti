@@ -120,7 +120,7 @@ export class PersonalDetailsComponent implements OnInit {
   onTabChange(e) {
     if (e.index === 2) {
       this.skillBusy = this.dataService.getAllSkillData(this.userData.employeeId).subscribe((data) => {
-        console.log(data);
+        console.log('skill data', data);
         this.skillsMasterData = data;
         console.log(this.skillsMasterData);
       });
