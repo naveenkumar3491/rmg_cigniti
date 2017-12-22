@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { DataService } from "../../../services/DataService";
 import { MessageService } from "primeng/components/common/messageservice";
 import { ConfirmationService } from "primeng/primeng";
@@ -34,11 +34,16 @@ export class SkillDetailsComponent implements OnInit {
     console.log('init');
   }
 
-  ngOnChanges() {
-    this.skillList = this.skillDetails;
-    this.categoryList = this.skillMasterData.categoryList;
-    this.skillCategoriesList = this.skillMasterData.skillCategoriesList;
-    console.log(this.categoryList);
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
+   
+    if(changes.skillMasterData && changes.skillMasterData.currentValue){
+      this.categoryList = changes.skillMasterData.currentValue.categoryList;
+    this.skillCategoriesList = changes.skillMasterData.currentValue.skillCategoriesList;
+    }
+    if(changes.skillDetails && changes.skillDetails.currentValue){
+       this.skillList = this.skillDetails.currentValue;
+    }
   }
   
   changeSort(event) {
@@ -112,7 +117,7 @@ export class SkillDetailsComponent implements OnInit {
     this.skillList=this.skillList.slice();
     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Skill deleted successfully!!' });
     if(this.skillList.length === 0){
-        this.dataService.profilePercentage.emit(20);
+        this.dataService.profilePercentage.emit(-20);
       }
   }
 }

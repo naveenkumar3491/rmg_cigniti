@@ -15,6 +15,8 @@ import {ConfirmDialogModule, ConfirmationService} from 'primeng/primeng';
 import {SharedModule} from 'primeng/primeng';
 import {BusyModule} from 'angular2-busy';
 
+import {OnlyNumber} from '../common/directives/only-number.directive';
+
 import { RmgAppComponent } from './rmg-app.component';
 import { AppMenuComponent, AppSubMenuComponent } from "../common/side-nav/app.menu.component";
 import { AppTopbarComponent } from "../common/topbar/app.topbar.component";
@@ -72,7 +74,8 @@ import { DomainDetailsComponent } from './employee/domain-details/domain-details
     ProjectDetailsComponent,
     BUDetailsComponent,
     VisaDetailsComponent,
-    DomainDetailsComponent
+    DomainDetailsComponent,
+    OnlyNumber
     ],
     providers: [ConfirmationService]
 })

@@ -6,7 +6,10 @@ export abstract class DataService {
     public abstract getEmployeeDetails( id ): Observable<any>;
     public abstract uploadProfileImage( obj ): Observable<any>;
     public abstract uploadProfileResume( obj ): Observable<any>;
-    public abstract getAllSkillData( id ): Observable<any>;
+    public abstract getProfessionalDetails( id ): Observable<any>;
+    public abstract getMasterDomainDetails(): Observable<any>;
+    public abstract getMasterSkillDetails(): Observable<any>;
+    public abstract getCertificationTechnologies(): Observable<any>;
     public abstract getProjectDetails( id ): Observable<any>;
     public abstract getSubDomainDetails( id ): Observable<any>;
     public abstract getChildDomainDetails( dId, sId ): Observable<any>;
@@ -20,6 +23,6 @@ export abstract class DataService {
     public abstract deleteDomain(obj, value): Observable<any>;
     public abstract deleteCertification(obj): Observable<any>;
     public abstract getVisaDetails(id) : Observable<any>;
-    public abstract getCertificationNames(id) : Observable<any>;
+    public abstract getCertificationNamesInstitutes(id) : Observable<any>;
     public abstract getMatchedDomain(name, data);
 }

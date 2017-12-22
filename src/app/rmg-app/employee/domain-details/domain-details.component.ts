@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, EventEmitter, Output } from '@angular/core';
 import { DataService } from "../../../services/DataService";
 import { MessageService } from "primeng/components/common/messageservice";
 import { Ng2Storage } from "../../../services/storage";
@@ -12,9 +12,12 @@ import { ConfirmationService } from "primeng/primeng";
 export class DomainDetailsComponent implements OnInit {
   @Input() domainDetails;
   @Input() masterDomains;
+  @Output() callBackProfessionalDetails = new EventEmitter();
   public subDomainDetails: any = [];
   public childDomainDetails: any = [];
+  public domainList:any = [];
   public editedDomainObject: any;
+  public masterDomainData: any;
   public showButton: boolean = true;
   public domainHeader: any = [
     { field: 'domain_name', header: 'Domain' },
@@ -35,9 +38,13 @@ export class DomainDetailsComponent implements OnInit {
   ngOnInit() {
   }
 
-  ngOnChanges() {
-    console.log(this.domainDetails);
-    console.log('domains', this.masterDomains);
+  ngOnChanges(changes: SimpleChanges) {
+    if(changes.masterDomains && changes.masterDomains.currentValue){
+      this.masterDomainData = changes.masterDomains.currentValue;
+    }
+    if(changes.domainDetails && changes.domainDetails.currentValue){
+      this.domainList = changes.domainDetails.currentValue;
+    }
   }
 
   onDomainFocus(dR) {
@@ -46,8 +53,11 @@ export class DomainDetailsComponent implements OnInit {
     }, 10)
   }
 
-  disableDomain() {
+  disableBtn() {
     let isValid = true;
+    if(this.subDomainDetails.length === 0 || this.childDomainDetails.length === 0){
+      return isValid;
+    }
     [{ name: 'domain', model: 'domainId' }, { name: 'subDomain', model: 'subDomainId' }, { name: 'childDomain', model: 'childDomainId' }].forEach((obj) => {
       if (!this.domainModel[obj.name][obj.model]) {
         isValid = false;
@@ -101,19 +111,11 @@ export class DomainDetailsComponent implements OnInit {
     this.dataService.addUpdateDomain(domainObj, progressValue).subscribe((data) => {
       console.log(data);
       if (type === 'add') {
-        delete domainObj.employeeId;
-        this.domainDetails.unshift(Object.assign({}, domainFilteredObj));
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domain added successfully!!' });
       } else {
-        this.domainDetails.forEach((domain, index) => {
-          if (domain.rowid === this.editedDomainObject.rowid) {
-            domainFilteredObj['rowid'] = this.domainDetails[index].rowid;
-            this.domainDetails[index] = domainFilteredObj;
-          }
-        });
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domain updated successfully!!' });
       }
-      this.domainDetails = this.domainDetails.slice();
+      this.callBackProfessionalDetails.emit();
       this.showButton = true;
       this.domainModel = {};
       this.subDomainDetails = [];
@@ -134,6 +136,8 @@ export class DomainDetailsComponent implements OnInit {
   }
 
   editDomain(domain, index) {
+    this.subDomainDetails = [];
+    this.childDomainDetails = [];
     console.log('each domain', domain);
     this.showButton = false;
     this.domainModel = {
@@ -181,13 +185,12 @@ export class DomainDetailsComponent implements OnInit {
     this.dataService.deleteDomain(domainObj, progressBarValue).subscribe((data) => {
       console.log(data);
       if (this.domainDetails.length === 1) {
-        this.dataService.profilePercentage.emit(20);
+        this.dataService.profilePercentage.emit(-20);
       }
-      this.domainDetails.splice(index, 1);
+      this.callBackProfessionalDetails.emit();
       this.domainModel = {};
       this.subDomainDetails = [];
       this.childDomainDetails = [];
-      this.domainDetails = this.domainDetails.slice();
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domain deleted successfully!!' });
       this.showButton = true;
     });

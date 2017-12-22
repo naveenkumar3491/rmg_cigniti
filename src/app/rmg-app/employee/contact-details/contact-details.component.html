@@ -34,7 +34,7 @@
                             <span class="pro-title">MOBILE</span>
                             <span class="fa fa-mobile-phone"></span>
                             <input type="text" *ngIf="!editMode" 
-                            class="form-control" formControlName="mobile" [(ngModel)]="model.mobile" />
+                            class="form-control" formControlName="mobile" [(ngModel)]="model.mobile" [onlyNumber]="isNumber" maxlength="10"/>
                             <p *ngIf="editMode" style="margin-top: 10px;">{{model.mobile}}</p>
                             <div *ngIf="contactForm.controls['mobile'].errors?.required && formSubmitAttempt">
                                 <div class="app-error-msg">

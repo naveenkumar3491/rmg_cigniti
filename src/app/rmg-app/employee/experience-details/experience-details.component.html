@@ -41,7 +41,7 @@
                                 <button (click)="uploadFile()" class="theme-btn theme-btn-primary" *ngIf="!emptyResume">Upload</button>
                             </div>
                         </div>
-                        <input type="file" style="visibility:hidden;" #getResumeFile (change)="readResume($event)" />
+                        <input type="file" style="visibility:hidden;" #getResumeFile (change)="readResume($event)" (click)="getResumeFile.value = null"/>
 
                     </div>
                     <!--<div class="col-md-4">

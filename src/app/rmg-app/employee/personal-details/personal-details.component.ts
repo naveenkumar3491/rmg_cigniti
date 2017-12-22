@@ -14,18 +14,24 @@ export class PersonalDetailsComponent implements OnInit {
   http: any;
   msgs: any = [];
   url: any;
-  
-  public pbarColor:string;
+
+  public pbarColor: string;
   public imageView = true;
   public profileProgress: number;
   public emptyImage: boolean;
   public personalDetails: any;
   public projectDetails: any;
   public visaDetails: any;
-  public skillsMasterData: any;
+  public professionalMasterData: any;
+  public masterSkillsData: any;
+  public masterDomainData: any;
+  public masterCertificationData: any;
 
   public personalBusy: Subscription;
+  public professionalBusy: Subscription;
   public skillBusy: Subscription;
+  public domainBusy: Subscription;
+  public certificationBusy: Subscription;
   public projectBusy: Subscription;
   public visaBusy: Subscription;
 
@@ -71,7 +77,7 @@ export class PersonalDetailsComponent implements OnInit {
     private dataService: DataService, private storage: Ng2Storage) {
     this.dataService.profilePercentage.subscribe((value) => {
       this.profileProgress += value;
-      if(this.profileProgress > 100){
+      if (this.profileProgress > 100) {
         this.profileProgress = 100;
       }
       this.changeProgressBarColor();
@@ -84,7 +90,7 @@ export class PersonalDetailsComponent implements OnInit {
 
   }
 
-  addValue(){
+  addValue() {
     this.profileProgress += 10;
     this.changeProgressBarColor();
   }
@@ -98,14 +104,14 @@ export class PersonalDetailsComponent implements OnInit {
       this.pbarColor = 'pb-good';
     }
   }
-  callBackContactDetails(){
+  callBackContactDetails() {
     this.getEmployeeDetails();
   }
   getEmployeeDetails() {
     this.personalBusy = this.dataService.getEmployeeDetails(this.userData.employeeId).subscribe((data) => {
       this.personalDetails = data.details;
       this.profileProgress = this.personalDetails.progressbar;
-      if(this.profileProgress > 100){
+      if (this.profileProgress > 100) {
         this.profileProgress = 100;
       }
       this.changeProgressBarColor();
@@ -117,22 +123,45 @@ export class PersonalDetailsComponent implements OnInit {
     this.cdRef.detectChanges();
   }
 
+  callBackProfessionalDetails(){
+    this.professionalBusy = this.dataService.getProfessionalDetails(this.userData.employeeId).subscribe((data) => {
+        console.log('skill data', data);
+        this.professionalMasterData = data;
+        console.log(this.professionalMasterData);
+      });
+  }
+
   onTabChange(e) {
     if (e.index === 2) {
-      this.skillBusy = this.dataService.getAllSkillData(this.userData.employeeId).subscribe((data) => {
-        console.log('skill data', data);
-        this.skillsMasterData = data;
-        console.log(this.skillsMasterData);
-      });
+      this.callBackProfessionalDetails();
     } else if (e.index === 3) {
       this.projectBusy = this.dataService.getProjectDetails(this.userData.employeeId).subscribe((data) => {
         this.projectDetails = data;
       });
-    } else if(e.index === 5){
+    } else if (e.index === 5) {
       this.visaBusy = this.dataService.getVisaDetails(this.userData.employeeId).subscribe((data) => {
         this.visaDetails = data.details;
       });
     }
+  }
+
+  onAccOpen(e) {
+    console.log(e);
+    if (e.index === 0) {
+      this.skillBusy = this.dataService.getMasterSkillDetails().subscribe((data) => {
+        console.log(data);
+        this.masterSkillsData = data;
+      })
+    } else if (e.index === 1) {
+      this.domainBusy = this.dataService.getMasterDomainDetails().subscribe((data) => {
+        this.masterDomainData = data;
+      })
+    } else if (e.index === 2) {
+      this.certificationBusy = this.dataService.getCertificationTechnologies().subscribe((data) => {
+        this.masterCertificationData = data;
+      })
+    }
+
   }
 
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ConfirmationService } from "primeng/primeng";
 import { DataService } from "../../../services/DataService";
@@ -14,8 +14,12 @@ import { Ng2Storage } from "../../../services/storage";
 export class CertificationDetailsComponent implements OnInit {
   @Input() certificationDetails;
   @Input() certificationTechnologies;
-  @Input() certificationInstitues;
-  public certificationNames: any;
+  @Output() callBackProfessionalDetails = new EventEmitter();
+  public certificationTechList: any;
+  public certificationNames: any = [];
+  public certificationInstitutes: any = [];
+  public certificationList:any = [];
+  private editedCertObject: any;
   public showButton: boolean = true;
   public levelDetails = [{ label: 'Beginner', value: 'Beginner' },
   { label: 'Intermediate', value: 'Intermediate' },
@@ -43,7 +47,16 @@ export class CertificationDetailsComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.certificationDetails)
+  }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if(changes.certificationTechnologies && changes.certificationTechnologies.currentValue){
+      this.certificationTechList = changes.certificationTechnologies.currentValue;
+    }
+    if(changes.certificationDetails && changes.certificationDetails.currentValue){
+      this.certificationList = changes.certificationDetails.currentValue;
+    }
+    
   }
 
   onCertificationAdd(type) {
@@ -57,16 +70,17 @@ export class CertificationDetailsComponent implements OnInit {
       validTo: this.datePipe.transform(this.certificationModel.validTo, 'MM-dd-yyyy'),
       comments: this.certificationModel.comments
     }
+    if (type !== 'add') {
+      certObj['rowid'] = this.editedCertObject.rowid;
+    }
     this.dataService.addUpdateCertification(certObj).subscribe((data) => {
       console.log(data);
       if (type === 'add') {
-        delete certObj.empId;
-        this.certificationDetails.unshift(Object.assign({}, certObj));
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Certification added successfully!!' });
       } else {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Certification updated successfully!!' });
       }
-      this.certificationDetails = this.certificationDetails.slice();
+      this.callBackProfessionalDetails.emit();
       this.certificationModel = {
         certTech: {},
         certName: {},
@@ -75,29 +89,39 @@ export class CertificationDetailsComponent implements OnInit {
         comments: ''
       };
       this.certificationNames = [];
+      this.certificationInstitutes = [];
       this.showButton = true;
     });
   }
 
   onEdit(certification, index) {
+    this.certificationNames = [];
     this.showButton = false;
+    this.editedCertObject = certification;
     this.certificationModel = {
       certTech: this.dataService.getMatchedDomain(certification.technology, this.certificationTechnologies),
-      certFrom: this.dataService.getMatchedDomain(certification.boardInstitute, this.certificationInstitues),
       certLevel: certification.levels,
       validFrom: (certification.validFrom).replace(/-/g, '/'),
       validTo: (certification.validTo).replace(/-/g, '/'),
       comments: certification.comments
     }
-    this.dataService.getCertificationNames(this.certificationModel.certTech.certTechId).subscribe((data) => {
-      this.certificationNames = data;
+    this.dataService.getCertificationNamesInstitutes(this.certificationModel.certTech.certTechId).subscribe((data) => {
+      this.certificationNames = data[0];
+      this.certificationInstitutes = data[1];
       this.certificationModel.certName = this.dataService.getMatchedDomain(certification.certification, this.certificationNames);
+      this.certificationModel.certFrom = this.dataService.getMatchedDomain(certification.boardInstitute, this.certificationInstitutes);
     })
   }
 
   onCertificationTechChange() {
-    this.dataService.getCertificationNames(this.certificationModel.certTech.certTechId).subscribe((data) => {
-      this.certificationNames = data;
+    this.certificationNames = [];
+    this.certificationInstitutes = [];
+    this.dataService.getCertificationNamesInstitutes(this.certificationModel.certTech.certTechId).subscribe((data) => {
+      console.log(data);
+      this.certificationNames = data[0];
+      this.certificationInstitutes = data[1];
+      this.certificationModel.certName = {};
+      this.certificationModel.certFrom = {};
     })
   }
 
@@ -110,10 +134,9 @@ export class CertificationDetailsComponent implements OnInit {
     });
   }
 
-  deleteCertification(cert, index){
-    this.dataService.deleteCertification(cert).subscribe((data) => {
-      console.log(data);
-      this.certificationDetails.splice(index, 1);
+  deleteCertification(cert, index) {
+    this.dataService.deleteCertification({rowid: cert.rowid}).subscribe((data) => {
+      this.callBackProfessionalDetails.emit();
       this.certificationModel = {
         certTech: {},
         certName: {},
@@ -122,16 +145,19 @@ export class CertificationDetailsComponent implements OnInit {
         comments: ''
       };
       this.certificationNames = [];
-      this.certificationDetails = this.certificationDetails.slice();
+      this.certificationInstitutes = [];
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Certification deleted successfully!!' });
       this.showButton = true;
     });
   }
 
-  validateFields() {
+  disableBtn() {
     let isValid = true;
-    ['certificationName', 'certificationFrom', 'validFrom', 'validTo'].forEach((value) => {
-      if (!this.certificationModel[value]) {
+    if (this.certificationNames.length === 0) {
+      return isValid;
+    }
+    [{ name: 'certTech', model: 'certTechId' }, { name: 'certName', model: 'certNameId' }, { name: 'certFrom', model: 'name' }].forEach((obj) => {
+      if (!this.certificationModel[obj.name][obj.model]) {
         isValid = false;
       }
     })

@@ -28,21 +28,26 @@
                     <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" novalidate>
                         <h1 class="login-title">RMG LOGIN</h1>
                         <div class="form-group" [ngClass]="displayFieldCss('userId')">
-                            <input class="form-control" type="text" placeholder="UserName" formControlName="userId" />
+                            <input class="form-control" type="text" placeholder="UserName" formControlName="userId" (input)="loginFail = false;"/>
                             <div *ngIf="isFieldValid('userId')">
                                 <div class="error-msg">
                                     Username is required
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group" [ngClass]="displayFieldCss('password')">
-                            <input class="form-control" type="password" placeholder="Password" formControlName="password" />
+                        <div class="form-group m-b-5" [ngClass]="displayFieldCss('password')">
+                            <input class="form-control" type="password" placeholder="Password" formControlName="password" (input)="loginFail = false;"/>
                             <div *ngIf="isFieldValid('password')">
                                 <div class="error-msg">
                                     Password is required
                                 </div>
                             </div>
                         </div>
+                        <div *ngIf="loginFail">
+                                <div class="error-red">
+                                    Username & Password are Incorrect
+                                </div>
+                            </div>
                         <button type="submit" class="btn-xl cta-btn-login" [disabled]="disabledBtn">LOGIN
                             <span class="search-spinner" *ngIf="disabledBtn"><i class="fa-li fa fa-spinner fa-spin"></i></span>
                         </button>

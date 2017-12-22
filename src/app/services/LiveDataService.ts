@@ -117,69 +117,95 @@ export class LiveDataService extends DataService {
         })
     }
 
-    public getCertificationNames(cTechId: string): Observable<any> {
-        return this.http.get(`${this.certificationNamesUrl}?cert_tech_id=${cTechId}`, this.REQUEST_OPTIONS).map((res: Response) => {
-            const items = <any[]>res.json().details;
-            let data = [];
-            items.forEach((cert) => {
-                data.push({
-                    label: cert.cert_name,
-                    value: {
-                        certTechId: cert.cert_tech_id,
-                        certNameId: cert.cert_id,
-                        name: cert.cert_name
-                    }
-                })
+    public getCertificationNamesInstitutes(cTechId: string): Observable<any> {
+        return Observable.forkJoin([
+            this.http.get(`${this.certificationNamesUrl}?cert_tech_id=${cTechId}`, this.REQUEST_OPTIONS).map((res: Response) => {
+                const items = <any[]>res.json().details;
+                let data = [];
+                items.forEach((cert) => {
+                    data.push({
+                        label: cert.cert_name,
+                        value: {
+                            certTechId: cert.cert_tech_id,
+                            certNameId: cert.cert_id,
+                            name: cert.cert_name
+                        }
+                    })
+                });
+                return data;
+            }),
+            this.http.get(`${this.certificationInstitutesUrl}?cert_tech_id=${cTechId}`, this.REQUEST_OPTIONS).map((res: Response) => {
+                const items = <any[]>res.json().details;
+                let data = [];
+                items.forEach((cert) => {
+                    data.push({
+                        label: cert.certification_institute_name,
+                        value: {
+                            certTechId: cert.cert_tech_id,
+                            certInstId: cert.id,
+                            name: cert.certification_institute_name
+                        }
+                    })
 
-            });
-            return data;
+                });
+                return data;
+            })
+        ]);
+
+    }
+
+    public getProfessionalDetails(empId: string): Observable<any> {
+        return this.http.get(`${this.skillDetails}?empId=${empId}`, this.REQUEST_OPTIONS).map((response: Response) => {
+            return response.json();
         })
     }
 
-    public getAllSkillData(empId: string): Observable<any> {
-        return Observable.forkJoin([
-            this.http.get(`${this.skillDetails}?empId=${empId}`, this.REQUEST_OPTIONS).map((res: Response) => res.json()),
-            this.http.get(`${this.domainData}`, this.REQUEST_OPTIONS).map((res: Response) => {
-                const items = <any[]>res.json();
-                let domainData = [];
-                items.forEach((domain) => {
-                    domainData.push({
-                        label: domain.domainName,
-                        value: {
-                            domainId: domain.id,
-                            domainName: domain.domainName
-                        }
-                    })
+    public getMasterDomainDetails(): Observable<any> {
+        return this.http.get(`${this.domainData}`, this.REQUEST_OPTIONS).map((res: Response) => {
+            const items = <any[]>res.json();
+            let domainData = [];
+            items.forEach((domain) => {
+                domainData.push({
+                    label: domain.domainName,
+                    value: {
+                        domainId: domain.id,
+                        domainName: domain.domainName
+                    }
                 })
-                return domainData;
-            }),
-            this.http.get(`${this.masterSkillData}`, this.REQUEST_OPTIONS)
-                .map((res: Response) => {
-                    const items = <any[]>res.json();
-                    let data = {
-                        categoryList: [],
-                        skillCategoriesList: []
-                    }
-                    for (var key in items) {
-                        let i = Object.keys(items).indexOf(key);
-                        data.skillCategoriesList.push({
-                            label: key,
-                            value: key
+            })
+            return domainData;
+        })
+    }
+    public getMasterSkillDetails(): Observable<any> {
+        return this.http.get(`${this.masterSkillData}`, this.REQUEST_OPTIONS)
+            .map((res: Response) => {
+                const items = <any[]>res.json();
+                let data = {
+                    categoryList: [],
+                    skillCategoriesList: []
+                }
+                for (var key in items) {
+                    let i = Object.keys(items).indexOf(key);
+                    data.skillCategoriesList.push({
+                        label: key,
+                        value: key
+                    })
+                    data.categoryList.push({
+                        category: key,
+                        skillSet: new Array()
+                    })
+                    for (var j = 0; j < items[key].length; j++) {
+                        data.categoryList[i]['skillSet'].push({
+                            label: items[key][j],
+                            value: items[key][j]
                         })
-                        data.categoryList.push({
-                            category: key,
-                            skillSet: new Array()
-                        })
-                        for (var j = 0; j < items[key].length; j++) {
-                            data.categoryList[i]['skillSet'].push({
-                                label: items[key][j],
-                                value: items[key][j]
-                            })
-                        }
                     }
-                    return data;
-                }),
-            this.http.get(`${this.certificationTechUrl}`, this.REQUEST_OPTIONS).map((res: Response) => {
+                }
+                return data;
+            })
+    }
+    public getCertificationTechnologies(): Observable<any> {
+        return this.http.get(`${this.certificationTechUrl}`, this.REQUEST_OPTIONS).map((res: Response) => {
                 const items = <any[]>res.json().details;
                 let data = [];
                 items.forEach((cert) => {
@@ -193,23 +219,7 @@ export class LiveDataService extends DataService {
 
                 });
                 return data;
-            }),
-            this.http.get(`${this.certificationInstitutesUrl}`, this.REQUEST_OPTIONS).map((res: Response) => {
-                const items = <any[]>res.json().details;
-                let data = [];
-                items.forEach((cert) => {
-                    data.push({
-                        label: cert.certification_institute_name,
-                        value: {
-                            id: cert.id,
-                            name: cert.certification_institute_name
-                        }
-                    })
-
-                });
-                return data;
-            })
-        ]);
+            });
     }
 
     public getThemes(): Observable<any> {

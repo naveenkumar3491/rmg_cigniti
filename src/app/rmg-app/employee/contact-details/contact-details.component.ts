@@ -12,6 +12,7 @@ import { Ng2Storage } from "../../../services/storage";
 export class ContactDetailsComponent implements OnInit {
   @Input() personalDetails;
   @Output() callBackContactDetails = new EventEmitter();
+  isNumber: boolean = true;
   contactForm: FormGroup;
   private formSubmitAttempt: boolean;
   public editMode: boolean = true;
@@ -32,7 +33,6 @@ export class ContactDetailsComponent implements OnInit {
     })
   }
   
-
    onContactDetChange(type) {
 
 

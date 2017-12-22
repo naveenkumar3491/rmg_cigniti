@@ -6,7 +6,7 @@
             <div class="panel-body">
               <div class="row" style="margin: 10px;">
                 <div class="col-md-4">
-                  <p-dropdown [options]="masterDomains" name="domainCategory" [(ngModel)]="domainModel.domain" placeholder="Select a Domain"
+                  <p-dropdown [options]="masterDomainData" name="domainCategory" [(ngModel)]="domainModel.domain" placeholder="Select a Domain"
                     optionLabel="label" [style]="{'width':'250px'}" (onChange)="onDomainChange('domain')"></p-dropdown>
                 </div>
                 <div class="col-md-4">
@@ -32,13 +32,13 @@
                 </div>
                 <div class="col-md-4" style="margin-top: 18px;">
                   <button *ngIf="showButton" type="button" class="btn btn-success"
-                    (click)="saveDomain('add')">Add Domain</button>
-                  <button *ngIf="!showButton" type="button" class="btn btn-success" (click)="saveDomain('update')">Update Domain</button>
+                    (click)="saveDomain('add')" [disabled]="disableBtn()">Add Domain</button>
+                  <button *ngIf="!showButton" type="button" class="btn btn-success" (click)="saveDomain('update')" [disabled]="disableBtn()">Update Domain</button>
                 </div>
               </div>
             </div>
           </div>
-          <p-dataTable [value]="domainDetails" scrollable="true" scrollHeight="200px" emptyMessage="No domains found">
+          <p-dataTable [value]="domainList" scrollable="true" scrollHeight="200px" emptyMessage="No domains found">
             <p-column [sortable]="true" *ngFor="let col of domainHeader" [field]="col.field" [header]="col.header"></p-column>
             <p-column styleClass="col-button">
               <ng-template pTemplate="header">

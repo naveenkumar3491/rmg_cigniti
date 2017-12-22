@@ -34,8 +34,6 @@ export class ExperienceDetailsComponent implements OnInit {
     let monthCode = todayDate.getMonth() - doj.getMonth();
     let yearExp = ((yearCode) > 1) ? (yearCode) + ' Years' : (((yearCode) == 0 || (yearCode) == undefined) ? '' : (yearCode) + ' Year');
     let monthExp = ((monthCode) > 1) ? (monthCode) + ' Months' : (((monthCode) == 0 || (monthCode) == undefined) ? '' : (monthCode) + ' Month');
-    // let monthExp = (parseInt(totExpArray[1]) > 1) ? totExpArray[1] + ' Months' : ((totExpArray[1]=='0' || totExpArray[1]==undefined)?'': totExpArray[1] +' Month' );
-    // this.model['cignitiExperience'] = `${yearCode} years ${monthCode} months`;
     this.model['cignitiExperience'] = `${yearExp} ${monthExp}`;
 
     if (this.personalDetails.totalExperience === "0") {
@@ -66,7 +64,7 @@ export class ExperienceDetailsComponent implements OnInit {
         this.resumeName = event.target.files[0].name;
         this.emptyResume = false;
       } else {
-        this.messageService.add({ severity: 'danger', summary: 'Danger', detail: `Only Doc and DocX files are allowed!!` });
+        this.messageService.add({ severity: 'danger', summary: 'Error', detail: `Only doc and docx files are allowed` });
       }
 
     }
