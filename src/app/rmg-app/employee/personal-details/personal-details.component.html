@@ -26,77 +26,96 @@
 							</div><br>
 							<div [ngClass]="pbarColor">
 								<p-progressBar [value]="profileProgress" [showValue]="true"></p-progressBar>
-								<!--<button class="btn btn-primary" (click)="addValue()">Add Value</button>-->
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-9 col-md-9">
+					<div class="col-lg-9 col-md-9 pd-info">
 						<div class="row">
 							<div class="">
 								<div class="col-lg-4 col-md-4 pad-l-0">
-									<div class="">
-										<span class="empTitle">EMPLOYEE ID</span>
-										<p class="form-control-static">{{personalDetails?.emp_id}}</p>
+									<div class="form-group">
+										<label>EMPLOYEE ID</label>
+										<p *ngIf="!editMode" class="form-control-static">{{personalDetails?.emp_id}}</p>
+										<input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="pdModel.emp_id" />
 									</div>
 								</div>
 								<div class="col-lg-4 col-md-4 no-padding">
-									<div class="">
+									<div class="form-group">
+										<label>EMPLOYEE NAME</label>
+										<p *ngIf="!editMode" class="form-control-static">{{personalDetails?.employeeName}}</p>
+										<input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="pdModel.employeeName" />
+									</div>
+								</div>
+								<div class="col-lg-4 col-md-4 pad-l-0">
+									<div class="form-group">
+										<label>DESIGNATION</label>
+										<span *ngIf="!editMode" class="pd-edit" (click)="onPdEdit()">
+											<i class="fa fa-pencil"></i>
+										</span>
+										<p *ngIf="!editMode" class="form-control-static"> {{personalDetails?.designation}}</p>
+										<input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="pdModel.designation" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="">
+								<div class="col-lg-4 col-md-4 pad-l-0">
+									<div class="form-group">
+										<label>DATE OF JOINING</label>
+										<p *ngIf="!editMode" class="form-control-static">{{personalDetails?.doj}}</p>
+										<ng-container *ngIf="editMode">
+											<p-calendar [(ngModel)]="pdModel.doj" [showIcon]="true"></p-calendar>
+										</ng-container>
+									</div>
+								</div>
+								<div class="col-lg-4 col-md-4 pad-l-0">
+									<div class="form-group">
+										<label>JOINING LOCATION</label>
+										<p *ngIf="!editMode" class="form-control-static"> {{personalDetails?.joinginLocation}}</p>
+										<input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="pdModel.joinginLocation" />
+									</div>
+								</div>
+								<div class="col-lg-4 col-md-4 no-padding">
+									<div class="form-group">
+										<label>CURRENT LOCATION</label>
+										<p *ngIf="!editMode" class="form-control-static"> {{personalDetails?.currentLocation}}</p>
+										<input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="pdModel.currentLocation" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="">
+								<div class="col-lg-4 col-md-4 pad-l-0">
+									<div class="form-group">
+										<label>EMPLOYEMENT TYPE</label>
+										<p *ngIf="!editMode" class="form-control-static">{{personalDetails?.employeementType}}</p>
+										<input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="pdModel.employeementType" />
+									</div>
+								</div>
+								<div class="col-lg-4 col-md-4 pad-l-0">
+									<div class="form-group">
+										<label>REPORTING MANAGER</label>
+										<p *ngIf="!editMode" class="form-control-static">{{personalDetails?.reportingManager}}</p>
+										<input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="pdModel.reportingManager" />
+									</div>
+								</div>
+								<div class="col-lg-4 col-md-4 no-padding">
+									<div class="form-group">
+										<label>RMG SPOC</label>
+										<p *ngIf="!editMode" class="form-control-static">Spoc</p>
+										<input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="pdModel.rmgSpoc" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row text-right" *ngIf="editMode">
+							<div class="form-group">
+								<button class="btn btn-success">Save</button>
+								<button class="btn btn-default" (click)="editMode = false">Cancel</button>
+							</div>
 
-										<span class="empTitle">EMPLOYEE NAME</span>
-										<p class="form-control-static">{{personalDetails?.employeeName}}</p>
-									</div>
-								</div>
-								<div class="col-lg-4 col-md-4 pad-l-0">
-									<div class="">
-										<span class="empTitle">DESIGNATION</span>
-										<p class="form-control-static"> {{personalDetails?.designation}}</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="">
-								<div class="col-lg-4 col-md-4 pad-l-0">
-									<div class="">
-										<span class="empTitle">DATE OF JOINING</span>
-										<p class="form-control-static">{{personalDetails?.doj}}</p>
-									</div>
-								</div>
-								<div class="col-lg-4 col-md-4 pad-l-0">
-									<div class="">
-										<span class="empTitle">JOINING LOCATION</span>
-										<p class="form-control-static"> {{personalDetails?.joinginLocation}}</p>
-									</div>
-								</div>
-								<div class="col-lg-4 col-md-4 no-padding">
-									<div class="">
-										<span class="empTitle">CURRENT LOCATION</span>
-										<p class="form-control-static"> {{personalDetails?.currentLocation}}</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="">
-								<div class="col-lg-4 col-md-4 pad-l-0">
-									<div class="">
-										<span class="empTitle">EMPLOYEMENT TYPE</span>
-										<p class="form-control-static">{{personalDetails?.employeementType}}</p>
-									</div>
-								</div>
-								<div class="col-lg-4 col-md-4 pad-l-0">
-									<div class="">
-										<span class="empTitle">REPORTING MANAGER</span>
-										<p class="form-control-static">{{personalDetails?.reportingManager}}</p>
-									</div>
-								</div>
-								<div class="col-lg-4 col-md-4 no-padding">
-									<div class="">
-										<span class="empTitle">RMG Spoc</span>
-										<p class="form-control-static">Spoc</p>
-									</div>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -121,12 +140,14 @@
 									<p-accordion (onOpen)="onAccOpen($event)">
 										<div [ngBusy]="skillBusy">
 											<p-accordionTab header="Skill Details">
-												<val-skill-details *ngIf="professionalMasterData" [skillDetails]="professionalMasterData.details.skill_List" [skillMasterData]="masterSkillsData" (callBackProfessionalDetails)="callBackProfessionalDetails()"></val-skill-details>
+												<val-skill-details *ngIf="professionalMasterData" [skillDetails]="professionalMasterData.details.skill_List" [skillMasterData]="masterSkillsData"
+												 (callBackProfessionalDetails)="callBackProfessionalDetails()"></val-skill-details>
 											</p-accordionTab>
 										</div>
 										<div [ngBusy]="domainBusy">
 											<p-accordionTab header="Domain Details">
-												<val-domain-details *ngIf="professionalMasterData" [domainDetails]="professionalMasterData.details.domain_List" [masterDomains]="masterDomainData" (callBackProfessionalDetails)="callBackProfessionalDetails()"></val-domain-details>
+												<val-domain-details *ngIf="professionalMasterData" [domainDetails]="professionalMasterData.details.domain_List" [masterDomains]="masterDomainData"
+												 (callBackProfessionalDetails)="callBackProfessionalDetails()"></val-domain-details>
 											</p-accordionTab>
 										</div>
 										<div [ngBusy]="certificationBusy">

@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class VisaDetailsComponent implements OnInit {
   @Input() visaDetails;
+  public visaModel = {};
   public visaHeader:any = [
     {field: 'country', header: 'Country'},
       {field: 'visa_type', header: 'Visa Type'},

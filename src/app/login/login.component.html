@@ -26,7 +26,7 @@
                 <div class="form-bg">
                     <!-- Register Form Grid Section -->
                     <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" novalidate>
-                        <h1 class="login-title">RMG LOGIN</h1>
+                        <h1 class="login-title">LOGIN</h1>
                         <div class="form-group" [ngClass]="displayFieldCss('userId')">
                             <input class="form-control" type="text" placeholder="UserName" formControlName="userId" (input)="loginFail = false;"/>
                             <div *ngIf="isFieldValid('userId')">
@@ -64,7 +64,7 @@
 <footer class="footer">
     <div class="container">
         <div class="row text-center">
-            <div id="copyright">
+            <div class="copyright">
                 Copyright © 2017, <b>Independent Software Testing Services
 						Company | Cigniti Technologies</b>, All rights reserved
             </div>

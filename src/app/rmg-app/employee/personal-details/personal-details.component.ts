@@ -14,7 +14,9 @@ export class PersonalDetailsComponent implements OnInit {
   http: any;
   msgs: any = [];
   url: any;
-
+  
+  public editMode: boolean = false;
+  public pdModel:any = {};
   public pbarColor: string;
   public imageView = true;
   public profileProgress: number;
@@ -90,9 +92,20 @@ export class PersonalDetailsComponent implements OnInit {
 
   }
 
-  addValue() {
-    this.profileProgress += 10;
-    this.changeProgressBarColor();
+  onPdEdit(){
+    this.editMode = true;
+    let pd = this.personalDetails;
+    this.pdModel = {
+      emp_id: pd.emp_id,
+      employeeName: pd.employeeName,
+      designation: pd.designation,
+      doj: (pd.doj).replace(/-/g, '/'),
+      joinginLocation: pd.joinginLocation,
+      currentLocation: pd.currentLocation,
+      employeementType: pd.employeementType,
+      reportingManager: pd.reportingManager,
+      rmgSpoc: pd.rmgSpoc
+    };
   }
 
   changeProgressBarColor() {

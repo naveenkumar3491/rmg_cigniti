@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ProjectDetailsComponent implements OnInit {
   @Input() projectDetails;
+  public projectModel = {};
   public projectHeader:any = [
     {field: 'projectName', header: 'Project Name'},
       {field: 'projectStartDate', header: 'Project Start Date'},

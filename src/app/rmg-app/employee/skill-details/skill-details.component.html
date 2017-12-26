@@ -2,7 +2,6 @@
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
                 <form #skillForm="ngForm">
-
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <div class="row" style="margin: 10px;">
@@ -26,51 +25,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!--<table class="table table-bordered table-inverse table-time table-responsive table-fixed">
-                            <thead>
-                                <tr>
-                                    <th class="col-xs-3">Skill Category</th>
-                                    <th class="col-xs-3">Skill</th>
-                                    <th class="col-xs-3">Skill Rating</th>
-                                    <th class="col-xs-3"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let skill of skillList; let index = index;">
-                                    <td class="col-xs-3" >{{skill.skillCategory}}</td>
-                                    <td class="col-xs-3">{{skill.skill}}</td>
-                                    <td class="col-xs-3">{{skill.skillRating}}</td>
-                                    <td class="col-xs-3" style="text-align: center;"><a class="curosr-p" (click)="editSkill(skill, index)"><i class="fa ui-icon-edit"></i></a>
-                                        <a
-                                            class="curosr-p" (click)="deleteSkill(index)"><i class="fa ui-icon-delete"></i></a>
-                                    </td>
-                                </tr>
-                               
-                            </tbody>
-                        </table>-->
-
-                    <!--<table class="table table-bordered table-inverse table-time table-responsive">
-                            <thead>
-                                <tr>
-                                    <th>Skill Category</th>
-                                    <th>Skill</th>
-                                    <th>Skill Rating</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let skill of skillList; let index = index;">
-                                    <td>{{skill.skillCategory}}</td>
-                                    <td>{{skill.skill}}</td>
-                                    <td>{{skill.skillRating}}</td>
-                                    <td style="text-align: center;"><a class="curosr-p" (click)="editSkill(skill, index)"><i class="fa ui-icon-edit"></i></a>
-                                        <a class="curosr-p" (click)="deleteSkill(index)"><i class="fa ui-icon-delete"></i></a>
-                                    </td>
-                                </tr>
-
-                            </tbody>
-                        </table>-->
                     <p-dataTable [value]="skillList" scrollable="true" [sortField]="sortF" (onSort)="changeSort($event)" scrollHeight="200px"
                         emptyMessage="No skills found">
                         <p-column [sortable]="true" *ngFor="let col of skillHeader" [field]="col.field" [header]="col.header"></p-column>
@@ -78,32 +32,13 @@
                             <ng-template pTemplate="header">
                                 Action
                             </ng-template>
-                            <ng-template let-car="rowData" let-i="rowIndex" pTemplate="body">
-                                <a class="curosr-p" (click)="onEdit(car)"><i class="fa fa-edit"></i></a>
+                            <ng-template let-skill="rowData" let-i="rowIndex" pTemplate="body">
+                                <a class="curosr-p" (click)="onEdit(skill)"><i class="fa fa-edit"></i></a>
                                 <a class="curosr-p" (click)="deleteConfirm(i)"><i class="fa fa-trash"></i></a>
                             </ng-template>
                         </p-column>
                     </p-dataTable>
                 </form>
-                <!--<tr>
-                                    <td>
-                                        <p-dropdown [options]="skillCategoriesList" name="selectedCategory" [(ngModel)]="skillModel.selectedCategory" placeholder="Select a Category"
-                                            optionLabel="label" (onChange)="onCategoryChange()" [style]="{'width':'150px'}"></p-dropdown>
-                                    </td>
-                                    <td>
-                                        <p-dropdown [options]="skillSet" name="selectedSkill" [(ngModel)]="skillModel.selectedSkill" placeholder="Select a Skill"
-                                            optionLabel="label" filter="true" [style]="{'width':'150px'}" [disabled]="!skillModel.selectedCategory"></p-dropdown>
-                                    </td>
-                                    <td>
-                                        <p-rating name="selectedRating" [(ngModel)]="skillModel.selectedRating" [cancel]="false"></p-rating>
-                                    </td>
-                                    <td style="text-align: center;" *ngIf="showButton else showUpdate"><button type="button" [disabled]="!this.skillModel.selectedCategory || !this.skillModel.selectedSkill"
-                                            (click)="saveSkill('add', skillForm)" class="btn btn-success">Add Skill</button></td>
-                                    <ng-template #showUpdate>
-                                        <td style="text-align: center;"><button type="button" (click)="saveSkill('update', skillForm)" [disabled]="!this.skillModel.selectedCategory || !this.skillModel.selectedSkill"
-                                                class="btn btn-success">Update Skill</button></td>
-                                    </ng-template>
-                                </tr>-->
         </div>
     </div>
 </div>

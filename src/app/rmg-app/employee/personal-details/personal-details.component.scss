@@ -1,47 +1,53 @@
-.personal-details{
+body .ui-fileupload .ui-fileupload-content .ui-messages-error .fa {
+    color: #ffffff;
+}
+
+.personal-details {
     padding: 5px 15px;
+    .pd-info {
+        .form-group {
+            label {
+                font-size: 12px;
+                font-family: 'robotomedium';
+                margin-bottom: 0px;
+            }
+        }
+    }
+    .pd-edit {
+        position: absolute;
+        right: 20px;
+        cursor: pointer;
+    }
+    .form-control-static {
+        font-family: "robotoregular";
+        color: #666;
+    }
+    .profileUserImage {
+        font-size: 80px;
+        color: #ccc1c1;
+    }
+    .profileBtns {
+        margin-top: 5px;
+    }
+    .removeImg {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        z-index: 1;
+        cursor: pointer;
+        width: 16px;
+        height: 16px;
+        background-color: gray;
+    }
+    .profilePic {
+        position: relative;
+        width: 100px;
+        height: 100px;
+    }
+    .is-edit{
+        display: block;
+    }
+    .is-not-edit{
+        display: none;
+    }
 }
-
-  body .ui-fileupload .ui-fileupload-content .ui-messages-error .fa {
-    color: #ffffff; }
-.profilePic{
-    position: relative;
-    width:100px;
-    height: 100px;
-}
-.removeImg{
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    z-index: 1;
-    cursor: pointer;
-    width: 16px;
-    height: 16px;
-    background-color: gray;
-}
-.removeResume{
-    cursor: pointer;
-    width: 16px;
-    height: 16px;
-    background-color: gray;
-    display:inline-block;
-}
-.profileBtns{
-    margin-top:5px;
-}
-.profileUserImage{
-    font-size: 80px;
-    color: #ccc1c1;
-}
-
-.empTitle{
-    font-size:12px;
-    color: #0e0d0d;
-    font-family: 'robotomedium';
-    line-height:.9em;
-}
-.form-control-static{
-    font-family: "robotoregular";
-    color:#666;
-}
-

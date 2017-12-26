@@ -26,23 +26,24 @@
                                     optionLabel="label" [style]="{'width':'150px'}" [autoWidth]="false"></p-dropdown>
                             </div>
                             <div class="col-md-3" style="margin-top: 23px;">
-                                <p-calendar name="validFrom" [(ngModel)]="certificationModel.validFrom" [showIcon]="true" placeholder="Valid From"></p-calendar>
+                                <p-calendar name="validFrom" [(ngModel)]="certificationModel.validFrom" 
+                                [showIcon]="true" placeholder="Valid From" (onSelect)="certificationModel.validTo = null"></p-calendar>
                             </div>
                             <div class="col-md-3" style="margin-top: 23px;">
-                                <p-calendar name="validTo" [(ngModel)]="certificationModel.validTo" [showIcon]="true" placeholder="Valid To"></p-calendar>
+                                <p-calendar [disabled]="!certificationModel.validFrom" name="validTo" 
+                                [(ngModel)]="certificationModel.validTo" [showIcon]="true" placeholder="Valid To"
+                                [minDate]="certificationModel.validFrom"></p-calendar>
                             </div>
                             <div class="col-md-3" style="margin-top: 18px;">
                                 <input class="form-control" type="text" [(ngModel)]="certificationModel.comments" placeholder="description" name="description"
                                     style="width:90%;" />
                             </div>
-                            <!--<div class="col-md-2" style="margin-top: 18px;">
-                                <button type="button" (click)="onCertificationAdd('add')" class="btn btn-success">Add</button>
-                                <button *ngIf="false" type="button" (click)="onCertificationAdd('update')" class="btn btn-success">Update</button>
-                            </div>-->
                         </div>
                         <div class="row text-center">
-                            <button *ngIf="showButton" type="button" (click)="onCertificationAdd('add')" class="btn btn-success" [disabled]="disableBtn()">Add</button>
-                            <button *ngIf="!showButton" type="button" (click)="onCertificationAdd('update')" class="btn btn-success" [disabled]="disableBtn()">Update</button>
+                            <button *ngIf="showButton" type="button" (click)="onCertificationAdd('add')" 
+                            class="btn btn-success" [disabled]="disableBtn()">Add Certification</button>
+                            <button *ngIf="!showButton" type="button" (click)="onCertificationAdd('update')" 
+                            class="btn btn-success" [disabled]="disableBtn()">Update Certification</button>
                         </div>
                     </div>
                 </div>

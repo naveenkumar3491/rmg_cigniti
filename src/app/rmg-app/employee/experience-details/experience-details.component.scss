@@ -1,10 +1,15 @@
-
-
-.experience-details{
-    .total-exp{
-        .form-control{
+.experience-details {
+    .total-exp {
+        .form-control {
             width: 22%;
             display: inline;
         }
+    }
+    .removeResume {
+        cursor: pointer;
+        width: 16px;
+        height: 16px;
+        background-color: gray;
+        display: inline-block;
     }
 }

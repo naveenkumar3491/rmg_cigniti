@@ -1,3 +1,47 @@
-<p-dataTable [value]="visaDetails" scrollable="true" scrollHeight="200px" emptyMessage="No visa found">
-    <p-column [sortable]="true" *ngFor="let col of visaHeader" [field]="col.field" [header]="col.header"></p-column>
-</p-dataTable>
+<div class="skill-details">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <form #skillForm="ngForm">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row" style="margin: 10px;">
+                            <div class="col-md-4">
+                                <p-dropdown name="country" [(ngModel)]="visaModel.country" placeholder="Country" optionLabel="label" [style]="{'width':'150px'}"></p-dropdown>
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown name="visaType" [(ngModel)]="visaModel.visaType" placeholder="Visa Type" optionLabel="label" [style]="{'width':'150px'}"></p-dropdown>
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown name="status" [(ngModel)]="visaModel.status" placeholder="Visa Status" optionLabel="label" [style]="{'width':'150px'}"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="row" style="margin: 10px;">
+                            <div class="col-md-4" style="margin-top: 23px;">
+                                <p-calendar name="validFrom" [(ngModel)]="visaModel.validFrom" [showIcon]="true" placeholder="Valid From"></p-calendar>
+                            </div>
+                            <div class="col-md-4" style="margin-top: 23px;">
+                                <p-calendar name="validTo" [(ngModel)]="visaModel.validTo" [showIcon]="true" placeholder="Valid To"></p-calendar>
+                            </div>
+                            <div class="col-md-4" style="margin-top: 23px;">
+                                <button type="button" class="btn btn-success">Add Visa</button>
+                                <button *ngIf="false" type="button" class="btn btn-success">Update Visa</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p-dataTable [value]="visaDetails" scrollable="true" scrollHeight="200px" emptyMessage="No visa found">
+                    <p-column [sortable]="true" *ngFor="let col of visaHeader" [field]="col.field" [header]="col.header"></p-column>
+                    <p-column styleClass="col-button">
+                        <ng-template pTemplate="header">
+                            Action
+                        </ng-template>
+                        <ng-template let-visa="rowData" let-i="rowIndex" pTemplate="body">
+                            <a class="curosr-p"><i class="fa fa-edit"></i></a>
+                            <a class="curosr-p"><i class="fa fa-trash"></i></a>
+                        </ng-template>
+                    </p-column>
+                </p-dataTable>
+            </form>
+        </div>
+    </div>
+</div>
