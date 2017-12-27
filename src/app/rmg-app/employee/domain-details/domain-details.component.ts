@@ -15,7 +15,7 @@ export class DomainDetailsComponent implements OnInit {
   @Output() callBackProfessionalDetails = new EventEmitter();
   public subDomainDetails: any = [];
   public childDomainDetails: any = [];
-  public domainList:any = [];
+  public domainList: any = [];
   public editedDomainObject: any;
   public masterDomainData: any;
   public showButton: boolean = true;
@@ -29,7 +29,9 @@ export class DomainDetailsComponent implements OnInit {
   public domainModel: any = {
     domain: {},
     subDomain: {},
-    childDomain: {}
+    childDomain: {},
+    years: 0,
+    months: 1
   };
   private userData = this.storage.getSession('user_data');
   constructor(private dataService: DataService, private messageService: MessageService,
@@ -39,10 +41,10 @@ export class DomainDetailsComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if(changes.masterDomains && changes.masterDomains.currentValue){
+    if (changes.masterDomains && changes.masterDomains.currentValue) {
       this.masterDomainData = changes.masterDomains.currentValue;
     }
-    if(changes.domainDetails && changes.domainDetails.currentValue){
+    if (changes.domainDetails && changes.domainDetails.currentValue) {
       this.domainList = changes.domainDetails.currentValue;
     }
   }
@@ -55,7 +57,7 @@ export class DomainDetailsComponent implements OnInit {
 
   disableBtn() {
     let isValid = true;
-    if(this.subDomainDetails.length === 0 || this.childDomainDetails.length === 0){
+    if (this.subDomainDetails.length === 0 || this.childDomainDetails.length === 0) {
       return isValid;
     }
     [{ name: 'domain', model: 'domainId' }, { name: 'subDomain', model: 'subDomainId' }, { name: 'childDomain', model: 'childDomainId' }].forEach((obj) => {
@@ -117,7 +119,13 @@ export class DomainDetailsComponent implements OnInit {
       }
       this.callBackProfessionalDetails.emit();
       this.showButton = true;
-      this.domainModel = {};
+      this.domainModel = {
+        domain: {},
+        subDomain: {},
+        childDomain: {},
+        years: 0,
+        months: 1
+      };
       this.subDomainDetails = [];
       this.childDomainDetails = [];
     })

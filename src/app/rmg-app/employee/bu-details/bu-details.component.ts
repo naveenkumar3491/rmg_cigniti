@@ -12,7 +12,6 @@ export class BUDetailsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.personalDetails.accountManager = 'naveen';
   }
 
   onBuEdit(){

@@ -950,7 +950,7 @@ body {
     box-sizing: border-box;
     padding: 20px;
     height: 75px;
-    width: 250px;
+    width: 200px;
     background-color: #225582;
     float: left;
     box-shadow: 3px 0 6px rgba(0, 0, 0, 0.3);
@@ -1061,7 +1061,7 @@ body {
 .layout-container .layout-menu {
   overflow: auto;
   position: fixed;
-  width: 250px;
+  width: 200px;
   z-index: 99;
   top: 75px;
   height: 100%;
@@ -1442,7 +1442,7 @@ body {
   .layout-container.menu-layout-static .layout-menu {
     margin-left: 0; }
   .layout-container.menu-layout-static .layout-main {
-    margin-left: 250px; }
+    margin-left: 200px; }
   .layout-container.menu-layout-static.layout-menu-static-inactive .topbar .topbar-right #menu-button i {
     -webkit-transform: rotate(180deg);
     -moz-transform: rotate(180deg);

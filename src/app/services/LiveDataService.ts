@@ -35,6 +35,7 @@ export class LiveDataService extends DataService {
     private readonly certificationInstitutesUrl = this.getBaseURI() + 'certificateInstitutes';
     private readonly saveCertificationUrl = this.getBaseURI() + 'saveOrUpdateEmplCert';
     private readonly deleteCertificationUrl = this.getBaseURI() + 'deleteEmplCertification';
+    private readonly countriesUrl = '../../assets/data/countries.json';
     private readonly REQUEST_HEADERS: Headers = new Headers({
         'Content-Type': 'application/json; charset=utf-8',
         'Accept': 'application/json'
@@ -49,6 +50,12 @@ export class LiveDataService extends DataService {
 
     constructor(private http: Http, private storage: Ng2Storage) {
         super();
+    }
+
+    public getCountriesList(){
+        return this.http.get(`${this.countriesUrl}`).map((response: Response) => {
+            return response.json();
+        })
     }
 
     public getMatchedDomain(name, data) {

@@ -7,11 +7,22 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ProjectDetailsComponent implements OnInit {
   @Input() projectDetails;
-  public projectModel = {};
+  public projectModel: any = {};
+  public allocationStatusList: any = [
+    {label: 'Billing', value: 'billing'},
+    {label: 'Buffer', value: 'buffer'},
+    {label: 'Blocked', value: 'blocked'},
+    {label: 'Available', value: 'available'},
+    {label: 'Training', value: 'training'},
+    {label: 'Long Leave', value: 'longLeave'},
+    {label: 'On Notice', value: 'onNotice'},
+    {label: 'COE & Investment', value: 'coeInvestment'},
+    {label: 'LOA', value: 'loa'},
+    {label: 'NBM', value: 'nbm'}
+  ];
   public projectHeader:any = [
+    {field: 'accountName', header: 'Account Name'},
     {field: 'projectName', header: 'Project Name'},
-      {field: 'projectStartDate', header: 'Project Start Date'},
-      {field: 'projectEndDate', header: 'Project End Date'},
       {field: 'allocationStartDate', header: 'Allocation Start Date'},
       {field: 'allocationEndDate', header: 'Allocation End Date'},
       {field: 'allocationStatus', header: 'Allocation Status'}
@@ -20,6 +31,10 @@ export class ProjectDetailsComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.projectDetails);
+  }
+
+  onAllocationChange(status){
+    
   }
 
 }

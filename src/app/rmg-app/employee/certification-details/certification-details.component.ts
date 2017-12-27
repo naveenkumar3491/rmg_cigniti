@@ -20,6 +20,7 @@ export class CertificationDetailsComponent implements OnInit {
   public certificationInstitutes: any = [];
   public certificationList:any = [];
   private editedCertObject: any;
+  public minCertificationDate:any;
   public showButton: boolean = true;
   public levelDetails = [{ label: 'Beginner', value: 'Beginner' },
   { label: 'Intermediate', value: 'Intermediate' },
@@ -105,6 +106,7 @@ export class CertificationDetailsComponent implements OnInit {
       validTo: (certification.validTo).replace(/-/g, '/'),
       comments: certification.comments
     }
+    this.minCertificationDate = new Date(this.certificationModel.validFrom);
     this.dataService.getCertificationNamesInstitutes(this.certificationModel.certTech.certTechId).subscribe((data) => {
       this.certificationNames = data[0];
       this.certificationInstitutes = data[1];

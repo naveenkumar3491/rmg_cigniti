@@ -7,9 +7,14 @@
     }
     .removeResume {
         cursor: pointer;
-        width: 16px;
-        height: 16px;
-        background-color: gray;
+        width: 12px;
+        height: 18px;
+        background-color: #5cb85c;
         display: inline-block;
+        text-align: center;
+        color: #fff;
+        .glyphicon {
+            font-size: 10px;
+        }
     }
 }

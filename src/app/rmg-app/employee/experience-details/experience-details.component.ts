@@ -26,7 +26,7 @@ export class ExperienceDetailsComponent implements OnInit {
     , private storage: Ng2Storage) { }
 
   ngOnInit() {
-    this.resumeName = this.personalDetails.resume_filename ? this.personalDetails.resume_filename : "Not Yet Upload";
+    this.resumeName = this.personalDetails.resume_filename ? this.personalDetails.resume_filename : "Not Yet Uploaded";
     this.emptyResume = true;
     let doj = new Date(this.personalDetails.doj);
     let todayDate = new Date();
@@ -83,7 +83,7 @@ export class ExperienceDetailsComponent implements OnInit {
     input.append('empId', this.userData.employeeId);
     input.append('progressbar', !this.personalDetails.resume_filename ? '10' : '0');
     this.dataService.uploadProfileResume(input).subscribe((data) => {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Saved Successfully!!' });
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Uploaded Successfully!!' });
       this.callBackContactDetails.emit('save');
       this.emptyResume = true;
     })

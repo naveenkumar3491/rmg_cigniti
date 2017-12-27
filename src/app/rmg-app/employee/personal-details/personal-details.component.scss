@@ -17,6 +17,7 @@ body .ui-fileupload .ui-fileupload-content .ui-messages-error .fa {
         position: absolute;
         right: 20px;
         cursor: pointer;
+        color: #337ab7;
     }
     .form-control-static {
         font-family: "robotoregular";
@@ -43,11 +44,5 @@ body .ui-fileupload .ui-fileupload-content .ui-messages-error .fa {
         position: relative;
         width: 100px;
         height: 100px;
-    }
-    .is-edit{
-        display: block;
-    }
-    .is-not-edit{
-        display: none;
     }
 }

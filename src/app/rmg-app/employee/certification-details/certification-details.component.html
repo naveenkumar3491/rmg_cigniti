@@ -5,7 +5,7 @@
             <div class="panel-body">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <div class="row" style="margin: 10px;">
+                        <div class="row m-t-10">
                             <div class="col-md-3">
                                 <p-dropdown [options]="certificationTechList" name="certificationTechnologies" [(ngModel)]="certificationModel.certTech"
                                     placeholder="Certification Technologies" optionLabel="label" [style]="{'width':'185px'}"
@@ -20,30 +20,30 @@
                                     optionLabel="label" [style]="{'width':'280px'}" [autoWidth]="false"></p-dropdown>
                             </div>
                         </div>
-                        <div class="row" style="margin: 10px;">
-                            <div class="col-md-3" style="margin-top: 23px;">
+                        <div class="row m-t-10">
+                            <div class="col-md-3 m-t-23">
                                 <p-dropdown [options]="levelDetails" name="certificationLevel" [(ngModel)]="certificationModel.certLevel" placeholder="Certification Level"
                                     optionLabel="label" [style]="{'width':'150px'}" [autoWidth]="false"></p-dropdown>
                             </div>
-                            <div class="col-md-3" style="margin-top: 23px;">
+                            <div class="col-md-3 m-t-23">
                                 <p-calendar name="validFrom" [(ngModel)]="certificationModel.validFrom" 
-                                [showIcon]="true" placeholder="Valid From" (onSelect)="certificationModel.validTo = null"></p-calendar>
+                                [showIcon]="true" placeholder="Valid From" (onSelect)="certificationModel.validTo = null;minCertificationDate = certificationModel.validFrom"></p-calendar>
                             </div>
-                            <div class="col-md-3" style="margin-top: 23px;">
+                            <div class="col-md-3 m-t-23">
                                 <p-calendar [disabled]="!certificationModel.validFrom" name="validTo" 
                                 [(ngModel)]="certificationModel.validTo" [showIcon]="true" placeholder="Valid To"
-                                [minDate]="certificationModel.validFrom"></p-calendar>
+                                [minDate]="minCertificationDate"></p-calendar>
                             </div>
-                            <div class="col-md-3" style="margin-top: 18px;">
+                            <div class="col-md-3 m-t-18">
                                 <input class="form-control" type="text" [(ngModel)]="certificationModel.comments" placeholder="description" name="description"
                                     style="width:90%;" />
                             </div>
                         </div>
-                        <div class="row text-center">
+                        <div class="row text-center m-t-10">
                             <button *ngIf="showButton" type="button" (click)="onCertificationAdd('add')" 
-                            class="btn btn-success" [disabled]="disableBtn()">Add Certification</button>
+                            class="btn btn-success" [disabled]="disableBtn() || !certificationModel.validFrom || !certificationModel.validTo">Add Certification</button>
                             <button *ngIf="!showButton" type="button" (click)="onCertificationAdd('update')" 
-                            class="btn btn-success" [disabled]="disableBtn()">Update Certification</button>
+                            class="btn btn-success" [disabled]="disableBtn() || !certificationModel.validFrom || !certificationModel.validTo">Update Certification</button>
                         </div>
                     </div>
                 </div>
@@ -53,9 +53,9 @@
                         <ng-template pTemplate="header">
                             Action
                         </ng-template>
-                        <ng-template let-car="rowData" let-i="rowIndex" pTemplate="body">
-                            <a class="curosr-p"><i class="fa fa-edit" (click)="onEdit(car, i)"></i></a>
-                            <a class="curosr-p"><i class="fa fa-trash" (click)="deleteConfirm(car, i)"></i></a>
+                        <ng-template let-certification="rowData" let-i="rowIndex" pTemplate="body">
+                            <a class="curosr-p"><i class="fa fa-edit" (click)="onEdit(certification, i)"></i></a>
+                            <a class="curosr-p"><i class="fa fa-trash" (click)="deleteConfirm(certification, i)"></i></a>
                         </ng-template>
                     </p-column>
                 </p-dataTable>

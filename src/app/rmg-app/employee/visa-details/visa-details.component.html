@@ -6,13 +6,13 @@
                     <div class="panel-body">
                         <div class="row" style="margin: 10px;">
                             <div class="col-md-4">
-                                <p-dropdown name="country" [(ngModel)]="visaModel.country" placeholder="Country" optionLabel="label" [style]="{'width':'150px'}"></p-dropdown>
+                                <p-dropdown [options]="countriesList" name="country" [(ngModel)]="visaModel.country" placeholder="Country" optionLabel="label" [style]="{'width':'150px'}"></p-dropdown>
                             </div>
                             <div class="col-md-4">
                                 <p-dropdown name="visaType" [(ngModel)]="visaModel.visaType" placeholder="Visa Type" optionLabel="label" [style]="{'width':'150px'}"></p-dropdown>
                             </div>
                             <div class="col-md-4">
-                                <p-dropdown name="status" [(ngModel)]="visaModel.status" placeholder="Visa Status" optionLabel="label" [style]="{'width':'150px'}"></p-dropdown>
+                                <p-dropdown [options]="visaStatusList" name="status" [(ngModel)]="visaModel.status" placeholder="Visa Status" optionLabel="label" [style]="{'width':'150px'}"></p-dropdown>
                             </div>
                         </div>
                         <div class="row" style="margin: 10px;">

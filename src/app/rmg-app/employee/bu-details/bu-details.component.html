@@ -5,37 +5,44 @@
                 <div class="row">
                 <div class="col-md-2 col-sm-2 col-xs-12">
                     <div class="form-group">
-                        <span class="pro-title">BU</span>
-                        <p *ngIf="!editMode" class="form-control-static">{{personalDetails.accountManager}}</p>
-                        <input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="buModel.accountManager"/>
+                        <span class="pro-title">BUISINESS UNIT</span>
+                        <p *ngIf="!editMode" class="form-control-static">{{personalDetails.bu}}</p>
+                        <input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="buModel.bu"/>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-2 col-xs-12">
                     <div class="form-group">
-                        <span class="pro-title">DU</span>
-                        <p *ngIf="!editMode" class="form-control-static">{{personalDetails.hrSpoc}}</p>
-                        <input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="buModel.hrSpoc"/>
+                        <span class="pro-title">DELIVERY UNIT</span>
+                        <p *ngIf="!editMode" class="form-control-static">{{personalDetails.du}}</p>
+                        <input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="buModel.du"/>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-12">
+                    <div class="form-group">
+                        <span class="pro-title">PROJECT MANAGER</span>
+                        <p *ngIf="!editMode" class="form-control-static">{{personalDetails.projectManager}}</p>
+                        <input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="buModel.projectManager"/>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-2 col-xs-12">
                     <div class="form-group">
                         <span class="pro-title">ACCOUNT MANAGER</span>
-                        <p *ngIf="!editMode" class="form-control-static">{{personalDetails.buHead}}</p>
-                        <input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="buModel.buHead"/>
+                        <p *ngIf="!editMode" class="form-control-static">{{personalDetails.accountManager}}</p>
+                        <input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="buModel.accountManager"/>
                     </div>
                 </div>
-                <div class="col-md-2 col-sm-2 col-xs-12">
+                <!--<div class="col-md-2 col-sm-2 col-xs-12">
                     <div class="form-group">
                         <span class="pro-title">DU HEAD</span>
                         <p *ngIf="!editMode" class="form-control-static">{{personalDetails.duHead}}</p>
                         <input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="buModel.duHead"/>
                     </div>
-                </div>
+                </div>-->
                 <div class="col-md-2 col-sm-2 col-xs-12">
                     <div class="form-group">
                         <span class="pro-title">BU HEAD</span>
-                        <p *ngIf="!editMode" class="form-control-static">{{personalDetails.bu}}</p>
-                        <input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="buModel.bu"/>
+                        <p *ngIf="!editMode" class="form-control-static">{{personalDetails.buHead}}</p>
+                        <input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="buModel.buHead"/>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-2 col-xs-12 ">
@@ -44,8 +51,8 @@
                         <span *ngIf="!editMode" class="bu-edit" (click)="onBuEdit()">
                                <i class="fa fa-pencil"></i>
                         </span>
-                        <p *ngIf="!editMode"class="form-control-static">{{personalDetails.du}}</p>
-                        <input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="buModel.du"/>
+                        <p *ngIf="!editMode"class="form-control-static">{{personalDetails.hrSpoc}}</p>
+                        <input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="buModel.hrSpoc"/>
                     </div>
                 </div>
             </div>
