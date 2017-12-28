@@ -138,9 +138,7 @@ export class PersonalDetailsComponent implements OnInit {
 
   callBackProfessionalDetails(){
     this.professionalBusy = this.dataService.getProfessionalDetails(this.userData.employeeId).subscribe((data) => {
-        console.log('skill data', data);
         this.professionalMasterData = data;
-        console.log(this.professionalMasterData);
       });
   }
 
@@ -162,7 +160,6 @@ export class PersonalDetailsComponent implements OnInit {
     console.log(e);
     if (e.index === 0) {
       this.skillBusy = this.dataService.getMasterSkillDetails().subscribe((data) => {
-        console.log(data);
         this.masterSkillsData = data;
       })
     } else if (e.index === 1) {
@@ -207,7 +204,6 @@ export class PersonalDetailsComponent implements OnInit {
     console.log(event);
     if (event.target.files && event.target.files[0]) {
       if (event.target.files[0].size > maxImgLSize) {
-        //this.messageService.clear();
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Selected image size is more than 100KB' });
       } else {
         var reader = new FileReader();
@@ -221,8 +217,4 @@ export class PersonalDetailsComponent implements OnInit {
 
     }
   }
-
-
-
-
 }

@@ -13,7 +13,7 @@
                     </div>
                     <div class="m-t-13" [ngClass]="{'col-md-3': projectModel.aStatus === 'available', 'col-md-4': projectModel.aStatus !== 'available'}">
                         <p-dropdown [options]="allocationStatusList" name="allocStatus" [(ngModel)]="projectModel.aStatus" placeholder="Allocation Status"
-                            optionLabel="label" [style]="{'width':'200px'}" (onChange)="onAllocationChange(projectModel.aStatus)"></p-dropdown>
+                            optionLabel="label" [style]="{'width':'200px'}"></p-dropdown>
                     </div>
                     <ng-container *ngIf="projectModel.aStatus === 'available'">
                     <div class="col-md-3">

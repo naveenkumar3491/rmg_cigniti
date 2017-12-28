@@ -1,18 +1,18 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
-import { DataService } from "../../../services/DataService";
-import { MessageService } from "primeng/components/common/messageservice";
-import { ConfirmationService } from "primeng/primeng";
+import { Component, OnChanges, Input, SimpleChanges } from '@angular/core';
+import { DataService } from '../../../services/DataService';
+import { MessageService } from 'primeng/components/common/messageservice';
+import { ConfirmationService } from 'primeng/primeng';
 
 @Component({
-  selector: 'val-skill-details',
+  selector: 'app-skill-details',
   templateUrl: './skill-details.component.html',
   styleUrls: ['./skill-details.component.scss']
 })
-export class SkillDetailsComponent implements OnInit {
+export class SkillDetailsComponent implements OnChanges {
   @Input() skillDetails;
   @Input() skillMasterData;
   public sortF: string;
-  public skillHeader:any = [
+  public skillHeader: any = [
       {field: 'skillCategory', header: 'Skill Category'},
       {field: 'skill', header: 'Skill'},
       {field: 'skillRating', header: 'Skill Rating'}
@@ -30,22 +30,15 @@ export class SkillDetailsComponent implements OnInit {
   public showButton: boolean = true;
   constructor(private dataService: DataService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
 
-  ngOnInit() {
-    console.log('init');
-  }
-
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
-   
-    if(changes.skillMasterData && changes.skillMasterData.currentValue){
+    if (changes.skillMasterData && changes.skillMasterData.currentValue) {
       this.categoryList = changes.skillMasterData.currentValue.categoryList;
     this.skillCategoriesList = changes.skillMasterData.currentValue.skillCategoriesList;
     }
-    if(changes.skillDetails && changes.skillDetails.currentValue){
+    if (changes.skillDetails && changes.skillDetails.currentValue) {
        this.skillList = this.skillDetails.currentValue;
     }
   }
-  
   changeSort(event) {
         if (event.order) {
           this.sortF = event.field;
@@ -53,10 +46,10 @@ export class SkillDetailsComponent implements OnInit {
     }
 
   onCategoryChange() {
-    let _this = this;
-    let foundCategory = this.categoryList.find((obj) => {
+    const _this = this;
+    const foundCategory = this.categoryList.find((obj) => {
       return obj.category === _this.skillModel.skillCategory;
-    })
+    });
     if (foundCategory) {
       this.skillSet = foundCategory.skillSet;
     }
@@ -64,7 +57,7 @@ export class SkillDetailsComponent implements OnInit {
 
   saveSkill(type: string) {
     if (type === 'add') {
-      if(this.skillList.length === 0){
+      if (this.skillList.length === 0) {
         this.dataService.profilePercentage.emit(20);
       }
       console.log(this.skillModel);
@@ -75,13 +68,13 @@ export class SkillDetailsComponent implements OnInit {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Skill added successfully!!' });
     } else {
       this.skillList.forEach((skill, index) => {
-        if(skill.skill_master_id === this.editedSkillObject.skill_master_id){
+        if (skill.skill_master_id === this.editedSkillObject.skill_master_id) {
           this.skillList[index] = this.skillModel;
         }
       });
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Skill updated successfully!!' });
     }
-    this.skillList=this.skillList.slice();
+    this.skillList = this.skillList.slice();
     this.showButton = true;
     this.skillModel = {
       skillCategory: '',
@@ -97,10 +90,10 @@ export class SkillDetailsComponent implements OnInit {
     this.onCategoryChange();
   }
 
-  onSkillFocus(sR){
+  onSkillFocus(sR) {
     setTimeout(() => {
       sR.el.nativeElement.querySelector('.ui-dropdown-items-wrapper').scrollTop = 0;
-    }, 10)
+    }, 10);
   }
 
   deleteConfirm(index) {
@@ -114,9 +107,9 @@ export class SkillDetailsComponent implements OnInit {
 
   deleteSkill(index) {
     this.skillList.splice(index, 1);
-    this.skillList=this.skillList.slice();
+    this.skillList = this.skillList.slice();
     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Skill deleted successfully!!' });
-    if(this.skillList.length === 0){
+    if (this.skillList.length === 0) {
         this.dataService.profilePercentage.emit(-20);
       }
   }

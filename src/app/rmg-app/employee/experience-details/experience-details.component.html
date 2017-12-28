@@ -2,10 +2,7 @@
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="panel">
-                <!--<div class="panel-heading">Experience Details</div>-->
                 <div class="panel-body">
-
-
                     <div class="col-md-4 col-sm-4 col-xs-12">
                         <div class="form-group">
                             <span class="help-block pro-title">CIGNITI EXPERIENCE</span>
@@ -24,8 +21,8 @@
                             <div *ngIf="!editMode">
                                 <span>Years</span> <span style="margin-left:30px;">Months</span></div>
                             <div class="total-exp" *ngIf="!editMode">
-                                <input type="number" min="0" max="30" class="form-control" [(ngModel)]="exp.years"/>
-                                <input type="number" min="0" max="12" class="form-control" [(ngModel)]="exp.months"/>
+                                <input type="number" min="0" max="30" class="form-control" [(ngModel)]="exp.years" />
+                                <input type="number" min="0" max="12" class="form-control" [(ngModel)]="exp.months" />
                             </div>
                             <p *ngIf="editMode" class="form-control-static">{{model.totalExperience}}</p>
                         </div>
@@ -42,14 +39,13 @@
                                 <button (click)="uploadFile()" class="theme-btn theme-btn-primary" *ngIf="!emptyResume">Upload</button>
                             </div>
                         </div>
-                        <input type="file" style="visibility:hidden;" #getResumeFile (change)="readResume($event)" (click)="getResumeFile.value = null"/>
+                        <input type="file" style="visibility:hidden;" #getResumeFile (change)="readResume($event)" (click)="getResumeFile.value = null"
+                        />
 
                     </div>
                     <!--<div class="col-md-4">
             <span data-toggle="modal" data-target="#myresumeModal"><a href="#"><i class="fa fa-file-word-o" id="download_resume" style="display:none;"> View Resume</i></a></span>
             </div>-->
-
-
                 </div>
             </div>
         </div>

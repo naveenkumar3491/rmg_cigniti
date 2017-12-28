@@ -130,30 +130,30 @@
 					<p-tabPanel *ngFor="let empTab of employeeInfoTabs;" header="{{empTab.name}}" leftIcon="{{empTab.icon}}">
 						<div [ngSwitch]="empTab.field" style="position: relative">
 							<ng-template [ngSwitchCase]="'experience-details'">
-								<val-experience-details *ngIf="personalDetails" [personalDetails]="personalDetails" (callBackContactDetails)="callBackContactDetails()"></val-experience-details>
+								<app-experience-details *ngIf="personalDetails" [personalDetails]="personalDetails" (callBackContactDetails)="callBackContactDetails()"></app-experience-details>
 							</ng-template>
 							<ng-template [ngSwitchCase]="'contact-details'">
-								<val-contact-details *ngIf="personalDetails" [personalDetails]="personalDetails" (callBackContactDetails)="callBackContactDetails()"></val-contact-details>
+								<app-contact-details *ngIf="personalDetails" [personalDetails]="personalDetails" (callBackContactDetails)="callBackContactDetails()"></app-contact-details>
 							</ng-template>
 							<div [ngBusy]="professionalBusy">
 								<ng-template [ngSwitchCase]="'skill-details'">
 									<p-accordion (onOpen)="onAccOpen($event)">
 										<div [ngBusy]="skillBusy">
 											<p-accordionTab header="Skill Details">
-												<val-skill-details *ngIf="professionalMasterData" [skillDetails]="professionalMasterData.details.skill_List" [skillMasterData]="masterSkillsData"
-												 (callBackProfessionalDetails)="callBackProfessionalDetails()"></val-skill-details>
+												<app-skill-details *ngIf="professionalMasterData" [skillDetails]="professionalMasterData.details.skill_List" [skillMasterData]="masterSkillsData"
+												 (callBackProfessionalDetails)="callBackProfessionalDetails()"></app-skill-details>
 											</p-accordionTab>
 										</div>
 										<div [ngBusy]="domainBusy">
 											<p-accordionTab header="Domain Details">
-												<val-domain-details *ngIf="professionalMasterData" [domainDetails]="professionalMasterData.details.domain_List" [masterDomains]="masterDomainData"
-												 (callBackProfessionalDetails)="callBackProfessionalDetails()"></val-domain-details>
+												<app-domain-details *ngIf="professionalMasterData" [domainDetails]="professionalMasterData.details.domain_List" [masterDomains]="masterDomainData"
+												 (callBackProfessionalDetails)="callBackProfessionalDetails()"></app-domain-details>
 											</p-accordionTab>
 										</div>
 										<div [ngBusy]="certificationBusy">
 											<p-accordionTab header="Certification Details">
-												<val-certification-details *ngIf="professionalMasterData" [certificationDetails]="professionalMasterData.details.certification_List"
-												 [certificationTechnologies]="masterCertificationData" (callBackProfessionalDetails)="callBackProfessionalDetails()"></val-certification-details>
+												<app-certification-details *ngIf="professionalMasterData" [certificationDetails]="professionalMasterData.details.certification_List"
+												 [certificationTechnologies]="masterCertificationData" (callBackProfessionalDetails)="callBackProfessionalDetails()"></app-certification-details>
 											</p-accordionTab>
 										</div>
 									</p-accordion>
@@ -161,15 +161,15 @@
 							</div>
 							<div [ngBusy]="projectBusy">
 								<ng-template [ngSwitchCase]="'project-details'">
-									<val-project-details *ngIf="projectDetails" [projectDetails]="projectDetails"></val-project-details>
+									<app-project-details *ngIf="projectDetails" [projectDetails]="projectDetails"></app-project-details>
 								</ng-template>
 							</div>
 							<ng-template [ngSwitchCase]="'bu-details'">
-								<val-bu-details *ngIf="personalDetails" [personalDetails]="personalDetails"></val-bu-details>
+								<app-bu-details *ngIf="personalDetails" [personalDetails]="personalDetails"></app-bu-details>
 							</ng-template>
 							<div [ngBusy]="visaBusy">
 								<ng-template [ngSwitchCase]="'visa-details'">
-									<val-visa-details *ngIf="visaDetails" [visaDetails]="visaDetails"></val-visa-details>
+									<app-visa-details *ngIf="visaDetails" [visaDetails]="visaDetails"></app-visa-details>
 								</ng-template>
 							</div>
 						</div>

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'val-project-details',
+  selector: 'app-project-details',
   templateUrl: './project-details.component.html',
   styleUrls: ['./project-details.component.scss']
 })
@@ -20,7 +20,7 @@ export class ProjectDetailsComponent implements OnInit {
     {label: 'LOA', value: 'loa'},
     {label: 'NBM', value: 'nbm'}
   ];
-  public projectHeader:any = [
+  public projectHeader: any = [
     {field: 'accountName', header: 'Account Name'},
     {field: 'projectName', header: 'Project Name'},
       {field: 'allocationStartDate', header: 'Allocation Start Date'},
@@ -28,13 +28,6 @@ export class ProjectDetailsComponent implements OnInit {
       {field: 'allocationStatus', header: 'Allocation Status'}
   ];
   constructor() { }
-
   ngOnInit() {
-    console.log(this.projectDetails);
   }
-
-  onAllocationChange(status){
-    
-  }
-
 }

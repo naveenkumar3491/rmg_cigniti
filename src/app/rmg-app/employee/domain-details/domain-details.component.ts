@@ -1,15 +1,15 @@
-import { Component, OnInit, Input, SimpleChanges, EventEmitter, Output } from '@angular/core';
-import { DataService } from "../../../services/DataService";
-import { MessageService } from "primeng/components/common/messageservice";
-import { Ng2Storage } from "../../../services/storage";
-import { ConfirmationService } from "primeng/primeng";
+import { Component, OnChanges, Input, SimpleChanges, EventEmitter, Output } from '@angular/core';
+import { DataService } from '../../../services/DataService';
+import { MessageService } from 'primeng/components/common/messageservice';
+import { Ng2Storage } from '../../../services/storage';
+import { ConfirmationService } from 'primeng/primeng';
 
 @Component({
-  selector: 'val-domain-details',
+  selector: 'app-domain-details',
   templateUrl: './domain-details.component.html',
   styleUrls: ['./domain-details.component.scss']
 })
-export class DomainDetailsComponent implements OnInit {
+export class DomainDetailsComponent implements OnChanges {
   @Input() domainDetails;
   @Input() masterDomains;
   @Output() callBackProfessionalDetails = new EventEmitter();
@@ -37,9 +37,6 @@ export class DomainDetailsComponent implements OnInit {
   constructor(private dataService: DataService, private messageService: MessageService,
     private storage: Ng2Storage, private confirmationService: ConfirmationService) { }
 
-  ngOnInit() {
-  }
-
   ngOnChanges(changes: SimpleChanges) {
     if (changes.masterDomains && changes.masterDomains.currentValue) {
       this.masterDomainData = changes.masterDomains.currentValue;
@@ -52,7 +49,7 @@ export class DomainDetailsComponent implements OnInit {
   onDomainFocus(dR) {
     setTimeout(() => {
       dR.el.nativeElement.querySelector('.ui-dropdown-items-wrapper').scrollTop = 0;
-    }, 10)
+    }, 10);
   }
 
   disableBtn() {
@@ -64,34 +61,34 @@ export class DomainDetailsComponent implements OnInit {
       if (!this.domainModel[obj.name][obj.model]) {
         isValid = false;
       }
-    })
+    });
     if (!isValid) {
-      return true
+      return true;
     } else {
       return false;
     }
   }
 
   onDomainChange(type) {
-    if (type === "domain") {
+    if (type === 'domain') {
       this.dataService.getSubDomainDetails(this.domainModel.domain.domainId).subscribe((data) => {
         this.subDomainDetails = data;
         this.childDomainDetails = [];
         this.domainModel.subDomain = {};
         this.domainModel.childDomain = {};
-      })
+      });
     } else {
       this.dataService.getChildDomainDetails(this.domainModel.domain.domainId, this.domainModel.subDomain.subDomainId).subscribe((data) => {
         this.childDomainDetails = data;
         this.domainModel.childDomain = {};
-      })
+      });
     }
 
   }
 
   callDomainService(type, progressValue) {
     const domainExp = `${this.domainModel.years}.${this.domainModel.months}`;
-    let domainFilteredObj = {
+    const domainFilteredObj = {
       domain_name: this.domainModel.domain.domainName,
       sub_domain_name: this.domainModel.subDomain.subDomaineName,
       child_domain_name: this.domainModel.childDomain.childDomaineName,
@@ -99,14 +96,14 @@ export class DomainDetailsComponent implements OnInit {
       comments: this.domainModel.comments
     };
 
-    let domainObj = {
+    const domainObj = {
       employeeId: this.userData.employeeId,
       domainId: this.domainModel.domain.domainId,
       subDomainId: this.domainModel.subDomain.subDomainId,
       childDomainId: this.domainModel.childDomain.childDomainId,
       domain_experience: +domainExp,
       comments: this.domainModel.comments
-    }
+    };
     if (type !== 'add') {
       domainObj['rowid'] = this.editedDomainObject.rowid;
     }
@@ -128,11 +125,10 @@ export class DomainDetailsComponent implements OnInit {
       };
       this.subDomainDetails = [];
       this.childDomainDetails = [];
-    })
+    });
   }
 
   saveDomain(type: string) {
-    console.log('domain model', this.domainModel)
     let progressValue = 0;
     if (type === 'add') {
       if (this.domainDetails.length === 0) {
@@ -151,25 +147,24 @@ export class DomainDetailsComponent implements OnInit {
     this.domainModel = {
       comments: domain.comments
     };
-    let domainExp = domain.domainExperience.toString();
-    if (domainExp.indexOf(".") !== -1) {
-      this.domainModel.years = +domainExp.split(".")[0];
-      this.domainModel.months = +domainExp.split(".")[1];
+    const domainExp = domain.domainExperience.toString();
+    if (domainExp.indexOf('.') !== -1) {
+      this.domainModel.years = +domainExp.split('.')[0];
+      this.domainModel.months = +domainExp.split('.')[1];
     } else {
       this.domainModel.years = domain.domainExperience;
       this.domainModel.months = 0;
     }
     this.domainModel.domain = this.dataService.getMatchedDomain(domain.domain_name, this.masterDomains);
     this.editedDomainObject = domain;
-    // this.domainModel = Object.assign({}, domain);
-    this.dataService.getSubDomainDetails(this.domainModel.domain.domainId).subscribe((data) => {
-      this.subDomainDetails = data;
+    this.dataService.getSubDomainDetails(this.domainModel.domain.domainId).subscribe((subDomainData) => {
+      this.subDomainDetails = subDomainData;
       this.domainModel.subDomain = this.dataService.getMatchedDomain(domain.sub_domain_name, this.subDomainDetails);
-      this.dataService.getChildDomainDetails(this.domainModel.domain.domainId, this.domainModel.subDomain.subDomainId).subscribe((data) => {
-        this.childDomainDetails = data;
+      this.dataService.getChildDomainDetails(this.domainModel.domain.domainId, this.domainModel.subDomain.subDomainId).subscribe((childDomaindata) => {
+        this.childDomainDetails = childDomaindata;
         this.domainModel.childDomain = this.dataService.getMatchedDomain(domain.child_domain_name, this.childDomainDetails);
-      })
-    })
+      });
+    });
   }
 
   deleteConfirm(domain, index) {
@@ -186,17 +181,22 @@ export class DomainDetailsComponent implements OnInit {
     if (this.domainDetails.length === 1) {
       progressBarValue = 20;
     }
-    let domainObj = {
+    const domainObj = {
       rowid: domain.rowid,
       employeeId: this.userData.employeeId
-    }
+    };
     this.dataService.deleteDomain(domainObj, progressBarValue).subscribe((data) => {
-      console.log(data);
       if (this.domainDetails.length === 1) {
         this.dataService.profilePercentage.emit(-20);
       }
       this.callBackProfessionalDetails.emit();
-      this.domainModel = {};
+      this.domainModel = {
+        domain: {},
+        subDomain: {},
+        childDomain: {},
+        years: 0,
+        months: 1
+      };
       this.subDomainDetails = [];
       this.childDomainDetails = [];
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domain deleted successfully!!' });

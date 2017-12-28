@@ -75,14 +75,14 @@ import 'rxjs/add/operator/toPromise';
 // import {TreeTableModule} from 'primeng/primeng';
 
 import { AppComponent } from './app.component';
-import { LoginModule } from "./login/login.module";
+import { LoginModule } from './login/login.module';
 
 import { NotFoundComponent } from './not-found/not-found.component';
-import { RmgAppModule } from "./rmg-app/rmg-app.module";
-import { DataService } from "./services/DataService";
-import { LiveDataService } from "./services/LiveDataService";
-import { Ng2Storage } from "./services/storage";
-import { AuthgaurdService } from "./services/authgaurd.service";
+import { RmgAppModule } from './rmg-app/rmg-app.module';
+import { DataService } from './services/DataService';
+import { LiveDataService } from './services/LiveDataService';
+import { Ng2Storage } from './services/storage';
+import { AuthgaurdService } from './services/authgaurd.service';
 
 
 @NgModule({

@@ -1,22 +1,22 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'val-bu-details',
+  selector: 'app-bu-details',
   templateUrl: './bu-details.component.html',
   styleUrls: ['./bu-details.component.scss']
 })
 export class BUDetailsComponent implements OnInit {
   @Input() personalDetails;
   public editMode: boolean = false;
-  public buModel:any = {};
+  public buModel: any = {};
   constructor() { }
 
   ngOnInit() {
   }
 
-  onBuEdit(){
+  onBuEdit() {
     this.editMode = true;
-    let pd = this.personalDetails;
+    const pd = this.personalDetails;
     this.buModel = {
       accountManager: pd.accountManager,
       hrSpoc: pd.hrSpoc,
@@ -24,7 +24,7 @@ export class BUDetailsComponent implements OnInit {
       duHead: pd.duHead,
       bu: pd.bu,
       du: pd.du
-    }
+    };
   }
 
 }

@@ -1,26 +1,26 @@
-import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Component, OnChanges, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { ConfirmationService } from "primeng/primeng";
-import { DataService } from "../../../services/DataService";
-import { MessageService } from "primeng/components/common/messageservice";
-import { Ng2Storage } from "../../../services/storage";
+import { ConfirmationService } from 'primeng/primeng';
+import { DataService } from '../../../services/DataService';
+import { MessageService } from 'primeng/components/common/messageservice';
+import { Ng2Storage } from '../../../services/storage';
 
 @Component({
-  selector: 'val-certification-details',
+  selector: 'app-certification-details',
   templateUrl: './certification-details.component.html',
   styleUrls: ['./certification-details.component.scss'],
   providers: [DatePipe]
 })
-export class CertificationDetailsComponent implements OnInit {
+export class CertificationDetailsComponent implements OnChanges {
   @Input() certificationDetails;
   @Input() certificationTechnologies;
   @Output() callBackProfessionalDetails = new EventEmitter();
   public certificationTechList: any;
   public certificationNames: any = [];
   public certificationInstitutes: any = [];
-  public certificationList:any = [];
+  public certificationList: any = [];
   private editedCertObject: any;
-  public minCertificationDate:any;
+  public minCertificationDate: any;
   public showButton: boolean = true;
   public levelDetails = [{ label: 'Beginner', value: 'Beginner' },
   { label: 'Intermediate', value: 'Intermediate' },
@@ -41,27 +41,22 @@ export class CertificationDetailsComponent implements OnInit {
     certFrom: {},
     certLevel: 'Beginner',
     comments: ''
-  };;
+  };
   private userData = this.storage.getSession('user_data');
   constructor(private confirmationService: ConfirmationService, private dataService: DataService,
     private datePipe: DatePipe, private storage: Ng2Storage, private messageService: MessageService) { }
 
-  ngOnInit() {
-    console.log(this.certificationDetails)
-  }
-
   ngOnChanges(changes: SimpleChanges) {
-    if(changes.certificationTechnologies && changes.certificationTechnologies.currentValue){
+    if (changes.certificationTechnologies && changes.certificationTechnologies.currentValue) {
       this.certificationTechList = changes.certificationTechnologies.currentValue;
     }
-    if(changes.certificationDetails && changes.certificationDetails.currentValue){
+    if (changes.certificationDetails && changes.certificationDetails.currentValue) {
       this.certificationList = changes.certificationDetails.currentValue;
     }
-    
   }
 
   onCertificationAdd(type) {
-    let certObj = {
+    const certObj = {
       empId: this.userData.employeeId,
       technology: this.certificationModel.certTech.name,
       certification: this.certificationModel.certName.name,
@@ -70,7 +65,7 @@ export class CertificationDetailsComponent implements OnInit {
       validFrom: this.datePipe.transform(this.certificationModel.validFrom, 'MM-dd-yyyy'),
       validTo: this.datePipe.transform(this.certificationModel.validTo, 'MM-dd-yyyy'),
       comments: this.certificationModel.comments
-    }
+    };
     if (type !== 'add') {
       certObj['rowid'] = this.editedCertObject.rowid;
     }
@@ -105,14 +100,14 @@ export class CertificationDetailsComponent implements OnInit {
       validFrom: (certification.validFrom).replace(/-/g, '/'),
       validTo: (certification.validTo).replace(/-/g, '/'),
       comments: certification.comments
-    }
+    };
     this.minCertificationDate = new Date(this.certificationModel.validFrom);
     this.dataService.getCertificationNamesInstitutes(this.certificationModel.certTech.certTechId).subscribe((data) => {
       this.certificationNames = data[0];
       this.certificationInstitutes = data[1];
       this.certificationModel.certName = this.dataService.getMatchedDomain(certification.certification, this.certificationNames);
       this.certificationModel.certFrom = this.dataService.getMatchedDomain(certification.boardInstitute, this.certificationInstitutes);
-    })
+    });
   }
 
   onCertificationTechChange() {
@@ -124,7 +119,7 @@ export class CertificationDetailsComponent implements OnInit {
       this.certificationInstitutes = data[1];
       this.certificationModel.certName = {};
       this.certificationModel.certFrom = {};
-    })
+    });
   }
 
   deleteConfirm(cert, index) {
@@ -162,9 +157,9 @@ export class CertificationDetailsComponent implements OnInit {
       if (!this.certificationModel[obj.name][obj.model]) {
         isValid = false;
       }
-    })
+    });
     if (!isValid) {
-      return true
+      return true;
     } else {
       return false;
     }

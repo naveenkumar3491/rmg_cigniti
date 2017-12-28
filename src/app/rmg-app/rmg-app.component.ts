@@ -10,10 +10,11 @@ enum MenuOrientation {
 declare const jQuery: any;
 
 @Component({
-  selector: 'val-rmg-app',
+  selector: 'app-rmg-app',
   templateUrl: './rmg-app.component.html',
   styleUrls: ['./rmg-app.component.css']
 })
+
 export class RmgAppComponent implements OnInit, AfterViewInit {
 
    layoutCompact = true;
