@@ -99,7 +99,7 @@ export class PersonalDetailsComponent implements OnInit {
       emp_id: pd.emp_id,
       employeeName: pd.employeeName,
       designation: pd.designation,
-      doj: (pd.doj).replace(/-/g, '/'),
+      doj: pd.doj,
       joinginLocation: pd.joinginLocation,
       currentLocation: pd.currentLocation,
       employeementType: pd.employeementType,

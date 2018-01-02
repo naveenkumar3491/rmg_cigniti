@@ -1,5 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { Http, Headers, Response, RequestOptionsArgs, RequestOptions } from '@angular/http';
+import { HttpClient } from "@angular/common/http";
 import { DataService } from './DataService';
 import { Ng2Storage } from '../services/storage';
 import { ILogin, ILoginResponse } from '../app.interface';
@@ -36,25 +36,18 @@ export class LiveDataService extends DataService {
     private readonly saveCertificationUrl = this.getBaseURI() + 'saveOrUpdateEmplCert';
     private readonly deleteCertificationUrl = this.getBaseURI() + 'deleteEmplCertification';
     private readonly countriesUrl = '../../assets/data/countries.json';
-    private readonly REQUEST_HEADERS: Headers = new Headers({
-        'Content-Type': 'application/json; charset=utf-8',
-        'Accept': 'application/json'
-    });
-
-    private readonly REQUEST_OPTIONS: RequestOptionsArgs = new RequestOptions({ headers: this.REQUEST_HEADERS });
-
 
     private getBaseURI() {
         return this.basePath + this.MyTrUrl;
     }
 
-    constructor(private http: Http, private storage: Ng2Storage) {
+    constructor(private http: HttpClient, private storage: Ng2Storage) {
         super();
     }
 
     public getCountriesList() {
-        return this.http.get(`${this.countriesUrl}`).map((response: Response) => {
-            return response.json();
+        return this.http.get(`${this.countriesUrl}`).map((response) => {
+            return response;
         });
     }
 
@@ -66,30 +59,31 @@ export class LiveDataService extends DataService {
     }
 
     public loginUser(obj: ILogin): Observable<ILoginResponse> {
-        return this.http.post(`${this.userLoginUrl}`, obj, this.REQUEST_OPTIONS).map((response: Response) => {
-            const resp = response.json();
-            if (resp.employeeId) {
+        return this.http.post(`${this.userLoginUrl}`, obj).map((response) => {
+            const resp = response;
+            if (resp['employeeId']) {
                 this.storage.setSession('user_data', resp);
             }
-            return response.json();
+            return response;
         });
     }
 
     public getEmployeeDetails(empId: string): Observable<any> {
-        return this.http.get(`${this.employeeDetails}?empId=${empId}`, this.REQUEST_OPTIONS).map((response: Response) => {
-            return response.json();
+        return this.http.get(`${this.employeeDetails}?empId=${empId}`).map((response) => {
+            return response;
         });
     }
 
     public getProjectDetails(empId: string): Observable<any> {
-        return this.http.get(`${this.projectDetails}?empId=${empId}`, this.REQUEST_OPTIONS).map((response: Response) => {
-            return response.json();
+        return this.http.get(`${this.projectDetails}?empId=${empId}`).map((response) => {
+            return response;
         });
     }
 
     public getSubDomainDetails(domainId: string): Observable<any> {
-        return this.http.get(`${this.subDomainData}?domainId=${domainId}`, this.REQUEST_OPTIONS).map((res: Response) => {
-            const items = <any[]>res.json();
+        return this.http.get(`${this.subDomainData}?domainId=${domainId}`).map((res: any[]) => {
+            console.log('subdomain', res);
+            const items = res;
             const subDomainData = [];
             items.forEach((subDomain) => {
                 subDomainData.push({
@@ -106,8 +100,8 @@ export class LiveDataService extends DataService {
     }
 
     public getChildDomainDetails(domainId: string, subDomainId: string): Observable<any> {
-        return this.http.get(`${this.childDomainData}?domainId=${domainId}&subDomainId=${subDomainId}`, this.REQUEST_OPTIONS).map((res: Response) => {
-            const items = <any[]>res.json();
+        return this.http.get(`${this.childDomainData}?domainId=${domainId}&subDomainId=${subDomainId}`).map((res) => {
+            const items = <any[]>res;
             const childDomainData = [];
             items.forEach((childDomain) => {
                 childDomainData.push({
@@ -126,8 +120,8 @@ export class LiveDataService extends DataService {
 
     public getCertificationNamesInstitutes(cTechId: string): Observable<any> {
         return Observable.forkJoin([
-            this.http.get(`${this.certificationNamesUrl}?cert_tech_id=${cTechId}`, this.REQUEST_OPTIONS).map((res: Response) => {
-                const items = <any[]>res.json().details;
+            this.http.get(`${this.certificationNamesUrl}?cert_tech_id=${cTechId}`).map((res) => {
+                const items = <any[]>res['details'];
                 const data = [];
                 items.forEach((cert) => {
                     data.push({
@@ -141,8 +135,8 @@ export class LiveDataService extends DataService {
                 });
                 return data;
             }),
-            this.http.get(`${this.certificationInstitutesUrl}?cert_tech_id=${cTechId}`, this.REQUEST_OPTIONS).map((res: Response) => {
-                const items = <any[]>res.json().details;
+            this.http.get(`${this.certificationInstitutesUrl}?cert_tech_id=${cTechId}`).map((res) => {
+                const items = <any[]>res['details'];
                 const data = [];
                 items.forEach((cert) => {
                     data.push({
@@ -160,14 +154,14 @@ export class LiveDataService extends DataService {
     }
 
     public getProfessionalDetails(empId: string): Observable<any> {
-        return this.http.get(`${this.skillDetails}?empId=${empId}`, this.REQUEST_OPTIONS).map((response: Response) => {
-            return response.json();
+        return this.http.get(`${this.skillDetails}?empId=${empId}`).map((response) => {
+            return response;
         });
     }
 
     public getMasterDomainDetails(): Observable<any> {
-        return this.http.get(`${this.domainData}`, this.REQUEST_OPTIONS).map((res: Response) => {
-            const items = <any[]>res.json();
+        return this.http.get(`${this.domainData}`).map((res) => {
+            const items = <any[]>res;
             const domainData = [];
             items.forEach((domain) => {
                 domainData.push({
@@ -182,9 +176,9 @@ export class LiveDataService extends DataService {
         });
     }
     public getMasterSkillDetails(): Observable<any> {
-        return this.http.get(`${this.masterSkillData}`, this.REQUEST_OPTIONS)
-            .map((res: Response) => {
-                const items = <any[]>res.json();
+        return this.http.get(`${this.masterSkillData}`)
+            .map((res) => {
+                const items = <any[]>res;
                 const data = {
                     categoryList: [],
                     skillCategoriesList: []
@@ -210,25 +204,26 @@ export class LiveDataService extends DataService {
             });
     }
     public getCertificationTechnologies(): Observable<any> {
-        return this.http.get(`${this.certificationTechUrl}`, this.REQUEST_OPTIONS).map((res: Response) => {
-                const items = <any[]>res.json().details;
-                const data = [];
-                items.forEach((cert) => {
-                    data.push({
-                        label: cert.vert_technology_name,
-                        value: {
-                            certTechId: cert.cert_tech_id,
-                            name: cert.vert_technology_name
-                        }
-                    });
+        return this.http.get(`${this.certificationTechUrl}`).map((res) => {
+            const items = <any[]>res['details'];
+            const data = [];
+            items.forEach((cert) => {
+                data.push({
+                    label: cert.vert_technology_name,
+                    value: {
+                        certTechId: cert.cert_tech_id,
+                        name: cert.vert_technology_name
+                    }
                 });
-                return data;
             });
+            return data;
+        });
     }
 
     public getThemes(): Observable<any> {
-        return this.http.get(`${this.getAllThemes}`, this.REQUEST_OPTIONS).map((res: Response) => {
-            const items = <any[]>res.json();
+        return this.http.get(`${this.getAllThemes}`).map((res) => {
+            console.log('themes', res);
+            const items = <any[]>res;
             const themeData = {
                 label: 'Themes',
                 icon: 'palette',
@@ -248,61 +243,61 @@ export class LiveDataService extends DataService {
     }
 
     public updateTheme(obj): Observable<any> {
-        return this.http.post(`${this.saveTheme}`, obj, this.REQUEST_OPTIONS).map((response: Response) => {
-            return response.json();
+        return this.http.post(`${this.saveTheme}`, obj).map((response) => {
+            return response;
         });
     }
 
     public saveContactAndExpDetails(paramObj): Observable<any> {
-        return this.http.post(`${this.insertContactAndExp}`, paramObj, this.REQUEST_OPTIONS).map((response: Response) => {
-            return response.json();
+        return this.http.post(`${this.insertContactAndExp}`, paramObj).map((response) => {
+            return response;
         });
     }
 
     public uploadProfileImage(obj): Observable<any> {
-        return this.http.post(`${this.uploadImage}`, obj).map((response: Response) => {
-            return response.json();
+        return this.http.post(`${this.uploadImage}`, obj).map((response) => {
+            return response;
         });
     }
     public uploadProfileResume(obj): Observable<any> {
-        return this.http.post(`${this.uploadResume}`, obj).map((response: Response) => {
-            return response.json();
+        return this.http.post(`${this.uploadResume}`, obj).map((response) => {
+            return response;
         });
     }
 
     public addUpdateSkill(obj, progressbarValue): Observable<any> {
-        return this.http.post(`${this.saveSkillUrl}?progressbar=${progressbarValue}`, obj).map((response: Response) => {
-            return response.json();
+        return this.http.post(`${this.saveSkillUrl}?progressbar=${progressbarValue}`, obj).map((response) => {
+            return response;
         });
     }
 
     public addUpdateDomain(obj, progressbarValue): Observable<any> {
-        return this.http.post(`${this.saveDomainUrl}?progressbar=${progressbarValue}`, obj).map((response: Response) => {
-            return response.json();
+        return this.http.post(`${this.saveDomainUrl}?progressbar=${progressbarValue}`, obj).map((response) => {
+            return response;
         });
     }
 
     public addUpdateCertification(obj): Observable<any> {
-        return this.http.post(`${this.saveCertificationUrl}`, obj).map((response: Response) => {
-            return response.json();
+        return this.http.post(`${this.saveCertificationUrl}`, obj).map((response) => {
+            return response;
         });
     }
 
     public getVisaDetails(id): Observable<any> {
-        return this.http.get(`${this.visaDetails}?empId=${id}`, this.REQUEST_OPTIONS).map((response: Response) => {
-            return response.json();
+        return this.http.get(`${this.visaDetails}?empId=${id}`).map((response) => {
+            return response;
         });
     }
 
     public deleteDomain(obj, progressbarValue): Observable<any> {
-        return this.http.post(`${this.deleteDomainUrl}?progressbar=${progressbarValue}`, obj).map((response: Response) => {
-            return response.json();
+        return this.http.post(`${this.deleteDomainUrl}?progressbar=${progressbarValue}`, obj).map((response) => {
+            return response;
         });
     }
 
     public deleteCertification(obj): Observable<any> {
-        return this.http.post(`${this.deleteCertificationUrl}`, obj).map((response: Response) => {
-            return response.json();
+        return this.http.post(`${this.deleteCertificationUrl}`, obj).map((response) => {
+            return response;
         });
     }
 

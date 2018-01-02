@@ -26,11 +26,11 @@
                                     optionLabel="label" [style]="{'width':'150px'}" [autoWidth]="false"></p-dropdown>
                             </div>
                             <div class="col-md-3 m-t-23">
-                                <p-calendar name="validFrom" [(ngModel)]="certificationModel.validFrom" 
+                                <p-calendar dateFormat="dd-mm-yy" name="validFrom" [(ngModel)]="certificationModel.validFrom" 
                                 [showIcon]="true" placeholder="Valid From" (onSelect)="certificationModel.validTo = null;minCertificationDate = certificationModel.validFrom"></p-calendar>
                             </div>
                             <div class="col-md-3 m-t-23">
-                                <p-calendar [disabled]="!certificationModel.validFrom" name="validTo" 
+                                <p-calendar dateFormat="dd-mm-yy" [disabled]="!certificationModel.validFrom" name="validTo" 
                                 [(ngModel)]="certificationModel.validTo" [showIcon]="true" placeholder="Valid To"
                                 [minDate]="minCertificationDate"></p-calendar>
                             </div>

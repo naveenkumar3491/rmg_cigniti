@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
@@ -83,6 +82,7 @@ import { DataService } from './services/DataService';
 import { LiveDataService } from './services/LiveDataService';
 import { Ng2Storage } from './services/storage';
 import { AuthgaurdService } from './services/authgaurd.service';
+import { AppHttpInterceptor } from './app.http.interceptor';
 
 
 @NgModule({
@@ -91,7 +91,7 @@ import { AuthgaurdService } from './services/authgaurd.service';
         FormsModule,
         ReactiveFormsModule,
         AppRoutes,
-        HttpModule,
+        HttpClientModule,
         BrowserAnimationsModule,
         LoginModule,
         RmgAppModule
@@ -105,7 +105,12 @@ import { AuthgaurdService } from './services/authgaurd.service';
         { provide: LocationStrategy, useClass: HashLocationStrategy },
         Ng2Storage,
         AuthgaurdService,
-        { provide: DataService, useClass: LiveDataService }
+        { provide: DataService, useClass: LiveDataService },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AppHttpInterceptor,
+            multi: true
+        }
     ],
     bootstrap: [AppComponent]
 })

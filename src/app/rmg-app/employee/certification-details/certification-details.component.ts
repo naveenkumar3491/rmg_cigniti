@@ -97,11 +97,13 @@ export class CertificationDetailsComponent implements OnChanges {
     this.certificationModel = {
       certTech: this.dataService.getMatchedDomain(certification.technology, this.certificationTechnologies),
       certLevel: certification.levels,
-      validFrom: (certification.validFrom).replace(/-/g, '/'),
-      validTo: (certification.validTo).replace(/-/g, '/'),
+      validFrom: certification.validFrom,
+      validTo: certification.validTo,
       comments: certification.comments
     };
-    this.minCertificationDate = new Date(this.certificationModel.validFrom);
+    const splitDate = (this.certificationModel.validFrom).split('-');
+    const disabledDate = `${splitDate[1]}-${splitDate[0]}-${splitDate[2]}`;
+    this.minCertificationDate = new Date(disabledDate);
     this.dataService.getCertificationNamesInstitutes(this.certificationModel.certTech.certTechId).subscribe((data) => {
       this.certificationNames = data[0];
       this.certificationInstitutes = data[1];

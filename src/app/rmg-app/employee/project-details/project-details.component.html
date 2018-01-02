@@ -3,19 +3,18 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="row m-t-10">
-                    <div [ngClass]="{'col-md-3': projectModel.aStatus === 'available', 'col-md-4': projectModel.aStatus !== 'available'}">
+                    <div [ngClass]="{'col-md-3': projectModel.allocationStatus === 'available', 'col-md-4':              projectModel.allocationStatus !== 'available'}">
                         <input type="text" class="form-control w-200" [(ngModel)]="projectModel.accountName" placeholder="Account Name" />
                     </div>
-                    <div [ngClass]="{'col-md-3': projectModel.aStatus === 'available', 'col-md-4': projectModel.aStatus !== 'available'}">
-
+                    <div [ngClass]="{'col-md-3': projectModel.allocationStatus === 'available', 'col-md-4': projectModel.allocationStatus !== 'available'}">
                         <input type="text" class="form-control w-200" name="projectName" [(ngModel)]="projectModel.projectName" placeholder="Project Name"
                         />
                     </div>
-                    <div class="m-t-13" [ngClass]="{'col-md-3': projectModel.aStatus === 'available', 'col-md-4': projectModel.aStatus !== 'available'}">
-                        <p-dropdown [options]="allocationStatusList" name="allocStatus" [(ngModel)]="projectModel.aStatus" placeholder="Allocation Status"
+                    <div class="m-t-13" [ngClass]="{'col-md-3': projectModel.allocationStatus === 'available', 'col-md-4': projectModel.allocationStatus !== 'available'}">
+                        <p-dropdown [options]="allocationStatusList" name="allocStatus" [(ngModel)]="projectModel.allocationStatus" placeholder="Allocation Status"
                             optionLabel="label" [style]="{'width':'200px'}"></p-dropdown>
                     </div>
-                    <ng-container *ngIf="projectModel.aStatus === 'available'">
+                    <ng-container *ngIf="projectModel.allocationStatus === 'available'">
                     <div class="col-md-3">
                         <button type="button" class="btn btn-success">Add Project</button>
                         <button *ngIf="false" type="button" class="btn btn-success">Update Project</button>
@@ -23,23 +22,23 @@
                     </ng-container>
                 </div>
                 <div class="row m-t-10">
-                    <ng-container *ngIf="projectModel.aStatus !== 'available' && projectModel.aStatus !== 'onNotice'">
+                    <ng-container *ngIf="projectModel.allocationStatus !== 'available' && projectModel.allocationStatus !== 'onNotice'">
                         <div class="col-md-4 m-t-23">
-                            <p-calendar name="allocStartDate" [(ngModel)]="projectModel.aStartDate" [showIcon]="true" placeholder="Allocation Start Date"></p-calendar>
+                            <p-calendar name="allocationStartDate" [(ngModel)]="projectModel.allocationStartDate" [showIcon]="true" placeholder="Allocation Start Date" (onSelect)="projectModel.allocationEndDate = null;minProjectDate = projectModel.allocationStartDate" dateFormat="dd-mm-yy"></p-calendar>
                         </div>
                         <div class="col-md-4 m-t-23">
-                            <p-calendar name="allocEndDate" [(ngModel)]="projectModel.aEndDate" [showIcon]="true" placeholder="Allocation End Date"></p-calendar>
-                        </div>
-                    </ng-container>
-                    <ng-container *ngIf="projectModel.aStatus === 'onNotice'">
-                        <div class="col-md-4 m-t-23">
-                            <p-calendar name="lastWorkingDay" [(ngModel)]="projectModel.lastWDay" [showIcon]="true" placeholder="Last Working Day"></p-calendar>
+                            <p-calendar [disabled]="!projectModel.allocationStartDate" name="allocationEndDate" [(ngModel)]="projectModel.allocationEndDate" [showIcon]="true" placeholder="Allocation End Date" [minDate]="minProjectDate" dateFormat="dd-mm-yy"></p-calendar>
                         </div>
                     </ng-container>
-                    <ng-container *ngIf="projectModel.aStatus !== 'available'">
+                    <ng-container *ngIf="projectModel.allocationStatus === 'onNotice'">
+                        <div class="col-md-4 m-t-23">
+                            <p-calendar name="lastWorkingDay" [(ngModel)]="projectModel.lastWorkingDay" [showIcon]="true" placeholder="Last Working Day" dateFormat="dd-mm-yy"></p-calendar>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="projectModel.allocationStatus !== 'available'">
                     <div class="col-md-4 m-t-23">
-                        <button type="button" class="btn btn-success">Add Project</button>
-                        <button *ngIf="false" type="button" class="btn btn-success">Update Project</button>
+                        <button *ngIf="showButton" type="button" class="btn btn-success" [disabled]="disableBtn()" >Add Project</button>
+                        <button *ngIf="shwoButton" type="button" class="btn btn-success" [disabled]="disableBtn()">Update Project</button>
                     </div>
                     </ng-container>
                 </div>
@@ -52,8 +51,8 @@
                     Action
                 </ng-template>
                 <ng-template let-project="rowData" let-i="rowIndex" pTemplate="body">
-                    <a class="curosr-p"><i class="fa fa-edit"></i></a>
-                    <a class="curosr-p"><i class="fa fa-trash"></i></a>
+                    <a class="curosr-p"><i class="fa fa-edit" (click)="onEdit(project)"></i></a>
+                    <a class="curosr-p"><i class="fa fa-trash" (click)="onDelete(project)"></i></a>
                 </ng-template>
             </p-column>
         </p-dataTable>

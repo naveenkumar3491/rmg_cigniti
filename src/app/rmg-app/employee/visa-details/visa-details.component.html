@@ -17,10 +17,11 @@
                         </div>
                         <div class="row" style="margin: 10px;">
                             <div class="col-md-4" style="margin-top: 23px;">
-                                <p-calendar name="validFrom" [(ngModel)]="visaModel.validFrom" [showIcon]="true" placeholder="Valid From"></p-calendar>
+                                <p-calendar name="validFrom" (onSelect)="visaModel.validTo = null;minVisaDate = visaModel.validFrom"
+                                [(ngModel)]="visaModel.validFrom" dateFormat="dd-mm-yy" [showIcon]="true" placeholder="Valid From"></p-calendar>
                             </div>
                             <div class="col-md-4" style="margin-top: 23px;">
-                                <p-calendar name="validTo" [(ngModel)]="visaModel.validTo" [showIcon]="true" placeholder="Valid To"></p-calendar>
+                                <p-calendar name="validTo" dateFormat="dd-mm-yy" [disabled]="!visaModel.validFrom" [minDate]="minVisaDate" [(ngModel)]="visaModel.validTo" [showIcon]="true" placeholder="Valid To"></p-calendar>
                             </div>
                             <div class="col-md-4" style="margin-top: 23px;">
                                 <button type="button" class="btn btn-success">Add Visa</button>

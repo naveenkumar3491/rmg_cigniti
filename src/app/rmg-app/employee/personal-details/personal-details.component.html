@@ -65,7 +65,7 @@
 										<label>DATE OF JOINING</label>
 										<p *ngIf="!editMode" class="form-control-static">{{personalDetails?.doj}}</p>
 										<ng-container *ngIf="editMode">
-											<p-calendar [(ngModel)]="pdModel.doj" [showIcon]="true"></p-calendar>
+											<p-calendar dateFormat="dd-mm-yy" [(ngModel)]="pdModel.doj" [showIcon]="true"></p-calendar>
 										</ng-container>
 									</div>
 								</div>

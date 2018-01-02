@@ -10,6 +10,7 @@ import { Observable } from 'rxjs/Observable';
 export class VisaDetailsComponent implements OnInit {
   @Input() visaDetails;
   public visaModel: any = {};
+  public minVisaDate: any;
   public countriesObservable: Observable<any>;
   public visaStatusList: any = [
     {label: 'REF', value: 'ref'},

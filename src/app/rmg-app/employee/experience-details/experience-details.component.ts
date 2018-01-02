@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, Input, EventEmitter, Output }
 import { DataService } from '../../../services/DataService';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { Ng2Storage } from '../../../services/storage';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-experience-details',
@@ -28,13 +29,16 @@ export class ExperienceDetailsComponent implements OnInit {
   ngOnInit() {
     this.resumeName = this.personalDetails.resume_filename ? this.personalDetails.resume_filename : 'Not Yet Uploaded';
     this.emptyResume = true;
-    const doj = new Date(this.personalDetails.doj);
-    const todayDate = new Date();
-    const yearCode = todayDate.getFullYear() - doj.getFullYear();
-    const monthCode = todayDate.getMonth() - doj.getMonth();
-    const yearExp = ((yearCode) > 1) ? (yearCode) + ' Years' : (((yearCode) === 0 || (yearCode) === undefined) ? '' : (yearCode) + ' Year');
-    const monthExp = ((monthCode) > 1) ? (monthCode) + ' Months' : (((monthCode) === 0 || (monthCode) === undefined) ? '' : (monthCode) + ' Month');
-    this.model['cignitiExperience'] = `${yearExp} ${monthExp}`;
+    const splitDOJArray = (this.personalDetails.doj).split('-');
+    const splitTodayDateArray = moment(new Date()).format("DD/MM/YYYY").split('/');
+    const dojSplit = moment([splitDOJArray[2], splitDOJArray[1], splitDOJArray[0]]);
+    const todayDtSplit = moment([splitTodayDateArray[2], splitTodayDateArray[1], splitTodayDateArray[0]]);
+    const years = todayDtSplit.diff(dojSplit, 'year');
+    dojSplit.add(years, 'years');
+    const months = todayDtSplit.diff(dojSplit, 'months');
+    dojSplit.add(months, 'months');
+    const days = todayDtSplit.diff(dojSplit, 'days');
+    this.model['cignitiExperience'] = years + ' years ' + months + ' months ' + days + ' days';
     if (this.personalDetails.totalExperience === '0') {
       this.editMode = false;
       this.exp = {

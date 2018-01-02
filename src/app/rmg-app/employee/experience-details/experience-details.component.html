@@ -16,7 +16,7 @@
                             <span *ngIf="editMode">
                             <a class="curosr-p" (click)="saveExp('edit')"><i class="fa fa-pencil" style="font-size: 14px;"></i></a></span>
                             <span *ngIf="!editMode"><a class="curosr-p" (click)="saveExp('save')"><i class="fa fa-save" style="font-size: 14px;"></i></a></span>
-                            <span *ngIf="!editMode"><a class="curosr-p" (click)="editMode = true"><i class="fa fa-window-close-o" style="font-size: 14px;"></i></a></span>
+                            <span *ngIf="model.totalExperience && !editMode"><a class="curosr-p" (click)="editMode = true"><i class="fa fa-window-close-o" style="font-size: 14px;"></i></a></span>
                             </span>
                             <div *ngIf="!editMode">
                                 <span>Years</span> <span style="margin-left:30px;">Months</span></div>
