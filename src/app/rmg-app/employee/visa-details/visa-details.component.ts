@@ -15,7 +15,7 @@ export class VisaDetailsComponent implements OnInit {
   public countriesObservable: Observable<any>;
    public userData = this.storage.getSession('user_data');
   public visaStatusList: any = [
-    {label: 'REF', value: 'ref'},
+    {label: 'RFE', value: 'rfe'},
     {label: 'Expired', value: 'expired'},
     {label: 'Active', value: 'active'}
   ];

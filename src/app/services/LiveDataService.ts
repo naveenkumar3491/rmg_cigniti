@@ -21,6 +21,8 @@ export class LiveDataService extends DataService {
     private readonly subDomainData = this.getBaseURI() + 'subDomains';
     private readonly childDomainData = this.getBaseURI() + 'childDomains';
     private readonly projectDetails = this.getBaseURI() + 'projectDtls';
+    private readonly saveProjectUrl = this.getBaseURI() + 'saveUpdateEmpProject';
+    private readonly deleteProjectUrl = this.getBaseURI() + 'deleteEmpProject';
     private readonly getAllThemes = this.getBaseURI() + 'themesLookUp';
     private readonly saveTheme = this.getBaseURI() + 'updateTheme';
     private readonly insertContactAndExp = this.getBaseURI() + 'empContactAndExp';
@@ -76,6 +78,18 @@ export class LiveDataService extends DataService {
 
     public getProjectDetails(empId: string): Observable<any> {
         return this.http.get(`${this.projectDetails}?empId=${empId}`).map((response) => {
+            return response;
+        });
+    }
+
+    public addUpdateProject(obj): Observable<any> {
+        return this.http.post(`${this.saveProjectUrl}`, obj).map((response) => {
+            return response;
+        });
+    }
+
+    public deleteProject(obj): Observable<any> {
+        return this.http.post(`${this.deleteProjectUrl}`, obj).map((response) => {
             return response;
         });
     }
