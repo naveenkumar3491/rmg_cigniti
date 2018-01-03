@@ -33,7 +33,7 @@ export class DomainDetailsComponent implements OnChanges {
     years: 0,
     months: 1
   };
-  private userData = this.storage.getSession('user_data');
+  public userData = this.storage.getSession('user_data');
   constructor(private dataService: DataService, private messageService: MessageService,
     private storage: Ng2Storage, private confirmationService: ConfirmationService) { }
 

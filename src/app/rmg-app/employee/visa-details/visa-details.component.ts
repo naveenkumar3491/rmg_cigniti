@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DataService } from '../../../services/DataService';
 import { Observable } from 'rxjs/Observable';
+import { Ng2Storage } from "../../../services/storage";
 
 @Component({
   selector: 'app-visa-details',
@@ -12,6 +13,7 @@ export class VisaDetailsComponent implements OnInit {
   public visaModel: any = {};
   public minVisaDate: any;
   public countriesObservable: Observable<any>;
+   public userData = this.storage.getSession('user_data');
   public visaStatusList: any = [
     {label: 'REF', value: 'ref'},
     {label: 'Expired', value: 'expired'},
@@ -24,7 +26,7 @@ export class VisaDetailsComponent implements OnInit {
       {field: 'validFrom', header: 'Valid From'},
       {field: 'validTo', header: 'Valid To'}
   ];
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private storage: Ng2Storage) { }
 
   ngOnInit() {
     this.countriesObservable = this.dataService.getCountriesList();

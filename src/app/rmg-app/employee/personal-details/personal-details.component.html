@@ -21,7 +21,7 @@
 								</div>
 								<div class="profileBtns">
 									<button (click)="uploadFile()" class="theme-btn theme-btn-primary" *ngIf="!emptyImage">Upload</button>
-									<button (click)="getFile.click()" class="theme-btn theme-btn-primary" *ngIf="emptyImage">Browse</button>
+									<button (click)="getFile.click()" class="theme-btn theme-btn-primary" *ngIf="emptyImage && userData.employeeRoleName === 'Employee'">Browse</button>
 								</div>
 							</div><br>
 							<div [ngClass]="pbarColor">
@@ -49,7 +49,7 @@
 								<div class="col-lg-4 col-md-4 pad-l-0">
 									<div class="form-group">
 										<label>DESIGNATION</label>
-										<span *ngIf="!editMode" class="pd-edit" (click)="onPdEdit()">
+										<span *ngIf="!editMode && userData.employeeRoleName === 'RMG'" class="pd-edit" (click)="onPdEdit()">
 											<i class="fa fa-pencil"></i>
 										</span>
 										<p *ngIf="!editMode" class="form-control-static"> {{personalDetails?.designation}}</p>

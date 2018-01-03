@@ -42,7 +42,7 @@ export class CertificationDetailsComponent implements OnChanges {
     certLevel: 'Beginner',
     comments: ''
   };
-  private userData = this.storage.getSession('user_data');
+  public userData = this.storage.getSession('user_data');
   constructor(private confirmationService: ConfirmationService, private dataService: DataService,
     private datePipe: DatePipe, private storage: Ng2Storage, private messageService: MessageService) { }
 

@@ -13,10 +13,12 @@
                     <div class="col-md-4 col-sm-4 col-xs-12">
                         <div class="form-group">
                             <span class="help-block pro-title">TOTAL EXPERIENCE
+                                <ng-container *ngIf="userData.employeeRoleName === 'Employee'">
                             <span *ngIf="editMode">
                             <a class="curosr-p" (click)="saveExp('edit')"><i class="fa fa-pencil" style="font-size: 14px;"></i></a></span>
                             <span *ngIf="!editMode"><a class="curosr-p" (click)="saveExp('save')"><i class="fa fa-save" style="font-size: 14px;"></i></a></span>
                             <span *ngIf="model.totalExperience && !editMode"><a class="curosr-p" (click)="editMode = true"><i class="fa fa-window-close-o" style="font-size: 14px;"></i></a></span>
+                                </ng-container>
                             </span>
                             <div *ngIf="!editMode">
                                 <span>Years</span> <span style="margin-left:30px;">Months</span></div>
@@ -35,7 +37,7 @@
                                 <span (click)="removeResume()" class="removeResume" *ngIf="!emptyResume">
 									<span class="glyphicon glyphicon-remove"></span>
                                 </span>
-                                <button *ngIf="emptyResume" (click)="getResumeFile.click()" class="btn btn-primary">Browse</button>
+                                <button *ngIf="emptyResume && userData.employeeRoleName === 'Employee'" (click)="getResumeFile.click()" class="btn btn-primary">Browse</button>
                                 <button (click)="uploadFile()" class="theme-btn theme-btn-primary" *ngIf="!emptyResume">Upload</button>
                             </div>
                         </div>

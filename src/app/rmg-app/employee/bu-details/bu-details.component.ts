@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Ng2Storage } from "../../../services/storage";
 
 @Component({
   selector: 'app-bu-details',
@@ -9,7 +10,8 @@ export class BUDetailsComponent implements OnInit {
   @Input() personalDetails;
   public editMode: boolean = false;
   public buModel: any = {};
-  constructor() { }
+   public userData = this.storage.getSession('user_data');
+  constructor(private storage: Ng2Storage) { }
 
   ngOnInit() {
   }

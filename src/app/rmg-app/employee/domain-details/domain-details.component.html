@@ -2,6 +2,7 @@
 
   <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
+      <ng-container *ngIf="userData.employeeRoleName === 'Employee'">
           <div class="panel panel-default">
             <div class="panel-body">
               <div class="row" style="margin: 10px;">
@@ -38,8 +39,10 @@
               </div>
             </div>
           </div>
+      </ng-container>
           <p-dataTable [value]="domainList" scrollable="true" scrollHeight="200px" emptyMessage="No domains found">
             <p-column [sortable]="true" *ngFor="let col of domainHeader" [field]="col.field" [header]="col.header"></p-column>
+            <ng-container *ngIf="userData.employeeRoleName === 'Employee'">
             <p-column styleClass="col-button">
               <ng-template pTemplate="header">
                 Action
@@ -49,6 +52,7 @@
                 <a class="curosr-p"><i class="fa fa-trash" (click)="deleteConfirm(car, i)"></i></a>
               </ng-template>
             </p-column>
+            </ng-container>
           </p-dataTable>
     </div>
   </div>

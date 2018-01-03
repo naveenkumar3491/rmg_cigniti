@@ -10,8 +10,9 @@
         <th rowspan="2">Available</th>
         <th rowspan="2">Deployable HC</th>
         <th rowspan="2">Billing Utilization </th>
-        <th rowspan="2">On Notice</th>
+        <th rowspan="2">Training </th>
         <th rowspan="2">Long Leave</th>
+        <th rowspan="2">On Notice</th>
         <th colspan="2">COE & Investment</th>
         <th rowspan="2">LOA</th>
         <th rowspan="2">NBM</th>
@@ -36,17 +37,18 @@
 
 			</tr>-->
       <tr *ngFor="let dashboardDetail of dashboardData.dashboardDetails">
-        <td><a [routerLink]="['Bu_Manager_details']">{{dashboardDetail.region}}</a></td>
+        <td><a [routerLink]="['Bu_Manager_details']"><span>{{dashboardDetail.region}}</span></a></td>
         <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/Billing']">{{dashboardDetail.billing}}</a></td>
         <td><span>{{dashboardDetail.practice}}</span></td>
         <td><span>{{dashboardDetail.ats}}</span></td>
         <td><span>{{dashboardDetail.billingSum}}</span></td>
-        <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/Buffer']"> {{dashboardDetail.buffer}}</a></td>
+        <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/Buffer']"><span> {{dashboardDetail.buffer}}</span></a></td>
         <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/Blocked']">{{dashboardDetail.blocked}}</a></td>
         <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/Available']">{{dashboardDetail.available}}</a></td>
         <td><a [routerLink]="['EmployeeUpdated/deployableHC_info/NA-EAST']">{{dashboardDetail.deployable}}</a></td>
         <td><span>{{dashboardDetail.billingUtilzation}}</span></td>
         <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/Training']">{{dashboardDetail.training}}</a></td>
+        <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/LongLeave']">{{dashboardDetail.longleave}}</a></td>
         <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/OnNotice']">{{dashboardDetail.onNotice}}</a></td>
         <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/COE']">{{dashboardDetail.coe}}</a></td>
         <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/Innovation']">{{dashboardDetail.innovation}}</a></td>
@@ -107,6 +109,7 @@
         <td><a [routerLink]="['EmployeeUpdated/deployableHC_info/NA-EAST']">{{dashboardData.dashboardTotal.deployableTotal}}</a></td>
         <td><span>{{dashboardData.dashboardTotal.billingUtilzationTotal}}</span></td>
         <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/Training']">{{dashboardData.dashboardTotal.trainingTotal}}</a></td>
+        <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/LongLeave']">{{dashboardData.dashboardTotal.longleaveTotal}}</a></td>
         <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/OnNotice']">{{dashboardData.dashboardTotal.onNoticeTotal}}</a></td>
         <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/COE']">{{dashboardData.dashboardTotal.coeTotal}}</a></td>
         <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/Innovation']">{{dashboardData.dashboardTotal.innovationTotal}}</a></td>
@@ -118,7 +121,7 @@
     </tbody>
   </table>
 </div>
-<div class="row">
+<!--<div class="row">
 <div class="col-md-3">
   <p-chart type="pie" [data]="data"></p-chart>
 </div>
@@ -131,4 +134,4 @@
 <div class="col-md-3">
   <p-chart type="pie" [data]="data"></p-chart>
 </div>
-</div>
+</div>-->

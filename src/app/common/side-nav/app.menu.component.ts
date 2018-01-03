@@ -34,7 +34,7 @@ export class AppMenuComponent implements OnInit {
 
         if (this.userData.employeeRoleName === 'RMG') {
             this.model = [
-                { label: 'Rmg Details', icon: 'dashboard', routerLink: ['/app/rmg/dashboard'] }
+                { label: 'Dashboard', icon: 'dashboard', routerLink: ['/app/rmg/dashboard'] }
             ];
         } else {
             this.model = [

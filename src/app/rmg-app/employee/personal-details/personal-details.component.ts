@@ -38,7 +38,7 @@ export class PersonalDetailsComponent implements OnInit {
   public visaBusy: Subscription;
 
 
-  private userData = this.storage.getSession('user_data');
+  public userData = this.storage.getSession('user_data');
 
   @ViewChild('getFile') input: ElementRef;
   @ViewChild("fileInput") fileInput;

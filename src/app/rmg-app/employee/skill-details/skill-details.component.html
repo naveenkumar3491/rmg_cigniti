@@ -1,44 +1,46 @@
 <div class="skill-details">
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
-                <form #skillForm="ngForm">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <div class="row" style="margin: 10px;">
-                                <div class="col-md-4">
-                                    <p-dropdown [options]="skillCategoriesList" name="skillCategory" [(ngModel)]="skillModel.skillCategory" placeholder="Select a Category"
-                                        optionLabel="label" (onChange)="onCategoryChange()" [style]="{'width':'200px'}"></p-dropdown>
-                                </div>
-                                <div class="col-md-4">
-                                    <p-dropdown #skillRef [options]="skillSet" name="skill" [(ngModel)]="skillModel.skill" placeholder="Select a Skill" optionLabel="label" (onFocus)="onSkillFocus(skillRef)"
-                                        [style]="{'width':'200px'}" [disabled]="!skillModel.skillCategory"></p-dropdown>
-                                </div>
-                                <div class="col-md-4">
-                                    <p-rating name="skillRating" [(ngModel)]="skillModel.skillRating" [cancel]="false"></p-rating>
-                                    <div class="btn-skill">
-                                        <button *ngIf="showButton" type="button" [disabled]="!this.skillModel.skillCategory || !this.skillModel.skill" (click)="saveSkill('add')"
-                                            class="btn btn-success">Add Skill</button>
-                                        <button *ngIf="!showButton" type="button" (click)="saveSkill('update')" [disabled]="!this.skillModel.skillCategory || !this.skillModel.skill"
-                                            class="btn btn-success">Update Skill</button>
-                                    </div>
+            <ng-container *ngIf="userData.employeeRoleName === 'Employee'">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row" style="margin: 10px;">
+                            <div class="col-md-4">
+                                <p-dropdown [options]="skillCategoriesList" name="skillCategory" [(ngModel)]="skillModel.skillCategory" placeholder="Select a Category"
+                                    optionLabel="label" (onChange)="onCategoryChange()" [style]="{'width':'200px'}"></p-dropdown>
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown #skillRef [options]="skillSet" name="skill" [(ngModel)]="skillModel.skill" placeholder="Select a Skill" optionLabel="label"
+                                    (onFocus)="onSkillFocus(skillRef)" [style]="{'width':'200px'}" [disabled]="!skillModel.skillCategory"></p-dropdown>
+                            </div>
+                            <div class="col-md-4">
+                                <p-rating name="skillRating" [(ngModel)]="skillModel.skillRating" [cancel]="false"></p-rating>
+                                <div class="btn-skill">
+                                    <button *ngIf="showButton" type="button" [disabled]="!this.skillModel.skillCategory || !this.skillModel.skill" (click)="saveSkill('add')"
+                                        class="btn btn-success">Add Skill</button>
+                                    <button *ngIf="!showButton" type="button" (click)="saveSkill('update')" [disabled]="!this.skillModel.skillCategory || !this.skillModel.skill"
+                                        class="btn btn-success">Update Skill</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <p-dataTable [value]="skillList" scrollable="true" [sortField]="sortF" (onSort)="changeSort($event)" scrollHeight="200px"
-                        emptyMessage="No skills found">
-                        <p-column [sortable]="true" *ngFor="let col of skillHeader" [field]="col.field" [header]="col.header"></p-column>
-                        <p-column styleClass="col-button">
-                            <ng-template pTemplate="header">
-                                Action
-                            </ng-template>
-                            <ng-template let-skill="rowData" let-i="rowIndex" pTemplate="body">
-                                <a class="curosr-p" (click)="onEdit(skill)"><i class="fa fa-edit"></i></a>
-                                <a class="curosr-p" (click)="deleteConfirm(i)"><i class="fa fa-trash"></i></a>
-                            </ng-template>
-                        </p-column>
-                    </p-dataTable>
-                </form>
+                </div>
+            </ng-container>
+            <p-dataTable [value]="skillList" scrollable="true" [sortField]="sortF" (onSort)="changeSort($event)" scrollHeight="200px"
+                emptyMessage="No skills found">
+                <p-column [sortable]="true" *ngFor="let col of skillHeader" [field]="col.field" [header]="col.header"></p-column>
+                <ng-container *ngIf="userData.employeeRoleName === 'Employee'">
+                    <p-column styleClass="col-button">
+                        <ng-template pTemplate="header">
+                            Action
+                        </ng-template>
+                        <ng-template let-skill="rowData" let-i="rowIndex" pTemplate="body">
+                            <a class="curosr-p" (click)="onEdit(skill)"><i class="fa fa-edit"></i></a>
+                            <a class="curosr-p" (click)="deleteConfirm(i)"><i class="fa fa-trash"></i></a>
+                        </ng-template>
+                    </p-column>
+                </ng-container>
+            </p-dataTable>
         </div>
     </div>
 </div>

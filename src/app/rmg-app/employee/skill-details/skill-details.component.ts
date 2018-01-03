@@ -2,6 +2,7 @@ import { Component, OnChanges, Input, SimpleChanges } from '@angular/core';
 import { DataService } from '../../../services/DataService';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { ConfirmationService } from 'primeng/primeng';
+import { Ng2Storage } from "../../../services/storage";
 
 @Component({
   selector: 'app-skill-details',
@@ -28,7 +29,10 @@ export class SkillDetailsComponent implements OnChanges {
   public skillList: any = [];
   public editedSkillObject: any;
   public showButton: boolean = true;
-  constructor(private dataService: DataService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
+  public userData = this.storage.getSession('user_data');
+  constructor(private dataService: DataService, 
+  private messageService: MessageService, 
+  private confirmationService: ConfirmationService, private storage: Ng2Storage) { }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.skillMasterData && changes.skillMasterData.currentValue) {
