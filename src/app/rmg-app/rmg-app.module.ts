@@ -25,7 +25,7 @@ import { AppRightpanelComponent } from '../common/right-panel/app.rightpanel.com
 import { AppInlineProfileComponent } from '../common/side-nav-profile/app.profile.component';
 import { RmgAppRoutes } from './rmg-app-routes';
 import { PersonalDetailsComponent } from './employee/personal-details/personal-details.component';
-import { DashboardComponent } from './rmg/components/dashboard/dashboard.component';
+import { DashboardComponent } from './rmg/dashboard/dashboard.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { ExperienceDetailsComponent } from './employee/experience-details/experience-details.component';
 import { SkillDetailsComponent } from './employee/skill-details/skill-details.component';
@@ -36,6 +36,8 @@ import { BUDetailsComponent } from './employee/bu-details/bu-details.component';
 import { RmgComponent } from './rmg/rmg.component';
 import { VisaDetailsComponent } from './employee/visa-details/visa-details.component';
 import { DomainDetailsComponent } from './employee/domain-details/domain-details.component';
+import { DateFormatPipe } from "../common/pipes/dateFormat.pipe";
+import { EmployeeDetailsComponent } from "./rmg/employee-details/employee-details.component";
 @NgModule({
   imports: [
     CommonModule,
@@ -75,8 +77,9 @@ import { DomainDetailsComponent } from './employee/domain-details/domain-details
     BUDetailsComponent,
     VisaDetailsComponent,
     DomainDetailsComponent,
+    EmployeeDetailsComponent,
     OnlyNumber
     ],
-    providers: [ConfirmationService]
+    providers: [ConfirmationService, DateFormatPipe]
 })
 export class RmgAppModule { }

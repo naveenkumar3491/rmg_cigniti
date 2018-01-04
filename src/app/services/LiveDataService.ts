@@ -53,13 +53,6 @@ export class LiveDataService extends DataService {
         });
     }
 
-    public getMatchedDomain(name, data) {
-        const found = data.find(obj => obj.label === name);
-        if (found) {
-            return found.value;
-        }
-    }
-
     public loginUser(obj: ILogin): Observable<ILoginResponse> {
         return this.http.post(`${this.userLoginUrl}`, obj).map((response) => {
             const resp = response;

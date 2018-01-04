@@ -16,7 +16,7 @@
         <th colspan="2">COE & Investment</th>
         <th rowspan="2">LOA</th>
         <th rowspan="2">NBM</th>
-        <th rowspan="2">Total HC</th>
+        <th rowspan="2" class="totalHC">Total HC</th>
         <th rowspan="2">Utilization</th>
       </tr>
       <tr style="color:white; background: #005c97;">
@@ -28,16 +28,14 @@
         <th>I</th>
       </tr>
     </thead>
-    <tbody>
-      <!--
-			<tr style="padding:0px;" *ngFor="let resourseDetail of userData.resourseDetails">
-
-				<td colspan="4">
-				</td>
-
-			</tr>-->
-      <tr *ngFor="let dashboardDetail of dashboardData.dashboardDetails">
-        <td><a [routerLink]="['Bu_Manager_details']"><span>{{dashboardDetail.region}}</span></a></td>
+    <tbody class="dashboardBody">
+      <tr *ngFor="let dashboardDetail of dashboardData.dashboardDetails; let i = index;"
+      [ngClass]="{'rowDataColor': applyRowDataBg(i)}">
+        <td>
+          <a *ngIf="i === 2 && changeIcon" class="cursor-p" href="javascript:void(0)" (click)="showRowData()"><i class="fa fa-plus-square" aria-hidden="true"></i></a>
+          <a *ngIf="i === 2 && !changeIcon" class="cursor-p" href="javascript:void(0)" (click)="changeIcon = !changeIcon;splitData()"><i class="fa fa-minus-square" aria-hidden="true"></i></a>
+          <a [routerLink]="['Bu_Manager_details']"><span>{{dashboardDetail.region}}</span></a>
+        </td>
         <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/Billing']">{{dashboardDetail.billing}}</a></td>
         <td><span>{{dashboardDetail.practice}}</span></td>
         <td><span>{{dashboardDetail.ats}}</span></td>
@@ -57,46 +55,6 @@
         <td class="tableTotalColor"><a [routerLink]="['EmployeeUpdated/BU_info/NA-EAST']">{{dashboardDetail.buInfo}}</a></td>
         <td><span>{{dashboardDetail.totUtilzation}}</span></td>
       </tr>
-      <!--<tr *ngFor="let dashboardDetail of dashboardDetails">
-        <td><a [routerLink]="['Bu_Manager_details']">NA-WEST</a></td>
-        <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/Billing']">636</a></td>
-        <td><span>34</span></td>
-        <td><span>9</span></td>
-        <td><span>388</span></td>
-        <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/Buffer']">30</a></td>
-        <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/Blocked']">27</a></td>
-        <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/Available']">2</a></td>
-        <td><a [routerLink]="['EmployeeUpdated/deployableHC_info/NA-EAST']">404</a></td>
-        <td><span>84.5%</span></td>
-        <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/Training']">9</a></td>
-        <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/OnNotice']">2</a></td>
-        <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/COE']">0</a></td>
-        <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/Innovation']">0</a></td>
-        <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/LOA']">3</a></td>
-        <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/NonBillableManager']">3</a></td>
-        <td><a [routerLink]="['EmployeeUpdated/BU_info/NA-EAST']">3</a></td>
-        <td><span>80.0%</span></td>
-      </tr>-->
-      <!--<tr *ngFor="let dashboardDetail of dashboardDetails">
-        <td><a [routerLink]="['Bu_Manager_details']">NA-EAST</a></td>
-        <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/Billing']">345</a></td>
-        <td><span>34</span></td>
-        <td><span>9</span></td>
-        <td><span>388</span></td>
-        <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/Buffer']">30</a></td>
-        <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/Blocked']">27</a></td>
-        <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/Available']">2</a></td>
-        <td><a [routerLink]="['EmployeeUpdated/deployableHC_info/NA-EAST']">404</a></td>
-        <td><span>84.5%</span></td>
-        <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/Training']">9</a></td>
-        <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/OnNotice']">2</a></td>
-        <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/COE']">0</a></td>
-        <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/Innovation']">0</a></td>
-        <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/LOA']">3</a></td>
-        <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/NonBillableManager']">3</a></td>
-        <td><a [routerLink]="['EmployeeUpdated/BU_info/NA-EAST']">3</a></td>
-        <td><span>80.0%</span></td>
-      </tr>-->
        <tr>
         <td><span >{{dashboardData.dashboardTotal.regionTotal}}</span></td>
         <td><span>{{dashboardData.dashboardTotal.billingTotal}}</span></td>

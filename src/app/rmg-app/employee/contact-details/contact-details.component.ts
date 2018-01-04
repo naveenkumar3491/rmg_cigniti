@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { DataService } from '../../../services/DataService';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { Ng2Storage } from '../../../services/storage';
+import { UtilsService } from "../../../services/utils.service";
 
 @Component({
   selector: 'app-contact-details',
@@ -39,12 +40,12 @@ export class ContactDetailsComponent implements OnInit {
   }
 
   constructor(private fb: FormBuilder, private dataService: DataService,
-   private messageService: MessageService, private storage: Ng2Storage) { }
+   private messageService: MessageService, private storage: Ng2Storage, private utilsService: UtilsService) { }
 
   ngOnInit() {
     const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; 
     this.contactForm = this.fb.group({
-      pEmailId: [this.personalDetails.personalEmailId, [Validators.required, this.validateWithRegex('emailValidation', mailformat)]],
+      pEmailId: [this.personalDetails.personalEmailId, [Validators.required, this.utilsService.validateWithRegex('emailValidation', mailformat)]],
       mobile: [this.personalDetails.mobile, [Validators.required]]
     });
     this.contactForm.valueChanges.subscribe(data => this.onValuesChanged());
@@ -66,20 +67,6 @@ export class ContactDetailsComponent implements OnInit {
       }
     }
   }
-  public validateWithRegex(name, regx) {
-      return function (c: AbstractControl): {[key: string]: any}{
-        let val = c.value;
-        if (!val) {
-          return null;
-        } 
-        if (!val.match(regx)) {
-          let obj = {};
-          obj[name] = true;
-          return obj;
-        }
-        return null;
-      };
-    }
 
    onContactDetChange(type) {
     if (type === 'save') {

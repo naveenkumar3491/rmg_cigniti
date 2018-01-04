@@ -27,5 +27,4 @@ export abstract class DataService {
     public abstract deleteCertification(obj): Observable<any>;
     public abstract getVisaDetails(id) : Observable<any>;
     public abstract getCertificationNamesInstitutes(id) : Observable<any>;
-    public abstract getMatchedDomain(name, data);
 }

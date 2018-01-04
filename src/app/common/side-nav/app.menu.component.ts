@@ -34,7 +34,16 @@ export class AppMenuComponent implements OnInit {
 
         if (this.userData.employeeRoleName === 'RMG') {
             this.model = [
-                { label: 'Dashboard', icon: 'dashboard', routerLink: ['/app/rmg/dashboard'] }
+                { label: 'Dashboard', icon: 'dashboard', routerLink: ['/app/rmg/dashboard'] },
+                { label: 'Employee Details', icon: 'person', routerLink: ['/app/rmg/employee-details'] },
+                {
+                label: 'Report', icon: 'content_paste',
+                items: [
+                    { label: 'Onsite Bench', icon: 'person', routerLink: ['/app/rmg/employee-details'] },
+                    { label: 'Forecast Report', icon: 'person', routerLink: ['/app/rmg/employee-details'] },
+                    { label: 'Ramp Up/Down', icon: 'person', routerLink: ['/app/rmg/employee-details'] }
+                ]
+            }
             ];
         } else {
             this.model = [
@@ -58,9 +67,9 @@ export class AppMenuComponent implements OnInit {
         }
         this.dataService.updateTheme(paramObj).subscribe((data) => {
            this.changeTheme(theme.label);
-        //    let sessionData = this.storage.getSession('user_data');
-        //    sessionData.themeCol = theme.label;
-           //this.storage.setSession('user_data', sessionData);
+           let sessionData = this.storage.getSession('user_data');
+           sessionData.themeCol = theme.label;
+           this.storage.setSession('user_data', sessionData);
         })
 
     }

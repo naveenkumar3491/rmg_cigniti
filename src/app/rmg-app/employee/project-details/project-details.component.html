@@ -13,7 +13,7 @@
                     </div>
                     <div class="m-t-13" [ngClass]="{'col-md-3': projectModel.allocation_status === 'Available', 'col-md-4': projectModel.allocation_status !== 'Available'}">
                         <p-dropdown [options]="allocationStatusList" name="allocStatus" [(ngModel)]="projectModel.allocation_status" placeholder="Allocation Status"
-                            optionLabel="label" [style]="{'width':'200px'}"></p-dropdown>
+                            optionLabel="label" [style]="{'width':'200px'}" (onChange)="onAllocStatusChange(projectModel.allocation_status)"></p-dropdown>
                     </div>
                     <ng-container *ngIf="projectModel.allocation_status === 'Available'">
                     <div class="col-md-3">
@@ -25,10 +25,10 @@
                 <div class="row m-t-10">
                     <ng-container *ngIf="projectModel.allocation_status !== 'Available' && projectModel.allocation_status !== 'On Notice'">
                         <div class="col-md-4 m-t-23">
-                            <p-calendar name="allocation_start_date" [(ngModel)]="projectModel.allocation_start_date" [showIcon]="true" placeholder="Allocation Start Date" (onSelect)="projectModel.allocation_end_date = null;minProjectDate = projectModel.allocation_start_date" dateFormat="dd-mm-yy"></p-calendar>
+                            <p-calendar name="allocation_start_date" [(ngModel)]="projectModel.allocation_start_date" [showIcon]="true" placeholder="Allocation Start Date" (onSelect)="onAllocStartDtSelect()" dateFormat="dd-mm-yy"></p-calendar>
                         </div>
                         <div class="col-md-4 m-t-23">
-                            <p-calendar [disabled]="!projectModel.allocation_start_date" name="allocation_end_date" [(ngModel)]="projectModel.allocation_end_date" [showIcon]="true" placeholder="Allocation End Date" [minDate]="minProjectDate" dateFormat="dd-mm-yy"></p-calendar>
+                            <p-calendar *ngIf="active" [disabled]="!projectModel.allocation_start_date" name="allocation_end_date" [(ngModel)]="projectModel.allocation_end_date" [showIcon]="true" placeholder="Allocation End Date" [minDate]="minProjectDate" dateFormat="dd-mm-yy"></p-calendar>
                         </div>
                     </ng-container>
                     <ng-container *ngIf="projectModel.allocation_status === 'On Notice'">
@@ -46,7 +46,7 @@
             </div>
         </div>
         </ng-container>
-        <p-dataTable [value]="projectDetails" scrollable="true" scrollHeight="200px" emptyMessage="No projects found">
+        <p-dataTable [value]="projectDetails" scrollable="true" scrollHeight="200px" emptyMessage="No Projects Found">
             <p-column [sortable]="true" *ngFor="let col of projectHeader" [field]="col.field" [header]="col.header"></p-column>
             <ng-container *ngIf="userData.employeeRoleName === 'RMG'">
             <p-column styleClass="col-button">

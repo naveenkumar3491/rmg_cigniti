@@ -3,6 +3,7 @@ import { DataService } from '../../../services/DataService';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { Ng2Storage } from '../../../services/storage';
 import { ConfirmationService } from 'primeng/primeng';
+import { UtilsService } from "../../../services/utils.service";
 
 @Component({
   selector: 'app-domain-details',
@@ -35,7 +36,8 @@ export class DomainDetailsComponent implements OnChanges {
   };
   public userData = this.storage.getSession('user_data');
   constructor(private dataService: DataService, private messageService: MessageService,
-    private storage: Ng2Storage, private confirmationService: ConfirmationService) { }
+    private storage: Ng2Storage, private confirmationService: ConfirmationService,
+    private utilsService: UtilsService) { }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.masterDomains && changes.masterDomains.currentValue) {
@@ -155,14 +157,14 @@ export class DomainDetailsComponent implements OnChanges {
       this.domainModel.years = domain.domainExperience;
       this.domainModel.months = 0;
     }
-    this.domainModel.domain = this.dataService.getMatchedDomain(domain.domain_name, this.masterDomains);
+    this.domainModel.domain = this.utilsService.getMatchedDomain(domain.domain_name, this.masterDomains);
     this.editedDomainObject = domain;
     this.dataService.getSubDomainDetails(this.domainModel.domain.domainId).subscribe((subDomainData) => {
       this.subDomainDetails = subDomainData;
-      this.domainModel.subDomain = this.dataService.getMatchedDomain(domain.sub_domain_name, this.subDomainDetails);
+      this.domainModel.subDomain = this.utilsService.getMatchedDomain(domain.sub_domain_name, this.subDomainDetails);
       this.dataService.getChildDomainDetails(this.domainModel.domain.domainId, this.domainModel.subDomain.subDomainId).subscribe((childDomaindata) => {
         this.childDomainDetails = childDomaindata;
-        this.domainModel.childDomain = this.dataService.getMatchedDomain(domain.child_domain_name, this.childDomainDetails);
+        this.domainModel.childDomain = this.utilsService.getMatchedDomain(domain.child_domain_name, this.childDomainDetails);
       });
     });
   }

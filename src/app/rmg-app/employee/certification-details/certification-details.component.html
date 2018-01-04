@@ -26,10 +26,10 @@
                             </div>
                             <div class="col-md-3 m-t-23">
                                 <p-calendar dateFormat="dd-mm-yy" name="validFrom" [(ngModel)]="certificationModel.validFrom" 
-                                [showIcon]="true" placeholder="Valid From" (onSelect)="certificationModel.validTo = null;minCertificationDate = certificationModel.validFrom"></p-calendar>
+                                [showIcon]="true" placeholder="Valid From" (onSelect)="onCertStartDtSelect()"></p-calendar>
                             </div>
                             <div class="col-md-3 m-t-23">
-                                <p-calendar dateFormat="dd-mm-yy" [disabled]="!certificationModel.validFrom" name="validTo" 
+                                <p-calendar *ngIf="active" dateFormat="dd-mm-yy" [disabled]="!certificationModel.validFrom" name="validTo" 
                                 [(ngModel)]="certificationModel.validTo" [showIcon]="true" placeholder="Valid To"
                                 [minDate]="minCertificationDate"></p-calendar>
                             </div>
@@ -47,7 +47,7 @@
                     </div>
                 </div>
             </ng-container>
-                <p-dataTable [value]="certificationList" scrollable="true" scrollHeight="200px" emptyMessage="No certifications found">
+                <p-dataTable [value]="certificationList" scrollable="true" scrollHeight="200px" emptyMessage="No Certifications Found">
                     <p-column [sortable]="true" *ngFor="let col of certificationHeader" [field]="col.field" [header]="col.header"></p-column>
                     <ng-container *ngIf="userData.employeeRoleName === 'Employee'">
                     <p-column styleClass="col-button">

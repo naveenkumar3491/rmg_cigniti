@@ -29,13 +29,6 @@ export class MockDataService extends DataService {
         });
     }
 
-    public getMatchedDomain(name, data) {
-        const found = data.find(obj => obj.label === name);
-        if (found) {
-            return found.value;
-        }
-    }
-
     public loginUser(obj: ILogin): Observable<ILoginResponse> {
         var data = mockData.allUsers;
         return Observable.create(observer => {
@@ -264,6 +257,24 @@ export class MockDataService extends DataService {
     }
 
     public deleteCertification(obj): Observable<any> {
+        return Observable.create(observer => {
+            setTimeout(() => {
+                observer.next({});
+                observer.complete();
+            }, 1000)
+        });
+    }
+
+    public addUpdateProject(obj): Observable<any> {
+        return Observable.create(observer => {
+            setTimeout(() => {
+                observer.next({});
+                observer.complete();
+            }, 1000)
+        });
+    }
+
+    public deleteProject(obj): Observable<any> {
         return Observable.create(observer => {
             setTimeout(() => {
                 observer.next({});

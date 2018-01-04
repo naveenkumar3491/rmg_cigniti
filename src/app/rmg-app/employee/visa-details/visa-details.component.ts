@@ -10,6 +10,7 @@ import { Ng2Storage } from "../../../services/storage";
 })
 export class VisaDetailsComponent implements OnInit {
   @Input() visaDetails;
+  public active: boolean = true;
   public visaModel: any = {};
   public minVisaDate: any;
   public countriesObservable: Observable<any>;
@@ -30,6 +31,13 @@ export class VisaDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.countriesObservable = this.dataService.getCountriesList();
+  }
+
+  onVisaStartDtSelect(){
+    this.visaModel.validTo = null;
+    this.minVisaDate = this.visaModel.validFrom;
+    this.active = false;
+    setTimeout(() => { this.active = true;}, 0);
   }
 
 }

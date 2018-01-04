@@ -1,17 +1,19 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { ConfirmationService } from 'primeng/primeng';
 import { Ng2Storage } from "../../../services/storage";
 import { DataService } from "../../../services/DataService";
-import { DatePipe } from '@angular/common';
+import { DateFormatPipe } from "../../../common/pipes/dateFormat.pipe";
+import { MessageService } from "primeng/components/common/messageservice";
 
 @Component({
   selector: 'app-project-details',
   templateUrl: './project-details.component.html',
-  styleUrls: ['./project-details.component.scss'],
-  providers: [DatePipe]
+  styleUrls: ['./project-details.component.scss']
 })
 export class ProjectDetailsComponent implements OnInit {
   @Input() projectDetails;
+  @Output() callBackProjectDetails = new EventEmitter();
+  public active: boolean = true;
   public projectModel: any = {
     last_working_day: null,
     allocation_start_date: null,
@@ -41,15 +43,20 @@ export class ProjectDetailsComponent implements OnInit {
     { field: 'allocation_status', header: 'Allocation Status' }
   ];
 
-  constructor(private confirmationService: ConfirmationService, private storage: Ng2Storage, private dataService: DataService, private datePipe: DatePipe) { }
+  constructor(private confirmationService: ConfirmationService, 
+  private storage: Ng2Storage, private dataService: DataService, 
+  private datePipe: DateFormatPipe,
+  private messageService: MessageService) { }
   ngOnInit() { }
 
   onEdit(project) {
     this.showButton = false;
     this.projectModel = Object.assign({}, project);
-    const splitDate = (this.projectModel.allocation_start_date).split('-');
-    const disabledDate = `${splitDate[1]}-${splitDate[0]}-${splitDate[2]}`;
-    this.minProjectDate = new Date(disabledDate);
+    if (this.projectModel.allocation_start_date) {
+      const splitDate = (this.projectModel.allocation_start_date).split('-');
+      const disabledDate = `${splitDate[1]}-${splitDate[0]}-${splitDate[2]}`;
+      this.minProjectDate = new Date(disabledDate);
+    }
   }
 
   onDelete(project) {
@@ -64,21 +71,58 @@ export class ProjectDetailsComponent implements OnInit {
   onSaveProject(type) {
     const paramObj = Object.assign({}, this.projectModel);
     paramObj.emp_id = this.userData.employeeId;
+    paramObj.allocation_start_date = this.datePipe.transform(this.projectModel.allocation_start_date, 'dd-MM-yyyy');
+    paramObj.allocation_end_date = this.datePipe.transform(this.projectModel.allocation_end_date, 'dd-MM-yyyy');
+    paramObj.last_working_day = this.datePipe.transform(this.projectModel.last_working_day, 'dd-MM-yyyy');
     if (type === 'update') {
       paramObj.rowid = this.projectModel.rowid;
-    } else {
-      paramObj.allocation_start_date = this.datePipe.transform(this.projectModel.allocation_start_date, 'dd-MM-yyyy');
-      paramObj.allocation_end_date = this.datePipe.transform(this.projectModel.allocation_end_date, 'dd-MM-yyyy');
     }
     this.dataService.addUpdateProject(paramObj).subscribe((data) => {
-      console.log(data);
+      this.showButton = true;
+      if (type === 'add') {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Project added successfully!!' });
+      } else {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Project updated successfully!!' });
+      }
+      this.refreshGrid();
     })
   }
 
+  refreshGrid() {
+    this.callBackProjectDetails.emit();
+    this.projectModel = {
+      last_working_day: null,
+      allocation_start_date: null,
+      allocation_end_date: null
+    };
+  }
+
+  onAllocStatusChange(status) {
+    if (status === 'On Notice') {
+      this.projectModel.allocation_start_date = null;
+      this.projectModel.allocation_end_date = null;
+    } else if (status === 'Available') {
+      this.projectModel.allocation_start_date = null;
+      this.projectModel.allocation_end_date = null;
+      this.projectModel.last_working_day = null;
+    } else {
+      this.projectModel.last_working_day = null;
+    }
+  }
+
   deleteProject(project) {
-    this.dataService.deleteProject({rowid: project.rowid}).subscribe((data) => {
-      console.log(data);
+    this.dataService.deleteProject({ rowid: project.rowid }).subscribe((data) => {
+      this.showButton = true;
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Project deleted successfully!!' });
+      this.refreshGrid();
     });
+  }
+
+  onAllocStartDtSelect() {
+    this.projectModel.allocation_end_date = null;
+    this.minProjectDate = this.projectModel.allocation_start_date;
+    this.active = false;
+    setTimeout(() => { this.active = true; }, 0);
   }
 
   disableBtn() {

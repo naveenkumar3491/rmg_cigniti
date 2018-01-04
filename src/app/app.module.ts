@@ -83,6 +83,7 @@ import { LiveDataService } from './services/LiveDataService';
 import { Ng2Storage } from './services/storage';
 import { AuthgaurdService } from './services/authgaurd.service';
 import { AppHttpInterceptor } from './app.http.interceptor';
+import { UtilsService } from "./services/utils.service";
 
 
 @NgModule({
@@ -105,6 +106,7 @@ import { AppHttpInterceptor } from './app.http.interceptor';
         { provide: LocationStrategy, useClass: HashLocationStrategy },
         Ng2Storage,
         AuthgaurdService,
+        UtilsService,
         { provide: DataService, useClass: LiveDataService },
         {
             provide: HTTP_INTERCEPTORS,

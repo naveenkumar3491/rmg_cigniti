@@ -14,9 +14,9 @@ export class PersonalDetailsComponent implements OnInit {
   http: any;
   msgs: any = [];
   url: any;
-  
+
   public editMode: boolean = false;
-  public pdModel:any = {};
+  public pdModel: any = {};
   public pbarColor: string;
   public imageView = true;
   public profileProgress: number;
@@ -92,7 +92,7 @@ export class PersonalDetailsComponent implements OnInit {
 
   }
 
-  onPdEdit(){
+  onPdEdit() {
     this.editMode = true;
     let pd = this.personalDetails;
     this.pdModel = {
@@ -136,24 +136,28 @@ export class PersonalDetailsComponent implements OnInit {
     this.cdRef.detectChanges();
   }
 
-  callBackProfessionalDetails(){
+  callBackProfessionalDetails() {
     this.professionalBusy = this.dataService.getProfessionalDetails(this.userData.employeeId).subscribe((data) => {
-        this.professionalMasterData = data;
-      });
+      this.professionalMasterData = data;
+    });
   }
 
   onTabChange(e) {
     if (e.index === 2) {
       this.callBackProfessionalDetails();
     } else if (e.index === 3) {
-      this.projectBusy = this.dataService.getProjectDetails(this.userData.employeeId).subscribe((data) => {
-        this.projectDetails = data;
-      });
+      this.callBackProjectDetails();
     } else if (e.index === 5) {
       this.visaBusy = this.dataService.getVisaDetails(this.userData.employeeId).subscribe((data) => {
         this.visaDetails = data.details;
       });
     }
+  }
+
+  callBackProjectDetails() {
+    this.projectBusy = this.dataService.getProjectDetails(this.userData.employeeId).subscribe((data) => {
+      this.projectDetails = data;
+    });
   }
 
   onAccOpen(e) {

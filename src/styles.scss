@@ -265,6 +265,12 @@ p-fieldset {
             border: 1px solid #bdbdbd;
         }
     }
+    .ui-widget-content{
+        .tab-renderer{
+            min-height: 100px;
+        }
+    }
+    
 }
 
 .domain-details {

@@ -40,7 +40,7 @@
             </div>
           </div>
       </ng-container>
-          <p-dataTable [value]="domainList" scrollable="true" scrollHeight="200px" emptyMessage="No domains found">
+          <p-dataTable [value]="domainList" scrollable="true" scrollHeight="200px" emptyMessage="No Domains Found">
             <p-column [sortable]="true" *ngFor="let col of domainHeader" [field]="col.field" [header]="col.header"></p-column>
             <ng-container *ngIf="userData.employeeRoleName === 'Employee'">
             <p-column styleClass="col-button">

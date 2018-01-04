@@ -1,0 +1,31 @@
+.dashboardContainer {
+    th {
+        text-align: center;
+    }
+    tr>td a {
+        color: #3571e2;
+    }
+    tr:last-child {
+        background: #337ab7;
+        color: #fff;
+        a {
+            color: #fff !important;
+        }
+    }
+    .tableTotalColor {
+        background: #337ab7;
+        a {
+            color: #fff !important;
+        }
+    }
+    .rowDataColor{
+        background: #cacaca;
+    }
+
+    .dashboardBody{
+        text-align: center;
+    }
+    .totalHC{
+        width:7%;
+    }
+} 

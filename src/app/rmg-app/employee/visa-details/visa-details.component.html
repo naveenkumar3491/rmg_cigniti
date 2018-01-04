@@ -19,11 +19,11 @@
                     </div>
                     <div class="row" style="margin: 10px;">
                         <div class="col-md-4" style="margin-top: 23px;">
-                            <p-calendar name="validFrom" (onSelect)="visaModel.validTo = null;minVisaDate = visaModel.validFrom" [(ngModel)]="visaModel.validFrom"
+                            <p-calendar name="validFrom" (onSelect)="onVisaStartDtSelect()" [(ngModel)]="visaModel.validFrom"
                                 dateFormat="dd-mm-yy" [showIcon]="true" placeholder="Valid From"></p-calendar>
                         </div>
                         <div class="col-md-4" style="margin-top: 23px;">
-                            <p-calendar name="validTo" dateFormat="dd-mm-yy" [disabled]="!visaModel.validFrom" [minDate]="minVisaDate" [(ngModel)]="visaModel.validTo"
+                            <p-calendar *ngIf="active" name="validTo" dateFormat="dd-mm-yy" [disabled]="!visaModel.validFrom" [minDate]="minVisaDate" [(ngModel)]="visaModel.validTo"
                                 [showIcon]="true" placeholder="Valid To"></p-calendar>
                         </div>
                         <div class="col-md-4" style="margin-top: 23px;">
@@ -34,7 +34,7 @@
                 </div>
             </div>
             </ng-container>
-            <p-dataTable [value]="visaDetails" scrollable="true" scrollHeight="200px" emptyMessage="No visa found">
+            <p-dataTable [value]="visaDetails" scrollable="true" scrollHeight="200px" emptyMessage="No Visas Found">
                 <p-column [sortable]="true" *ngFor="let col of visaHeader" [field]="col.field" [header]="col.header"></p-column>
                 <ng-container *ngIf="userData.employeeRoleName === 'RMG'">
                 <p-column styleClass="col-button">
