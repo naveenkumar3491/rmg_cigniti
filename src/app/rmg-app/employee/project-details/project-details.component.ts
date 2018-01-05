@@ -20,6 +20,7 @@ export class ProjectDetailsComponent implements OnInit {
     allocation_end_date: null
   };
   public minProjectDate: any;
+  public todayDate: any = new Date();
   public showButton: boolean = true;
   public userData = this.storage.getSession('user_data');
   public allocationStatusList: any = [

@@ -74,8 +74,8 @@ export class ContactDetailsComponent implements OnInit {
       if (this.contactForm.valid) {
         const paramObj = {
           empId: this.userData.employeeId,
-          personalMailId: this.model['personalEmailId'],
-          phoneNo: this.model['mobile'],
+          personalMailId: this.contactForm.get('pEmailId').value,
+          phoneNo: this.contactForm.get('mobile').value,
           totalExperience: this.personalDetails.totalExperience,
           progressbar: (!this.personalDetails.personalEmailId && !this.personalDetails.mobile) ? 20 : 0
         };

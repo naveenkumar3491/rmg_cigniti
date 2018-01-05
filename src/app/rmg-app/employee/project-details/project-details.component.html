@@ -25,7 +25,7 @@
                 <div class="row m-t-10">
                     <ng-container *ngIf="projectModel.allocation_status !== 'Available' && projectModel.allocation_status !== 'On Notice'">
                         <div class="col-md-4 m-t-23">
-                            <p-calendar name="allocation_start_date" [(ngModel)]="projectModel.allocation_start_date" [showIcon]="true" placeholder="Allocation Start Date" (onSelect)="onAllocStartDtSelect()" dateFormat="dd-mm-yy"></p-calendar>
+                            <p-calendar [minDate]="todayDate" name="allocation_start_date" [(ngModel)]="projectModel.allocation_start_date" [showIcon]="true" placeholder="Allocation Start Date" (onSelect)="onAllocStartDtSelect()" dateFormat="dd-mm-yy"></p-calendar>
                         </div>
                         <div class="col-md-4 m-t-23">
                             <p-calendar *ngIf="active" [disabled]="!projectModel.allocation_start_date" name="allocation_end_date" [(ngModel)]="projectModel.allocation_end_date" [showIcon]="true" placeholder="Allocation End Date" [minDate]="minProjectDate" dateFormat="dd-mm-yy"></p-calendar>
@@ -33,7 +33,7 @@
                     </ng-container>
                     <ng-container *ngIf="projectModel.allocation_status === 'On Notice'">
                         <div class="col-md-4 m-t-23">
-                            <p-calendar name="last_working_day" [(ngModel)]="projectModel.last_working_day" [showIcon]="true" placeholder="Last Working Day" dateFormat="dd-mm-yy"></p-calendar>
+                            <p-calendar [minDate]="todayDate" name="last_working_day" [(ngModel)]="projectModel.last_working_day" [showIcon]="true" placeholder="Last Working Day" dateFormat="dd-mm-yy"></p-calendar>
                         </div>
                     </ng-container>
                     <ng-container *ngIf="projectModel.allocation_status !== 'Available'">

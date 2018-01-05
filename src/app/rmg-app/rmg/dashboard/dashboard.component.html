@@ -20,10 +20,10 @@
         <th rowspan="2">Utilization</th>
       </tr>
       <tr style="color:white; background: #005c97;">
-        <th>D</th>
-        <th>P</th>
-        <th>A</th>
-        <th>T</th>
+        <th><p>D</p></th>
+        <th><p>P</p></th>
+        <th><p>A</p></th>
+        <th><p>T</p></th>
         <th>C</th>
         <th>I</th>
       </tr>
@@ -37,9 +37,9 @@
           <a [routerLink]="['Bu_Manager_details']"><span>{{dashboardDetail.region}}</span></a>
         </td>
         <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/Billing']">{{dashboardDetail.billing}}</a></td>
-        <td><span>{{dashboardDetail.practice}}</span></td>
-        <td><span>{{dashboardDetail.ats}}</span></td>
-        <td><span>{{dashboardDetail.billingSum}}</span></td>
+        <td><span><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/Billing']">{{dashboardDetail.practice}}</a></span></td>
+        <td><span><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/Billing']">{{dashboardDetail.ats}}</a></span></td>
+        <td><span><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/Billing']">{{dashboardDetail.billingSum}}</a></span></td>
         <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/Buffer']"><span> {{dashboardDetail.buffer}}</span></a></td>
         <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/Blocked']">{{dashboardDetail.blocked}}</a></td>
         <td><a [routerLink]="['EmployeeUpdated/Billing_info/NA-EAST/Available']">{{dashboardDetail.available}}</a></td>

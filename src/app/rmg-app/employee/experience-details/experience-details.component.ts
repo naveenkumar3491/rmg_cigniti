@@ -27,7 +27,7 @@ export class ExperienceDetailsComponent implements OnInit {
     , private storage: Ng2Storage) { }
 
   ngOnInit() {
-    this.resumeName = this.personalDetails.resume_filename ? this.personalDetails.resume_filename : 'Not Yet Uploaded';
+    this.resumeName = this.personalDetails.employeeResume ? this.personalDetails.employeeResume : 'Not Yet Uploaded';
     this.emptyResume = true;
     const splitDOJArray = (this.personalDetails.doj).split('-');
     const splitTodayDateArray = moment(new Date()).format("DD/MM/YYYY").split('/');

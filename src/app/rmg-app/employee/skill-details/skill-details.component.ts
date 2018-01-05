@@ -40,7 +40,7 @@ export class SkillDetailsComponent implements OnChanges {
     this.skillCategoriesList = changes.skillMasterData.currentValue.skillCategoriesList;
     }
     if (changes.skillDetails && changes.skillDetails.currentValue) {
-       this.skillList = this.skillDetails.currentValue;
+       this.skillList = changes.skillDetails.currentValue;
     }
   }
   changeSort(event) {
