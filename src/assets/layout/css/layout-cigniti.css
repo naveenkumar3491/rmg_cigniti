@@ -1383,8 +1383,7 @@ body {
 @media (min-width: 1025px) {
   .layout-container .topbar-items {
     float: right;
-    margin: 0;
-    padding: 5px 0 0 0;
+    margin: 1px;
     list-style-type: none; }
     .layout-container .topbar-items > li {
       float: right;
@@ -1409,7 +1408,7 @@ body {
           font-size: 12px;
           line-height: 12px; }
       .layout-container .topbar-items > li .topbar-icon {
-        font-size: 36px;
+        font-size: 30px;
         color: #ffffff;
         -moz-transition: color 0.3s;
         -o-transition: color 0.3s;
