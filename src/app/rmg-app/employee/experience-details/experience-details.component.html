@@ -20,9 +20,9 @@
                             <span *ngIf="model.totalExperience && !editMode"><a class="curosr-p" (click)="editMode = true"><i class="fa fa-window-close-o" style="font-size: 14px;"></i></a></span>
                                 </ng-container>
                             </span>
-                            <div *ngIf="!editMode">
+                            <div *ngIf="!editMode && userData.employeeRoleName === 'Employee'">
                                 <span>Years</span> <span style="margin-left:30px;">Months</span></div>
-                            <div class="total-exp" *ngIf="!editMode">
+                            <div class="total-exp" *ngIf="!editMode && userData.employeeRoleName === 'Employee'">
                                 <input type="number" min="0" max="30" class="form-control" [(ngModel)]="exp.years" />
                                 <input type="number" min="0" max="12" class="form-control" [(ngModel)]="exp.months" />
                             </div>

@@ -21,6 +21,7 @@ export class BUDetailsComponent implements OnInit {
     const pd = this.personalDetails;
     this.buModel = {
       accountManager: pd.accountManager,
+      projectManager: pd.project_manager,
       hrSpoc: pd.hrSpoc,
       buHead: pd.buHead,
       duHead: pd.duHead,
