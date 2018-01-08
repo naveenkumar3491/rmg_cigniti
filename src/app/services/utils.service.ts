@@ -1,5 +1,9 @@
 import { AbstractControl } from '@angular/forms';
+import { Subject } from 'rxjs';
 export class UtilsService {
+
+    public isResumeUploded = new Subject();
+    public highlightTab = new Subject();
 
     public getMatchedDomain(name, data) {
         const found = data.find(obj => obj.label === name);

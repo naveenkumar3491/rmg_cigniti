@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { DataService } from "../../../services/DataService";
 import { Ng2Storage } from "../../../services/storage";
 import { MessageService } from 'primeng/components/common/messageservice';
+import { UtilsService } from '../../../services/utils.service';
 
 @Component({
   selector: 'val-personal-details',
@@ -16,6 +17,7 @@ export class PersonalDetailsComponent implements OnInit {
   url: any;
 
   public editMode: boolean = false;
+  public tabIndex: any = 0;
   public pdModel: any = {};
   public pbarColor: string;
   public imageView = true;
@@ -76,7 +78,7 @@ export class PersonalDetailsComponent implements OnInit {
     }
   ];
   constructor(public cdRef: ChangeDetectorRef, private messageService: MessageService,
-    private dataService: DataService, private storage: Ng2Storage) {
+    private dataService: DataService, private storage: Ng2Storage, private utilsService: UtilsService) {
     this.dataService.profilePercentage.subscribe((value) => {
       this.profileProgress += value;
       if (this.profileProgress > 100) {
@@ -84,6 +86,10 @@ export class PersonalDetailsComponent implements OnInit {
       }
       this.changeProgressBarColor();
     });
+    this.utilsService.highlightTab.subscribe((isHighligted) => {   
+      this.tabIndex = isHighligted;
+    })
+    
   }
 
   ngOnInit() {
@@ -109,10 +115,12 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   changeProgressBarColor() {
-    if (this.profileProgress <= 30) {
+    // if (this.profileProgress <= 30) {
+    //   this.pbarColor = 'pb-low';
+    // } else 
+    if (this.profileProgress > 0 && this.profileProgress <= 70) {
+      // this.pbarColor = 'pb-moderate';
       this.pbarColor = 'pb-low';
-    } else if (this.profileProgress > 30 && this.profileProgress <= 70) {
-      this.pbarColor = 'pb-moderate';
     } else if (this.profileProgress > 70) {
       this.pbarColor = 'pb-good';
     }
@@ -190,7 +198,7 @@ export class PersonalDetailsComponent implements OnInit {
     let input = new FormData();
     input.append('file', fileToUpload);
     input.append('empId', this.userData.employeeId);
-    input.append('progressbar', !this.personalDetails.employeeImage ? '20' : '0');
+    input.append('progressbar', !this.personalDetails.employeeImage ? '5' : '0');
     this.dataService.uploadProfileImage(input).subscribe((data) => {
       this.emptyImage = true;
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Uploaded Successfully!!' });

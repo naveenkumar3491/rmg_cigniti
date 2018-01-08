@@ -126,7 +126,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="cardTabs card-w-title">
-				<p-tabView (onChange)="onTabChange($event)">
+				<p-tabView (onChange)="tabIndex=index;onTabChange($event);" [activeIndex]="tabIndex">
 					<p-tabPanel *ngFor="let empTab of employeeInfoTabs;" header="{{empTab.name}}" leftIcon="{{empTab.icon}}">
 						<div [ngSwitch]="empTab.field" style="position: relative">
 							<ng-template [ngSwitchCase]="'experience-details'">

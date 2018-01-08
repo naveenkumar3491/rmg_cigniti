@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from "@angular/router";
+import { ConfirmationService } from 'primeng/primeng';
 import { Ng2Storage } from "../../services/storage";
 import { RmgAppComponent } from "../../rmg-app/rmg-app.component";
+import { UtilsService } from '../../services/utils.service';
 
 @Component({
     selector: 'app-topbar',
@@ -22,7 +24,7 @@ import { RmgAppComponent } from "../../rmg-app/rmg-app.component";
                         </a>
                         <ul class="ultima-menu animated fadeInDown">
                             <li role="menuitem">
-                                <a class="curosr-p" (click)="onLogout()">
+                                <a class="curosr-p" (click)="noResumePopup()">
                                     <i class="material-icons">power_settings_new</i>
                                     <span>Logout</span>
                                 </a>
@@ -40,12 +42,35 @@ import { RmgAppComponent } from "../../rmg-app/rmg-app.component";
 })
 export class AppTopbarComponent {
     public lldate = this.storage.getSession('user_data').last_login_date;
-    constructor(public app: RmgAppComponent, private storage: Ng2Storage, 
-    private router: Router) { }
+    private isResumeNotUploaded: any;
+    constructor(public app: RmgAppComponent, private storage: Ng2Storage, private utilsService: UtilsService,
+        private router: Router, private confirmationService: ConfirmationService) {
+        this.utilsService.isResumeUploded.subscribe((isUploaded) => {
+            this.isResumeNotUploaded = isUploaded;
+        })
+    }
 
-    onLogout(){
+    onLogout() {
         this.storage.clearAllSession();
         this.router.navigate(['./login'])
+    }
+
+    noResumePopup() {
+        if (!this.isResumeNotUploaded) {
+            this.confirmationService.confirm({
+                message: `You haven't uploaded resume, Are you sure you want to logout?`,
+                accept: () => {
+                    this.onLogout();
+                },
+                reject: () => {
+                    this.utilsService.highlightTab.next(1);
+                }
+            });
+        }else{
+            this.onLogout();
+        }
+
+
     }
 
 }

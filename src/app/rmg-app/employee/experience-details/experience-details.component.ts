@@ -3,6 +3,7 @@ import { DataService } from '../../../services/DataService';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { Ng2Storage } from '../../../services/storage';
 import * as moment from 'moment';
+import { UtilsService } from '../../../services/utils.service';
 
 @Component({
   selector: 'app-experience-details',
@@ -11,7 +12,7 @@ import * as moment from 'moment';
 })
 export class ExperienceDetailsComponent implements OnInit {
   public resumeName;
-  public emptyResume: boolean;
+  public emptyResume: boolean= true;
   public editMode: boolean = true;
   public exp = {
     years: 0,
@@ -24,11 +25,12 @@ export class ExperienceDetailsComponent implements OnInit {
   @ViewChild('getResumeFile') input: ElementRef;
   @ViewChild('getResumeFile') resumeInput: ElementRef;
   constructor(private dataService: DataService, private messageService: MessageService
-    , private storage: Ng2Storage) { }
+    , private storage: Ng2Storage, private utilsService: UtilsService) { }
 
   ngOnInit() {
     this.resumeName = this.personalDetails.employeeResume ? this.personalDetails.employeeResume : 'Not Yet Uploaded';
-    this.emptyResume = true;
+    const isResumeUploaded = this.personalDetails.employeeResume ? true : false;
+    this.utilsService.isResumeUploded.next(isResumeUploaded);
     const splitDOJArray = (this.personalDetails.doj).split('-');
     const splitTodayDateArray = moment(new Date()).format("DD/MM/YYYY").split('/');
     const dojSplit = moment([splitDOJArray[2], splitDOJArray[1], splitDOJArray[0]]);
@@ -83,14 +85,16 @@ export class ExperienceDetailsComponent implements OnInit {
     const input = new FormData();
     input.append('file', fileToUpload);
     input.append('empId', this.userData.employeeId);
-    input.append('progressbar', !this.personalDetails.resume_filename ? '10' : '0');
+    input.append('progressbar', !this.personalDetails.resume_filename ? '40' : '0');
     this.dataService.uploadProfileResume(input).subscribe((data) => {
+    this.utilsService.isResumeUploded.next(true);
     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Uploaded Successfully!!' });
       this.callBackContactDetails.emit('save');
       this.emptyResume = true;
     });
   }
   removeResume() {
+    this.utilsService.isResumeUploded.next(false);
     this.emptyResume = true;
     this.resumeName = 'Not Yet Uploaded';
   }
@@ -102,7 +106,7 @@ export class ExperienceDetailsComponent implements OnInit {
         personalMailId: this.personalDetails.personalEmailId,
         phoneNo: this.personalDetails.mobile,
         totalExperience: parseFloat(this.exp.years + '.' + this.exp.months),
-        progressbar: (this.personalDetails.totalExperience === '0') ? 10 : 0
+        progressbar: (this.personalDetails.totalExperience === '0') ? 5 : 0
       };
       this.dataService.saveContactAndExpDetails(paramObj).subscribe((data) => {
         this.callBackContactDetails.emit('save');
