@@ -32,16 +32,16 @@ import { UtilsService } from '../../services/utils.service';
                         </ul>
                     </li>  
                 </ul>
-                <div class="last-login" *ngIf="lldate">
+                <div class="last-login" *ngIf="userData.last_login_date">
                         <span>Last Login :</span>
-                        <strong>{{ lldate | date :'medium' }}</strong>
+                        <strong>{{ userData.last_login_date | date :'medium' }}</strong>
                     </div>
             </div>
         </div>
     `
 })
 export class AppTopbarComponent {
-    public lldate = this.storage.getSession('user_data').last_login_date;
+    public userData = this.storage.getSession('user_data');
     private isResumeNotUploaded: any;
     constructor(public app: RmgAppComponent, private storage: Ng2Storage, private utilsService: UtilsService,
         private router: Router, private confirmationService: ConfirmationService) {
@@ -56,7 +56,7 @@ export class AppTopbarComponent {
     }
 
     noResumePopup() {
-        if (!this.isResumeNotUploaded) {
+        if (!this.isResumeNotUploaded && this.userData.employeeRoleName === 'Employee') {
             this.confirmationService.confirm({
                 message: `You haven't uploaded resume, Are you sure you want to logout?`,
                 accept: () => {

@@ -53,7 +53,9 @@
 											<i class="fa fa-pencil"></i>
 										</span>
 										<p *ngIf="!editMode" class="form-control-static"> {{personalDetails?.designation}}</p>
-										<input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="pdModel.designation" />
+										<p-dropdown #designationRef filter="true" *ngIf="editMode" [options]="designationMasterData" name="designation" [(ngModel)]="pdModel.designation" placeholder="Select Designation"
+                                optionLabel="label" [style]="{'width':'200px'}" (onFocus)="onDesignationFocus(designationRef)"></p-dropdown>
+										<!--<input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="pdModel.designation" />-->
 									</div>
 								</div>
 							</div>
@@ -73,14 +75,18 @@
 									<div class="form-group">
 										<label>JOINING LOCATION</label>
 										<p *ngIf="!editMode" class="form-control-static"> {{personalDetails?.joinginLocation}}</p>
-										<input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="pdModel.joinginLocation" />
+										<p-dropdown *ngIf="editMode" [options]="locationMasterData" name="joiningLocation" [(ngModel)]="pdModel.joinginLocation" placeholder="Select Location"
+                                optionLabel="label" [style]="{'width':'200px'}"></p-dropdown>
+										<!--<input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="pdModel.joinginLocation" />-->
 									</div>
 								</div>
 								<div class="col-lg-4 col-md-4 no-padding">
 									<div class="form-group">
 										<label>CURRENT LOCATION</label>
 										<p *ngIf="!editMode" class="form-control-static"> {{personalDetails?.currentLocation}}</p>
-										<input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="pdModel.currentLocation" />
+										<p-dropdown *ngIf="editMode" [options]="locationMasterData" name="currentLocation" [(ngModel)]="pdModel.currentLocation" placeholder="Select Location"
+                                optionLabel="label" [style]="{'width':'200px'}"></p-dropdown>
+										<!--<input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="pdModel.currentLocation" />-->
 									</div>
 								</div>
 							</div>
@@ -169,7 +175,7 @@
 								</ng-template>
 							</div>
 							<ng-template [ngSwitchCase]="'bu-details'">
-								<app-bu-details *ngIf="personalDetails" [personalDetails]="personalDetails"></app-bu-details>
+								<app-bu-details *ngIf="personalDetails" [personalDetails]="personalDetails" [buMasterData]="buMasterData" [duMasterData]="duMasterData"></app-bu-details>
 							</ng-template>
 							<div [ngBusy]="visaBusy">
 								<ng-template [ngSwitchCase]="'visa-details'">

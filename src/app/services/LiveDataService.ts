@@ -38,6 +38,10 @@ export class LiveDataService extends DataService {
     private readonly saveCertificationUrl = this.getBaseURI() + 'saveOrUpdateEmplCert';
     private readonly deleteCertificationUrl = this.getBaseURI() + 'deleteEmplCertification';
     private readonly countriesUrl = '../../assets/data/countries.json';
+    private readonly designationMasterUrl = this.getBaseURI() + 'designationMaster';
+    private readonly locationMasterUrl = this.getBaseURI() + 'locationMaster';
+    private readonly duMasterUrl = this.getBaseURI() + 'duDtls';
+    private readonly buMasterUrl = this.getBaseURI() + 'buDtls';
 
     private getBaseURI() {
         return this.basePath + this.MyTrUrl;
@@ -64,9 +68,58 @@ export class LiveDataService extends DataService {
     }
 
     public getEmployeeDetails(empId: string): Observable<any> {
-        return this.http.get(`${this.employeeDetails}?empId=${empId}`).map((response) => {
-            return response;
-        });
+        // return this.http.get(`${this.employeeDetails}?empId=${empId}`).map((response) => {
+        //     return response;
+        // });
+         return Observable.forkJoin([
+            this.http.get(`${this.employeeDetails}?empId=${empId}`).map((res) => {
+                return res;
+            }),
+            this.http.get(`${this.designationMasterUrl}`).map((res) => {
+                const items = res;
+                const designationData = [];
+                items['details'].forEach((designation) => {
+                    designationData.push({
+                        label: designation.desg_name,
+                        value: designation.desg_name
+                    });
+                });
+                return designationData;
+            }),
+            this.http.get(`${this.locationMasterUrl}`).map((res) => {
+                const items = res;
+                const locationData = [];
+                items['details'].forEach((location) => {
+                    locationData.push({
+                        label: location.location_name,
+                        value: location.location_name
+                    });
+                });
+                return locationData;
+            }),
+            this.http.get(`${this.duMasterUrl}`).map((res) => {
+                const items = res;
+                const duData = [];
+                items['details'].forEach((du) => {
+                    duData.push({
+                        label: du.du_name,
+                        value: du.du_name
+                    });
+                });
+                return duData;
+            }),
+            this.http.get(`${this.buMasterUrl}`).map((res) => {
+                const items = res;
+                const buData = [];
+                items['details'].forEach((bu) => {
+                    buData.push({
+                        label: bu.bu_name,
+                        value: bu.bu_name
+                    });
+                });
+                return buData;
+            })
+        ]);
     }
 
     public getProjectDetails(empId: string): Observable<any> {

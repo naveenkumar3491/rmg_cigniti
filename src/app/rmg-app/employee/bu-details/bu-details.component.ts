@@ -8,6 +8,8 @@ import { Ng2Storage } from "../../../services/storage";
 })
 export class BUDetailsComponent implements OnInit {
   @Input() personalDetails;
+  @Input() buMasterData;
+  @Input() duMasterData;
   public editMode: boolean = false;
   public buModel: any = {};
    public userData = this.storage.getSession('user_data');

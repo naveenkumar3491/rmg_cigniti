@@ -30,6 +30,10 @@ export class PersonalDetailsComponent implements OnInit {
   public masterSkillsData: any;
   public masterDomainData: any;
   public masterCertificationData: any;
+  public designationMasterData: any;
+  public locationMasterData: any;
+  public buMasterData: any;
+  public duMasterData: any;
 
   public personalBusy: Subscription;
   public professionalBusy: Subscription;
@@ -86,10 +90,10 @@ export class PersonalDetailsComponent implements OnInit {
       }
       this.changeProgressBarColor();
     });
-    this.utilsService.highlightTab.subscribe((isHighligted) => {   
+    this.utilsService.highlightTab.subscribe((isHighligted) => {
       this.tabIndex = isHighligted;
     })
-    
+
   }
 
   ngOnInit() {
@@ -125,12 +129,23 @@ export class PersonalDetailsComponent implements OnInit {
       this.pbarColor = 'pb-good';
     }
   }
+
+   onDesignationFocus(ds) {
+    setTimeout(() => {
+      ds.el.nativeElement.querySelector('.ui-dropdown-items-wrapper').scrollTop = 0;
+    }, 10);
+  }
   callBackContactDetails() {
     this.getEmployeeDetails();
   }
   getEmployeeDetails() {
     this.personalBusy = this.dataService.getEmployeeDetails(this.userData.employeeId).subscribe((data) => {
-      this.personalDetails = data.details;
+      console.log(data);
+      this.personalDetails = data[0].details;
+      this.designationMasterData = data[1];
+      this.locationMasterData = data[2];
+      this.buMasterData = data[4];
+      this.duMasterData = data[3];
       this.profileProgress = this.personalDetails.progressbar;
       if (this.profileProgress > 100) {
         this.profileProgress = 100;
