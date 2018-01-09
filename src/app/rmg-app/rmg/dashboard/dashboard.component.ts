@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+   
     public changeIcon: boolean = true;
     private rowData: any = [];
     public dashboardData = {
@@ -224,6 +225,7 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit() {
         this.splitData();
+
     }
 
     splitData() {

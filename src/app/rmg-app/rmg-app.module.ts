@@ -13,6 +13,7 @@ import {AccordionModule} from 'primeng/primeng';
 import {CalendarModule} from 'primeng/primeng';
 import {ConfirmDialogModule, ConfirmationService} from 'primeng/primeng';
 import {SharedModule} from 'primeng/primeng';
+import {TooltipModule} from 'primeng/primeng';
 import {BusyModule} from 'angular2-busy';
 
 import {OnlyNumber} from '../common/directives/only-number.directive';
@@ -55,6 +56,7 @@ import { EmployeeDetailsComponent } from "./rmg/employee-details/employee-detail
     AccordionModule,
     CalendarModule,
     ConfirmDialogModule,
+    TooltipModule,
     BusyModule
   ],
   declarations: [

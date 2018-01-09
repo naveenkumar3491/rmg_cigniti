@@ -15,6 +15,7 @@ export const routes: Routes = [
         { path: 'rmg', component: RmgComponent, canActivate: [AuthgaurdService], children: [
             {path: 'dashboard', component: DashboardComponent},
             {path: 'employee-details', component: EmployeeDetailsComponent},
+            {path: 'personal-details/:id', component: PersonalDetailsComponent},
             {path: '', redirectTo: 'dashboard', pathMatch: 'full'}
         ]},
         {path: '', redirectTo: 'employee', pathMatch: 'full'}

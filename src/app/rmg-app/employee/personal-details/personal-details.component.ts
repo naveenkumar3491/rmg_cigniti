@@ -4,6 +4,7 @@ import { DataService } from "../../../services/DataService";
 import { Ng2Storage } from "../../../services/storage";
 import { MessageService } from 'primeng/components/common/messageservice';
 import { UtilsService } from '../../../services/utils.service';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'val-personal-details',
@@ -48,6 +49,7 @@ export class PersonalDetailsComponent implements OnInit {
 
   @ViewChild('getFile') input: ElementRef;
   @ViewChild("fileInput") fileInput;
+  private employeeId: string;
 
   public employeeInfoTabs: any = [
     {
@@ -82,7 +84,17 @@ export class PersonalDetailsComponent implements OnInit {
     }
   ];
   constructor(public cdRef: ChangeDetectorRef, private messageService: MessageService,
-    private dataService: DataService, private storage: Ng2Storage, private utilsService: UtilsService) {
+    private dataService: DataService, private storage: Ng2Storage, private utilsService: UtilsService,
+    private activatedRoute: ActivatedRoute) {
+      this.activatedRoute.params.subscribe((params: Params) => {
+        console.log(params);
+        if(params && params.id){
+          this.employeeId = params.id;
+        }else{
+          this.employeeId = this.userData.employeeId;
+        }
+      });
+  
     this.dataService.profilePercentage.subscribe((value) => {
       this.profileProgress += value;
       if (this.profileProgress > 100) {
@@ -139,7 +151,7 @@ export class PersonalDetailsComponent implements OnInit {
     this.getEmployeeDetails();
   }
   getEmployeeDetails() {
-    this.personalBusy = this.dataService.getEmployeeDetails(this.userData.employeeId).subscribe((data) => {
+    this.personalBusy = this.dataService.getEmployeeDetails(this.employeeId).subscribe((data) => {
       console.log(data);
       this.personalDetails = data[0].details;
       this.designationMasterData = data[1];
@@ -160,7 +172,7 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   callBackProfessionalDetails() {
-    this.professionalBusy = this.dataService.getProfessionalDetails(this.userData.employeeId).subscribe((data) => {
+    this.professionalBusy = this.dataService.getProfessionalDetails(this.employeeId).subscribe((data) => {
       this.professionalMasterData = data;
     });
   }
@@ -171,14 +183,14 @@ export class PersonalDetailsComponent implements OnInit {
     } else if (e.index === 3) {
       this.callBackProjectDetails();
     } else if (e.index === 5) {
-      this.visaBusy = this.dataService.getVisaDetails(this.userData.employeeId).subscribe((data) => {
+      this.visaBusy = this.dataService.getVisaDetails(this.employeeId).subscribe((data) => {
         this.visaDetails = data.details;
       });
     }
   }
 
   callBackProjectDetails() {
-    this.projectBusy = this.dataService.getProjectDetails(this.userData.employeeId).subscribe((data) => {
+    this.projectBusy = this.dataService.getProjectDetails(this.employeeId).subscribe((data) => {
       this.projectDetails = data;
     });
   }
@@ -212,7 +224,7 @@ export class PersonalDetailsComponent implements OnInit {
   upload(fileToUpload: any) {
     let input = new FormData();
     input.append('file', fileToUpload);
-    input.append('empId', this.userData.employeeId);
+    input.append('empId', this.employeeId);
     input.append('progressbar', !this.personalDetails.employeeImage ? '5' : '0');
     this.dataService.uploadProfileImage(input).subscribe((data) => {
       this.emptyImage = true;

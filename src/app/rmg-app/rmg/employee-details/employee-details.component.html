@@ -1,3 +1,10 @@
-<p>
-  employee-details works!
-</p>
+<p-dataTable [value]="employeeList" scrollable="true" scrollHeight="200px" emptyMessage="No Employees Found">
+  <p-column [sortable]="true" *ngFor="let col of employeeHeader" [field]="col.field" [header]="col.header">
+
+    <template let-row="rowData" pTemplate>
+      <span *ngIf="col.header==='Employee Id'"><a style="color:blue;" [routerLink]="['../personal-details', row.emp_id]">{{row[col.field]}}</a></span>
+      <span *ngIf="col.header!=='Employee Id'">{{row[col.field]}}</span>
+  </template>
+  </p-column>
+
+</p-dataTable>
