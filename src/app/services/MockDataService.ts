@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import * as mockData from './mockData/app.mockData';
 import { Ng2Storage } from "./storage";
 import { ILogin, ILoginResponse } from "../app.interface";
-import { Http } from "@angular/http";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable()
 export class MockDataService extends DataService {
@@ -19,13 +19,13 @@ export class MockDataService extends DataService {
         return this.basePath + this.MyTrUrl;
     }
 
-    constructor(private http: Http, private storage: Ng2Storage) {
+    constructor(private http: HttpClient, private storage: Ng2Storage) {
         super();
     }
 
      public getCountriesList() {
         return this.http.get(`${this.countriesUrl}`).map((response) => {
-            return response.json();
+            return response;
         });
     }
 
@@ -34,7 +34,7 @@ export class MockDataService extends DataService {
         return Observable.create(observer => {
             setTimeout(() => {
                 let filterData = data.find((objs) => {
-                    return objs.employeeId === obj.userId;
+                    return objs.employeeId.toLowerCase() === obj.userId.toLowerCase();
                 });
                 this.storage.setSession('user_data', {
                     employeeId: filterData.userId,
@@ -53,12 +53,15 @@ export class MockDataService extends DataService {
     public getEmployeeDetails(empId: string): Observable<any> {
         return Observable.create(observer => {
             setTimeout(() => {
-                observer.next(mockData.empDetails);
+                observer.next([mockData.empDetails, mockData.designationData, mockData.locationData, mockData.duData, mockData.buData]);
                 observer.complete();
             }, 1000)
         });
+
+        
     }
 
+    
     public getProjectDetails(empId: string): Observable<any> {
         return Observable.create(observer => {
             setTimeout(() => {
@@ -68,6 +71,7 @@ export class MockDataService extends DataService {
         });
     }
 
+    
     public getSubDomainDetails(domainId: string): Observable<any> {
         return Observable.create(observer => {
             setTimeout(() => {
