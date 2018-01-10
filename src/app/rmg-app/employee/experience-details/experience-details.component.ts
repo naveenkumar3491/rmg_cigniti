@@ -105,6 +105,7 @@ export class ExperienceDetailsComponent implements OnInit {
         empId: this.userData.employeeId,
         personalMailId: this.personalDetails.personalEmailId,
         phoneNo: this.personalDetails.mobile,
+        employeeName: this.personalDetails.employeeName,
         totalExperience: parseFloat(this.exp.years + '.' + this.exp.months),
         progressbar: (this.personalDetails.totalExperience === '0') ? 5 : 0
       };

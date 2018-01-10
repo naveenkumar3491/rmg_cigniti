@@ -77,6 +77,7 @@ export class ContactDetailsComponent implements OnInit {
           personalMailId: this.contactForm.get('pEmailId').value,
           phoneNo: this.contactForm.get('mobile').value,
           totalExperience: this.personalDetails.totalExperience,
+          employeeName: this.personalDetails.employeeName,
           progressbar: (!this.personalDetails.personalEmailId && !this.personalDetails.mobile) ? 10 : 0
         };
         this.dataService.saveContactAndExpDetails(paramObj).subscribe((data) => {
