@@ -42,6 +42,7 @@ export class LiveDataService extends DataService {
     private readonly locationMasterUrl = this.getBaseURI() + 'locationMaster';
     private readonly duMasterUrl = this.getBaseURI() + 'duDtls';
     private readonly buMasterUrl = this.getBaseURI() + 'buDtls';
+    private readonly updateEmployeeUrl = this.getBaseURI() + 'updateEmployee';
 
     private getBaseURI() {
         return this.basePath + this.MyTrUrl;
@@ -81,7 +82,7 @@ export class LiveDataService extends DataService {
                 items['details'].forEach((designation) => {
                     designationData.push({
                         label: designation.desg_name,
-                        value: designation.desg_name
+                        value: designation.desg_id
                     });
                 });
                 return designationData;
@@ -92,7 +93,7 @@ export class LiveDataService extends DataService {
                 items['details'].forEach((location) => {
                     locationData.push({
                         label: location.location_name,
-                        value: location.location_name
+                        value: location.loc_id
                     });
                 });
                 return locationData;
@@ -103,7 +104,7 @@ export class LiveDataService extends DataService {
                 items['details'].forEach((du) => {
                     duData.push({
                         label: du.du_name,
-                        value: du.du_name
+                        value: du.du_id
                     });
                 });
                 return duData;
@@ -114,12 +115,18 @@ export class LiveDataService extends DataService {
                 items['details'].forEach((bu) => {
                     buData.push({
                         label: bu.bu_name,
-                        value: bu.bu_name
+                        value: bu.bu_id
                     });
                 });
                 return buData;
             })
         ]);
+    }
+
+    public addUpdateEmployee(obj): Observable<any> {
+        return this.http.post(`${this.updateEmployeeUrl}`, obj).map((response) => {
+            return response;
+        });
     }
 
     public getProjectDetails(empId: string): Observable<any> {

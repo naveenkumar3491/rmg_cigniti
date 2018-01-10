@@ -22,6 +22,7 @@ export abstract class DataService {
     public abstract addUpdateDomain(obj, value): Observable<any>;
     public abstract addUpdateCertification(obj): Observable<any>;
     public abstract addUpdateProject(obj): Observable<any>;
+    public abstract addUpdateEmployee(obj): Observable<any>;
     public abstract deleteDomain(obj, value): Observable<any>;
     public abstract deleteProject(obj): Observable<any>;
     public abstract deleteCertification(obj): Observable<any>;

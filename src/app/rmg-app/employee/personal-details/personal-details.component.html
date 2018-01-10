@@ -36,7 +36,7 @@
 									<div class="form-group">
 										<label>EMPLOYEE ID</label>
 										<p *ngIf="!editMode" class="form-control-static">{{personalDetails?.emp_id}}</p>
-										<input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="pdModel.emp_id" />
+										<input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="pdModel.empId" />
 									</div>
 								</div>
 								<div class="col-lg-4 col-md-4 no-padding">
@@ -55,7 +55,6 @@
 										<p *ngIf="!editMode" class="form-control-static"> {{personalDetails?.designation}}</p>
 										<p-dropdown #designationRef filter="true" *ngIf="editMode" [options]="designationMasterData" name="designation" [(ngModel)]="pdModel.designation" placeholder="Select Designation"
                                 optionLabel="label" [style]="{'width':'200px'}" (onFocus)="onDesignationFocus(designationRef)"></p-dropdown>
-										<!--<input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="pdModel.designation" />-->
 									</div>
 								</div>
 							</div>
@@ -75,9 +74,8 @@
 									<div class="form-group">
 										<label>JOINING LOCATION</label>
 										<p *ngIf="!editMode" class="form-control-static"> {{personalDetails?.joinginLocation}}</p>
-										<p-dropdown *ngIf="editMode" [options]="locationMasterData" name="joiningLocation" [(ngModel)]="pdModel.joinginLocation" placeholder="Select Location"
+										<p-dropdown *ngIf="editMode" [options]="locationMasterData" name="joiningLocation" [(ngModel)]="pdModel.joiningLocation" placeholder="Select Location"
                                 optionLabel="label" [style]="{'width':'200px'}"></p-dropdown>
-										<!--<input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="pdModel.joinginLocation" />-->
 									</div>
 								</div>
 								<div class="col-lg-4 col-md-4 no-padding">
@@ -86,7 +84,6 @@
 										<p *ngIf="!editMode" class="form-control-static"> {{personalDetails?.currentLocation}}</p>
 										<p-dropdown *ngIf="editMode" [options]="locationMasterData" name="currentLocation" [(ngModel)]="pdModel.currentLocation" placeholder="Select Location"
                                 optionLabel="label" [style]="{'width':'200px'}"></p-dropdown>
-										<!--<input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="pdModel.currentLocation" />-->
 									</div>
 								</div>
 							</div>
@@ -97,7 +94,7 @@
 									<div class="form-group">
 										<label>EMPLOYEMENT TYPE</label>
 										<p *ngIf="!editMode" class="form-control-static">{{personalDetails?.employeementType}}</p>
-										<input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="pdModel.employeementType" />
+										<input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="pdModel.emplType" />
 									</div>
 								</div>
 								<div class="col-lg-4 col-md-4 pad-l-0">
@@ -118,7 +115,7 @@
 						</div>
 						<div class="row text-right" *ngIf="editMode">
 							<div class="form-group">
-								<button class="btn btn-success">Save</button>
+								<button class="btn btn-success" (click)="onPDSave()">Save</button>
 								<button class="btn btn-default" (click)="editMode = false">Cancel</button>
 							</div>
 

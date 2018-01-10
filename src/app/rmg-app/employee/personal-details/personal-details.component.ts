@@ -5,6 +5,7 @@ import { Ng2Storage } from "../../../services/storage";
 import { MessageService } from 'primeng/components/common/messageservice';
 import { UtilsService } from '../../../services/utils.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { DateFormatPipe } from '../../../common/pipes/dateFormat.pipe';
 
 @Component({
   selector: 'val-personal-details',
@@ -85,16 +86,15 @@ export class PersonalDetailsComponent implements OnInit {
   ];
   constructor(public cdRef: ChangeDetectorRef, private messageService: MessageService,
     private dataService: DataService, private storage: Ng2Storage, private utilsService: UtilsService,
-    private activatedRoute: ActivatedRoute) {
-      this.activatedRoute.params.subscribe((params: Params) => {
-        console.log(params);
-        if(params && params.id){
-          this.employeeId = params.id;
-        }else{
-          this.employeeId = this.userData.employeeId;
-        }
-      });
-  
+    private activatedRoute: ActivatedRoute, private datePipe: DateFormatPipe) {
+    this.activatedRoute.params.subscribe((params: Params) => {
+      if (params && params.id) {
+        this.employeeId = params.id;
+      } else {
+        this.employeeId = this.userData.employeeId;
+      }
+    });
+
     this.dataService.profilePercentage.subscribe((value) => {
       this.profileProgress += value;
       if (this.profileProgress > 100) {
@@ -117,18 +117,31 @@ export class PersonalDetailsComponent implements OnInit {
   onPdEdit() {
     this.editMode = true;
     let pd = this.personalDetails;
+    let desigObj = this.designationMasterData.find(obj => obj.label === pd.designation);
+    let jLObj = this.locationMasterData.find(obj => obj.label === pd.joinginLocation);
+    let cLObj = this.locationMasterData.find(obj => obj.label === pd.currentLocation);
     this.pdModel = {
-      emp_id: pd.emp_id,
+      empId: pd.emp_id,
       employeeName: pd.employeeName,
-      designation: pd.designation,
+      designation: desigObj ? desigObj.value : null,
       doj: pd.doj,
-      joinginLocation: pd.joinginLocation,
-      currentLocation: pd.currentLocation,
-      employeementType: pd.employeementType,
+      joiningLocation: jLObj ? jLObj.value : null,
+      currentLocation: cLObj ? cLObj.value : null,
+      emplType: pd.employeementType,
       reportingManager: pd.reportingManager,
       rmgSpoc: pd.rmgSpoc
     };
   }
+
+  onPDSave() {
+    this.pdModel.doj = this.datePipe.transform(this.pdModel.doj, 'dd-MM-yyyy');
+    this.dataService.addUpdateEmployee(this.pdModel).subscribe((data) => {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Saved Successfully!!' });
+     this.editMode = false;
+     this.getEmployeeDetails();
+    });
+  }
+
 
   changeProgressBarColor() {
     // if (this.profileProgress <= 30) {
@@ -142,7 +155,7 @@ export class PersonalDetailsComponent implements OnInit {
     }
   }
 
-   onDesignationFocus(ds) {
+  onDesignationFocus(ds) {
     setTimeout(() => {
       ds.el.nativeElement.querySelector('.ui-dropdown-items-wrapper').scrollTop = 0;
     }, 10);
@@ -196,7 +209,6 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   onAccOpen(e) {
-    console.log(e);
     if (e.index === 0) {
       this.skillBusy = this.dataService.getMasterSkillDetails().subscribe((data) => {
         this.masterSkillsData = data;
@@ -210,7 +222,6 @@ export class PersonalDetailsComponent implements OnInit {
         this.masterCertificationData = data;
       })
     }
-
   }
 
 
@@ -253,7 +264,6 @@ export class PersonalDetailsComponent implements OnInit {
         reader.readAsDataURL(event.target.files[0]);
         this.emptyImage = false;
       }
-
     }
   }
 }

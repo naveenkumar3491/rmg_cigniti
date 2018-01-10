@@ -286,5 +286,13 @@ export class MockDataService extends DataService {
             }, 1000)
         });
     }
+    public addUpdateEmployee(obj): Observable<any> {
+        return Observable.create(observer => {
+            setTimeout(() => {
+                observer.next({});
+                observer.complete();
+            }, 1000)
+        });
+    }
 }
 
