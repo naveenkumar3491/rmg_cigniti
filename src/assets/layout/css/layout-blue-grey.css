@@ -175,8 +175,9 @@
   transition: all 0.2s ease;
   z-index: 0; }
 
-.ripplelink:hover {
-  /*z-index:1000;*/ }
+.ripplelink:hover, .ripplelink:focus {
+  /*z-index:1000;*/ 
+  text-decoration: none;}
 
 .ink {
   display: block;

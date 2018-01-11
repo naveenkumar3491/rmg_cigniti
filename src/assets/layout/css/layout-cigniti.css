@@ -175,8 +175,9 @@
   transition: all 0.2s ease;
   z-index: 0; }
 
-.ripplelink:hover {
-  /*z-index:1000;*/ }
+.ripplelink:hover, .ripplelink:focus {
+  /*z-index:1000;*/ 
+  text-decoration: none;}
 
 .ink {
   display: block;
@@ -1276,7 +1277,8 @@ body {
       -webkit-transition: transform 0.3s;
       transition: transform 0.3s; }
     .layout-container .ultima-menu li a:hover {
-      background-color: #225582; }
+      background-color: #225582; 
+      }
     .layout-container .ultima-menu li a span {
       display: inline-block;
       vertical-align: middle; }
