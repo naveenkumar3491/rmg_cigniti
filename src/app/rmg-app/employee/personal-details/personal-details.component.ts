@@ -87,13 +87,13 @@ export class PersonalDetailsComponent implements OnInit {
   constructor(public cdRef: ChangeDetectorRef, private messageService: MessageService,
     private dataService: DataService, private storage: Ng2Storage, private utilsService: UtilsService,
     private activatedRoute: ActivatedRoute, private datePipe: DateFormatPipe) {
-    this.activatedRoute.params.subscribe((params: Params) => {
-      if (params && params.id) {
-        this.employeeId = params.id;
-      } else {
-        this.employeeId = this.userData.employeeId;
-      }
-    });
+      this.activatedRoute.queryParams.subscribe(params => {
+        if(params && params.empId){
+          this.employeeId = params.empId;
+        }else{
+          this.employeeId = this.userData.employeeId;
+        }
+      });
 
     this.dataService.profilePercentage.subscribe((value) => {
       this.profileProgress += value;
