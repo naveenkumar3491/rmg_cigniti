@@ -81,7 +81,7 @@ export class ContactDetailsComponent implements OnInit {
           progressbar: (!this.personalDetails.personalEmailId && !this.personalDetails.mobile) ? 10 : 0
         };
         this.dataService.saveContactAndExpDetails(paramObj).subscribe((data) => {
-          this.callBackContactDetails.emit('save');
+          this.callBackContactDetails.emit();
           this.editMode = true;
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Saved Successfully!!' });
         });

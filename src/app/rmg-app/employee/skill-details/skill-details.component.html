@@ -6,19 +6,19 @@
                     <div class="panel-body">
                         <div class="row" style="margin: 10px;">
                             <div class="col-md-4">
-                                <p-dropdown [options]="skillCategoriesList" name="skillCategory" [(ngModel)]="skillModel.skillCategory" placeholder="Select a Category"
-                                    optionLabel="label" (onChange)="onCategoryChange()" [style]="{'width':'200px'}"></p-dropdown>
+                                <p-dropdown [options]="categoryList" name="skillCategory" [(ngModel)]="skillModel.skillCategoryId" placeholder="Select a Category"
+                                    optionLabel="label" (onChange)="onCategoryChange(skillModel.skillCategoryId)" [style]="{'width':'200px'}"></p-dropdown>
                             </div>
                             <div class="col-md-4">
-                                <p-dropdown #skillRef [options]="skillSet" name="skill" [(ngModel)]="skillModel.skill" placeholder="Select a Skill" optionLabel="label"
-                                    (onFocus)="onSkillFocus(skillRef)" [style]="{'width':'200px'}" [disabled]="!skillModel.skillCategory"></p-dropdown>
+                                <p-dropdown #skillRef [options]="skillSet" name="skill" [(ngModel)]="skillModel.skillId" placeholder="Select a Skill" optionLabel="label"
+                                    (onFocus)="onSkillFocus(skillRef)" [style]="{'width':'200px'}" [disabled]="!skillModel.skillCategoryId"></p-dropdown>
                             </div>
                             <div class="col-md-4">
                                 <p-rating name="skillRating" [(ngModel)]="skillModel.skillRating" [cancel]="false"></p-rating>
                                 <div class="btn-skill">
-                                    <button *ngIf="showButton" type="button" [disabled]="!this.skillModel.skillCategory || !this.skillModel.skill" (click)="saveSkill('add')"
+                                    <button *ngIf="showButton" type="button" (click)="saveSkill('add')"
                                         class="btn btn-success">Add Skill</button>
-                                    <button *ngIf="!showButton" type="button" (click)="saveSkill('update')" [disabled]="!this.skillModel.skillCategory || !this.skillModel.skill"
+                                    <button *ngIf="!showButton" type="button" (click)="saveSkill('update')"
                                         class="btn btn-success">Update Skill</button>
                                 </div>
                             </div>
@@ -36,7 +36,7 @@
                         </ng-template>
                         <ng-template let-skill="rowData" let-i="rowIndex" pTemplate="body">
                             <a class="curosr-p" (click)="onEdit(skill)"><i class="fa fa-edit"></i></a>
-                            <a class="curosr-p" (click)="deleteConfirm(i)"><i class="fa fa-trash"></i></a>
+                            <a class="curosr-p" (click)="deleteConfirm(skill, i)"><i class="fa fa-trash"></i></a>
                         </ng-template>
                     </p-column>
                 </ng-container>

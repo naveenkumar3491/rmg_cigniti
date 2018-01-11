@@ -107,7 +107,7 @@
 								<div class="col-lg-4 col-md-4 no-padding">
 									<div class="form-group">
 										<label>RMG SPOC</label>
-										<p *ngIf="!editMode" class="form-control-static">Spoc</p>
+										<p *ngIf="!editMode" class="form-control-static">{{personalDetails?.rmg_spoc}}</p>
 										<input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="pdModel.rmgSpoc" />
 									</div>
 								</div>
@@ -145,13 +145,13 @@
 											<div [ngBusy]="skillBusy">
 												<p-accordionTab header="Skill Details">
 													<app-skill-details *ngIf="professionalMasterData" [skillDetails]="professionalMasterData.details.skill_List" [skillMasterData]="masterSkillsData"
-													 (callBackProfessionalDetails)="callBackProfessionalDetails()"></app-skill-details>
+													 (callBackProfessionalDetails)="callBackProfessionalDetails()" (callBackContactDetails)="callBackContactDetails()"></app-skill-details>
 												</p-accordionTab>
 											</div>
 											<div [ngBusy]="domainBusy">
 												<p-accordionTab header="Domain Details">
 													<app-domain-details *ngIf="professionalMasterData" [domainDetails]="professionalMasterData.details.domain_List" [masterDomains]="masterDomainData"
-													 (callBackProfessionalDetails)="callBackProfessionalDetails()"></app-domain-details>
+													 (callBackProfessionalDetails)="callBackProfessionalDetails()" (callBackContactDetails)="callBackContactDetails()"></app-domain-details>
 												</p-accordionTab>
 											</div>
 											<div [ngBusy]="certificationBusy">
@@ -172,7 +172,7 @@
 								</ng-template>
 							</div>
 							<ng-template [ngSwitchCase]="'bu-details'">
-								<app-bu-details *ngIf="personalDetails" [personalDetails]="personalDetails" [buMasterData]="buMasterData" [duMasterData]="duMasterData"></app-bu-details>
+								<app-bu-details *ngIf="personalDetails" [personalDetails]="personalDetails" [buMasterData]="buMasterData" [duMasterData]="duMasterData" (callBackContactDetails)="callBackContactDetails()"></app-bu-details>
 							</ng-template>
 							<div [ngBusy]="visaBusy">
 								<ng-template [ngSwitchCase]="'visa-details'">

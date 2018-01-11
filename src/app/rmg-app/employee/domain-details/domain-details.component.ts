@@ -14,6 +14,7 @@ export class DomainDetailsComponent implements OnChanges {
   @Input() domainDetails;
   @Input() masterDomains;
   @Output() callBackProfessionalDetails = new EventEmitter();
+  @Output() callBackContactDetails = new EventEmitter();
   public subDomainDetails: any = [];
   public childDomainDetails: any = [];
   public domainList: any = [];
@@ -110,13 +111,13 @@ export class DomainDetailsComponent implements OnChanges {
       domainObj['rowid'] = this.editedDomainObject.rowid;
     }
     this.dataService.addUpdateDomain(domainObj, progressValue).subscribe((data) => {
-      console.log(data);
       if (type === 'add') {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domain added successfully!!' });
       } else {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domain updated successfully!!' });
       }
       this.callBackProfessionalDetails.emit();
+      this.callBackContactDetails.emit();
       this.showButton = true;
       this.domainModel = {
         domain: {},
@@ -134,7 +135,6 @@ export class DomainDetailsComponent implements OnChanges {
     let progressValue = 0;
     if (type === 'add') {
       if (this.domainDetails.length === 0) {
-        this.dataService.profilePercentage.emit(20);
         progressValue = 20;
       }
     }
@@ -144,7 +144,6 @@ export class DomainDetailsComponent implements OnChanges {
   editDomain(domain, index) {
     this.subDomainDetails = [];
     this.childDomainDetails = [];
-    console.log('each domain', domain);
     this.showButton = false;
     this.domainModel = {
       comments: domain.comments
@@ -188,10 +187,8 @@ export class DomainDetailsComponent implements OnChanges {
       employeeId: this.userData.employeeId
     };
     this.dataService.deleteDomain(domainObj, progressBarValue).subscribe((data) => {
-      if (this.domainDetails.length === 1) {
-        this.dataService.profilePercentage.emit(-20);
-      }
       this.callBackProfessionalDetails.emit();
+      this.callBackContactDetails.emit();
       this.domainModel = {
         domain: {},
         subDomain: {},

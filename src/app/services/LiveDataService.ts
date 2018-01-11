@@ -43,6 +43,10 @@ export class LiveDataService extends DataService {
     private readonly duMasterUrl = this.getBaseURI() + 'duDtls';
     private readonly buMasterUrl = this.getBaseURI() + 'buDtls';
     private readonly updateEmployeeUrl = this.getBaseURI() + 'updateEmployee';
+    private readonly updateBuDtlsUrl = this.getBaseURI() + 'updateBuDtls';
+    private readonly skillCategoriesUrl = this.getBaseURI() + 'skillCategories';
+    private readonly skillByCategoriesUrl = this.getBaseURI() +  'skillsBycategory';
+    private readonly deleteSkillUrl = this.getBaseURI() + 'deleteEmployeeSkill';
 
     private getBaseURI() {
         return this.basePath + this.MyTrUrl;
@@ -123,8 +127,42 @@ export class LiveDataService extends DataService {
         ]);
     }
 
+    public getSkillCategories(): Observable<any> {
+        return this.http.get(`${this.skillCategoriesUrl}`).map((response) => {
+            const items = response;
+            const categoriesData = [];
+            items['details'].forEach((cat) => {
+                categoriesData.push({
+                    label: cat.name,
+                    value: cat.skill_category_id
+                });
+            });
+            return categoriesData;
+        });
+    }
+
+    public getSkillsByCategory(id): Observable<any> {
+        return this.http.get(`${this.skillByCategoriesUrl}?skill_catg_id=${id}`).map((response) => {
+            const items = response;
+            const skillsData = [];
+            items['details'].forEach((skill) => {
+                skillsData.push({
+                    label: skill.skill_name,
+                    value: skill.skill_id
+                });
+            });
+            return skillsData;
+        });
+    }
+
     public addUpdateEmployee(obj): Observable<any> {
         return this.http.post(`${this.updateEmployeeUrl}`, obj).map((response) => {
+            return response;
+        });
+    }
+
+    public addUpdateBuDtls(obj): Observable<any> {
+        return this.http.post(`${this.updateBuDtlsUrl}`, obj).map((response) => {
             return response;
         });
     }
@@ -147,9 +185,14 @@ export class LiveDataService extends DataService {
         });
     }
 
+    public deleteSkill(obj, progressbarValue): Observable<any> {
+        return this.http.post(`${this.deleteSkillUrl}?progressbar=${progressbarValue}`, obj).map((response) => {
+            return response;
+        });
+    }
+
     public getSubDomainDetails(domainId: string): Observable<any> {
         return this.http.get(`${this.subDomainData}?domainId=${domainId}`).map((res: any[]) => {
-            console.log('subdomain', res);
             const items = res;
             const subDomainData = [];
             items.forEach((subDomain) => {
@@ -242,34 +285,6 @@ export class LiveDataService extends DataService {
             return domainData;
         });
     }
-    public getMasterSkillDetails(): Observable<any> {
-        return this.http.get(`${this.masterSkillData}`)
-            .map((res) => {
-                const items = <any[]>res;
-                const data = {
-                    categoryList: [],
-                    skillCategoriesList: []
-                };
-                for (const key in items) {
-                    const i = Object.keys(items).indexOf(key);
-                    data.skillCategoriesList.push({
-                        label: key,
-                        value: key
-                    });
-                    data.categoryList.push({
-                        category: key,
-                        skillSet: new Array()
-                    });
-                    for (let j = 0; j < items[key].length; j++) {
-                        data.categoryList[i]['skillSet'].push({
-                            label: items[key][j],
-                            value: items[key][j]
-                        });
-                    }
-                }
-                return data;
-            });
-    }
     public getCertificationTechnologies(): Observable<any> {
         return this.http.get(`${this.certificationTechUrl}`).map((res) => {
             const items = <any[]>res['details'];
@@ -289,7 +304,6 @@ export class LiveDataService extends DataService {
 
     public getThemes(): Observable<any> {
         return this.http.get(`${this.getAllThemes}`).map((res) => {
-            console.log('themes', res);
             const items = <any[]>res;
             const themeData = {
                 label: 'Themes',

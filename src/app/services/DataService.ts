@@ -8,8 +8,9 @@ export abstract class DataService {
     public abstract uploadProfileImage( obj ): Observable<any>;
     public abstract uploadProfileResume( obj ): Observable<any>;
     public abstract getProfessionalDetails( id ): Observable<any>;
+    public abstract getSkillCategories(): Observable<any>;
+    public abstract getSkillsByCategory(id): Observable<any>;
     public abstract getMasterDomainDetails(): Observable<any>;
-    public abstract getMasterSkillDetails(): Observable<any>;
     public abstract getCertificationTechnologies(): Observable<any>;
     public abstract getProjectDetails( id ): Observable<any>;
     public abstract getSubDomainDetails( id ): Observable<any>;
@@ -23,8 +24,10 @@ export abstract class DataService {
     public abstract addUpdateCertification(obj): Observable<any>;
     public abstract addUpdateProject(obj): Observable<any>;
     public abstract addUpdateEmployee(obj): Observable<any>;
+    public abstract addUpdateBuDtls(obj): Observable<any>;
     public abstract deleteDomain(obj, value): Observable<any>;
     public abstract deleteProject(obj): Observable<any>;
+    public abstract deleteSkill(obj, value): Observable<any>;
     public abstract deleteCertification(obj): Observable<any>;
     public abstract getVisaDetails(id) : Observable<any>;
     public abstract getCertificationNamesInstitutes(id) : Observable<any>;

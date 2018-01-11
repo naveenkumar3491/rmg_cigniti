@@ -129,7 +129,7 @@ export class PersonalDetailsComponent implements OnInit {
       currentLocation: cLObj ? cLObj.value : null,
       emplType: pd.employeementType,
       reportingManager: pd.reportingManager,
-      rmgSpoc: pd.rmgSpoc
+      rmgSpoc: pd.rmg_spoc
     };
   }
 
@@ -165,7 +165,6 @@ export class PersonalDetailsComponent implements OnInit {
   }
   getEmployeeDetails() {
     this.personalBusy = this.dataService.getEmployeeDetails(this.employeeId).subscribe((data) => {
-      console.log(data);
       this.personalDetails = data[0].details;
       this.designationMasterData = data[1];
       this.locationMasterData = data[2];
@@ -210,7 +209,7 @@ export class PersonalDetailsComponent implements OnInit {
 
   onAccOpen(e) {
     if (e.index === 0) {
-      this.skillBusy = this.dataService.getMasterSkillDetails().subscribe((data) => {
+      this.skillBusy = this.dataService.getSkillCategories().subscribe((data) => {
         this.masterSkillsData = data;
       })
     } else if (e.index === 1) {
@@ -236,6 +235,7 @@ export class PersonalDetailsComponent implements OnInit {
     let input = new FormData();
     input.append('file', fileToUpload);
     input.append('empId', this.employeeId);
+    //input.append('employeeName', this.userData.employeeName);
     input.append('progressbar', !this.personalDetails.employeeImage ? '5' : '0');
     this.dataService.uploadProfileImage(input).subscribe((data) => {
       this.emptyImage = true;
@@ -251,7 +251,6 @@ export class PersonalDetailsComponent implements OnInit {
 
   readUrl(event: any) {
     let maxImgLSize = 102400;
-    console.log(event);
     if (event.target.files && event.target.files[0]) {
       if (event.target.files[0].size > maxImgLSize) {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Selected image size is more than 100KB' });
@@ -259,7 +258,6 @@ export class PersonalDetailsComponent implements OnInit {
         var reader = new FileReader();
         reader.onload = (event: any) => {
           this.url = event.target.result;
-          console.log(this.url);
         }
         reader.readAsDataURL(event.target.files[0]);
         this.emptyImage = false;

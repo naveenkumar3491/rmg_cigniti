@@ -53,7 +53,6 @@ export class AppMenuComponent implements OnInit {
     }
 
     changeTheme(theme) {
-        console.log('changed')
         const themeLink: HTMLLinkElement = <HTMLLinkElement>document.getElementById('theme-css');
         const layoutLink: HTMLLinkElement = <HTMLLinkElement>document.getElementById('layout-css');
         themeLink.href = 'assets/theme/theme-' + theme + '.css';

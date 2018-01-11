@@ -79,7 +79,6 @@ export class CertificationDetailsComponent implements OnChanges {
       certObj['rowid'] = this.editedCertObject.rowid;
     }
     this.dataService.addUpdateCertification(certObj).subscribe((data) => {
-      console.log(data);
       if (type === 'add') {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Certification added successfully!!' });
       } else {
@@ -125,7 +124,6 @@ export class CertificationDetailsComponent implements OnChanges {
     this.certificationNames = [];
     this.certificationInstitutes = [];
     this.dataService.getCertificationNamesInstitutes(this.certificationModel.certTech.certTechId).subscribe((data) => {
-      console.log(data);
       this.certificationNames = data[0];
       this.certificationInstitutes = data[1];
       this.certificationModel.certName = {};

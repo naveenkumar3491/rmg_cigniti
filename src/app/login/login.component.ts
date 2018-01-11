@@ -44,7 +44,6 @@ export class LoginComponent implements OnInit {
       }, (err) => {
         this.disabledBtn = false;
         this.loginFail = true;
-        console.log(err)
       })
 
     } else {

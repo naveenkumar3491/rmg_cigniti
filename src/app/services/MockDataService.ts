@@ -156,6 +156,25 @@ export class MockDataService extends DataService {
             }, 1000)
         });
     }
+
+    public getSkillCategories(): Observable<any> {
+        return Observable.create(observer => {
+            setTimeout(() => {
+                observer.next(mockData.skillCategories);
+                observer.complete();
+            }, 1000)
+        });
+    }
+
+    public getSkillsByCategory(): Observable<any> {
+        return Observable.create(observer => {
+            setTimeout(() => {
+                observer.next(mockData.skillsByCategories);
+                observer.complete();
+            }, 1000)
+        });
+    }
+
     public getThemes(): Observable<any> {
         return Observable.create(observer => {
             setTimeout(() => {
@@ -242,6 +261,15 @@ export class MockDataService extends DataService {
         });
     }
 
+    public addUpdateBuDtls(obj): Observable<any> {
+        return Observable.create(observer => {
+            setTimeout(() => {
+                observer.next({});
+                observer.complete();
+            }, 1000)
+        });
+    }
+
     public getVisaDetails(id): Observable<any> {
         return Observable.create(observer => {
             setTimeout(() => {
@@ -252,6 +280,15 @@ export class MockDataService extends DataService {
     }
 
     public deleteDomain(obj, progressbarValue): Observable<any> {
+        return Observable.create(observer => {
+            setTimeout(() => {
+                observer.next({});
+                observer.complete();
+            }, 1000)
+        });
+    }
+
+    public deleteSkill(obj, progressbarValue): Observable<any> {
         return Observable.create(observer => {
             setTimeout(() => {
                 observer.next({});

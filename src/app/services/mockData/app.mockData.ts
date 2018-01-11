@@ -534,6 +534,125 @@ export const buData:any = {
     "errorMessage": null
 }
 
+export const skillsByCategories:any = {
+    "details": [
+        {
+            "skill_id": 40,
+            "skill_category_id": 2,
+            "skill_name": "Jmeter-Java"
+        },
+        {
+            "skill_id": 41,
+            "skill_category_id": 2,
+            "skill_name": "Jmeter-C#"
+        },
+        {
+            "skill_id": 42,
+            "skill_category_id": 2,
+            "skill_name": "Jmeter-Ruby"
+        },
+        {
+            "skill_id": 43,
+            "skill_category_id": 2,
+            "skill_name": "LoadRunner"
+        },
+        {
+            "skill_id": 44,
+            "skill_category_id": 2,
+            "skill_name": "Web Load"
+        },
+        {
+            "skill_id": 45,
+            "skill_category_id": 2,
+            "skill_name": "Silk Performance"
+        },
+        {
+            "skill_id": 46,
+            "skill_category_id": 2,
+            "skill_name": "OATS"
+        },
+        {
+            "skill_id": 47,
+            "skill_category_id": 2,
+            "skill_name": "NeoLoad"
+        },
+        {
+            "skill_id": 48,
+            "skill_category_id": 2,
+            "skill_name": "Oracle Apps"
+        },
+        {
+            "skill_id": 49,
+            "skill_category_id": 2,
+            "skill_name": "Financials"
+        },
+        {
+            "skill_id": 50,
+            "skill_category_id": 2,
+            "skill_name": "IBMRPT"
+        },
+        {
+            "skill_id": 51,
+            "skill_category_id": 2,
+            "skill_name": "App dynamics"
+        },
+        {
+            "skill_id": 52,
+            "skill_category_id": 2,
+            "skill_name": "Willy"
+        }
+    ],
+    "actionStatus": true,
+    "errorMessage": null
+}
+
+export const skillCategories:any = {
+    "details": [
+        {
+            "skill_category_id": 1,
+            "name": "Automation Testing"
+        },
+        {
+            "skill_category_id": 2,
+            "name": "Performance Testing"
+        },
+        {
+            "skill_category_id": 3,
+            "name": "Security Testing"
+        },
+        {
+            "skill_category_id": 4,
+            "name": "Manual Testing"
+        },
+        {
+            "skill_category_id": 5,
+            "name": "SME"
+        },
+        {
+            "skill_category_id": 6,
+            "name": "Developer"
+        },
+        {
+            "skill_category_id": 7,
+            "name": "Others"
+        },
+        {
+            "skill_category_id": 8,
+            "name": "BDD"
+        },
+        {
+            "skill_category_id": 9,
+            "name": "SAP"
+        },
+        {
+            "skill_category_id": 10,
+            "name": null
+        }
+    ],
+    "actionStatus": true,
+    "errorMessage": null
+}
+
 export const visaDetails:any = {
     "details": [
         {
