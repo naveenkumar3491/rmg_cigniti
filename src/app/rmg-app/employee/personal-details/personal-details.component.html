@@ -167,7 +167,7 @@
 							<div [ngBusy]="projectBusy">
 								<ng-template [ngSwitchCase]="'project-details'">
 									<div class="tab-renderer">
-										<app-project-details *ngIf="projectDetails" [projectDetails]="projectDetails" (callBackProjectDetails)="callBackProjectDetails()"></app-project-details>
+										<app-project-details *ngIf="projectDetails" [projectDetails]="projectDetails" (callBackProjectDetails)="callBackProjectDetails()" [employeeId]="personalDetails.emp_id"></app-project-details>
 									</div>
 								</ng-template>
 							</div>

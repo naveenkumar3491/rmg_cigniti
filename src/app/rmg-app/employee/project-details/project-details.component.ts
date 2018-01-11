@@ -11,6 +11,7 @@ import { MessageService } from "primeng/components/common/messageservice";
   styleUrls: ['./project-details.component.scss']
 })
 export class ProjectDetailsComponent implements OnInit {
+  @Input() employeeId;
   @Input() projectDetails;
   @Output() callBackProjectDetails = new EventEmitter();
   public active: boolean = true;
@@ -71,7 +72,7 @@ export class ProjectDetailsComponent implements OnInit {
 
   onSaveProject(type) {
     const paramObj = Object.assign({}, this.projectModel);
-    paramObj.emp_id = this.userData.employeeId;
+    paramObj.emp_id = this.employeeId;
     paramObj.allocation_start_date = this.datePipe.transform(this.projectModel.allocation_start_date, 'dd-MM-yyyy');
     paramObj.allocation_end_date = this.datePipe.transform(this.projectModel.allocation_end_date, 'dd-MM-yyyy');
     paramObj.last_working_day = this.datePipe.transform(this.projectModel.last_working_day, 'dd-MM-yyyy');
