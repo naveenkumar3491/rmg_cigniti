@@ -48,8 +48,8 @@
                 Action
               </ng-template>
               <ng-template let-car="rowData" let-i="rowIndex" pTemplate="body">
-                <a class="curosr-p"><i class="fa fa-edit" (click)="editDomain(car, i)"></i></a>
-                <a class="curosr-p"><i class="fa fa-trash" (click)="deleteConfirm(car, i)"></i></a>
+                <a pTooltip="edit" tooltipPosition="top" class="curosr-p"><i class="fa fa-edit" (click)="editDomain(car, i)"></i></a>
+                <a pTooltip="delete" tooltipPosition="top" class="curosr-p"><i class="fa fa-trash" (click)="deleteConfirm(car, i)"></i></a>
               </ng-template>
             </p-column>
             </ng-container>

@@ -55,8 +55,8 @@
                             Action
                         </ng-template>
                         <ng-template let-certification="rowData" let-i="rowIndex" pTemplate="body">
-                            <a class="curosr-p"><i class="fa fa-edit" (click)="onEdit(certification, i)"></i></a>
-                            <a class="curosr-p"><i class="fa fa-trash" (click)="deleteConfirm(certification, i)"></i></a>
+                            <a pTooltip="edit" tooltipPosition="top" class="curosr-p"><i class="fa fa-edit" (click)="onEdit(certification, i)"></i></a>
+                            <a pTooltip="delete" tooltipPosition="top" class="curosr-p"><i class="fa fa-trash" (click)="deleteConfirm(certification, i)"></i></a>
                         </ng-template>
                     </p-column>
                     </ng-container>

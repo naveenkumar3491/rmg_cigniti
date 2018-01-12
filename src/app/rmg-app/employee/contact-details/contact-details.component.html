@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12" [ngClass]="{'col-sm-2': !editMode, 'col-sm-1': editMode}" *ngIf="userData.employeeRoleName === 'Employee'">
-                    <span *ngIf="editMode" class="cd-edit" (click)="onContactDetChange('edit')">
+                    <span *ngIf="editMode" pTooltip="edit" tooltipPosition="top" class="cd-edit" (click)="onContactDetChange('edit')">
                                <i class="fa fa-pencil"></i>
                         </span>
                     <ng-container *ngIf="!editMode">

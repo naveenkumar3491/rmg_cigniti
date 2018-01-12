@@ -35,8 +35,8 @@
                             Action
                         </ng-template>
                         <ng-template let-skill="rowData" let-i="rowIndex" pTemplate="body">
-                            <a class="curosr-p" (click)="onEdit(skill)"><i class="fa fa-edit"></i></a>
-                            <a class="curosr-p" (click)="deleteConfirm(skill, i)"><i class="fa fa-trash"></i></a>
+                            <a pTooltip="edit" tooltipPosition="top" class="curosr-p" (click)="onEdit(skill)"><i class="fa fa-edit"></i></a>
+                            <a pTooltip="delete" tooltipPosition="top" class="curosr-p" (click)="deleteConfirm(skill, i)"><i class="fa fa-trash"></i></a>
                         </ng-template>
                     </p-column>
                 </ng-container>

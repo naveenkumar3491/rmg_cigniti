@@ -26,4 +26,11 @@ export class UtilsService {
             return null;
         };
     }
+
+    public convertToYearsMonths(value){
+        const exp = value.toString().split('.');
+        const yearExp = (parseInt(exp[0], 10) > 1) ? exp[0] + ' Years' : ((exp[0] === '0' || exp[0] === undefined) ? '' : exp[0] + ' Year');
+        const monthExp = (parseInt(exp[1], 10) > 1) ? exp[1] + ' Months' : ((exp[1] === '0' || exp[1] === undefined) ? '' : exp[1] + ' Month');
+        return `${yearExp} ${monthExp}`;
+    }
 }

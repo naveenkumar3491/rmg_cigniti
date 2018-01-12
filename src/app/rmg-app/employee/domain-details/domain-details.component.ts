@@ -18,6 +18,7 @@ export class DomainDetailsComponent implements OnChanges {
   public subDomainDetails: any = [];
   public childDomainDetails: any = [];
   public domainList: any = [];
+  public domainClonedList: any;
   public editedDomainObject: any;
   public masterDomainData: any;
   public showButton: boolean = true;
@@ -46,6 +47,10 @@ export class DomainDetailsComponent implements OnChanges {
     }
     if (changes.domainDetails && changes.domainDetails.currentValue) {
       this.domainList = changes.domainDetails.currentValue;
+      this.domainClonedList = JSON.parse(JSON.stringify(this.domainList));;
+      this.domainList.forEach(obj => {
+        obj.domainExperience = this.utilsService.convertToYearsMonths(obj.domainExperience);     
+      })
     }
   }
 
@@ -148,7 +153,7 @@ export class DomainDetailsComponent implements OnChanges {
     this.domainModel = {
       comments: domain.comments
     };
-    const domainExp = domain.domainExperience.toString();
+    const domainExp = this.domainClonedList[index].domainExperience.toString();
     if (domainExp.indexOf('.') !== -1) {
       this.domainModel.years = +domainExp.split('.')[0];
       this.domainModel.months = +domainExp.split('.')[1];

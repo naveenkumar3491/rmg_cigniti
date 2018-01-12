@@ -49,7 +49,7 @@
 								<div class="col-lg-4 col-md-4 pad-l-0">
 									<div class="form-group">
 										<label>DESIGNATION</label>
-										<span *ngIf="!editMode && userData.employeeRoleName === 'RMG'" class="pd-edit" (click)="onPdEdit()">
+										<span *ngIf="!editMode && userData.employeeRoleName === 'RMG'" pTooltip="edit" tooltipPosition="top" class="pd-edit" (click)="onPdEdit()">
 											<i class="fa fa-pencil"></i>
 										</span>
 										<p *ngIf="!editMode" class="form-control-static"> {{personalDetails?.designation}}</p>

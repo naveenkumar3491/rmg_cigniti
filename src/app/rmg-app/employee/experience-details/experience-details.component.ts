@@ -52,10 +52,8 @@ export class ExperienceDetailsComponent implements OnInit {
       };
     } else {
       const totExp = this.personalDetails.totalExperience;
+      this.model['totalExperience'] = this.utilsService.convertToYearsMonths(totExp);
       const totExpArray = totExp.split('.');
-      const yearExp = (parseInt(totExpArray[0], 10) > 1) ? totExpArray[0] + ' Years' : ((totExpArray[0] === '0' || totExpArray[0] === undefined) ? '' : totExpArray[0] + ' Year');
-      const monthExp = (parseInt(totExpArray[1], 10) > 1) ? totExpArray[1] + ' Months' : ((totExpArray[1] === '0' || totExpArray[1] === undefined) ? '' : totExpArray[1] + ' Month');
-      this.model['totalExperience'] = `${yearExp} ${monthExp}`;
       this.exp = {
         years: (totExpArray[0] === '0' || totExpArray[0] === undefined) ? '0' : totExpArray[0],
         months: (totExpArray[1] === '0' || totExpArray[1] === undefined) ? '0' : totExpArray[1]

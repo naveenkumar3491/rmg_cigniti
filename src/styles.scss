@@ -162,8 +162,13 @@ label {
     cursor: pointer;
 }
 
-p-rating .ui-rating .fa-star {
-    color: $rmg-orange
+p-rating .ui-rating {
+    .fa-star{
+        color: $rmg-orange;
+    }
+    a:hover, a:focus{
+        text-decoration: none;
+    }
 }
 
 p-fieldset {
@@ -279,6 +284,7 @@ p-fieldset {
     }
 }
 
+
 .ui-datatable.ui-datatable-scrollable thead tr th {
     font-size: 12px !important;
 }
@@ -361,4 +367,14 @@ body .ui-widget-header {
     text-align: right;
     font-size: 11px;
     color: #fff;
+}
+
+.fa.fa-pencil:hover{
+    font-size: 20px;
+    color: #225582;
+}
+
+.fa.fa-edit:hover,.fa.fa-trash:hover{
+    font-size: 16px;
+    color: #225582;
 }

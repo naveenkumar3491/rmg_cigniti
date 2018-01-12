@@ -52,7 +52,7 @@
                     <div class="col-md-2 col-sm-2 col-xs-12 ">
                         <div class="form-group">
                             <span class="pro-title">HR SPOC</span>
-                            <span *ngIf="!editMode && userData.employeeRoleName === 'RMG'" class="bu-edit" (click)="onBuEdit()">
+                            <span pTooltip="edit" tooltipPosition="top" *ngIf="!editMode && userData.employeeRoleName === 'RMG'" class="bu-edit" (click)="onBuEdit()">
                                <i class="fa fa-pencil"></i>
                         </span>
                             <p *ngIf="!editMode" class="form-control-static">{{personalDetails.hr_spoc}}</p>
