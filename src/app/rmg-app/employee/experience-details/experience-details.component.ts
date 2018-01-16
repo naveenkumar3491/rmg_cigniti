@@ -14,6 +14,7 @@ export class ExperienceDetailsComponent implements OnInit {
   public resumeName;
   public emptyResume: boolean = true;
   public editMode: boolean = true;
+  public showResumeUploading: boolean = false;
   public exp = {
     years: 0,
     months: 1
@@ -76,6 +77,7 @@ export class ExperienceDetailsComponent implements OnInit {
   }
 
   uploadFile(): void {
+    this.showResumeUploading = true;
     const fi = this.input.nativeElement;
     if (fi.files && fi.files[0]) {
       const fileToUpload = fi.files[0];
@@ -92,6 +94,7 @@ export class ExperienceDetailsComponent implements OnInit {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Uploaded Successfully!!' });
       this.callBackContactDetails.emit();
       this.emptyResume = true;
+      this.showResumeUploading = false;
     });
   }
   removeResume() {

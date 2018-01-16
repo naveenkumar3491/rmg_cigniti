@@ -20,8 +20,9 @@
 									</div>
 								</div>
 								<div class="profileBtns">
-									<button (click)="uploadFile()" class="theme-btn theme-btn-primary" *ngIf="!emptyImage">Upload</button>
-									<button (click)="getFile.click()" class="theme-btn theme-btn-primary" *ngIf="emptyImage && userData.employeeRoleName === 'Employee'">Browse</button>
+									<button (click)="uploadFile()" class="theme-btn theme-btn-primary"  *ngIf="!emptyImage && !showUploading">Upload</button>
+									<button class="theme-btn theme-btn-primary" *ngIf="showUploading">Uploading...</button>
+									<button (click)="getFile.click()" class="theme-btn theme-btn-primary" *ngIf="emptyImage && !showUploading && userData.employeeRoleName === 'Employee'">Browse</button>
 								</div>
 							</div><br>
 							<div [ngClass]="pbarColor">

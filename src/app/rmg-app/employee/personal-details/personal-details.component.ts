@@ -25,6 +25,7 @@ export class PersonalDetailsComponent implements OnInit {
   public imageView = true;
   public profileProgress: number;
   public emptyImage: boolean;
+  public showUploading: boolean = false;
   public personalDetails: any;
   public projectDetails: any;
   public visaDetails: any;
@@ -225,6 +226,7 @@ export class PersonalDetailsComponent implements OnInit {
 
 
   uploadFile(): void {
+    this.showUploading = true;
     let fi = this.input.nativeElement;
     if (fi.files && fi.files[0]) {
       let fileToUpload = fi.files[0];
@@ -235,9 +237,9 @@ export class PersonalDetailsComponent implements OnInit {
     let input = new FormData();
     input.append('file', fileToUpload);
     input.append('empId', this.employeeId);
-    //input.append('employeeName', this.userData.employeeName);
     input.append('progressbar', !this.personalDetails.employeeImage ? '5' : '0');
     this.dataService.uploadProfileImage(input).subscribe((data) => {
+      this.showUploading = false;
       this.emptyImage = true;
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Uploaded Successfully!!' });
       this.getEmployeeDetails();
