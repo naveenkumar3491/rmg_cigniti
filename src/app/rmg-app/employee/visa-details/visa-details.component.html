@@ -5,14 +5,18 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="row" style="margin: 10px;">
-                        <div class="col-md-4">
-                            <p-dropdown [options]="countriesObservable | async" name="country" [(ngModel)]="visaModel.country" placeholder="Country"
+                        <div class="col-md-3">
+                            <p-dropdown [options]="visaData" name="country" [(ngModel)]="visaModel.country" placeholder="Country"
                                 optionLabel="label" [style]="{'width':'150px'}"></p-dropdown>
                         </div>
-                        <div class="col-md-4">
-                            <p-dropdown name="visaType" [(ngModel)]="visaModel.visaType" placeholder="Visa Type" optionLabel="label" [style]="{'width':'150px'}"></p-dropdown>
+                        <div class="col-md-3">
+                            <p-dropdown [options]="visaModel?.country?.visa" name="visa" [(ngModel)]="visaModel.visa" placeholder="Visa"
+                                optionLabel="label" [style]="{'width':'150px'}"></p-dropdown>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
+                            <p-dropdown [options]="visaModel?.visa?.visaType" name="visaType" [(ngModel)]="visaModel.visaType" placeholder="Visa Type" optionLabel="label" [style]="{'width':'180px'}"></p-dropdown>
+                        </div>
+                        <div class="col-md-3">
                             <p-dropdown [options]="visaStatusList" name="status" [(ngModel)]="visaModel.status" placeholder="Visa Status" optionLabel="label"
                                 [style]="{'width':'150px'}"></p-dropdown>
                         </div>
@@ -27,22 +31,22 @@
                                 [showIcon]="true" placeholder="Valid To"></p-calendar>
                         </div>
                         <div class="col-md-4" style="margin-top: 23px;">
-                            <button type="button" class="btn btn-success">Add Visa</button>
-                            <button *ngIf="false" type="button" class="btn btn-success">Update Visa</button>
+                            <button type="button" class="btn btn-success" *ngIf="visaEditMode" (click)="onAddVisa()" [disabled]="disableBtn()" >Add Visa</button>
+                            <button *ngIf="!visaEditMode" type="button" class="btn btn-success"  >Update Visa</button>
                         </div>
                     </div>
                 </div>
             </div>
             </ng-container>
             <p-dataTable [value]="visaDetails" scrollable="true" scrollHeight="200px" emptyMessage="No Visas Found">
-                <p-column [sortable]="true" *ngFor="let col of visaHeader" [field]="col.field" [header]="col.header"></p-column>
+                <p-column [sortable]="true" *ngFor="let col of visaHeader; let i = index;" [field]="col.field" [header]="col.header"></p-column>
                 <ng-container *ngIf="userData.employeeRoleName === 'RMG'">
                 <p-column styleClass="col-button">
                     <ng-template pTemplate="header">
                         Action
                     </ng-template>
                     <ng-template let-visa="rowData" let-i="rowIndex" pTemplate="body">
-                        <a pTooltip="edit" tooltipPosition="top" class="curosr-p"><i class="fa fa-edit"></i></a>
+                        <a pTooltip="edit" tooltipPosition="top" class="curosr-p" ><i class="fa fa-edit"></i></a>
                         <a pTooltip="delete" tooltipPosition="top" class="curosr-p"><i class="fa fa-trash"></i></a>
                     </ng-template>
                 </p-column>
