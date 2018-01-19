@@ -66,7 +66,7 @@ export class VisaDetailsComponent implements OnInit {
       let obj = {
         country:this.visaModel.country.name,
         visa: this.visaModel.visa.name,
-        visa_type: this.visaModel.visaType,
+        visa_type: this.visaModel.visa_type,
         status: this.visaModel.status,
         validFrom: this.datePipe.transform(this.visaModel.validFrom, 'dd-MM-yyyy'),
         validTo: this.datePipe.transform(this.visaModel.validTo, 'dd-MM-yyyy')
@@ -77,9 +77,9 @@ export class VisaDetailsComponent implements OnInit {
   }
 
   onEditVisa(visa){
-    this.visaModel = visa;
-    let obj = this.visaData.find( o => o.label === visa.country);
     this.visaEditMode = false;
+    this.visaModel = Object.assign({}, visa);
+    let obj = this.modelData.find( o => o.label === visa.country);
     this.visaModel.country = {name: obj.value.name, visa: obj.value.visa};
     this.visaModel.visa = {name: visa.visa, visaType: obj.value.visa.find( o => o.value.name === visa.visa).value.visaType};
   }
