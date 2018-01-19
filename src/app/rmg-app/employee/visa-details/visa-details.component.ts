@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { DataService } from '../../../services/DataService';
 import { Observable } from 'rxjs/Observable';
 import { Ng2Storage } from "../../../services/storage";
+import { DateFormatPipe } from "../../../common/pipes/dateFormat.pipe";
 
 @Component({
   selector: 'app-visa-details',
@@ -15,7 +16,9 @@ export class VisaDetailsComponent implements OnInit {
   public active: boolean = true;
   public visaModel: any = {};
   public minVisaDate: any;
-  public visaData: any;
+  public modelData: any;
+  public visaData: any = [];
+  public visaTypeData: any = [];
   public countriesObservable: Observable<any>;
    public userData = this.storage.getSession('user_data');
   public visaStatusList: any = [
@@ -31,14 +34,27 @@ export class VisaDetailsComponent implements OnInit {
     {field: 'validFrom', header: 'Valid From'},
     {field: 'validTo', header: 'Valid To'}
   ];
-  constructor(private dataService: DataService, private storage: Ng2Storage) { }
+  constructor(private dataService: DataService, private storage: Ng2Storage, private datePipe: DateFormatPipe) { }
 
   ngOnInit() {
     this.dataService.getCountriesList().subscribe((data) =>{
-        this.visaData = data;
-        console.log(this.visaData);
+        this.modelData = data;
     })
   }
+
+  onCountryChange(countryModel){
+    this.visaData = this.visaTypeData = [];
+    this.visaModel.visa = null;
+    this.visaModel.visa_type = '';
+    this.visaData = countryModel.visa;
+  }
+
+  onVisaChange(visaValue){
+    this.visaTypeData = [];
+    this.visaModel.visa_type = '';
+    this.visaTypeData = visaValue.visaType;
+  }
+
   onVisaStartDtSelect(){
     this.visaModel.validTo = null;
     this.minVisaDate = this.visaModel.validFrom;
@@ -52,26 +68,31 @@ export class VisaDetailsComponent implements OnInit {
         visa: this.visaModel.visa.name,
         visa_type: this.visaModel.visaType,
         status: this.visaModel.status,
-        validFrom: this.visaModel.validFrom,
-        validTo: this.visaModel.validTo
+        validFrom: this.datePipe.transform(this.visaModel.validFrom, 'dd-MM-yyyy'),
+        validTo: this.datePipe.transform(this.visaModel.validTo, 'dd-MM-yyyy')
       }
       this.visaDetails.push(obj);
       this.visaDetails = this.visaDetails.slice();
       this.visaModel = {};
   }
+
+  onEditVisa(visa){
+    this.visaModel = visa;
+    let obj = this.visaData.find( o => o.label === visa.country);
+    this.visaEditMode = false;
+    this.visaModel.country = {name: obj.value.name, visa: obj.value.visa};
+    this.visaModel.visa = {name: visa.visa, visaType: obj.value.visa.find( o => o.value.name === visa.visa).value.visaType};
+  }
+
   disableBtn() {
-    const modelArray = ['country', 'visa', 'visaType', 'status', 'validFrom', 'validTo'];
-    let isValid = true;
+    const modelArray = ['country', 'visa', 'visa_type', 'status', 'validFrom', 'validTo'];
+    let isValid = false;
     modelArray.forEach((obj) => {
       if (!this.visaModel[obj]) {
-        isValid = false;
+        isValid = true;
       }
     });
-    if (!isValid) {
-      return true;
-    } else {
-      return false;
-    }
+    return isValid;
   }
 
 }

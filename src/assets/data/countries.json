@@ -215,18 +215,6 @@
               }
             ]
           }
-        },
-        {
-          "label": "",
-          "value": {
-            "name": "",
-            "visaType": [
-              {
-                "label": "",
-                "value": ""
-              }
-            ]
-          }
         }
       ]
     }
@@ -244,18 +232,6 @@
               {
                 "label": "eVisa",
                 "value": "eVisa"
-              }
-            ]
-          }
-        },
-        {
-          "label": "",
-          "value": {
-            "name": "",
-            "visaType": [
-              {
-                "label": "",
-                "value": ""
               }
             ]
           }
@@ -279,18 +255,6 @@
               }
             ]
           }
-        },
-        {
-          "label": "",
-          "value": {
-            "name": "",
-            "visaType": [
-              {
-                "label": "",
-                "value": ""
-              }
-            ]
-          }
         }
       ]
     }
@@ -308,18 +272,6 @@
               {
                 "label": "eVisa",
                 "value": "eVisa"
-              }
-            ]
-          }
-        },
-        {
-          "label": "Work Permit",
-          "value": {
-            "name": "Work Permit",
-            "visaType": [
-              {
-                "label": "Employment Pass",
-                "value": "Employment Pass"
               }
             ]
           }
@@ -343,18 +295,6 @@
               }
             ]
           }
-        },
-        {
-          "label": "",
-          "value": {
-            "name": "",
-            "visaType": [
-              {
-                "label": "",
-                "value": ""
-              }
-            ]
-          }
         }
       ]
     }
@@ -372,18 +312,6 @@
               {
                 "label": "M Visa",
                 "value": "M Visa"
-              }
-            ]
-          }
-        },
-        {
-          "label": "",
-          "value": {
-            "name": "",
-            "visaType": [
-              {
-                "label": "",
-                "value": ""
               }
             ]
           }
@@ -407,18 +335,6 @@
               }
             ]
           }
-        },
-        {
-          "label": "",
-          "value": {
-            "name": "",
-            "visaType": [
-              {
-                "label": "",
-                "value": ""
-              }
-            ]
-          }
         }
       ]
     }
@@ -436,18 +352,6 @@
               {
                 "label": "Visitor Visa",
                 "value": "Visitor Visa"
-              }
-            ]
-          }
-        },
-        {
-          "label": "",
-          "value": {
-            "name": "",
-            "visaType": [
-              {
-                "label": "",
-                "value": ""
               }
             ]
           }
@@ -471,18 +375,6 @@
               }
             ]
           }
-        },
-        {
-          "label": "",
-          "value": {
-            "name": "",
-            "visaType": [
-              {
-                "label": "",
-                "value": ""
-              }
-            ]
-          }
         }
       ]
     }
@@ -500,18 +392,6 @@
               {
                 "label": "Visitor Visa",
                 "value": "Visitor Visa"
-              }
-            ]
-          }
-        },
-        {
-          "label": "",
-          "value": {
-            "name": "",
-            "visaType": [
-              {
-                "label": "",
-                "value": ""
               }
             ]
           }
