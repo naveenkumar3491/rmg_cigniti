@@ -21,6 +21,7 @@ export abstract class DataService {
     public abstract profilePercentage: EventEmitter<number>;
     public abstract addUpdateSkill(obj, value): Observable<any>;
     public abstract addUpdateDomain(obj, value): Observable<any>;
+    public abstract addUpdateVisa(obj): Observable<any>;
     public abstract addUpdateCertification(obj): Observable<any>;
     public abstract addUpdateProject(obj): Observable<any>;
     public abstract addUpdateEmployee(obj): Observable<any>;
@@ -28,6 +29,7 @@ export abstract class DataService {
     public abstract deleteDomain(obj, value): Observable<any>;
     public abstract deleteProject(obj): Observable<any>;
     public abstract deleteSkill(obj, value): Observable<any>;
+    public abstract deleteVisa(obj): Observable<any>;
     public abstract deleteCertification(obj): Observable<any>;
     public abstract getVisaDetails(id) : Observable<any>;
     public abstract getCertificationNamesInstitutes(id) : Observable<any>;

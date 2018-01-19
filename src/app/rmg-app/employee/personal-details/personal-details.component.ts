@@ -196,10 +196,14 @@ export class PersonalDetailsComponent implements OnInit {
     } else if (e.index === 3) {
       this.callBackProjectDetails();
     } else if (e.index === 5) {
-      this.visaBusy = this.dataService.getVisaDetails(this.employeeId).subscribe((data) => {
-        this.visaDetails = data.details;
-      });
+      this.callbackVisaDetails();
     }
+  }
+
+  callbackVisaDetails(){
+    this.visaBusy = this.dataService.getVisaDetails(this.employeeId).subscribe((data) => {
+      this.visaDetails = data.details;
+    });
   }
 
   callBackProjectDetails() {

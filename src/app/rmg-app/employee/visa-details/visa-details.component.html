@@ -31,14 +31,14 @@
                                 [showIcon]="true" placeholder="Valid To"></p-calendar>
                         </div>
                         <div class="col-md-4" style="margin-top: 23px;">
-                            <button type="button" class="btn btn-success" *ngIf="visaEditMode" (click)="onAddVisa()" [disabled]="disableBtn()" >Add Visa</button>
-                            <button *ngIf="!visaEditMode" type="button" class="btn btn-success">Update Visa</button>
+                            <button type="button" class="btn btn-success" *ngIf="visaEditMode" (click)="onAddVisa('add')" [disabled]="disableBtn()">Add Visa</button>
+                            <button *ngIf="!visaEditMode" type="button" class="btn btn-success" (click)="onAddVisa('update')" [disabled]="disableBtn()">Update Visa</button>
                         </div>
                     </div>
                 </div>
             </div>
             </ng-container>
-            <p-dataTable [value]="visaDetails" scrollable="true" scrollHeight="200px" emptyMessage="No Visas Found">
+            <p-dataTable [value]="visaDetails" scrollable="true" scrollHeight="200px" emptyMessage="No Visa Found">
                 <p-column [sortable]="true" *ngFor="let col of visaHeader; let i = index;" [field]="col.field" [header]="col.header"></p-column>
                 <ng-container *ngIf="userData.employeeRoleName === 'RMG'">
                 <p-column styleClass="col-button">
@@ -47,7 +47,7 @@
                     </ng-template>
                     <ng-template let-visa="rowData" let-i="rowIndex" pTemplate="body">
                         <a pTooltip="edit" tooltipPosition="top" class="curosr-p" (click)="onEditVisa(visa)"><i class="fa fa-edit"></i></a>
-                        <a pTooltip="delete" tooltipPosition="top" class="curosr-p"><i class="fa fa-trash"></i></a>
+                        <a pTooltip="delete" tooltipPosition="top" class="curosr-p" (click)="onDelete(visa)"><i class="fa fa-trash"></i></a>
                     </ng-template>
                 </p-column>
                 </ng-container>

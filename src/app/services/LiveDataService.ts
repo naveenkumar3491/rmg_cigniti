@@ -47,6 +47,8 @@ export class LiveDataService extends DataService {
     private readonly skillCategoriesUrl = this.getBaseURI() + 'skillCategories';
     private readonly skillByCategoriesUrl = this.getBaseURI() +  'skillsBycategory';
     private readonly deleteSkillUrl = this.getBaseURI() + 'deleteEmployeeSkill';
+    private readonly deleteVisaUrl = this.getBaseURI() + 'deleteEmpVisa';
+    private readonly saveVisaUrl = this.getBaseURI() + 'addUpdateVisa';
 
     private getBaseURI() {
         return this.basePath + this.MyTrUrl;
@@ -179,8 +181,20 @@ export class LiveDataService extends DataService {
         });
     }
 
+    public addUpdateVisa(obj): Observable<any> {
+        return this.http.post(`${this.saveVisaUrl}`, obj).map((response) => {
+            return response;
+        });
+    }
+
     public deleteProject(obj): Observable<any> {
         return this.http.post(`${this.deleteProjectUrl}`, obj).map((response) => {
+            return response;
+        });
+    }
+
+    public deleteVisa(obj): Observable<any> {
+        return this.http.post(`${this.deleteVisaUrl}`, obj).map((response) => {
             return response;
         });
     }

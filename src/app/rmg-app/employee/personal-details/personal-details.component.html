@@ -178,7 +178,7 @@
 							<div [ngBusy]="visaBusy">
 								<ng-template [ngSwitchCase]="'visa-details'">
 									<div class="tab-renderer">
-										<app-visa-details *ngIf="visaDetails" [visaDetails]="visaDetails"></app-visa-details>
+										<app-visa-details *ngIf="visaDetails" [visaDetails]="visaDetails" [employeeId]="personalDetails.emp_id" (callbackVisaDetails)="callbackVisaDetails()"></app-visa-details>
 									</div>
 								</ng-template>
 							</div>
