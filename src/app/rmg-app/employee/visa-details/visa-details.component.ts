@@ -103,7 +103,10 @@ export class VisaDetailsComponent implements OnInit {
     this.visaModel = Object.assign({}, visa);
     let obj = this.modelData.find(o => o.label === visa.country);
     this.visaModel.country = { name: obj.value.name, visa: obj.value.visa };
+    this.visaData = obj.value.visa;
     this.visaModel.visa = { name: visa.visa, visaType: obj.value.visa.find(o => o.value.name === visa.visa).value.visaType };
+    delete this.visaModel.visa.visaType._$visited;
+    this.visaTypeData = this.visaModel.visa.visaType;
   }
 
   onDelete(visa) {
