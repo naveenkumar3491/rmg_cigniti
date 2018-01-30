@@ -53,7 +53,7 @@ export class DomainDetailsComponent implements OnChanges {
       this.domainClonedList = JSON.parse(JSON.stringify(this.domainList));;
       this.domainList.forEach(obj => {
         const splitChildDomain = obj.child_domain_name.split(',');
-        obj.sample = splitChildDomain.join('\n');
+        obj.tooltipContent = splitChildDomain.join('\n');
         obj.modifiedChildDomain = splitChildDomain.length > 2 ? `${splitChildDomain[0]},${splitChildDomain[1]}...` : obj.child_domain_name;
         obj.domainExperience = this.utilsService.convertToYearsMonths(obj.domainExperience);
       })

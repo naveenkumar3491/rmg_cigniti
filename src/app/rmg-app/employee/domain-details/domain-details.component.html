@@ -16,7 +16,7 @@
               </div>
               <div class="col-md-4">
                 <p-multiSelect #childDomainRef [options]="childDomainDetails" [(ngModel)]="domainModel.childDomain" optionLabel="label" [disabled]="childDomainDetails.length === 0"
-                  [style]="{'width':'250px'}" (onFocus)="onDomainFocus(childDomainRef)"></p-multiSelect>
+                  [style]="{'width':'250px'}" (onFocus)="onDomainFocus(childDomainRef)" defaultLabel="Select a Child Domain"></p-multiSelect>
               </div>
             </div>
             <div class="row" style="margin: 10px;">
@@ -44,7 +44,7 @@
         <p-column [sortable]="true" field="sub_domain_name" header="Sub Domain"></p-column>
         <p-column [sortable]="true" field="modifiedChildDomain" header="Child Domain">
           <ng-template pTemplate="body" let-col let-row="rowData">
-            <span [pTooltip]="row['sample']" style="position: relative" escape="false">
+            <span [pTooltip]="row['tooltipContent']" style="position: relative" escape="false">
               {{row[col.field]}}
             </span>
           </ng-template>
