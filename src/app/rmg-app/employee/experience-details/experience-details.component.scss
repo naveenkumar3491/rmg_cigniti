@@ -17,4 +17,12 @@
             font-size: 10px;
         }
     }
+    .cigniti-format{
+        a{
+            color: #337ab7;
+            &:hover{
+                color: #005eb1 !important;
+            }
+        }
+    }
 }

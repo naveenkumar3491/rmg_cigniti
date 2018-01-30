@@ -38,7 +38,10 @@ export class BUDetailsComponent implements OnInit {
   }
 
   onBuDtlsSave(){
-    const obj = Object.assign({}, this.buModel);
+    //const obj = Object.assign({}, this.buModel);
+    const obj = {
+      ...this.buModel
+    }
     obj.empId = this.personalDetails.emp_id;
     obj.employeeName = this.personalDetails.employeeName;
     this.dataService.addUpdateBuDtls(obj).subscribe((data) => {

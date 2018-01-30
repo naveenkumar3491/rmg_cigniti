@@ -100,7 +100,10 @@ export class VisaDetailsComponent implements OnInit {
 
   onEditVisa(visa) {
     this.visaEditMode = false;
-    this.visaModel = Object.assign({}, visa);
+    //this.visaModel = Object.assign({}, visa);
+    this.visaModel = {
+      ...visa
+    };
     let obj = this.modelData.find(o => o.label === visa.country);
     this.visaModel.country = { name: obj.value.name, visa: obj.value.visa };
     this.visaData = obj.value.visa;

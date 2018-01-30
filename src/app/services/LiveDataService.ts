@@ -45,10 +45,12 @@ export class LiveDataService extends DataService {
     private readonly updateEmployeeUrl = this.getBaseURI() + 'updateEmployee';
     private readonly updateBuDtlsUrl = this.getBaseURI() + 'updateBuDtls';
     private readonly skillCategoriesUrl = this.getBaseURI() + 'skillCategories';
-    private readonly skillByCategoriesUrl = this.getBaseURI() +  'skillsBycategory';
+    private readonly skillByCategoriesUrl = this.getBaseURI() + 'skillsBycategory';
     private readonly deleteSkillUrl = this.getBaseURI() + 'deleteEmployeeSkill';
     private readonly deleteVisaUrl = this.getBaseURI() + 'deleteEmpVisa';
     private readonly saveVisaUrl = this.getBaseURI() + 'addUpdateVisa';
+    private readonly savePassportUrl = this.getBaseURI() + 'updatePassport';
+    private readonly domainDataUrl = this.getBaseURI() + 'getDomainDtlsById';
 
     private getBaseURI() {
         return this.basePath + this.MyTrUrl;
@@ -78,7 +80,7 @@ export class LiveDataService extends DataService {
         // return this.http.get(`${this.employeeDetails}?empId=${empId}`).map((response) => {
         //     return response;
         // });
-         return Observable.forkJoin([
+        return Observable.forkJoin([
             this.http.get(`${this.employeeDetails}?empId=${empId}`).map((res) => {
                 return res;
             }),
@@ -187,6 +189,12 @@ export class LiveDataService extends DataService {
         });
     }
 
+    public addUpdatePassport(obj): Observable<any> {
+        return this.http.post(`${this.savePassportUrl}`, obj).map((response) => {
+            return response;
+        });
+    }
+
     public deleteProject(obj): Observable<any> {
         return this.http.post(`${this.deleteProjectUrl}`, obj).map((response) => {
             return response;
@@ -199,8 +207,14 @@ export class LiveDataService extends DataService {
         });
     }
 
-    public deleteSkill(obj, progressbarValue): Observable<any> {
-        return this.http.post(`${this.deleteSkillUrl}?progressbar=${progressbarValue}`, obj).map((response) => {
+    public deletePassport(obj): Observable<any> {
+        return this.http.post(`${this.deleteVisaUrl}`, obj).map((response) => {
+            return response;
+        });
+    }
+
+    public deleteSkill(obj, progressbarValue, lastUpdated): Observable<any> {
+        return this.http.post(`${this.deleteSkillUrl}?progressbar=${progressbarValue}&lastUpdate=${lastUpdated}`, obj).map((response) => {
             return response;
         });
     }
@@ -283,6 +297,25 @@ export class LiveDataService extends DataService {
         });
     }
 
+    public getDomainDetails(empId: string): Observable<any> {
+        return this.http.get(`${this.domainDataUrl}?empId=${empId}`).map((res) => {
+            const items = <any[]>res['details'];
+            const domainResultSet = [];
+            const check =[];
+            for(let i=0; i<items.length; i++){
+                let currItem = items[i];
+                if(check.indexOf(currItem.rowid) === -1){
+                    domainResultSet.push(currItem);
+                    check.push(currItem.rowid);
+                }else{
+                    let found = domainResultSet.find(obj => obj.rowid === currItem.rowid);
+                    found.child_domain_name = `${found.child_domain_name},${currItem.child_domain_name}`;
+                }
+            }
+            return domainResultSet;
+        });
+    }
+
     public getMasterDomainDetails(): Observable<any> {
         return this.http.get(`${this.domainData}`).map((res) => {
             const items = <any[]>res;
@@ -360,14 +393,14 @@ export class LiveDataService extends DataService {
         });
     }
 
-    public addUpdateSkill(obj, progressbarValue): Observable<any> {
-        return this.http.post(`${this.saveSkillUrl}?progressbar=${progressbarValue}`, obj).map((response) => {
+    public addUpdateSkill(obj, progressbarValue, lastUpdated): Observable<any> {
+        return this.http.post(`${this.saveSkillUrl}?progressbar=${progressbarValue}&lastUpdate=${lastUpdated}`, obj).map((response) => {
             return response;
         });
     }
 
-    public addUpdateDomain(obj, progressbarValue): Observable<any> {
-        return this.http.post(`${this.saveDomainUrl}?progressbar=${progressbarValue}`, obj).map((response) => {
+    public addUpdateDomain(obj, progressbarValue, lastUpdated): Observable<any> {
+        return this.http.post(`${this.saveDomainUrl}?progressbar=${progressbarValue}&lastUpdate=${lastUpdated}`, obj).map((response) => {
             return response;
         });
     }
@@ -384,8 +417,8 @@ export class LiveDataService extends DataService {
         });
     }
 
-    public deleteDomain(obj, progressbarValue): Observable<any> {
-        return this.http.post(`${this.deleteDomainUrl}?progressbar=${progressbarValue}`, obj).map((response) => {
+    public deleteDomain(obj, progressbarValue, lastUpdated): Observable<any> {
+        return this.http.post(`${this.deleteDomainUrl}?progressbar=${progressbarValue}&lastUpdate=${lastUpdated}`, obj).map((response) => {
             return response;
         });
     }

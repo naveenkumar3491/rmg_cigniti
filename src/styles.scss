@@ -363,6 +363,10 @@ body .ui-widget-header {
     margin-top: 18px;
 }
 
+.m-b-0{
+    margin-bottom: 0px;
+}
+
 .last-login{
     text-align: right;
     font-size: 11px;
@@ -374,7 +378,7 @@ body .ui-widget-header {
     color: #225582;
 }
 
-.fa.fa-edit:hover,.fa.fa-trash:hover{
+.fa.fa-edit:hover,.fa.fa-trash:hover, .fa.fa-eye:hover{
     font-size: 16px;
     color: #225582;
 }

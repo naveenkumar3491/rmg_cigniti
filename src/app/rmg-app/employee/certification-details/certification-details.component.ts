@@ -28,13 +28,12 @@ export class CertificationDetailsComponent implements OnChanges {
   { label: 'Advanced', value: 'Advanced' }];
 
   public certificationHeader: any = [
-    { field: 'technology', header: 'Certification Technology' },
-    { field: 'certification', header: 'Certification Name' },
-    { field: 'boardInstitute', header: 'Certification From' },
-    { field: 'levels', header: 'Level' },
-    { field: 'validFrom', header: 'Valid From' },
-    { field: 'validTo', header: 'Valid To' },
-    { field: 'comments', header: 'Comments' }
+    { field: 'technology', header: 'Certification Technology', width: '17%' },
+    { field: 'certification', header: 'Certification Name', width: '15%' },
+    { field: 'boardInstitute', header: 'Certification From', width: '30%' },
+    { field: 'validFrom', header: 'Valid From', width: '10%' },
+    { field: 'validTo', header: 'Valid To', width: '10%' },
+    { field: 'comments', header: 'Comments', width: '10%' }
   ];
   public certificationModel: any = {
     certTech: {},
@@ -70,7 +69,6 @@ export class CertificationDetailsComponent implements OnChanges {
       technology: this.certificationModel.certTech.name,
       certification: this.certificationModel.certName.name,
       boardInstitute: this.certificationModel.certFrom.name,
-      levels: this.certificationModel.certLevel,
       validFrom: this.datePipe.transform(this.certificationModel.validFrom, 'dd-MM-yyyy'),
       validTo: this.datePipe.transform(this.certificationModel.validTo, 'dd-MM-yyyy'),
       comments: this.certificationModel.comments
@@ -104,7 +102,6 @@ export class CertificationDetailsComponent implements OnChanges {
     this.editedCertObject = certification;
     this.certificationModel = {
       certTech: this.utilsService.getMatchedDomain(certification.technology, this.certificationTechnologies),
-      certLevel: certification.levels,
       validFrom: certification.validFrom,
       validTo: certification.validTo,
       comments: certification.comments

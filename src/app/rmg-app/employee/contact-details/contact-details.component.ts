@@ -4,6 +4,7 @@ import { DataService } from '../../../services/DataService';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { Ng2Storage } from '../../../services/storage';
 import { UtilsService } from "../../../services/utils.service";
+import { DatePipe } from "@angular/common";
 
 @Component({
   selector: 'app-contact-details',
@@ -39,18 +40,19 @@ export class ContactDetailsComponent implements OnInit {
     }
   }
 
-  constructor(private fb: FormBuilder, private dataService: DataService,
+  constructor(private fb: FormBuilder, private dataService: DataService, private dPipe: DatePipe,
    private messageService: MessageService, private storage: Ng2Storage, private utilsService: UtilsService) { }
 
   ngOnInit() {
     const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; 
     this.contactForm = this.fb.group({
       pEmailId: [this.personalDetails.personalEmailId, [Validators.required, this.utilsService.validateWithRegex('emailValidation', mailformat)]],
-      mobile: [this.personalDetails.mobile, [Validators.required]]
+      mobile: [this.personalDetails.mobile, [Validators.required]],
+      alternateMobile: [this.personalDetails.alternatePhoneNo]
     });
     this.contactForm.valueChanges.subscribe(data => this.onValuesChanged());
     this.onValuesChanged();
-    this.contactForm.patchValue({pEmailId: this.personalDetails.personalEmailId, mobile: this.personalDetails.mobile});
+    this.contactForm.patchValue({pEmailId: this.personalDetails.personalEmailId, mobile: this.personalDetails.mobile, alternateMobile: this.personalDetails.alternate_phone_no});
   }
   public onValuesChanged(data?: any) {
     if (!this.contactForm) { return; }
@@ -76,8 +78,10 @@ export class ContactDetailsComponent implements OnInit {
           empId: this.userData.employeeId,
           personalMailId: this.contactForm.get('pEmailId').value,
           phoneNo: this.contactForm.get('mobile').value,
+          alternate_phone_no: this.contactForm.get('alternateMobile').value,
           totalExperience: this.personalDetails.totalExperience,
           employeeName: this.personalDetails.employeeName,
+          lastUpdate: this.dPipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss'),
           progressbar: (!this.personalDetails.personalEmailId && !this.personalDetails.mobile) ? 10 : 0
         };
         this.dataService.saveContactAndExpDetails(paramObj).subscribe((data) => {
@@ -92,7 +96,8 @@ export class ContactDetailsComponent implements OnInit {
         });
       }
     } else {
-      this.contactForm.patchValue({pEmailId: this.personalDetails.personalEmailId, mobile: this.personalDetails.mobile});
+      this.contactForm.patchValue({pEmailId: this.personalDetails.personalEmailId, mobile: this.personalDetails.mobile
+      , alternateMobile: this.personalDetails.alternatePhoneNo});
       this.editMode = false;
     }
   }

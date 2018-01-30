@@ -4,6 +4,7 @@ import { MessageService } from 'primeng/components/common/messageservice';
 import { Ng2Storage } from '../../../services/storage';
 import * as moment from 'moment';
 import { UtilsService } from '../../../services/utils.service';
+import { DatePipe } from "@angular/common";
 
 @Component({
   selector: 'app-experience-details',
@@ -26,20 +27,18 @@ export class ExperienceDetailsComponent implements OnInit {
   @ViewChild('getResumeFile') input: ElementRef;
   @ViewChild('getResumeFile') resumeInput: ElementRef;
   constructor(private dataService: DataService, private messageService: MessageService
-    , private storage: Ng2Storage, private utilsService: UtilsService) { }
+    , private storage: Ng2Storage, private utilsService: UtilsService, private dPipe: DatePipe) { }
 
   ngOnInit() {
     this.resumeName = this.personalDetails.employeeResume ? this.personalDetails.employeeResume : 'Not Yet Uploaded';
     const isResumeUploaded = this.personalDetails.employeeResume ? true : false;
     this.utilsService.isResumeUploded.next(isResumeUploaded);
     if (this.personalDetails.doj) {
-      const splitDOJArray = (this.personalDetails.doj).split('-');
-      const splitTodayDateArray = moment(new Date()).format("DD/MM/YYYY").split('/');
-      const dojSplit = moment([splitDOJArray[2], splitDOJArray[1], splitDOJArray[0]]);
-      const todayDtSplit = moment([splitTodayDateArray[2], splitTodayDateArray[1], splitTodayDateArray[0]]);
+      const todayDtSplit = moment(new Date());
+      const dojSplit = moment(this.personalDetails.doj, "DD/MM/YYYY");
       const years = todayDtSplit.diff(dojSplit, 'year');
       dojSplit.add(years, 'years');
-      const months = todayDtSplit.diff(dojSplit, 'months');
+      let months = todayDtSplit.diff(dojSplit, 'months');
       dojSplit.add(months, 'months');
       const days = todayDtSplit.diff(dojSplit, 'days');
       this.model['cignitiExperience'] = years + ' years ' + months + ' months ' + days + ' days';
@@ -88,6 +87,7 @@ export class ExperienceDetailsComponent implements OnInit {
     const input = new FormData();
     input.append('file', fileToUpload);
     input.append('empId', this.userData.employeeId);
+    input.append('lastUpdate', this.dPipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss'));
     input.append('progressbar', !this.personalDetails.employeeResume ? '40' : '0');
     this.dataService.uploadProfileResume(input).subscribe((data) => {
       this.utilsService.isResumeUploded.next(true);

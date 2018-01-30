@@ -1,0 +1,116 @@
+<div class="passport-details">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <ng-container>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <span *ngIf="!editMode" class="pro-title">PASSPORT NUMBER</span>
+                                    <p *ngIf="!editMode" class="form-control-static">{{personalDetails.passport_no}}</p>
+                                    <input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="passportModel.passportNumber" placeholder="Passport Number"
+                                        style="width: 67%;" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <span *ngIf="!editMode" class="pro-title">DATE OF ISSUE</span>
+                                    <p *ngIf="!editMode" class="form-control-static">{{dateOfIssue | date: 'longDate'}}</p>
+                                    <div *ngIf="editMode">
+                                        <p-calendar name="validFrom" (onSelect)="onPassportValidFrom()" [(ngModel)]="passportModel.validFrom" dateFormat="dd-mm-yy"
+                                            [disabled]="!editMode" [showIcon]="true" placeholder="Date of Issue"></p-calendar>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <span *ngIf="!editMode" class="pro-title">DATE OF EXPIRY</span>
+
+                                    <p *ngIf="!editMode" class="form-control-static">{{dateOfExpiry | date: 'longDate'}}</p>
+
+                                    <div *ngIf="editMode">
+                                        <p-calendar *ngIf="active" name="validTo" dateFormat="dd-mm-yy" [disabled]="!passportModel.validFrom || !editMode" [minDate]="minPassportDate"
+                                            [(ngModel)]="passportModel.validTo" [showIcon]="true" placeholder="Date of Expiry"></p-calendar>
+                                    </div>
+                                </div>
+                            </div>
+                            <p-overlayPanel #op1 appendTo="body">
+                                <img [src]="scanCopyUrl">
+                            </p-overlayPanel>
+                            <div class="col-md-3">
+                                <div class="form-group m-b-0">
+                                    <span *ngIf="!editMode" class="pro-title">SCAN COPY</span>
+                                    <span *ngIf="!editMode && userData.employeeRoleName === 'Employee'" pTooltip="edit" tooltipPosition="top" class="pp-edit"
+                                        (click)="onPassportEdit()">
+                                        <i class="fa fa-pencil"></i>
+                                    </span>
+                                    <span *ngIf="!editMode && scanCopyUrl" pTooltip="view" tooltipPosition="top" class="curosr-p" (click)="op1.toggle($event)">
+                                        <i class="fa fa-eye"></i>
+                                    </span>
+                                    <div>
+                                        <ng-container *ngIf="scanCopyUrl">
+                                            <img [src]="scanCopyUrl" [width]="60" [height]="60">
+
+                                            <div *ngIf="editMode" (click)="scanCopyUrl = ''" class="removeImg">
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                            </div>
+                                        </ng-container>
+                                        <span *ngIf="!scanCopyUrl" class="label label-success">No Scan Copy Attached </span>
+                                        <button style="margin-left: 20px;" *ngIf="editMode && userData.employeeRoleName === 'Employee'" (click)="getFile.click()"
+                                            class="theme-btn theme-btn-primary">Browse</button>
+                                    </div>
+                                    <input type='file' style="display: none;;" #getFile accept="image/*" (click)="getFile.value = null" (change)="readScanCopy($event)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row text-center" *ngIf="editMode">
+                            <button type="button" class="btn btn-success" (click)="onAddPassport('add')" [disabled]="disableBtn()">Save</button>
+                            <button type="button" class="btn btn-default" (click)="onPassportCancel()">Cancel</button>
+                        </div>
+
+                        <!--<div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <span *ngIf="!editMode" class="pro-title">ISSUE DATE</span>
+                                    <p *ngIf="!editMode" class="form-control-static">{{personalDetails.passport_Issue_Date}}</p>
+                                    <div *ngIf="editMode">
+                                        <p-calendar name="issueDate" dateFormat="dd-mm-yy" [disabled]="!editMode" [(ngModel)]="passportModel.issueDate" [showIcon]="true"
+                                            placeholder="Issue Date"></p-calendar>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <span *ngIf="!editMode" class="pro-title">SCAN COPY</span>
+                                    <div>
+                                        <ng-container *ngIf="scanCopyUrl">
+                                        <img [src]="scanCopyUrl" [width]="scanCopyWidth" [height]="scanCopyHeight">
+                                        <div *ngIf="editMode" (click)="scanCopyUrl = ''" class="removeImg">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </div>
+                                        </ng-container>
+                                        <span *ngIf="!scanCopyUrl" class="label label-success">No Scan Copy Attached </span>
+                                        <button style="margin-left: 20px;" *ngIf="editMode && userData.employeeRoleName === 'Employee'" (click)="getFile.click()" class="theme-btn theme-btn-primary">Browse</button>
+                                    </div>
+                                    <input type='file' style="visibility:hidden;" #getFile accept="image/*" (click)="getFile.value = null" (change)="readScanCopy($event)">
+                                </div>
+                            </div>
+
+                            <div class="col-md-4" style="margin-top: 23px;" *ngIf="editMode">
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-success" (click)="onAddPassport('add')" [disabled]="disableBtn()">Save</button>
+                                    <button type="button" class="btn btn-default" (click)="onPassportCancel()">Cancel</button>
+                                </div>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

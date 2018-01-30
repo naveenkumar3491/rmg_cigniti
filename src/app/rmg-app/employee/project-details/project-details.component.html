@@ -47,9 +47,10 @@
         </div>
         </ng-container>
         <p-dataTable [value]="projectDetails" scrollable="true" scrollHeight="200px" emptyMessage="No Projects Found">
-            <p-column [sortable]="true" *ngFor="let col of projectHeader" [field]="col.field" [header]="col.header"></p-column>
+            <p-column [sortable]="true" *ngFor="let col of projectHeader" [field]="col.field" [header]="col.header"
+            [style]="{'width': col.width}"></p-column>
             <ng-container *ngIf="userData.employeeRoleName === 'RMG'">
-            <p-column styleClass="col-button">
+            <p-column styleClass="col-button" [style]="{'width':'8%'}">
                 <ng-template pTemplate="header">
                     Action
                 </ng-template>

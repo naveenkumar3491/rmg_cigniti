@@ -38,7 +38,12 @@ import { UtilsService } from '../../services/utils.service';
                     </div>
             </div>
         </div>
-    `
+    `,
+    styles: [`
+        .ultima-menu a:hover{
+            text-decoration: none !important;
+        }
+    `]
 })
 export class AppTopbarComponent {
     public userData = this.storage.getSession('user_data');

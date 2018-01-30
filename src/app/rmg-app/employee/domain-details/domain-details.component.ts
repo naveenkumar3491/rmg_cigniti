@@ -4,6 +4,7 @@ import { MessageService } from 'primeng/components/common/messageservice';
 import { Ng2Storage } from '../../../services/storage';
 import { ConfirmationService } from 'primeng/primeng';
 import { UtilsService } from "../../../services/utils.service";
+import { DatePipe } from "@angular/common";
 
 @Component({
   selector: 'app-domain-details',
@@ -13,7 +14,7 @@ import { UtilsService } from "../../../services/utils.service";
 export class DomainDetailsComponent implements OnChanges {
   @Input() domainDetails;
   @Input() masterDomains;
-  @Output() callBackProfessionalDetails = new EventEmitter();
+  @Output() callBackDomainDetails = new EventEmitter();
   @Output() callBackContactDetails = new EventEmitter();
   public subDomainDetails: any = [];
   public childDomainDetails: any = [];
@@ -32,14 +33,16 @@ export class DomainDetailsComponent implements OnChanges {
   public domainModel: any = {
     domain: {},
     subDomain: {},
-    childDomain: {},
+    childDomain: [],
     years: 0,
     months: 1
   };
   public userData = this.storage.getSession('user_data');
+
   constructor(private dataService: DataService, private messageService: MessageService,
     private storage: Ng2Storage, private confirmationService: ConfirmationService,
-    private utilsService: UtilsService) { }
+    private utilsService: UtilsService, private dPipe: DatePipe) {
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.masterDomains && changes.masterDomains.currentValue) {
@@ -49,7 +52,10 @@ export class DomainDetailsComponent implements OnChanges {
       this.domainList = changes.domainDetails.currentValue;
       this.domainClonedList = JSON.parse(JSON.stringify(this.domainList));;
       this.domainList.forEach(obj => {
-        obj.domainExperience = this.utilsService.convertToYearsMonths(obj.domainExperience);     
+        const splitChildDomain = obj.child_domain_name.split(',');
+        obj.sample = splitChildDomain.join('\n');
+        obj.modifiedChildDomain = splitChildDomain.length > 2 ? `${splitChildDomain[0]},${splitChildDomain[1]}...` : obj.child_domain_name;
+        obj.domainExperience = this.utilsService.convertToYearsMonths(obj.domainExperience);
       })
     }
   }
@@ -62,10 +68,10 @@ export class DomainDetailsComponent implements OnChanges {
 
   disableBtn() {
     let isValid = true;
-    if (this.subDomainDetails.length === 0 || this.childDomainDetails.length === 0) {
+    if (this.subDomainDetails.length === 0 || this.childDomainDetails.length === 0 || this.domainModel.childDomain.length === 0) {
       return isValid;
     }
-    [{ name: 'domain', model: 'domainId' }, { name: 'subDomain', model: 'subDomainId' }, { name: 'childDomain', model: 'childDomainId' }].forEach((obj) => {
+    [{ name: 'domain', model: 'domainId' }, { name: 'subDomain', model: 'subDomainId' }].forEach((obj) => {
       if (!this.domainModel[obj.name][obj.model]) {
         isValid = false;
       }
@@ -77,18 +83,19 @@ export class DomainDetailsComponent implements OnChanges {
     }
   }
 
+
   onDomainChange(type) {
     if (type === 'domain') {
       this.dataService.getSubDomainDetails(this.domainModel.domain.domainId).subscribe((data) => {
         this.subDomainDetails = data;
         this.childDomainDetails = [];
         this.domainModel.subDomain = {};
-        this.domainModel.childDomain = {};
+        this.domainModel.childDomain = [];
       });
     } else {
       this.dataService.getChildDomainDetails(this.domainModel.domain.domainId, this.domainModel.subDomain.subDomainId).subscribe((data) => {
         this.childDomainDetails = data;
-        this.domainModel.childDomain = {};
+        this.domainModel.childDomain = [];
       });
     }
 
@@ -96,38 +103,30 @@ export class DomainDetailsComponent implements OnChanges {
 
   callDomainService(type, progressValue) {
     const domainExp = `${this.domainModel.years}.${this.domainModel.months}`;
-    const domainFilteredObj = {
-      domain_name: this.domainModel.domain.domainName,
-      sub_domain_name: this.domainModel.subDomain.subDomaineName,
-      child_domain_name: this.domainModel.childDomain.childDomaineName,
-      domainExperience: +domainExp,
-      comments: this.domainModel.comments
-    };
-
     const domainObj = {
       employeeId: this.userData.employeeId,
       domainId: this.domainModel.domain.domainId,
       subDomainId: this.domainModel.subDomain.subDomainId,
-      childDomainId: this.domainModel.childDomain.childDomainId,
+      child_domain: this.domainModel.childDomain.map(({ childDomainId }) => childDomainId),
       domain_experience: +domainExp,
       comments: this.domainModel.comments
     };
     if (type !== 'add') {
       domainObj['rowid'] = this.editedDomainObject.rowid;
     }
-    this.dataService.addUpdateDomain(domainObj, progressValue).subscribe((data) => {
+    this.dataService.addUpdateDomain(domainObj, progressValue, this.dPipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss')).subscribe((data) => {
       if (type === 'add') {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domain added successfully!!' });
       } else {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domain updated successfully!!' });
       }
-      this.callBackProfessionalDetails.emit();
+      this.callBackDomainDetails.emit();
       this.callBackContactDetails.emit();
       this.showButton = true;
       this.domainModel = {
         domain: {},
         subDomain: {},
-        childDomain: {},
+        childDomain: [],
         years: 0,
         months: 1
       };
@@ -168,7 +167,12 @@ export class DomainDetailsComponent implements OnChanges {
       this.domainModel.subDomain = this.utilsService.getMatchedDomain(domain.sub_domain_name, this.subDomainDetails);
       this.dataService.getChildDomainDetails(this.domainModel.domain.domainId, this.domainModel.subDomain.subDomainId).subscribe((childDomaindata) => {
         this.childDomainDetails = childDomaindata;
-        this.domainModel.childDomain = this.utilsService.getMatchedDomain(domain.child_domain_name, this.childDomainDetails);
+        let childDomainArr = domain.child_domain_name.split(',');
+        this.domainModel.childDomain = this.childDomainDetails.filter(obj => {
+          return childDomainArr.indexOf(obj.label) > -1;
+        }).map(function (obj) {
+          return obj.value;
+        });
       });
     });
   }
@@ -191,13 +195,13 @@ export class DomainDetailsComponent implements OnChanges {
       rowid: domain.rowid,
       employeeId: this.userData.employeeId
     };
-    this.dataService.deleteDomain(domainObj, progressBarValue).subscribe((data) => {
-      this.callBackProfessionalDetails.emit();
+    this.dataService.deleteDomain(domainObj, progressBarValue, this.dPipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss')).subscribe((data) => {
+      this.callBackDomainDetails.emit();
       this.callBackContactDetails.emit();
       this.domainModel = {
         domain: {},
         subDomain: {},
-        childDomain: {},
+        childDomain: [],
         years: 0,
         months: 1
       };

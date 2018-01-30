@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {DataTableModule} from 'primeng/primeng';
@@ -14,6 +14,8 @@ import {CalendarModule} from 'primeng/primeng';
 import {ConfirmDialogModule, ConfirmationService} from 'primeng/primeng';
 import {SharedModule} from 'primeng/primeng';
 import {TooltipModule} from 'primeng/primeng';
+import {MultiSelectModule} from 'primeng/primeng';
+import {OverlayPanelModule} from 'primeng/primeng';
 import {BusyModule} from 'angular2-busy';
 
 import {OnlyNumber} from '../common/directives/only-number.directive';
@@ -39,6 +41,7 @@ import { VisaDetailsComponent } from './employee/visa-details/visa-details.compo
 import { DomainDetailsComponent } from './employee/domain-details/domain-details.component';
 import { DateFormatPipe } from "../common/pipes/dateFormat.pipe";
 import { EmployeeDetailsComponent } from "./rmg/employee-details/employee-details.component";
+import { PassportDetailsComponent } from "./employee/passport-details/passport-details.component";
 @NgModule({
   imports: [
     CommonModule,
@@ -57,6 +60,8 @@ import { EmployeeDetailsComponent } from "./rmg/employee-details/employee-detail
     CalendarModule,
     ConfirmDialogModule,
     TooltipModule,
+    MultiSelectModule,
+    OverlayPanelModule,
     BusyModule
   ],
   declarations: [
@@ -80,8 +85,9 @@ import { EmployeeDetailsComponent } from "./rmg/employee-details/employee-detail
     VisaDetailsComponent,
     DomainDetailsComponent,
     EmployeeDetailsComponent,
+    PassportDetailsComponent,
     OnlyNumber
     ],
-    providers: [ConfirmationService, DateFormatPipe]
+    providers: [ConfirmationService, DateFormatPipe, DatePipe]
 })
 export class RmgAppModule { }

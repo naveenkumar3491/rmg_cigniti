@@ -28,9 +28,10 @@
             </ng-container>
             <p-dataTable [value]="skillList" scrollable="true" [sortField]="sortF" (onSort)="changeSort($event)" scrollHeight="200px"
                 emptyMessage="No Skills Found">
-                <p-column [sortable]="true" *ngFor="let col of skillHeader" [field]="col.field" [header]="col.header"></p-column>
+                <p-column [sortable]="true" *ngFor="let col of skillHeader" [field]="col.field" [header]="col.header"
+                [style]="{'width': col.width}"></p-column>
                 <ng-container *ngIf="userData.employeeRoleName === 'Employee'">
-                    <p-column styleClass="col-button">
+                    <p-column styleClass="col-button" [style]="{'width':'8%'}">
                         <ng-template pTemplate="header">
                             Action
                         </ng-template>

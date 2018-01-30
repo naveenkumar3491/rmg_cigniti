@@ -21,21 +21,17 @@
                         </div>
                         <div class="row m-t-10">
                             <div class="col-md-3 m-t-23">
-                                <p-dropdown [options]="levelDetails" name="certificationLevel" [(ngModel)]="certificationModel.certLevel" placeholder="Certification Level"
-                                    optionLabel="label" [style]="{'width':'150px'}" [autoWidth]="false"></p-dropdown>
-                            </div>
-                            <div class="col-md-3 m-t-23">
                                 <p-calendar dateFormat="dd-mm-yy" name="validFrom" [(ngModel)]="certificationModel.validFrom" 
                                 [showIcon]="true" placeholder="Valid From" (onSelect)="onCertStartDtSelect()"></p-calendar>
                             </div>
-                            <div class="col-md-3 m-t-23">
+                            <div class="col-md-4 m-t-23">
                                 <p-calendar *ngIf="active" dateFormat="dd-mm-yy" [disabled]="!certificationModel.validFrom" name="validTo" 
                                 [(ngModel)]="certificationModel.validTo" [showIcon]="true" placeholder="Valid To"
                                 [minDate]="minCertificationDate"></p-calendar>
                             </div>
-                            <div class="col-md-3 m-t-18">
+                            <div class="col-md-4 m-t-18">
                                 <input class="form-control" type="text" [(ngModel)]="certificationModel.comments" placeholder="description" name="description"
-                                    style="width:90%;" />
+                                   style="width: 80%" />
                             </div>
                         </div>
                         <div class="row text-center m-t-10">
@@ -48,9 +44,10 @@
                 </div>
             </ng-container>
                 <p-dataTable [value]="certificationList" scrollable="true" scrollHeight="200px" emptyMessage="No Certifications Found">
-                    <p-column [sortable]="true" *ngFor="let col of certificationHeader" [field]="col.field" [header]="col.header"></p-column>
+                    <p-column [sortable]="true" *ngFor="let col of certificationHeader" [field]="col.field" [header]="col.header"
+                    [style]="{'width': col.width}"></p-column>
                     <ng-container *ngIf="userData.employeeRoleName === 'Employee'">
-                    <p-column styleClass="col-button">
+                    <p-column styleClass="col-button" [style]="{'width':'8%'}">
                         <ng-template pTemplate="header">
                             Action
                         </ng-template>

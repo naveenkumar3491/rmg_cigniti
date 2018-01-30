@@ -11,7 +11,7 @@ export class AppHttpInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        if (req.url.indexOf('uploadImage') !== -1 || req.url.indexOf('uploadResume') !== -1) {
+        if (req.url.indexOf('uploadImage') !== -1 || req.url.indexOf('uploadResume') !== -1 || req.url.indexOf('updatePassport') !== -1) {
             return next.handle(req)
                 .catch((error, caught) => {
                     return Observable.throw(error);

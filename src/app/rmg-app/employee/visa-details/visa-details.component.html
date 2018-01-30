@@ -1,4 +1,4 @@
-<div class="skill-details">
+<div class="visa-details">
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <ng-container *ngIf="userData.employeeRoleName === 'RMG'">
@@ -38,10 +38,11 @@
                 </div>
             </div>
             </ng-container>
+            <div class="contact-rmg" *ngIf="userData.employeeRoleName === 'Employee'">Please contact RMG to update visa details.</div>
             <p-dataTable [value]="visaDetails" scrollable="true" scrollHeight="200px" emptyMessage="No Visa Found">
                 <p-column [sortable]="true" *ngFor="let col of visaHeader; let i = index;" [field]="col.field" [header]="col.header"></p-column>
                 <ng-container *ngIf="userData.employeeRoleName === 'RMG'">
-                <p-column styleClass="col-button">
+                <p-column styleClass="col-button" [style]="{'width':'8%'}">
                     <ng-template pTemplate="header">
                         Action
                     </ng-template>

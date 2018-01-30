@@ -20,7 +20,7 @@
 									</div>
 								</div>
 								<div class="profileBtns">
-									<button (click)="uploadFile()" class="theme-btn theme-btn-primary"  *ngIf="!emptyImage && !showUploading">Upload</button>
+									<button (click)="uploadFile()" class="theme-btn theme-btn-primary" *ngIf="!emptyImage && !showUploading">Upload</button>
 									<div class="theme-btn theme-btn-primary" *ngIf="showUploading">Uploading...</div>
 									<button (click)="getFile.click()" class="theme-btn theme-btn-primary" *ngIf="emptyImage && !showUploading && userData.employeeRoleName === 'Employee'">Browse</button>
 								</div>
@@ -54,8 +54,8 @@
 											<i class="fa fa-pencil"></i>
 										</span>
 										<p *ngIf="!editMode" class="form-control-static"> {{personalDetails?.designation}}</p>
-										<p-dropdown #designationRef filter="true" *ngIf="editMode" [options]="designationMasterData" name="designation" [(ngModel)]="pdModel.designation" placeholder="Select Designation"
-                                optionLabel="label" [style]="{'width':'200px'}" (onFocus)="onDesignationFocus(designationRef)"></p-dropdown>
+										<p-dropdown #designationRef filter="true" *ngIf="editMode" [options]="designationMasterData" name="designation" [(ngModel)]="pdModel.designation"
+										 placeholder="Select Designation" optionLabel="label" [style]="{'width':'200px'}" (onFocus)="onDesignationFocus(designationRef)"></p-dropdown>
 									</div>
 								</div>
 							</div>
@@ -75,16 +75,16 @@
 									<div class="form-group">
 										<label>JOINING LOCATION</label>
 										<p *ngIf="!editMode" class="form-control-static"> {{personalDetails?.joinginLocation}}</p>
-										<p-dropdown *ngIf="editMode" [options]="locationMasterData" name="joiningLocation" [(ngModel)]="pdModel.joiningLocation" placeholder="Select Location"
-                                optionLabel="label" [style]="{'width':'200px'}"></p-dropdown>
+										<p-dropdown *ngIf="editMode" [options]="locationMasterData" name="joiningLocation" [(ngModel)]="pdModel.joiningLocation"
+										 placeholder="Select Location" optionLabel="label" [style]="{'width':'200px'}"></p-dropdown>
 									</div>
 								</div>
 								<div class="col-lg-4 col-md-4 no-padding">
 									<div class="form-group">
 										<label>CURRENT LOCATION</label>
 										<p *ngIf="!editMode" class="form-control-static"> {{personalDetails?.currentLocation}}</p>
-										<p-dropdown *ngIf="editMode" [options]="locationMasterData" name="currentLocation" [(ngModel)]="pdModel.currentLocation" placeholder="Select Location"
-                                optionLabel="label" [style]="{'width':'200px'}"></p-dropdown>
+										<p-dropdown *ngIf="editMode" [options]="locationMasterData" name="currentLocation" [(ngModel)]="pdModel.currentLocation"
+										 placeholder="Select Location" optionLabel="label" [style]="{'width':'200px'}"></p-dropdown>
 									</div>
 								</div>
 							</div>
@@ -151,8 +151,8 @@
 											</div>
 											<div [ngBusy]="domainBusy">
 												<p-accordionTab header="Domain Details">
-													<app-domain-details *ngIf="professionalMasterData" [domainDetails]="professionalMasterData.details.domain_List" [masterDomains]="masterDomainData"
-													 (callBackProfessionalDetails)="callBackProfessionalDetails()" (callBackContactDetails)="callBackContactDetails()"></app-domain-details>
+													<app-domain-details *ngIf="domainData" [domainDetails]="domainData" [masterDomains]="masterDomainData"
+													 (callBackDomainDetails)="callBackDomainDetails()" (callBackContactDetails)="callBackContactDetails()"></app-domain-details>
 												</p-accordionTab>
 											</div>
 											<div [ngBusy]="certificationBusy">
@@ -168,18 +168,27 @@
 							<div [ngBusy]="projectBusy">
 								<ng-template [ngSwitchCase]="'project-details'">
 									<div class="tab-renderer">
-										<app-project-details *ngIf="projectDetails" [projectDetails]="projectDetails" (callBackProjectDetails)="callBackProjectDetails()" [employeeId]="personalDetails.emp_id"></app-project-details>
+										<app-project-details *ngIf="projectDetails" [projectDetails]="projectDetails" (callBackProjectDetails)="callBackProjectDetails()"
+										 [employeeId]="personalDetails.emp_id"></app-project-details>
 									</div>
 								</ng-template>
 							</div>
 							<ng-template [ngSwitchCase]="'bu-details'">
-								<app-bu-details *ngIf="personalDetails" [personalDetails]="personalDetails" [buMasterData]="buMasterData" [duMasterData]="duMasterData" (callBackContactDetails)="callBackContactDetails()"></app-bu-details>
+								<app-bu-details *ngIf="personalDetails" [personalDetails]="personalDetails" [buMasterData]="buMasterData" [duMasterData]="duMasterData"
+								 (callBackContactDetails)="callBackContactDetails()"></app-bu-details>
 							</ng-template>
 							<div [ngBusy]="visaBusy">
-								<ng-template [ngSwitchCase]="'visa-details'">
-									<div class="tab-renderer">
-										<app-visa-details *ngIf="visaDetails" [visaDetails]="visaDetails" [employeeId]="personalDetails.emp_id" (callbackVisaDetails)="callbackVisaDetails()"></app-visa-details>
-									</div>
+								<ng-template [ngSwitchCase]="'immigration-details'">
+									<p-accordion expandIcon="fa ui-icon-local-phone">
+										<div class="tab-renderer">
+											<p-accordionTab header="Passport Details" >
+												<app-passport-details *ngIf="personalDetails" [personalDetails]="personalDetails" (callBackContactDetails)="callBackContactDetails()"></app-passport-details>
+											</p-accordionTab>
+											<p-accordionTab header="Visa Details">
+												<app-visa-details *ngIf="visaDetails" [visaDetails]="visaDetails" [employeeId]="personalDetails.emp_id" (callbackVisaDetails)="callbackVisaDetails()"></app-visa-details>
+											</p-accordionTab>
+										</div>
+									</p-accordion>
 								</ng-template>
 							</div>
 						</div>

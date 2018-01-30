@@ -53,7 +53,10 @@ export class ProjectDetailsComponent implements OnInit {
 
   onEdit(project) {
     this.showButton = false;
-    this.projectModel = Object.assign({}, project);
+    //this.projectModel = Object.assign({}, project);
+    this.projectModel = {
+      ...project
+    }
     if (this.projectModel.allocation_start_date) {
       const splitDate = (this.projectModel.allocation_start_date).split('-');
       const disabledDate = `${splitDate[1]}-${splitDate[0]}-${splitDate[2]}`;
@@ -71,7 +74,10 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   onSaveProject(type) {
-    const paramObj = Object.assign({}, this.projectModel);
+    //const paramObj = Object.assign({}, this.projectModel);
+    const paramObj = {
+      ...this.projectModel
+    };
     paramObj.emp_id = this.employeeId;
     paramObj.allocation_start_date = this.datePipe.transform(this.projectModel.allocation_start_date, 'dd-MM-yyyy');
     paramObj.allocation_end_date = this.datePipe.transform(this.projectModel.allocation_end_date, 'dd-MM-yyyy');

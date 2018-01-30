@@ -2,35 +2,39 @@
     <div class="panel">
         <div class="panel-body">
             <form [formGroup]="contactForm" #cForm="ngForm" (ngSubmit)="onContactDetChange('save')" novalidate>
-                <div class="col-xs-12" [ngClass]="{'col-sm-3': !editMode, 'col-sm-4': editMode}">
-                    <div class="form-group">
-                        <span class="pro-title">OFFICIAL EMAIL ID</span>
-                        <span class="fa fa-envelope"></span>
-                        <p style="margin-top: 10px;">{{personalDetails.officialEmailId}}</p>
-                    </div>
+                <div class="col-xs-12 col-sm-3">
+                    <span class="pro-title">OFFICIAL EMAIL ID</span>
+                    <span class="fa fa-envelope"></span>
+                    <p style="margin-top: 10px;">{{personalDetails.officialEmailId}}</p>
                 </div>
-                <div class="col-sm-4 col-xs-12" [ngClass]="{'has-error':formErrors.pEmailId && cForm.submitted}">
-                    <div class="form-group">
-                        <span class="pro-title">PERSONAL EMAIL ID</span>
-                        <span class="fa fa-envelope"></span>
-                        <input type="email" *ngIf="!editMode" class="form-control" formControlName="pEmailId"/>
-                        <p *ngIf="editMode" style="margin-top: 10px;">{{personalDetails.personalEmailId}}</p>
-                        <span class="help-block" *ngIf="formErrors.pEmailId && cForm.submitted && !editMode">
+                <div class="col-sm-3 col-xs-12" [ngClass]="{'has-error':formErrors.pEmailId && cForm.submitted}">
+                    <span class="pro-title">PERSONAL EMAIL ID</span>
+                    <span class="fa fa-envelope"></span>
+                    <input type="email" *ngIf="!editMode" class="form-control" formControlName="pEmailId" />
+                    <p *ngIf="editMode" style="margin-top: 10px;">{{personalDetails.personalEmailId}}</p>
+                    <span class="help-block" *ngIf="formErrors.pEmailId && cForm.submitted && !editMode">
                             {{ formErrors.pEmailId }}
                         </span>
-                    </div>
                 </div>
-                <div class="col-sm-3 col-xs-12" [ngClass]="{'has-error':formErrors.mobile && cForm.submitted}">
-                    <div class="form-group">
-                        <span class="pro-title">MOBILE</span>
-                        <span class="fa fa-mobile-phone"></span>
-                        <input type="text" *ngIf="!editMode" class="form-control" formControlName="mobile" [onlyNumber]="isNumber" maxlength="10"
-                        />
-                        <p *ngIf="editMode" style="margin-top: 10px;">{{personalDetails.mobile}}</p>
-                        <span class="help-block" *ngIf="formErrors.mobile && cForm.submitted && !editMode">
+                <div class="col-xs-12" [ngClass]="{'has-error':formErrors.mobile && cForm.submitted, 'col-sm-2': !editMode, 'col-sm-3': editMode}">
+                    <span class="pro-title">PRIMARY NO</span>
+                    <span class="fa fa-phone-square"></span>
+                    <input type="text" *ngIf="!editMode" class="form-control" formControlName="mobile" [onlyNumber]="isNumber" maxlength="10"
+                    />
+                    <p *ngIf="editMode" style="margin-top: 10px;">{{personalDetails.mobile}}</p>
+                    <span class="help-block" *ngIf="formErrors.mobile && cForm.submitted && !editMode">
                             {{ formErrors.mobile }}
                         </span>
-                    </div>
+                </div>
+                <div class="col-sm-2 col-xs-12" [ngClass]="{'has-error':formErrors.alternateMobile && cForm.submitted}">
+                    <span class="pro-title">ALTERNATE NO</span>
+                    <span class="fa fa-phone-square"></span>
+                    <input type="text" *ngIf="!editMode" class="form-control" formControlName="alternateMobile" [onlyNumber]="isNumber" maxlength="10"
+                    />
+                    <p *ngIf="editMode" style="margin-top: 10px;">{{personalDetails.alternatePhoneNo}}</p>
+                    <span class="help-block" *ngIf="formErrors.alternateMobile && cForm.submitted && !editMode">
+                            {{ formErrors.alternateMobile }}
+                        </span>
                 </div>
                 <div class="col-xs-12" [ngClass]="{'col-sm-2': !editMode, 'col-sm-1': editMode}" *ngIf="userData.employeeRoleName === 'Employee'">
                     <span *ngIf="editMode" pTooltip="edit" tooltipPosition="top" class="cd-edit" (click)="onContactDetChange('edit')">

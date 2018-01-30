@@ -6,6 +6,7 @@ import { MessageService } from 'primeng/components/common/messageservice';
 import { UtilsService } from '../../../services/utils.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { DateFormatPipe } from '../../../common/pipes/dateFormat.pipe';
+import { DatePipe } from "@angular/common";
 
 @Component({
   selector: 'val-personal-details',
@@ -37,6 +38,7 @@ export class PersonalDetailsComponent implements OnInit {
   public locationMasterData: any;
   public buMasterData: any;
   public duMasterData: any;
+  public domainData: any;
 
   public personalBusy: Subscription;
   public professionalBusy: Subscription;
@@ -75,19 +77,19 @@ export class PersonalDetailsComponent implements OnInit {
       icon: 'fa fa-user-circle'
     },
     {
-      name: 'BU Details',
+      name: 'Region Details',
       field: 'bu-details',
       icon: 'fa fa-address-card'
     },
     {
-      name: 'VISA Details',
-      field: 'visa-details',
+      name: 'Immigration Details',
+      field: 'immigration-details',
       icon: 'fa fa-plane'
     }
   ];
   constructor(public cdRef: ChangeDetectorRef, private messageService: MessageService,
     private dataService: DataService, private storage: Ng2Storage, private utilsService: UtilsService,
-    private activatedRoute: ActivatedRoute, private datePipe: DateFormatPipe) {
+    private activatedRoute: ActivatedRoute, private datePipe: DateFormatPipe, private dPipe: DatePipe) {
       this.activatedRoute.queryParams.subscribe(params => {
         if(params && params.empId){
           this.employeeId = params.empId;
@@ -112,7 +114,7 @@ export class PersonalDetailsComponent implements OnInit {
   ngOnInit() {
     this.emptyImage = true;
     this.getEmployeeDetails();
-
+    
   }
 
   onPdEdit() {
@@ -190,9 +192,16 @@ export class PersonalDetailsComponent implements OnInit {
     });
   }
 
+  callBackDomainDetails(){
+    this.dataService.getDomainDetails(this.employeeId).subscribe(data => {
+      this.domainData = data;
+    })
+  }
+
   onTabChange(e) {
     if (e.index === 2) {
       this.callBackProfessionalDetails();
+      this.callBackDomainDetails();
     } else if (e.index === 3) {
       this.callBackProjectDetails();
     } else if (e.index === 5) {
@@ -241,6 +250,7 @@ export class PersonalDetailsComponent implements OnInit {
     let input = new FormData();
     input.append('file', fileToUpload);
     input.append('empId', this.employeeId);
+    input.append('lastUpdate', this.dPipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss'));
     input.append('progressbar', !this.personalDetails.employeeImage ? '5' : '0');
     this.dataService.uploadProfileImage(input).subscribe((data) => {
       this.showUploading = false;

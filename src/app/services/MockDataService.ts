@@ -108,6 +108,15 @@ export class MockDataService extends DataService {
         });
     }
 
+    public getDomainDetails(empId: string): Observable<any> {
+        return Observable.create(observer => {
+            setTimeout(() => {
+                observer.next({});
+                observer.complete();
+            }, 1000)
+        });
+    }
+
     public getMasterDomainDetails(): Observable<any> {
         return Observable.create(observer => {
             setTimeout(() => {
@@ -234,7 +243,7 @@ export class MockDataService extends DataService {
         });
     }
 
-    public addUpdateSkill(obj, progressbarValue): Observable<any> {
+    public addUpdateSkill(obj, progressbarValue, lastUpdated): Observable<any> {
         return Observable.create(observer => {
             setTimeout(() => {
                 observer.next({});
@@ -243,7 +252,7 @@ export class MockDataService extends DataService {
         });
     }
 
-    public addUpdateDomain(obj, progressbarValue): Observable<any> {
+    public addUpdateDomain(obj, progressbarValue, lastUpdated): Observable<any> {
         return Observable.create(observer => {
             setTimeout(() => {
                 observer.next({});
@@ -279,7 +288,7 @@ export class MockDataService extends DataService {
         });
     }
 
-    public deleteDomain(obj, progressbarValue): Observable<any> {
+    public deleteDomain(obj, progressbarValue, lastUpdated): Observable<any> {
         return Observable.create(observer => {
             setTimeout(() => {
                 observer.next({});
@@ -288,7 +297,7 @@ export class MockDataService extends DataService {
         });
     }
 
-    public deleteSkill(obj, progressbarValue): Observable<any> {
+    public deleteSkill(obj, progressbarValue, lastUpdated): Observable<any> {
         return Observable.create(observer => {
             setTimeout(() => {
                 observer.next({});
@@ -333,6 +342,15 @@ export class MockDataService extends DataService {
         });
     }
 
+     public deletePassport(obj): Observable<any> {
+        return Observable.create(observer => {
+            setTimeout(() => {
+                observer.next({});
+                observer.complete();
+            }, 1000)
+        });
+    }
+
     public addUpdateEmployee(obj): Observable<any> {
         return Observable.create(observer => {
             setTimeout(() => {
@@ -343,6 +361,15 @@ export class MockDataService extends DataService {
     }
 
     public addUpdateVisa(obj): Observable<any> {
+        return Observable.create(observer => {
+            setTimeout(() => {
+                observer.next({});
+                observer.complete();
+            }, 1000)
+        });
+    }
+
+    public addUpdatePassport(obj): Observable<any> {
         return Observable.create(observer => {
             setTimeout(() => {
                 observer.next({});

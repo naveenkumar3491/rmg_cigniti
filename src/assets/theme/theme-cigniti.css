@@ -3170,14 +3170,14 @@ body .ui-widget-content {
   body .ui-widget-content .fa {
     color: #337ab7; }
 body .ui-widget-header {
-  background-color: #757575;
+  background-color: #225582;
   color: #ffffff;
   font-size: 1em;
-  border: 1px solid #757575; }
+  border: 1px solid #225582; }
   body .ui-widget-header .fa {
     color: #ffffff; }
 body .ui-state-active, body .ui-state-highlight {
-  background-color: #FF5722;
+  background-color: #337ab7;
   color: #ffffff; }
   body .ui-state-active .fa, body .ui-state-highlight .fa {
     color: #ffffff; }
@@ -3712,7 +3712,7 @@ body {
         background-color: #e8e8e8;
         color: #000000; }
       body .ui-dropdown-panel .ui-dropdown-item.ui-state-highlight {
-        background-color: #FF5722;
+        background-color: #337ab7;
         color: #ffffff; }
     body .ui-dropdown-panel.ui-shadow {
       -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -3814,7 +3814,7 @@ body {
         body .ui-multiselect-panel.ui-widget .ui-multiselect-header .ui-multiselect-close span {
           color: #ffffff; }
         body .ui-multiselect-panel.ui-widget .ui-multiselect-header .ui-multiselect-close:hover {
-          background-color: #EEEEEE;
+          background-color: #225582;
           -moz-border-radius: 50%;
           -webkit-border-radius: 50%;
           border-radius: 50%;
@@ -4938,9 +4938,9 @@ body .ui-datatable .ui-datatable-thead > tr {
       vertical-align: middle;
       color: #757575; }
     body .ui-datatable .ui-datatable-thead > tr th.ui-state-active, body .ui-datatable .ui-datatable-thead > tr th.ui-state-highlight {
-      background-color: #FF5722;
+      background-color: #337ab7;
       color: #ffffff;
-      border-top-color: #FF5722; }
+      border-top-color: #337ab7; }
       body .ui-datatable .ui-datatable-thead > tr th.ui-state-active .fa, body .ui-datatable .ui-datatable-thead > tr th.ui-state-highlight .fa {
         color: #ffffff; }
       body .ui-datatable .ui-datatable-thead > tr th.ui-state-active .ui-inputtext, body .ui-datatable .ui-datatable-thead > tr th.ui-state-highlight .ui-inputtext {

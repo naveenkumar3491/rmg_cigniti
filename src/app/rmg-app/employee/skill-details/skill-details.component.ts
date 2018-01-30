@@ -3,6 +3,7 @@ import { DataService } from '../../../services/DataService';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { ConfirmationService } from 'primeng/primeng';
 import { Ng2Storage } from "../../../services/storage";
+import { DatePipe } from "@angular/common";
 
 @Component({
   selector: 'app-skill-details',
@@ -15,10 +16,10 @@ export class SkillDetailsComponent implements OnChanges {
   @Output() callBackProfessionalDetails = new EventEmitter();
   @Output() callBackContactDetails = new EventEmitter();
   public sortF: string;
-  public skillHeader: any = [
-    { field: 'skillCategory', header: 'Skill Category' },
-    { field: 'skill', header: 'Skill' },
-    { field: 'skillRating', header: 'Skill Rating' }
+   public skillHeader: any = [
+    { field: 'skillCategory', header: 'Skill Category', width: '40%' },
+    { field: 'skill', header: 'Skill', width: '40%' },
+    { field: 'skillRating', header: 'Skill Rating', width: '12%' }
   ];
   public skillCategoriesList: any;
   public skillSet: any = [];
@@ -31,7 +32,7 @@ export class SkillDetailsComponent implements OnChanges {
   public showButton: boolean = true;
   public userData = this.storage.getSession('user_data');
   constructor(private dataService: DataService,
-    private messageService: MessageService,
+    private messageService: MessageService, private dPipe: DatePipe,
     private confirmationService: ConfirmationService, private storage: Ng2Storage) { }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -56,7 +57,10 @@ export class SkillDetailsComponent implements OnChanges {
 
   saveSkill(type: string) {
     let progressValue = 0;
-    let paramObj = Object.assign({}, this.skillModel);
+    //let paramObj = Object.assign({}, this.skillModel);
+    let paramObj = {
+      ...this.skillModel
+    };
     paramObj.employeeId = this.userData.employeeId;
     paramObj.employeeName = this.userData.employeeName;
 
@@ -66,7 +70,7 @@ export class SkillDetailsComponent implements OnChanges {
     if (type !== 'add') {
       paramObj['rowid'] = this.editedSkillObject.skill_master_id;
     }
-    this.dataService.addUpdateSkill(paramObj, progressValue).subscribe((data) => {
+    this.dataService.addUpdateSkill(paramObj, progressValue, this.dPipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss')).subscribe((data) => {
       if (type === 'add') {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Skill added successfully!!' });
       } else {
@@ -123,7 +127,7 @@ export class SkillDetailsComponent implements OnChanges {
       employeeId: this.userData.employeeId,
       employeeName: this.userData.employeeName
     };
-    this.dataService.deleteSkill(skillObj, progressBarValue).subscribe((data) => {
+    this.dataService.deleteSkill(skillObj, progressBarValue, this.dPipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss')).subscribe((data) => {
       this.callBackProfessionalDetails.emit();
       this.callBackContactDetails.emit();
       this.skillModel = {

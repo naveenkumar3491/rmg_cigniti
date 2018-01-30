@@ -1,0 +1,16 @@
+.passport-details{
+    .removeImg {
+        position: absolute;
+        top: -6px;
+        left: 66px;
+        z-index: 1;
+        cursor: pointer;
+        width: 16px;
+        height: 16px;
+    }
+    .pp-edit {
+        position: absolute;
+        right: 20px;
+        cursor: pointer;
+    }
+}
