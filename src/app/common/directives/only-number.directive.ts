@@ -3,7 +3,6 @@ import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 @Directive({ selector: '[onlyNumber]' })
 export class OnlyNumber {
 
-  regexStr = '^[0-9]*$';
   constructor(private el: ElementRef) { }
 
   @Input('onlyNumber') OnlyNumber: boolean;

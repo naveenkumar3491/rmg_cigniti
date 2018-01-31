@@ -19,6 +19,7 @@ import {OverlayPanelModule} from 'primeng/primeng';
 import {BusyModule} from 'angular2-busy';
 
 import {OnlyNumber} from '../common/directives/only-number.directive';
+import { OnlyAlphabets } from "../common/directives/only-alphabets.directive";
 
 import { RmgAppComponent } from './rmg-app.component';
 import { AppMenuComponent, AppSubMenuComponent } from '../common/side-nav/app.menu.component';
@@ -42,6 +43,7 @@ import { DomainDetailsComponent } from './employee/domain-details/domain-details
 import { DateFormatPipe } from "../common/pipes/dateFormat.pipe";
 import { EmployeeDetailsComponent } from "./rmg/employee-details/employee-details.component";
 import { PassportDetailsComponent } from "./employee/passport-details/passport-details.component";
+
 @NgModule({
   imports: [
     CommonModule,
@@ -86,7 +88,8 @@ import { PassportDetailsComponent } from "./employee/passport-details/passport-d
     DomainDetailsComponent,
     EmployeeDetailsComponent,
     PassportDetailsComponent,
-    OnlyNumber
+    OnlyNumber,
+    OnlyAlphabets
     ],
     providers: [ConfirmationService, DateFormatPipe, DatePipe]
 })

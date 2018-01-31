@@ -163,10 +163,11 @@ label {
 }
 
 p-rating .ui-rating {
-    .fa-star{
+    .fa-star {
         color: $rmg-orange;
     }
-    a:hover, a:focus{
+    a:hover,
+    a:focus {
         text-decoration: none;
     }
 }
@@ -270,12 +271,11 @@ p-fieldset {
             border: 1px solid #bdbdbd;
         }
     }
-    .ui-widget-content{
-        .tab-renderer{
+    .ui-widget-content {
+        .tab-renderer {
             min-height: 100px;
         }
     }
-    
 }
 
 .domain-details {
@@ -283,7 +283,6 @@ p-fieldset {
         display: inline-block;
     }
 }
-
 
 .ui-datatable.ui-datatable-scrollable thead tr th {
     font-size: 12px !important;
@@ -343,42 +342,54 @@ body .ui-widget-header {
     box-sizing: border-box;
 }
 
-.w-200{
+.w-200 {
     width: 200px;
 }
 
-.m-t-23{
+.m-t-23 {
     margin-top: 23px;
 }
 
-.m-t-10{
+.m-t-10 {
     margin-top: 10px;
 }
 
-.m-t-13{
+.m-t-13 {
     margin-top: 13px;
 }
 
-.m-t-18{
+.m-t-18 {
     margin-top: 18px;
 }
 
-.m-b-0{
+.m-b-0 {
     margin-bottom: 0px;
 }
 
-.last-login{
+.last-login {
     text-align: right;
     font-size: 11px;
     color: #fff;
 }
 
-.fa.fa-pencil:hover{
+.fa.fa-pencil:hover {
     font-size: 20px;
     color: #225582;
 }
 
-.fa.fa-edit:hover,.fa.fa-trash:hover, .fa.fa-eye:hover{
+.fa.fa-edit:hover,
+.fa.fa-trash:hover,
+.fa.fa-eye:hover {
     font-size: 16px;
     color: #225582;
+}
+
+.ui-datatable-data .ui-cell-data {
+    word-break: break-all;
+}
+
+.has-error {
+    .ui-inputtext {
+        border-color: red;
+    }
 }

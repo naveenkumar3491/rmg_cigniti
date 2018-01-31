@@ -30,98 +30,119 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-9 col-md-9 pd-info">
-						<div class="row">
-							<div class="">
-								<div class="col-lg-4 col-md-4 pad-l-0">
-									<div class="form-group">
-										<label>EMPLOYEE ID</label>
-										<p *ngIf="!editMode" class="form-control-static">{{personalDetails?.emp_id}}</p>
-										<input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="pdModel.empId" />
+					<form *ngIf="pdForm" [formGroup]="pdForm" #pForm="ngForm" (ngSubmit)="onPDSave()" novalidate>
+
+						<div class="col-lg-9 col-md-9 pd-info">
+							<div class="row">
+								<div class="">
+									<div class="col-lg-4 col-md-4 pad-l-0">
+										<div class="form-group">
+											<label>EMPLOYEE ID</label>
+											<p class="form-control-static">{{personalDetails?.emp_id}}</p>
+											<input type="hidden" class="form-control" formControlName="empId" />
+											<span class="help-block" *ngIf="formErrors.empId && pForm.submitted && editMode">
+                            {{ formErrors.empId }}
+                        </span>
+										</div>
 									</div>
-								</div>
-								<div class="col-lg-4 col-md-4 no-padding">
-									<div class="form-group">
-										<label>EMPLOYEE NAME</label>
-										<p *ngIf="!editMode" class="form-control-static">{{personalDetails?.employeeName}}</p>
-										<input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="pdModel.employeeName" />
+									<div class="col-lg-4 col-md-4 no-padding" [ngClass]="{'has-error':formErrors.employeeName && pForm.submitted}">
+										<div class="form-group">
+											<label>EMPLOYEE NAME</label>
+											<p *ngIf="!editMode" class="form-control-static">{{personalDetails?.employeeName}}</p>
+											<input *ngIf="editMode" onlyAlphabets type="text" formControlName="employeeName" class="form-control" />
+											<span class="help-block" *ngIf="formErrors.employeeName && pForm.submitted && editMode">
+                            {{ formErrors.employeeName }}
+                        </span>
+										</div>
 									</div>
-								</div>
-								<div class="col-lg-4 col-md-4 pad-l-0">
-									<div class="form-group">
-										<label>DESIGNATION</label>
-										<span *ngIf="!editMode && userData.employeeRoleName === 'RMG'" pTooltip="edit" tooltipPosition="top" class="pd-edit" (click)="onPdEdit()">
+									<div class="col-lg-4 col-md-4 pad-l-0">
+										<div class="form-group">
+											<label>DESIGNATION</label>
+											<span *ngIf="!editMode && userData.employeeRoleName === 'RMG'" pTooltip="edit" tooltipPosition="top" class="pd-edit" (click)="onPdEdit()">
 											<i class="fa fa-pencil"></i>
 										</span>
-										<p *ngIf="!editMode" class="form-control-static"> {{personalDetails?.designation}}</p>
-										<p-dropdown #designationRef filter="true" *ngIf="editMode" [options]="designationMasterData" name="designation" [(ngModel)]="pdModel.designation"
-										 placeholder="Select Designation" optionLabel="label" [style]="{'width':'200px'}" (onFocus)="onDesignationFocus(designationRef)"></p-dropdown>
+											<p *ngIf="!editMode" class="form-control-static"> {{personalDetails?.designation}}</p>
+											<p-dropdown #designationRef filter="true" *ngIf="editMode" [options]="designationMasterData" name="designation" placeholder="Select Designation"
+											 optionLabel="label" [style]="{'width':'200px'}" (onFocus)="onDesignationFocus(designationRef)" formControlName="designation"></p-dropdown>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="row">
-							<div class="">
-								<div class="col-lg-4 col-md-4 pad-l-0">
-									<div class="form-group">
-										<label>DATE OF JOINING</label>
-										<p *ngIf="!editMode" class="form-control-static">{{personalDetails?.doj}}</p>
-										<ng-container *ngIf="editMode">
-											<p-calendar dateFormat="dd-mm-yy" [(ngModel)]="pdModel.doj" [showIcon]="true"></p-calendar>
-										</ng-container>
+							<div class="row">
+								<div class="">
+									<div class="col-lg-4 col-md-4 pad-l-0" [ngClass]="{'has-error':formErrors.doj && pForm.submitted}">
+										<div class="form-group">
+											<label>DATE OF JOINING</label>
+											<p *ngIf="!editMode" class="form-control-static">{{personalDetails?.doj}}</p>
+											<ng-container *ngIf="editMode">
+												<p-calendar dateFormat="dd-mm-yy" formControlName="doj" [showIcon]="true"></p-calendar>
+												<span class="help-block" *ngIf="formErrors.doj && pForm.submitted && editMode">
+                            {{ formErrors.doj }}
+                        </span>
+											</ng-container>
+										</div>
 									</div>
-								</div>
-								<div class="col-lg-4 col-md-4 pad-l-0">
-									<div class="form-group">
-										<label>JOINING LOCATION</label>
-										<p *ngIf="!editMode" class="form-control-static"> {{personalDetails?.joinginLocation}}</p>
-										<p-dropdown *ngIf="editMode" [options]="locationMasterData" name="joiningLocation" [(ngModel)]="pdModel.joiningLocation"
-										 placeholder="Select Location" optionLabel="label" [style]="{'width':'200px'}"></p-dropdown>
+									<div class="col-lg-4 col-md-4 pad-l-0">
+										<div class="form-group">
+											<label>JOINING LOCATION</label>
+											<p *ngIf="!editMode" class="form-control-static"> {{personalDetails?.joinginLocation}}</p>
+											<p-dropdown *ngIf="editMode" [options]="locationMasterData" name="joiningLocation" formControlName="joiningLocation" placeholder="Select Location"
+											 optionLabel="label" [style]="{'width':'200px'}"></p-dropdown>
+										</div>
 									</div>
-								</div>
-								<div class="col-lg-4 col-md-4 no-padding">
-									<div class="form-group">
-										<label>CURRENT LOCATION</label>
-										<p *ngIf="!editMode" class="form-control-static"> {{personalDetails?.currentLocation}}</p>
-										<p-dropdown *ngIf="editMode" [options]="locationMasterData" name="currentLocation" [(ngModel)]="pdModel.currentLocation"
-										 placeholder="Select Location" optionLabel="label" [style]="{'width':'200px'}"></p-dropdown>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="">
-								<div class="col-lg-4 col-md-4 pad-l-0">
-									<div class="form-group">
-										<label>EMPLOYEMENT TYPE</label>
-										<p *ngIf="!editMode" class="form-control-static">{{personalDetails?.employeementType}}</p>
-										<input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="pdModel.emplType" />
-									</div>
-								</div>
-								<div class="col-lg-4 col-md-4 pad-l-0">
-									<div class="form-group">
-										<label>REPORTING MANAGER</label>
-										<p *ngIf="!editMode" class="form-control-static">{{personalDetails?.reportingManager}}</p>
-										<input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="pdModel.reportingManager" />
-									</div>
-								</div>
-								<div class="col-lg-4 col-md-4 no-padding">
-									<div class="form-group">
-										<label>RMG SPOC</label>
-										<p *ngIf="!editMode" class="form-control-static">{{personalDetails?.rmg_spoc}}</p>
-										<input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="pdModel.rmgSpoc" />
+									<div class="col-lg-4 col-md-4 no-padding">
+										<div class="form-group">
+											<label>CURRENT LOCATION</label>
+											<p *ngIf="!editMode" class="form-control-static"> {{personalDetails?.currentLocation}}</p>
+											<p-dropdown *ngIf="editMode" [options]="locationMasterData" name="currentLocation" formControlName="currentLocation" placeholder="Select Location"
+											 optionLabel="label" [style]="{'width':'200px'}"></p-dropdown>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="row text-right" *ngIf="editMode">
-							<div class="form-group">
-								<button class="btn btn-success" (click)="onPDSave()">Save</button>
-								<button class="btn btn-default" (click)="editMode = false">Cancel</button>
+							<div class="row">
+								<div class="">
+									<div class="col-lg-4 col-md-4 pad-l-0" [ngClass]="{'has-error':formErrors.emplType && pForm.submitted}">
+										<div class="form-group">
+											<label>EMPLOYEMENT TYPE</label>
+											<p *ngIf="!editMode" class="form-control-static">{{personalDetails?.employeementType}}</p>
+											<input *ngIf="editMode" onlyAlphabets type="text" class="form-control" formControlName="emplType" />
+											<span class="help-block" *ngIf="formErrors.emplType && pForm.submitted && editMode">
+                            {{ formErrors.emplType }}
+                        </span>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 pad-l-0" [ngClass]="{'has-error':formErrors.reportingManager && pForm.submitted}">
+										<div class="form-group">
+											<label>REPORTING MANAGER</label>
+											<p *ngIf="!editMode" class="form-control-static">{{personalDetails?.reportingManager}}</p>
+											<input *ngIf="editMode" onlyAlphabets type="text" class="form-control" formControlName="reportingManager" />
+											<span class="help-block" *ngIf="formErrors.reportingManager && pForm.submitted && editMode">
+                            {{ formErrors.reportingManager }}
+                        </span>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 no-padding" [ngClass]="{'has-error':formErrors.rmgSpoc && pForm.submitted}">
+										<div class="form-group">
+											<label>RMG SPOC</label>
+											<p *ngIf="!editMode" class="form-control-static">{{personalDetails?.rmg_spoc}}</p>
+											<input *ngIf="editMode" onlyAlphabets type="text" class="form-control" formControlName="rmgSpoc" />
+											<span class="help-block" *ngIf="formErrors.rmgSpoc && pForm.submitted && editMode">
+                            {{ formErrors.rmgSpoc }}
+                        </span>
+										</div>
+									</div>
+								</div>
 							</div>
+							<div class="row text-right" *ngIf="editMode">
+								<div class="form-group">
+									<button type="submit" class="btn btn-success">Save</button>
+									<button class="btn btn-default" (click)="editMode = false">Cancel</button>
+								</div>
 
+							</div>
 						</div>
-					</div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -151,8 +172,8 @@
 											</div>
 											<div [ngBusy]="domainBusy">
 												<p-accordionTab header="Domain Details">
-													<app-domain-details *ngIf="domainData" [domainDetails]="domainData" [masterDomains]="masterDomainData"
-													 (callBackDomainDetails)="callBackDomainDetails()" (callBackContactDetails)="callBackContactDetails()"></app-domain-details>
+													<app-domain-details *ngIf="domainData" [domainDetails]="domainData" [masterDomains]="masterDomainData" (callBackDomainDetails)="callBackDomainDetails()"
+													 (callBackContactDetails)="callBackContactDetails()"></app-domain-details>
 												</p-accordionTab>
 											</div>
 											<div [ngBusy]="certificationBusy">
@@ -181,7 +202,7 @@
 								<ng-template [ngSwitchCase]="'immigration-details'">
 									<p-accordion expandIcon="fa ui-icon-local-phone">
 										<div class="tab-renderer">
-											<p-accordionTab header="Passport Details" >
+											<p-accordionTab header="Passport Details">
 												<app-passport-details *ngIf="personalDetails" [personalDetails]="personalDetails" (callBackContactDetails)="callBackContactDetails()"></app-passport-details>
 											</p-accordionTab>
 											<p-accordionTab header="Visa Details">

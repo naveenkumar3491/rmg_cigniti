@@ -377,5 +377,14 @@ export class MockDataService extends DataService {
             }, 1000)
         });
     }
+
+    public deleteResume(obj, progressbarValue, lastUpdated): Observable<any> {
+        return Observable.create(observer => {
+            setTimeout(() => {
+                observer.next({});
+                observer.complete();
+            }, 1000)
+        });
+    }
 }
 

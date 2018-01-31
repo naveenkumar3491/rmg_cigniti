@@ -10,10 +10,19 @@
                 <div class="col-sm-3 col-xs-12" [ngClass]="{'has-error':formErrors.pEmailId && cForm.submitted}">
                     <span class="pro-title">PERSONAL EMAIL ID</span>
                     <span class="fa fa-envelope"></span>
-                    <input type="email" *ngIf="!editMode" class="form-control" formControlName="pEmailId" />
+                    <input type="text" *ngIf="!editMode" class="form-control" formControlName="pEmailId" />
                     <p *ngIf="editMode" style="margin-top: 10px;">{{personalDetails.personalEmailId}}</p>
                     <span class="help-block" *ngIf="formErrors.pEmailId && cForm.submitted && !editMode">
                             {{ formErrors.pEmailId }}
+                        </span>
+                        <span class="help-block" *ngIf="formErrors.uniqueEmail && cForm.submitted && !editMode">
+                            {{ formErrors.uniqueEmail }}
+                        </span>
+                        <span class="help-block" *ngIf="formErrors.cignitiEmail && cForm.submitted && !editMode">
+                            {{ formErrors.cignitiEmail }}
+                        </span>
+                        <span class="help-block" *ngIf="formErrors.emailValidation && cForm.submitted && !editMode">
+                            {{ formErrors.emailValidation }}
                         </span>
                 </div>
                 <div class="col-xs-12" [ngClass]="{'has-error':formErrors.mobile && cForm.submitted, 'col-sm-2': !editMode, 'col-sm-3': editMode}">

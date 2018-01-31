@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { DataService } from "../../../services/DataService";
 import { Ng2Storage } from "../../../services/storage";
@@ -21,7 +22,6 @@ export class PersonalDetailsComponent implements OnInit {
 
   public editMode: boolean = false;
   public tabIndex: any = 0;
-  public pdModel: any = {};
   public pbarColor: string;
   public imageView = true;
   public profileProgress: number;
@@ -47,6 +47,8 @@ export class PersonalDetailsComponent implements OnInit {
   public certificationBusy: Subscription;
   public projectBusy: Subscription;
   public visaBusy: Subscription;
+
+  public pdForm: FormGroup;
 
 
   public userData = this.storage.getSession('user_data');
@@ -87,16 +89,46 @@ export class PersonalDetailsComponent implements OnInit {
       icon: 'fa fa-plane'
     }
   ];
-  constructor(public cdRef: ChangeDetectorRef, private messageService: MessageService,
+
+  public formErrors: any = {
+    empId: '',
+    employeeName: '',
+    emplType: '',
+    reportingManager: '',
+    rmgSpoc: '',
+    doj: ''
+  }
+
+  public validationMessages: any = {
+    empId: {
+      required: 'Emp ID is required'
+    },
+    employeeName: {
+      required: 'Employee Name is required'
+    },
+    emplType: {
+      required: 'Employement Type is required'
+    },
+    reportingManager: {
+      required: 'Reporting Manager is required'
+    },
+    rmgSpoc: {
+      required: 'Rmg Spoc is required'
+    },
+    doj: {
+      required: 'DOJ is required'
+    }
+  }
+  constructor(public cdRef: ChangeDetectorRef, private messageService: MessageService, private fb: FormBuilder,
     private dataService: DataService, private storage: Ng2Storage, private utilsService: UtilsService,
     private activatedRoute: ActivatedRoute, private datePipe: DateFormatPipe, private dPipe: DatePipe) {
-      this.activatedRoute.queryParams.subscribe(params => {
-        if(params && params.empId){
-          this.employeeId = params.empId;
-        }else{
-          this.employeeId = this.userData.employeeId;
-        }
-      });
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (params && params.empId) {
+        this.employeeId = params.empId;
+      } else {
+        this.employeeId = this.userData.employeeId;
+      }
+    });
 
     this.dataService.profilePercentage.subscribe((value) => {
       this.profileProgress += value;
@@ -114,7 +146,6 @@ export class PersonalDetailsComponent implements OnInit {
   ngOnInit() {
     this.emptyImage = true;
     this.getEmployeeDetails();
-    
   }
 
   onPdEdit() {
@@ -123,35 +154,29 @@ export class PersonalDetailsComponent implements OnInit {
     let desigObj = this.designationMasterData.find(obj => obj.label === pd.designation);
     let jLObj = this.locationMasterData.find(obj => obj.label === pd.joinginLocation);
     let cLObj = this.locationMasterData.find(obj => obj.label === pd.currentLocation);
-    this.pdModel = {
-      empId: pd.emp_id,
-      employeeName: pd.employeeName,
-      designation: desigObj ? desigObj.value : null,
-      doj: pd.doj,
-      joiningLocation: jLObj ? jLObj.value : null,
-      currentLocation: cLObj ? cLObj.value : null,
-      emplType: pd.employeementType,
-      reportingManager: pd.reportingManager,
-      rmgSpoc: pd.rmg_spoc
-    };
+    this.pdForm.patchValue({ empId: pd.emp_id, employeeName: pd.employeeName, emplType: pd.employeementType, reportingManager: pd.reportingManager, rmgSpoc: pd.rmg_spoc, designation: desigObj ? desigObj.value : null, doj: pd.doj, joiningLocation: jLObj ? jLObj.value : null, currentLocation: cLObj ? cLObj.value : null });
   }
 
   onPDSave() {
-    this.pdModel.doj = this.datePipe.transform(this.pdModel.doj, 'dd-MM-yyyy');
-    this.dataService.addUpdateEmployee(this.pdModel).subscribe((data) => {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Saved Successfully!!' });
-     this.editMode = false;
-     this.getEmployeeDetails();
-    });
+    if (this.pdForm.valid) {
+      const obj = { ...this.pdForm.value };
+      obj.doj = this.datePipe.transform(this.pdForm.value.doj, 'dd-MM-yyyy');
+      this.dataService.addUpdateEmployee(obj).subscribe((data) => {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Saved Successfully!!' });
+        this.editMode = false;
+        this.getEmployeeDetails();
+      });
+    } else {
+      Object.keys(this.pdForm.controls).forEach(field => {
+        const control = this.pdForm.get(field);
+        control.markAsTouched({ onlySelf: true });
+      });
+    }
   }
 
 
   changeProgressBarColor() {
-    // if (this.profileProgress <= 30) {
-    //   this.pbarColor = 'pb-low';
-    // } else 
     if (this.profileProgress > 0 && this.profileProgress <= 70) {
-      // this.pbarColor = 'pb-moderate';
       this.pbarColor = 'pb-low';
     } else if (this.profileProgress > 70) {
       this.pbarColor = 'pb-good';
@@ -179,7 +204,36 @@ export class PersonalDetailsComponent implements OnInit {
       }
       this.changeProgressBarColor();
       this.url = this.personalDetails.employeeImage ? `data:image/png;base64,${this.personalDetails.employeeImage}` : null;
+      this.pdForm = this.fb.group({
+        empId: ['', [Validators.required]],
+        employeeName: ['', [Validators.required]],
+        emplType: ['', [Validators.required]],
+        reportingManager: ['', [Validators.required]],
+        rmgSpoc: ['', [Validators.required]],
+        designation: [null],
+        doj: [null, [Validators.required]],
+        joiningLocation: [null],
+        currentLocation: [null]
+      });
+      this.pdForm.valueChanges.subscribe(data => this.onValuesChanged());
+      this.onValuesChanged();
     });
+  }
+
+  public onValuesChanged(data?: any) {
+    if (!this.pdForm) { return; }
+    const form = this.pdForm;
+    for (const field in this.formErrors) {
+      this.formErrors[field] = '';
+      const control = form.get(field);
+
+      if (control && control.invalid) {
+        const messages = this.validationMessages[field];
+        for (const key in control.errors) {
+          this.formErrors[field] += messages[key] + ' ';
+        }
+      }
+    }
   }
 
   ngAfterViewInit() {
@@ -192,7 +246,7 @@ export class PersonalDetailsComponent implements OnInit {
     });
   }
 
-  callBackDomainDetails(){
+  callBackDomainDetails() {
     this.dataService.getDomainDetails(this.employeeId).subscribe(data => {
       this.domainData = data;
     })
@@ -209,7 +263,7 @@ export class PersonalDetailsComponent implements OnInit {
     }
   }
 
-  callbackVisaDetails(){
+  callbackVisaDetails() {
     this.visaBusy = this.dataService.getVisaDetails(this.employeeId).subscribe((data) => {
       this.visaDetails = data.details;
     });

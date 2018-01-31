@@ -20,40 +20,67 @@ export class ContactDetailsComponent implements OnInit {
   public editMode: boolean = true;
   public model = {};
   public userData = this.storage.getSession('user_data');
-  public formObject: any = {
-    pEmailId: '',
-    mobile: ''
-  }
 
   public formErrors: any = {
     pEmailId: '',
-    mobile: ''
+    mobile: '',
+    alternateMobile: ''
   }
 
-   public validationMessages: any = {
+  public validationMessages: any = {
     pEmailId: {
-      required: 'Emain ID is required',
-      emailValidation: 'Email ID is not valid'
+      required: 'Email ID is required',
+      emailValidation: 'Email ID is not valid',
+      uniqueEmail: 'Email ID should be unique',
+      cignitiEmail: 'Email ID cannot be cigniti email'
     },
     mobile: {
-      required: 'Mobile is required'
+      required: 'Mobile is required',
+      minlength: 'Mobile No should be 10 digits'
+    },
+    alternateMobile: {
+      minlength: 'Mobile No should be 10 digits'
     }
   }
 
   constructor(private fb: FormBuilder, private dataService: DataService, private dPipe: DatePipe,
-   private messageService: MessageService, private storage: Ng2Storage, private utilsService: UtilsService) { }
+    private messageService: MessageService, private storage: Ng2Storage, private utilsService: UtilsService) { }
 
   ngOnInit() {
-    const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; 
+    //const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    const emailFormat = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     this.contactForm = this.fb.group({
-      pEmailId: [this.personalDetails.personalEmailId, [Validators.required, this.utilsService.validateWithRegex('emailValidation', mailformat)]],
-      mobile: [this.personalDetails.mobile, [Validators.required]],
-      alternateMobile: [this.personalDetails.alternatePhoneNo]
+      pEmailId: [this.personalDetails.personalEmailId, [Validators.required, this.uniqueValidation('uniqueEmail', 'cignitiEmail', 'emailValidation', this.personalDetails.officialEmailId, emailFormat)]],
+      mobile: [this.personalDetails.mobile, [Validators.required, Validators.minLength(10)]],
+      alternateMobile: [this.personalDetails.alternatePhoneNo, [Validators.minLength(10)]]
     });
     this.contactForm.valueChanges.subscribe(data => this.onValuesChanged());
     this.onValuesChanged();
-    this.contactForm.patchValue({pEmailId: this.personalDetails.personalEmailId, mobile: this.personalDetails.mobile, alternateMobile: this.personalDetails.alternate_phone_no});
+    this.contactForm.patchValue({ pEmailId: this.personalDetails.personalEmailId, mobile: this.personalDetails.mobile, alternateMobile: this.personalDetails.alternate_phone_no });
   }
+
+  uniqueValidation(name1, name2, name3, oEmailId, eFormat) {
+    return function (c: AbstractControl): { [key: string]: any } {
+      let val = c.value;
+      if (!val) {
+        return null;
+      }
+      let obj = {};
+      if(!val.match(eFormat)){
+        obj[name3] = true;
+        return obj;
+      }
+      else if (val === oEmailId) {
+        obj[name1] = true;
+        return obj;
+      }else if(val.toLowerCase().indexOf('cigniti') > -1){
+        obj[name2] = true;
+        return obj;
+      }
+      return null;
+    };
+  }
+
   public onValuesChanged(data?: any) {
     if (!this.contactForm) { return; }
     const form = this.contactForm;
@@ -70,7 +97,7 @@ export class ContactDetailsComponent implements OnInit {
     }
   }
 
-   onContactDetChange(type) {
+  onContactDetChange(type) {
     if (type === 'save') {
       this.formSubmitAttempt = true;
       if (this.contactForm.valid) {
@@ -96,8 +123,10 @@ export class ContactDetailsComponent implements OnInit {
         });
       }
     } else {
-      this.contactForm.patchValue({pEmailId: this.personalDetails.personalEmailId, mobile: this.personalDetails.mobile
-      , alternateMobile: this.personalDetails.alternatePhoneNo});
+      this.contactForm.patchValue({
+        pEmailId: this.personalDetails.personalEmailId, mobile: this.personalDetails.mobile
+        , alternateMobile: this.personalDetails.alternatePhoneNo
+      });
       this.editMode = false;
     }
   }

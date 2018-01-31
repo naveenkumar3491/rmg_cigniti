@@ -25,11 +25,11 @@
                   <span>Years</span> <span style="margin-left:30px;">Months</span></div>
                 <div class="domain-exp">
                   <input type="number" min="0" max="30" class="form-control" [(ngModel)]="domainModel.years" />
-                  <input type="number" min="1" max="12" class="form-control" [(ngModel)]="domainModel.months" />
+                  <input type="number" min="0" max="12" class="form-control" [(ngModel)]="domainModel.months" />
                 </div>
               </div>
               <div class="col-md-4" style="margin-top: 18px;">
-                <input style="width: 85%;" class="form-control" type="text" placeholder="Comments" name="comments" [(ngModel)]="domainModel.comments" />
+                <input style="width: 85%;" maxlength="100" class="form-control" type="text" placeholder="Comments" name="comments" [(ngModel)]="domainModel.comments" />
               </div>
               <div class="col-md-4" style="margin-top: 18px;">
                 <button *ngIf="showButton" type="button" class="btn btn-success" (click)="saveDomain('add')" [disabled]="disableBtn()">Add Domain</button>

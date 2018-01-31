@@ -16,9 +16,9 @@
                             <div class="col-md-4">
                                 <p-rating name="skillRating" [(ngModel)]="skillModel.skillRating" [cancel]="false"></p-rating>
                                 <div class="btn-skill">
-                                    <button *ngIf="showButton" type="button" (click)="saveSkill('add')"
+                                    <button *ngIf="showButton" type="button" (click)="saveSkill('add')" [disabled]="!this.skillModel.skillCategoryId || !this.skillModel.skillId"
                                         class="btn btn-success">Add Skill</button>
-                                    <button *ngIf="!showButton" type="button" (click)="saveSkill('update')"
+                                    <button *ngIf="!showButton" type="button" (click)="saveSkill('update')" [disabled]="!this.skillModel.skillCategoryId || !this.skillModel.skillId"
                                         class="btn btn-success">Update Skill</button>
                                 </div>
                             </div>

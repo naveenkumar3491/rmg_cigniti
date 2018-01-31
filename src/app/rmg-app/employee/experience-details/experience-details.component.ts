@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnChanges, ViewChild, ElementRef, Input, EventEmitter, Output, SimpleChanges } from '@angular/core';
 import { DataService } from '../../../services/DataService';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { Ng2Storage } from '../../../services/storage';
@@ -11,7 +11,7 @@ import { DatePipe } from "@angular/common";
   templateUrl: './experience-details.component.html',
   styleUrls: ['./experience-details.component.scss']
 })
-export class ExperienceDetailsComponent implements OnInit {
+export class ExperienceDetailsComponent implements OnChanges {
   public resumeName;
   public emptyResume: boolean = true;
   public editMode: boolean = true;
@@ -29,37 +29,38 @@ export class ExperienceDetailsComponent implements OnInit {
   constructor(private dataService: DataService, private messageService: MessageService
     , private storage: Ng2Storage, private utilsService: UtilsService, private dPipe: DatePipe) { }
 
-  ngOnInit() {
-    this.resumeName = this.personalDetails.employeeResume ? this.personalDetails.employeeResume : 'Not Yet Uploaded';
-    const isResumeUploaded = this.personalDetails.employeeResume ? true : false;
-    this.utilsService.isResumeUploded.next(isResumeUploaded);
-    if (this.personalDetails.doj) {
-      const todayDtSplit = moment(new Date());
-      const dojSplit = moment(this.personalDetails.doj, "DD/MM/YYYY");
-      const years = todayDtSplit.diff(dojSplit, 'year');
-      dojSplit.add(years, 'years');
-      let months = todayDtSplit.diff(dojSplit, 'months');
-      dojSplit.add(months, 'months');
-      const days = todayDtSplit.diff(dojSplit, 'days');
-      this.model['cignitiExperience'] = years + ' years ' + months + ' months ' + days + ' days';
-    }
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.personalDetails && changes.personalDetails.currentValue) {
+      this.resumeName = this.personalDetails.employeeResume ? this.personalDetails.employeeResume : 'Not Yet Uploaded';
+      const isResumeUploaded = this.personalDetails.employeeResume ? true : false;
+      this.utilsService.isResumeUploded.next(isResumeUploaded);
+      if (this.personalDetails.doj) {
+        const todayDtSplit = moment(new Date());
+        const dojSplit = moment(this.personalDetails.doj, "DD/MM/YYYY");
+        const years = todayDtSplit.diff(dojSplit, 'year');
+        dojSplit.add(years, 'years');
+        let months = todayDtSplit.diff(dojSplit, 'months');
+        dojSplit.add(months, 'months');
+        const days = todayDtSplit.diff(dojSplit, 'days');
+        this.model['cignitiExperience'] = years + ' years ' + months + ' months ' + days + ' days';
+      }
 
-    if (this.personalDetails.totalExperience === '0') {
-      this.editMode = false;
-      this.exp = {
-        years: 0,
-        months: 1
-      };
-    } else {
-      const totExp = this.personalDetails.totalExperience;
-      this.model['totalExperience'] = this.utilsService.convertToYearsMonths(totExp);
-      const totExpArray = totExp.split('.');
-      this.exp = {
-        years: (totExpArray[0] === '0' || totExpArray[0] === undefined) ? '0' : totExpArray[0],
-        months: (totExpArray[1] === '0' || totExpArray[1] === undefined) ? '0' : totExpArray[1]
-      };
+      if (this.personalDetails.totalExperience === '0') {
+        this.editMode = false;
+        this.exp = {
+          years: 0,
+          months: 1
+        };
+      } else {
+        const totExp = this.personalDetails.totalExperience;
+        this.model['totalExperience'] = this.utilsService.convertToYearsMonths(totExp);
+        const totExpArray = totExp.split('.');
+        this.exp = {
+          years: (totExpArray[0] === '0' || totExpArray[0] === undefined) ? '0' : totExpArray[0],
+          months: (totExpArray[1] === '0' || totExpArray[1] === undefined) ? '0' : totExpArray[1]
+        };
+      }
     }
-
   }
 
   readResume(event: any) {
@@ -91,16 +92,22 @@ export class ExperienceDetailsComponent implements OnInit {
     input.append('progressbar', !this.personalDetails.employeeResume ? '40' : '0');
     this.dataService.uploadProfileResume(input).subscribe((data) => {
       this.utilsService.isResumeUploded.next(true);
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Uploaded Successfully!!' });
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Resume uploaded Successfully!!' });
       this.callBackContactDetails.emit();
       this.emptyResume = true;
       this.showResumeUploading = false;
     });
   }
   removeResume() {
-    this.utilsService.isResumeUploded.next(false);
-    this.emptyResume = true;
-    this.resumeName = 'Not Yet Uploaded';
+    const obj = { 'employeeId': this.userData.employeeId };
+    const lastUpdate = this.dPipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss');
+    this.dataService.deleteResume(obj, '40', lastUpdate).subscribe(data => {
+      this.callBackContactDetails.emit();
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Resume deleted Successfully!!' });
+      this.utilsService.isResumeUploded.next(false);
+      this.emptyResume = true;
+      this.resumeName = 'Not Yet Uploaded';
+    });
   }
 
   saveExp(type) {
@@ -111,19 +118,13 @@ export class ExperienceDetailsComponent implements OnInit {
         phoneNo: this.personalDetails.mobile,
         employeeName: this.personalDetails.employeeName,
         totalExperience: parseFloat(this.exp.years + '.' + this.exp.months),
-        progressbar: (this.personalDetails.totalExperience === '0') ? 5 : 0
+        progressbar: (this.personalDetails.totalExperience === '0') ? 5 : 0,
+        lastUpdate: this.dPipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss'),
       };
       this.dataService.saveContactAndExpDetails(paramObj).subscribe((data) => {
         this.callBackContactDetails.emit();
         this.editMode = true;
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Saved Successfully!!' });
-        const yearExp = ((this.exp.years) > 1) ? this.exp.years + ' Years' : ((this.exp.years === 1) ? this.exp.years + ' Year' : '');
-        const monthExp = ((this.exp.months) > 1) ? this.exp.months + ' months' : ((this.exp.months === 1) ? this.exp.months + ' month' : '');
-        if (this.exp.years === 0 && this.exp.months === 0) {
-          this.model['totalExperience'] = `No experience`;
-        } else {
-          this.model['totalExperience'] = `${yearExp} ${monthExp}`;
-        }
       });
 
     } else {

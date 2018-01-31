@@ -51,6 +51,8 @@ export class LiveDataService extends DataService {
     private readonly saveVisaUrl = this.getBaseURI() + 'addUpdateVisa';
     private readonly savePassportUrl = this.getBaseURI() + 'updatePassport';
     private readonly domainDataUrl = this.getBaseURI() + 'getDomainDtlsById';
+    private readonly deleteResumeUrl = this.getBaseURI() + 'deleteEmplResume';
+    
 
     private getBaseURI() {
         return this.basePath + this.MyTrUrl;
@@ -425,6 +427,12 @@ export class LiveDataService extends DataService {
 
     public deleteCertification(obj): Observable<any> {
         return this.http.post(`${this.deleteCertificationUrl}`, obj).map((response) => {
+            return response;
+        });
+    }
+
+    public deleteResume(obj, progressbarValue, lastUpdated): Observable<any> {
+        return this.http.post(`${this.deleteResumeUrl}?progressbar=${progressbarValue}&lastUpdate=${lastUpdated}`, obj).map((response) => {
             return response;
         });
     }

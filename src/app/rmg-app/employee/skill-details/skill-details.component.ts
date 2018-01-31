@@ -51,6 +51,7 @@ export class SkillDetailsComponent implements OnChanges {
 
   onCategoryChange(id) {
     this.dataService.getSkillsByCategory(id).subscribe((data) => {
+      this.skillModel.skillId = null;
       this.skillSet = data;
     })
   }

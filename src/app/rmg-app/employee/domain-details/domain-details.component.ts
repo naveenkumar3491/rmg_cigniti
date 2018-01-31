@@ -35,7 +35,7 @@ export class DomainDetailsComponent implements OnChanges {
     subDomain: {},
     childDomain: [],
     years: 0,
-    months: 1
+    months: 0
   };
   public userData = this.storage.getSession('user_data');
 
@@ -76,7 +76,7 @@ export class DomainDetailsComponent implements OnChanges {
         isValid = false;
       }
     });
-    if (!isValid) {
+    if (!isValid || (this.domainModel.years === 0 && this.domainModel.months === 0)) {
       return true;
     } else {
       return false;
@@ -128,7 +128,7 @@ export class DomainDetailsComponent implements OnChanges {
         subDomain: {},
         childDomain: [],
         years: 0,
-        months: 1
+        months: 0
       };
       this.subDomainDetails = [];
       this.childDomainDetails = [];
@@ -157,7 +157,7 @@ export class DomainDetailsComponent implements OnChanges {
       this.domainModel.years = +domainExp.split('.')[0];
       this.domainModel.months = +domainExp.split('.')[1];
     } else {
-      this.domainModel.years = domain.domainExperience;
+      this.domainModel.years = domainExp;
       this.domainModel.months = 0;
     }
     this.domainModel.domain = this.utilsService.getMatchedDomain(domain.domain_name, this.masterDomains);
@@ -203,7 +203,7 @@ export class DomainDetailsComponent implements OnChanges {
         subDomain: {},
         childDomain: [],
         years: 0,
-        months: 1
+        months: 0
       };
       this.subDomainDetails = [];
       this.childDomainDetails = [];
