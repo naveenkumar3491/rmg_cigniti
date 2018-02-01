@@ -52,8 +52,8 @@ export class ContactDetailsComponent implements OnInit {
       mobile: [this.personalDetails.mobile, [Validators.required, Validators.minLength(10)]],
       alternateMobile: [this.personalDetails.alternatePhoneNo, [Validators.minLength(10)]]
     });
-    this.contactForm.valueChanges.subscribe(data => this.onValuesChanged());
-    this.onValuesChanged();
+    this.contactForm.valueChanges.subscribe(data => this.utilsService.onValuesChanged(this.contactForm, this.formErrors, this.validationMessages));
+    this.utilsService.onValuesChanged(this.contactForm, this.formErrors, this.validationMessages);
     this.contactForm.patchValue({ pEmailId: this.personalDetails.personalEmailId, mobile: this.personalDetails.mobile, alternateMobile: this.personalDetails.alternate_phone_no });
   }
 
@@ -73,22 +73,6 @@ export class ContactDetailsComponent implements OnInit {
       }
       return null;
     };
-  }
-
-  public onValuesChanged(data?: any) {
-    if (!this.contactForm) { return; }
-    const form = this.contactForm;
-    for (const field in this.formErrors) {
-      this.formErrors[field] = '';
-      const control = form.get(field);
-
-      if (control && control.invalid) {
-        const messages = this.validationMessages[field];
-        for (const key in control.errors) {
-          this.formErrors[field] += messages[key] + ' ';
-        }
-      }
-    }
   }
 
   onContactDetChange(type) {

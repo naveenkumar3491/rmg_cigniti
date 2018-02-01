@@ -215,25 +215,9 @@ export class PersonalDetailsComponent implements OnInit {
         joiningLocation: [null],
         currentLocation: [null]
       });
-      this.pdForm.valueChanges.subscribe(data => this.onValuesChanged());
-      this.onValuesChanged();
+      this.pdForm.valueChanges.subscribe(data => this.utilsService.onValuesChanged(this.pdForm, this.formErrors, this.validationMessages));
+      this.utilsService.onValuesChanged(this.pdForm, this.formErrors, this.validationMessages);
     });
-  }
-
-  public onValuesChanged(data?: any) {
-    if (!this.pdForm) { return; }
-    const form = this.pdForm;
-    for (const field in this.formErrors) {
-      this.formErrors[field] = '';
-      const control = form.get(field);
-
-      if (control && control.invalid) {
-        const messages = this.validationMessages[field];
-        for (const key in control.errors) {
-          this.formErrors[field] += messages[key] + ' ';
-        }
-      }
-    }
   }
 
   ngAfterViewInit() {

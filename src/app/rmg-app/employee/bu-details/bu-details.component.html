@@ -19,7 +19,7 @@
                         <div class="col-md-2 col-sm-2 col-xs-12" [ngClass]="{'has-error':formErrors.projectManger && bForm.submitted}">
                             <span class="pro-title">PROJECT MANAGER</span>
                             <p *ngIf="!editMode" class="form-control-static">{{personalDetails.project_manager}}</p>
-                            <input *ngIf="editMode" type="text" class="form-control" formControlName="projectManger"  maxlength="45"/>
+                            <input *ngIf="editMode" type="text" class="form-control" formControlName="projectManger" onlyAlphabets maxlength="45"/>
                             <span class="help-block" *ngIf="formErrors.projectManger && bForm.submitted && editMode">
                                     {{ formErrors.projectManger }}
                             </span>
@@ -27,7 +27,7 @@
                         <div class="col-md-2 col-sm-2 col-xs-12" [ngClass]="{'has-error':formErrors.reportingManager && bForm.submitted}">
                             <span class="pro-title">ACCOUNT MANAGER</span>
                             <p *ngIf="!editMode" class="form-control-static">{{personalDetails.accountManager}}</p>
-                            <input *ngIf="editMode" type="text" class="form-control" formControlName="reportingManager"  maxlength="45"/>
+                            <input *ngIf="editMode" type="text" class="form-control" formControlName="reportingManager" onlyAlphabets maxlength="45"/>
                             <span class="help-block" *ngIf="formErrors.reportingManager && bForm.submitted && editMode">
                                     {{ formErrors.reportingManager }}
                             </span>
@@ -35,7 +35,7 @@
                         <div class="col-md-2 col-sm-2 col-xs-12" [ngClass]="{'has-error':formErrors.buHead && bForm.submitted}">
                             <span class="pro-title">BU HEAD</span>
                             <p *ngIf="!editMode" class="form-control-static">{{personalDetails.bu_head}}</p>
-                            <input *ngIf="editMode" type="text" class="form-control" formControlName="buHead"  maxlength="45"/>
+                            <input *ngIf="editMode" type="text" class="form-control" formControlName="buHead" onlyAlphabets maxlength="45"/>
                             <span class="help-block" *ngIf="formErrors.buHead && bForm.submitted && editMode">
                                     {{ formErrors.buHead }}
                             </span>
@@ -46,7 +46,7 @@
                                 <i class="fa fa-pencil"></i>
                             </span>
                             <p *ngIf="!editMode" class="form-control-static">{{personalDetails.hr_spoc}}</p>
-                            <input *ngIf="editMode" type="text" class="form-control" maxlength="45" formControlName="hrSpoc" />
+                            <input *ngIf="editMode" type="text" class="form-control" maxlength="45" formControlName="hrSpoc" onlyAlphabets/>
                             <span class="help-block" *ngIf="formErrors.hrSpoc && bForm.submitted && editMode">
                                     {{ formErrors.hrSpoc }}
                             </span>

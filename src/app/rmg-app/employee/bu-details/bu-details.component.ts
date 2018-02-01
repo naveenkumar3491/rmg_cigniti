@@ -3,6 +3,7 @@ import { Ng2Storage } from "../../../services/storage";
 import { DataService } from '../../../services/DataService';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { UtilsService } from "../../../services/utils.service";
 
 @Component({
   selector: 'app-bu-details',
@@ -19,7 +20,7 @@ export class BUDetailsComponent implements OnInit {
   public buForm: FormGroup;
   public userData = this.storage.getSession('user_data');
   constructor(private storage: Ng2Storage, private dataService: DataService, private messageService: MessageService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder, private utilsService: UtilsService) { }
 
   public formErrors: any = {
     projectManger: '',
@@ -52,8 +53,8 @@ export class BUDetailsComponent implements OnInit {
       bu_id: [null],
       du_id: [null]
     });
-    this.buForm.valueChanges.subscribe(data => this.onValuesChanged());
-    this.onValuesChanged();
+    this.buForm.valueChanges.subscribe(data => this.utilsService.onValuesChanged(this.buForm, this.formErrors, this.validationMessages));
+    this.utilsService.onValuesChanged(this.buForm, this.formErrors, this.validationMessages);
   }
 
   onBuEdit() {
@@ -84,22 +85,6 @@ export class BUDetailsComponent implements OnInit {
         const control = this.buForm.get(field);
         control.markAsTouched({ onlySelf: true });
       });
-    }
-  }
-
-  public onValuesChanged(data?: any) {
-    if (!this.buForm) { return; }
-    const form = this.buForm;
-    for (const field in this.formErrors) {
-      this.formErrors[field] = '';
-      const control = form.get(field);
-
-      if (control && control.invalid) {
-        const messages = this.validationMessages[field];
-        for (const key in control.errors) {
-          this.formErrors[field] += messages[key] + ' ';
-        }
-      }
     }
   }
 

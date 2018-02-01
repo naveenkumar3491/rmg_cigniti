@@ -33,4 +33,20 @@ export class UtilsService {
         const monthExp = (parseInt(exp[1], 10) > 1) ? exp[1] + ' Months' : ((exp[1] === '0' || exp[1] === undefined) ? '' : exp[1] + ' Month');
         return `${yearExp} ${monthExp}`;
     }
+
+    public onValuesChanged(formName, formErrors, validationMessages) {
+    if (!formName) { return; }
+    const form = formName;
+    for (const field in formErrors) {
+      formErrors[field] = '';
+      const control = form.get(field);
+
+      if (control && control.invalid) {
+        const messages = validationMessages[field];
+        for (const key in control.errors) {
+          formErrors[field] += messages[key] + ' ';
+        }
+      }
+    }
+  }
 }
