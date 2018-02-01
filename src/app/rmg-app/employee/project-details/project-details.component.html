@@ -4,12 +4,12 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="row m-t-10">
-                    <div [ngClass]="{'col-md-3': projectModel.allocation_status === 'Available', 'col-md-4':              projectModel.allocation_status !== 'Available'}">
-                        <input type="text" class="form-control w-200" [(ngModel)]="projectModel.account_name" placeholder="Account Name" />
+                    <div [ngClass]="{'col-md-3': projectModel.allocation_status === 'Available', 'col-md-4':projectModel.allocation_status !== 'Available'}">
+                        <input type="text" class="form-control w-200" [(ngModel)]="projectModel.account_name" placeholder="Account Name" maxlength="45"/>
                     </div>
                     <div [ngClass]="{'col-md-3': projectModel.allocation_status === 'Available', 'col-md-4': projectModel.allocation_status !== 'Available'}">
                         <input type="text" class="form-control w-200" name="project_name" [(ngModel)]="projectModel.project_name" placeholder="Project Name"
-                        />
+                        maxlength="45"/>
                     </div>
                     <div class="m-t-13" [ngClass]="{'col-md-3': projectModel.allocation_status === 'Available', 'col-md-4': projectModel.allocation_status !== 'Available'}">
                         <p-dropdown [options]="allocationStatusList" name="allocStatus" [(ngModel)]="projectModel.allocation_status" placeholder="Allocation Status"

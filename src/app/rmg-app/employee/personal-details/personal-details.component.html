@@ -49,7 +49,7 @@
 										<div class="form-group">
 											<label>EMPLOYEE NAME</label>
 											<p *ngIf="!editMode" class="form-control-static">{{personalDetails?.employeeName}}</p>
-											<input *ngIf="editMode" onlyAlphabets type="text" formControlName="employeeName" class="form-control" />
+											<input *ngIf="editMode" onlyAlphabets type="text" formControlName="employeeName" class="form-control" maxlength="45"/>
 											<span class="help-block" *ngIf="formErrors.employeeName && pForm.submitted && editMode">
                             {{ formErrors.employeeName }}
                         </span>
@@ -106,7 +106,7 @@
 										<div class="form-group">
 											<label>EMPLOYEMENT TYPE</label>
 											<p *ngIf="!editMode" class="form-control-static">{{personalDetails?.employeementType}}</p>
-											<input *ngIf="editMode" onlyAlphabets type="text" class="form-control" formControlName="emplType" />
+											<input *ngIf="editMode" onlyAlphabets type="text" class="form-control" formControlName="emplType" maxlength="45"/>
 											<span class="help-block" *ngIf="formErrors.emplType && pForm.submitted && editMode">
                             {{ formErrors.emplType }}
                         </span>
@@ -116,7 +116,7 @@
 										<div class="form-group">
 											<label>REPORTING MANAGER</label>
 											<p *ngIf="!editMode" class="form-control-static">{{personalDetails?.reportingManager}}</p>
-											<input *ngIf="editMode" onlyAlphabets type="text" class="form-control" formControlName="reportingManager" />
+											<input *ngIf="editMode" onlyAlphabets type="text" class="form-control" formControlName="reportingManager" maxlength="45"/>
 											<span class="help-block" *ngIf="formErrors.reportingManager && pForm.submitted && editMode">
                             {{ formErrors.reportingManager }}
                         </span>
@@ -126,7 +126,7 @@
 										<div class="form-group">
 											<label>RMG SPOC</label>
 											<p *ngIf="!editMode" class="form-control-static">{{personalDetails?.rmg_spoc}}</p>
-											<input *ngIf="editMode" onlyAlphabets type="text" class="form-control" formControlName="rmgSpoc" />
+											<input *ngIf="editMode" onlyAlphabets type="text" class="form-control" formControlName="rmgSpoc" maxlength="45"/>
 											<span class="help-block" *ngIf="formErrors.rmgSpoc && pForm.submitted && editMode">
                             {{ formErrors.rmgSpoc }}
                         </span>
