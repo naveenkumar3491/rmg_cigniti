@@ -46,7 +46,6 @@ export class ContactDetailsComponent implements OnInit {
     private messageService: MessageService, private storage: Ng2Storage, private utilsService: UtilsService) { }
 
   ngOnInit() {
-    //const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     const emailFormat = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     this.contactForm = this.fb.group({
       pEmailId: [this.personalDetails.personalEmailId, [Validators.required, this.uniqueValidation('cignitiEmail', 'emailValidation', this.personalDetails.officialEmailId, emailFormat)]],
