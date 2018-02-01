@@ -1,49 +1,63 @@
 <div class="row bu-wrapper">
     <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-2 col-sm-2 col-xs-12">
-                        <span class="pro-title">REGION</span>
-                        <p *ngIf="!editMode" class="form-control-static">{{personalDetails.bu}}</p>
-                        <p-dropdown *ngIf="editMode" [options]="buMasterData" name="businessUnit" [(ngModel)]="buModel.bu_id" placeholder="Select Business Unit"
-                            optionLabel="label" [style]="{'width':'150px'}"></p-dropdown>
+        <form [formGroup]="buForm" #bForm="ngForm" (ngSubmit)="onBuDtlsSave()" novalidate>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-2 col-sm-2 col-xs-12">
+                            <span class="pro-title">REGION</span>
+                            <p *ngIf="!editMode" class="form-control-static">{{personalDetails.bu}}</p>
+                            <p-dropdown *ngIf="editMode" [options]="buMasterData" name="businessUnit" formControlName="bu_id" placeholder="Select Business Unit"
+                                optionLabel="label" [style]="{'width':'150px'}"></p-dropdown>
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-12">
+                            <span class="pro-title">DIVISION</span>
+                            <p *ngIf="!editMode" class="form-control-static">{{personalDetails.du}}</p>
+                            <p-dropdown *ngIf="editMode" [options]="duMasterData" name="deliveryUnit" formControlName="du_id" placeholder="Select Delivery Unit"
+                                optionLabel="label" [style]="{'width':'150px'}"></p-dropdown>
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-12" [ngClass]="{'has-error':formErrors.projectManger && bForm.submitted}">
+                            <span class="pro-title">PROJECT MANAGER</span>
+                            <p *ngIf="!editMode" class="form-control-static">{{personalDetails.project_manager}}</p>
+                            <input *ngIf="editMode" type="text" class="form-control" formControlName="projectManger"  maxlength="45"/>
+                            <span class="help-block" *ngIf="formErrors.projectManger && bForm.submitted && editMode">
+                                    {{ formErrors.projectManger }}
+                            </span>
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-12" [ngClass]="{'has-error':formErrors.reportingManager && bForm.submitted}">
+                            <span class="pro-title">ACCOUNT MANAGER</span>
+                            <p *ngIf="!editMode" class="form-control-static">{{personalDetails.accountManager}}</p>
+                            <input *ngIf="editMode" type="text" class="form-control" formControlName="reportingManager"  maxlength="45"/>
+                            <span class="help-block" *ngIf="formErrors.reportingManager && bForm.submitted && editMode">
+                                    {{ formErrors.reportingManager }}
+                            </span>
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-12" [ngClass]="{'has-error':formErrors.buHead && bForm.submitted}">
+                            <span class="pro-title">BU HEAD</span>
+                            <p *ngIf="!editMode" class="form-control-static">{{personalDetails.bu_head}}</p>
+                            <input *ngIf="editMode" type="text" class="form-control" formControlName="buHead"  maxlength="45"/>
+                            <span class="help-block" *ngIf="formErrors.buHead && bForm.submitted && editMode">
+                                    {{ formErrors.buHead }}
+                            </span>
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-12 " [ngClass]="{'has-error':formErrors.hrSpoc && bForm.submitted}">
+                            <span class="pro-title">BP HR</span>
+                            <span pTooltip="edit" tooltipPosition="top" *ngIf="!editMode && userData.employeeRoleName === 'RMG'" class="bu-edit" (click)="onBuEdit()">
+                                <i class="fa fa-pencil"></i>
+                            </span>
+                            <p *ngIf="!editMode" class="form-control-static">{{personalDetails.hr_spoc}}</p>
+                            <input *ngIf="editMode" type="text" class="form-control" maxlength="45" formControlName="hrSpoc" />
+                            <span class="help-block" *ngIf="formErrors.hrSpoc && bForm.submitted && editMode">
+                                    {{ formErrors.hrSpoc }}
+                            </span>
+                        </div>
                     </div>
-                    <div class="col-md-2 col-sm-2 col-xs-12">
-                        <span class="pro-title">DIVISION</span>
-                        <p *ngIf="!editMode" class="form-control-static">{{personalDetails.du}}</p>
-                        <p-dropdown *ngIf="editMode" [options]="duMasterData" name="deliveryUnit" [(ngModel)]="buModel.du_id" placeholder="Select Delivery Unit"
-                            optionLabel="label" [style]="{'width':'150px'}"></p-dropdown>
+                    <div class="row text-center m-t-10" *ngIf="editMode">
+                        <button type="submit" class="btn btn-success">Save</button>
+                        <button class="btn btn-default" (click)="editMode = false">Cancel</button>
                     </div>
-                    <div class="col-md-2 col-sm-2 col-xs-12">
-                        <span class="pro-title">PROJECT MANAGER</span>
-                        <p *ngIf="!editMode" class="form-control-static">{{personalDetails.project_manager}}</p>
-                        <input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="buModel.projectManger" maxlength="45"/>
-                    </div>
-                    <div class="col-md-2 col-sm-2 col-xs-12">
-                        <span class="pro-title">ACCOUNT MANAGER</span>
-                        <p *ngIf="!editMode" class="form-control-static">{{personalDetails.accountManager}}</p>
-                        <input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="buModel.reportingManager" maxlength="45"/>
-                    </div>
-                    <div class="col-md-2 col-sm-2 col-xs-12">
-                        <span class="pro-title">BU HEAD</span>
-                        <p *ngIf="!editMode" class="form-control-static">{{personalDetails.bu_head}}</p>
-                        <input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="buModel.buHead" maxlength="45"/>
-                    </div>
-                    <div class="col-md-2 col-sm-2 col-xs-12 ">
-                        <span class="pro-title">BP HR</span>
-                        <span pTooltip="edit" tooltipPosition="top" *ngIf="!editMode && userData.employeeRoleName === 'RMG'" class="bu-edit" (click)="onBuEdit()">
-                               <i class="fa fa-pencil"></i>
-                        </span>
-                        <p *ngIf="!editMode" class="form-control-static">{{personalDetails.hr_spoc}}</p>
-                        <input *ngIf="editMode" type="text" class="form-control" [(ngModel)]="buModel.hrSpoc" maxlength="45"/>
-                    </div>
-                </div>
-                <div class="row text-center m-t-10" *ngIf="editMode">
-                    <button class="btn btn-success" (click)="onBuDtlsSave()">Save</button>
-                    <button class="btn btn-default" (click)="editMode = false">Cancel</button>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>

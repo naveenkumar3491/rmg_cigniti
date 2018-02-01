@@ -2,6 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Ng2Storage } from "../../../services/storage";
 import { DataService } from '../../../services/DataService';
 import { MessageService } from 'primeng/components/common/messageservice';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-bu-details',
@@ -15,11 +16,44 @@ export class BUDetailsComponent implements OnInit {
   @Output() callBackContactDetails = new EventEmitter();
   public editMode: boolean = false;
   public buModel: any = {};
+  public buForm: FormGroup;
   public userData = this.storage.getSession('user_data');
-  constructor(private storage: Ng2Storage, private dataService: DataService, private messageService:MessageService) { }
+  constructor(private storage: Ng2Storage, private dataService: DataService, private messageService: MessageService,
+    private fb: FormBuilder) { }
+
+  public formErrors: any = {
+    projectManger: '',
+    reportingManager: '',
+    buHead: '',
+    hrSpoc: ''
+  }
+
+  public validationMessages: any = {
+    projectManger: {
+      required: 'Project Manager is required'
+    },
+    reportingManager: {
+      required: 'Account Manager is required'
+    },
+    buHead: {
+      required: 'BU Head is required'
+    },
+    hrSpoc: {
+      required: 'BP HR is required'
+    }
+  }
 
   ngOnInit() {
-    
+    this.buForm = this.fb.group({
+      projectManger: ['', [Validators.required]],
+      reportingManager: ['', [Validators.required]],
+      buHead: ['', [Validators.required]],
+      hrSpoc: ['', [Validators.required]],
+      bu_id: [null],
+      du_id: [null]
+    });
+    this.buForm.valueChanges.subscribe(data => this.onValuesChanged());
+    this.onValuesChanged();
   }
 
   onBuEdit() {
@@ -27,28 +61,46 @@ export class BUDetailsComponent implements OnInit {
     const pd = this.personalDetails;
     let buObj = this.buMasterData.find(obj => obj.label === pd.bu);
     let duObj = this.duMasterData.find(obj => obj.label === pd.du);
-    this.buModel = {
-      reportingManager: pd.accountManager,
-      projectManger: pd.project_manager,
-      hrSpoc: pd.hr_spoc,
-      buHead: pd.bu_head,
-      bu_id: buObj ? buObj.value : null,
-      du_id: duObj ? duObj.value : null
-    };
+    this.buForm.patchValue({
+      projectManger: pd.project_manager, reportingManager: pd.accountManager,
+      buHead: pd.bu_head, hrSpoc: pd.hr_spoc, du_id: duObj ? duObj.value : null, bu_id: buObj ? buObj.value : null
+    });
   }
 
-  onBuDtlsSave(){
+  onBuDtlsSave() {
     //const obj = Object.assign({}, this.buModel);
-    const obj = {
-      ...this.buModel
-    }
-    obj.empId = this.personalDetails.emp_id;
-    obj.employeeName = this.personalDetails.employeeName;
-    this.dataService.addUpdateBuDtls(obj).subscribe((data) => {
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Saved Successfully!!' });
-      this.editMode = false;
-      this.callBackContactDetails.emit();
+    if (this.buForm.valid) {
+      const obj = { ...this.buForm.value };
+      obj['empId'] = this.personalDetails.emp_id;
+      obj['employeeName'] = this.personalDetails.employeeName;
+
+      this.dataService.addUpdateBuDtls(obj).subscribe((data) => {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Saved Successfully!!' });
+        this.editMode = false;
+        this.callBackContactDetails.emit();
       });
+    } else {
+      Object.keys(this.buForm.controls).forEach(field => {
+        const control = this.buForm.get(field);
+        control.markAsTouched({ onlySelf: true });
+      });
+    }
+  }
+
+  public onValuesChanged(data?: any) {
+    if (!this.buForm) { return; }
+    const form = this.buForm;
+    for (const field in this.formErrors) {
+      this.formErrors[field] = '';
+      const control = form.get(field);
+
+      if (control && control.invalid) {
+        const messages = this.validationMessages[field];
+        for (const key in control.errors) {
+          this.formErrors[field] += messages[key] + ' ';
+        }
+      }
+    }
   }
 
 }
