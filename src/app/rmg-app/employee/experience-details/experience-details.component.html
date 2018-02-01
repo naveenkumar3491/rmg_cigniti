@@ -40,7 +40,7 @@
                                 <button (click)="uploadFile()" class="theme-btn theme-btn-primary" *ngIf="!emptyResume && !showResumeUploading">Upload</button>
                                 <div class="theme-btn theme-btn-primary" *ngIf="showResumeUploading ">Uploading...</div>
                             </div>
-                            <div [ngClass]="{'m-t-4':resumeName === 'Not Yet Uploaded'}">
+                            <div *ngIf="userData.employeeRoleName === 'Employee'" [ngClass]="{'m-t-4':resumeName === 'Not Yet Uploaded'}">
                                 <span class="label label-success">Cigniti Format.doc</span>
                                 <a target="_self" href="./assets/data/cigniti-template.docx" [download]= personalDetails.employeeName><span class="downloadResume" pTooltip="download" tooltipPosition="top">
 									<span class="glyphicon glyphicon-download"></span>
