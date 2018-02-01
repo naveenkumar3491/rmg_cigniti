@@ -6,7 +6,7 @@
                     <div class="col-md-4 col-sm-4 col-xs-12">
                             <span class="help-block pro-title">CIGNITI EXPERIENCE</span>
                             <div> </div>
-                            <p class="form-control-static"> {{model.cignitiExperience}}</p>
+                            <p> {{model.cignitiExperience}}</p>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-12">
                             <span class="help-block pro-title">TOTAL EXPERIENCE
@@ -23,27 +23,32 @@
                                 <input type="number" min="0" max="30" class="form-control" [(ngModel)]="exp.years" />
                                 <input type="number" min="0" max="12" class="form-control" [(ngModel)]="exp.months" />
                             </div>
-                            <p *ngIf="editMode" class="form-control-static">{{model.totalExperience}}</p>
+                            <p *ngIf="editMode">{{model.totalExperience}}</p>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-12">
                             <span class="help-block pro-title">RESUME LAST UPDATED</span>
-                            <div class="form-control-static">
+                            <div>
                                 <span class="label label-success">{{resumeName}}</span>
-                                <span (click)="removeResume()" class="removeResume" *ngIf="resumeName !== 'Not Yet Uploaded' && userData.employeeRoleName === 'Employee'">
+                                <span (click)="removeResume()" class="removeResume" pTooltip="remove" tooltipPosition="top"
+                                *ngIf="resumeName !== 'Not Yet Uploaded' && userData.employeeRoleName === 'Employee'">
 									<span class="glyphicon glyphicon-remove"></span>
+                                </span>
+                                <span *ngIf="resumeName !== 'Not Yet Uploaded' && emptyResume" (click)="downloadResume()" class="downloadResume" pTooltip="download" tooltipPosition="top">
+									<span class="glyphicon glyphicon-download"></span>
                                 </span>
                                 <button *ngIf="emptyResume && userData.employeeRoleName === 'Employee'" (click)="getResumeFile.click()" class="btn btn-primary">Browse</button>
                                 <button (click)="uploadFile()" class="theme-btn theme-btn-primary" *ngIf="!emptyResume && !showResumeUploading">Upload</button>
                                 <div class="theme-btn theme-btn-primary" *ngIf="showResumeUploading ">Uploading...</div>
                             </div>
-                            <div *ngIf="userData.employeeRoleName === 'Employee'" class="cigniti-format"><span>Download</span> <a target="_self" href="./assets/data/cigniti-template.docx" [download]= personalDetails.employeeName>Cigniti Format Template</a></div>
+                            <div [ngClass]="{'m-t-4':resumeName === 'Not Yet Uploaded'}">
+                                <span class="label label-success">Cigniti Format.doc</span>
+                                <a target="_self" href="./assets/data/cigniti-template.docx" [download]= personalDetails.employeeName><span class="downloadResume" pTooltip="download" tooltipPosition="top">
+									<span class="glyphicon glyphicon-download"></span>
+                                </span></a>
+                            </div>
                         <input type="file" style="display: none;;" #getResumeFile (change)="readResume($event)" (click)="getResumeFile.value = null"
                         />
-
                     </div>
-                    <!--<div class="col-md-4">
-            <span data-toggle="modal" data-target="#myresumeModal"><a href="#"><i class="fa fa-file-word-o" id="download_resume" style="display:none;"> View Resume</i></a></span>
-            </div>-->
                 </div>
             </div>
         </div>

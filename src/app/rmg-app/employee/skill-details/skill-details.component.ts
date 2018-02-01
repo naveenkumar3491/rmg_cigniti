@@ -111,7 +111,7 @@ export class SkillDetailsComponent implements OnChanges {
 
   deleteConfirm(skill, index) {
     this.confirmationService.confirm({
-      message: 'Are you sure that you want to delete skill?',
+      message: 'Are you sure you want to delete skill?',
       accept: () => {
         this.deleteSkill(skill, index);
       }

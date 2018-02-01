@@ -31,7 +31,6 @@ export class ContactDetailsComponent implements OnInit {
     pEmailId: {
       required: 'Email ID is required',
       emailValidation: 'Email ID is not valid',
-      uniqueEmail: 'Email ID should be unique',
       cignitiEmail: 'Email ID cannot be cigniti email'
     },
     mobile: {
@@ -50,7 +49,7 @@ export class ContactDetailsComponent implements OnInit {
     //const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     const emailFormat = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     this.contactForm = this.fb.group({
-      pEmailId: [this.personalDetails.personalEmailId, [Validators.required, this.uniqueValidation('uniqueEmail', 'cignitiEmail', 'emailValidation', this.personalDetails.officialEmailId, emailFormat)]],
+      pEmailId: [this.personalDetails.personalEmailId, [Validators.required, this.uniqueValidation('cignitiEmail', 'emailValidation', this.personalDetails.officialEmailId, emailFormat)]],
       mobile: [this.personalDetails.mobile, [Validators.required, Validators.minLength(10)]],
       alternateMobile: [this.personalDetails.alternatePhoneNo, [Validators.minLength(10)]]
     });
@@ -59,7 +58,7 @@ export class ContactDetailsComponent implements OnInit {
     this.contactForm.patchValue({ pEmailId: this.personalDetails.personalEmailId, mobile: this.personalDetails.mobile, alternateMobile: this.personalDetails.alternate_phone_no });
   }
 
-  uniqueValidation(name1, name2, name3, oEmailId, eFormat) {
+  uniqueValidation(name1, name2, oEmailId, eFormat) {
     return function (c: AbstractControl): { [key: string]: any } {
       let val = c.value;
       if (!val) {
@@ -67,14 +66,10 @@ export class ContactDetailsComponent implements OnInit {
       }
       let obj = {};
       if(!val.match(eFormat)){
-        obj[name3] = true;
-        return obj;
-      }
-      else if (val === oEmailId) {
-        obj[name1] = true;
+        obj[name2] = true;
         return obj;
       }else if(val.toLowerCase().indexOf('cigniti') > -1){
-        obj[name2] = true;
+        obj[name1] = true;
         return obj;
       }
       return null;

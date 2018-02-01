@@ -1,6 +1,7 @@
 import { Component, OnChanges, ViewChild, ElementRef, Input, EventEmitter, Output, SimpleChanges } from '@angular/core';
 import { DataService } from '../../../services/DataService';
 import { MessageService } from 'primeng/components/common/messageservice';
+import { ConfirmationService } from 'primeng/primeng';
 import { Ng2Storage } from '../../../services/storage';
 import * as moment from 'moment';
 import { UtilsService } from '../../../services/utils.service';
@@ -27,7 +28,8 @@ export class ExperienceDetailsComponent implements OnChanges {
   @ViewChild('getResumeFile') input: ElementRef;
   @ViewChild('getResumeFile') resumeInput: ElementRef;
   constructor(private dataService: DataService, private messageService: MessageService
-    , private storage: Ng2Storage, private utilsService: UtilsService, private dPipe: DatePipe) { }
+    , private storage: Ng2Storage, private utilsService: UtilsService, private dPipe: DatePipe,
+    private confirmationService: ConfirmationService) { }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.personalDetails && changes.personalDetails.currentValue) {
@@ -99,16 +101,45 @@ export class ExperienceDetailsComponent implements OnChanges {
     });
   }
   removeResume() {
-    const obj = { 'employeeId': this.userData.employeeId };
-    const lastUpdate = this.dPipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss');
-    this.dataService.deleteResume(obj, '40', lastUpdate).subscribe(data => {
-      this.callBackContactDetails.emit();
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Resume deleted Successfully!!' });
-      this.utilsService.isResumeUploded.next(false);
-      this.emptyResume = true;
-      this.resumeName = 'Not Yet Uploaded';
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to remove resume?',
+      accept: () => {
+        const obj = { 'employeeId': this.userData.employeeId };
+        const lastUpdate = this.dPipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss');
+        this.dataService.deleteResume(obj, '40', lastUpdate).subscribe(data => {
+          this.callBackContactDetails.emit();
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Resume deleted Successfully!!' });
+          this.utilsService.isResumeUploded.next(false);
+          this.emptyResume = true;
+          this.resumeName = 'Not Yet Uploaded';
+        });
+      }
     });
   }
+
+  downloadResume() {
+    let resumeB64 = this.base64ToArrayBuffer(`${this.personalDetails.resumeFile}`);
+    this.saveByteArray(resumeB64);
+  }
+
+  base64ToArrayBuffer(base64) {
+    var binaryString = window.atob(base64);
+    var binaryLen = binaryString.length;
+    var bytes = new Uint8Array(binaryLen);
+    for (var i = 0; i < binaryLen; i++) {
+       var ascii = binaryString.charCodeAt(i);
+       bytes[i] = ascii;
+    }
+    return bytes;
+ }
+
+ saveByteArray(byte) {
+    var link = document.createElement('a');
+    link.href = window.URL.createObjectURL(new Blob([byte] , {type:'text/doc'}));
+    var fileName = `${this.personalDetails.employeeResume}.doc`;
+    link.download = fileName;
+    link.click();
+};
 
   saveExp(type) {
     if (type === 'save') {
