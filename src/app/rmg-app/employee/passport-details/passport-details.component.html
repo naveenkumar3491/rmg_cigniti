@@ -51,6 +51,8 @@
                                     <span *ngIf="!editMode && scanCopyUrl" pTooltip="view" tooltipPosition="top" class="curosr-p" (click)="op1.toggle($event)">
                                         <i class="fa fa-eye"></i>
                                     </span>
+                                   
+                                    <a class="passport-download" *ngIf="!editMode && scanCopyUrl" [href]="scanCopyUrl" download="passport.jpg" pTooltip="download" tooltipPosition="top"> <span class="glyphicon glyphicon-download"></span></a>
                                     <div>
                                         <ng-container *ngIf="scanCopyUrl">
                                             <img [src]="scanCopyUrl" [width]="60" [height]="60">

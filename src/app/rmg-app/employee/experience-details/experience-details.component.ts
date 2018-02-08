@@ -21,6 +21,8 @@ export class ExperienceDetailsComponent implements OnChanges {
     years: 0,
     months: 1
   };
+  public cignitiYears: number;
+  public cignitiMonths: number;
   public model = {};
   private userData = this.storage.getSession('user_data');
   @Output() callBackContactDetails = new EventEmitter();
@@ -39,12 +41,12 @@ export class ExperienceDetailsComponent implements OnChanges {
       if (this.personalDetails.doj) {
         const todayDtSplit = moment(new Date());
         const dojSplit = moment(this.personalDetails.doj, "DD/MM/YYYY");
-        const years = todayDtSplit.diff(dojSplit, 'year');
-        dojSplit.add(years, 'years');
-        let months = todayDtSplit.diff(dojSplit, 'months');
-        dojSplit.add(months, 'months');
+        this.cignitiYears = todayDtSplit.diff(dojSplit, 'year');
+        dojSplit.add(this.cignitiYears, 'years');
+        this.cignitiMonths = todayDtSplit.diff(dojSplit, 'months');
+        dojSplit.add(this.cignitiMonths, 'months');
         const days = todayDtSplit.diff(dojSplit, 'days');
-        this.model['cignitiExperience'] = years + ' years ' + months + ' months ' + days + ' days';
+        this.model['cignitiExperience'] = this.cignitiYears + ' years ' + this.cignitiMonths + ' months ' + days + ' days';
       }
 
       if (this.personalDetails.totalExperience === '0') {
@@ -72,7 +74,7 @@ export class ExperienceDetailsComponent implements OnChanges {
         this.resumeName = event.target.files[0].name;
         this.emptyResume = false;
       } else {
-        this.messageService.add({ severity: 'danger', summary: 'Error', detail: `Only doc and docx files are allowed` });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: `Only doc and docx files are allowed` });
       }
 
     }
@@ -141,31 +143,47 @@ export class ExperienceDetailsComponent implements OnChanges {
     link.click();
 };
 
-  saveExp(type) {
-    if (type === 'save') {
-      const paramObj = {
-        empId: this.userData.employeeId,
-        personalMailId: this.personalDetails.personalEmailId,
-        phoneNo: this.personalDetails.mobile,
-        employeeName: this.personalDetails.employeeName,
-        totalExperience: parseFloat(this.exp.years + '.' + this.exp.months),
-        progressbar: (this.personalDetails.totalExperience === '0') ? 5 : 0,
-        lastUpdate: this.dPipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss'),
-      };
-      this.dataService.saveContactAndExpDetails(paramObj).subscribe((data) => {
-        this.callBackContactDetails.emit();
-        this.editMode = true;
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Saved Successfully!!' });
-      });
-
-    } else {
-      this.editMode = false;
-      const tExp = this.personalDetails.totalExperience.split('.');
-      this.exp = {
-        years: (tExp[0] === '0' || tExp[0] === undefined) ? '0' : tExp[0],
-        months: (tExp[1] === '0' || tExp[1] === undefined) ? '0' : tExp[1]
-      };
+validateExperience(){
+  if(+this.exp.years < +this.cignitiYears){
+    return false;
+  }else if(+this.exp.years === +this.cignitiYears){
+    if(+this.exp.months < +this.cignitiMonths){
+      return false;
     }
+  }
+  return true;
+}
+
+  saveExp(type) {
+        if (type === 'save') {
+          if(this.validateExperience()){
+        const paramObj = {
+          empId: this.userData.employeeId,
+          personalMailId: this.personalDetails.personalEmailId,
+          phoneNo: this.personalDetails.mobile,
+          employeeName: this.personalDetails.employeeName,
+          totalExperience: this.exp.years + '.' + this.exp.months,
+          progressbar: (this.personalDetails.totalExperience === '0') ? 5 : 0,
+          lastUpdate: this.dPipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss'),
+        };
+        this.dataService.saveContactAndExpDetails(paramObj).subscribe((data) => {
+          this.callBackContactDetails.emit();
+          this.editMode = true;
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Saved Successfully!!' });
+        });
+          }else{
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Total Experience should be greater than or equal to Cigniti Experience!!' });
+          }
+  
+      } else {
+        this.editMode = false;
+        const tExp = this.personalDetails.totalExperience.split('.');
+        this.exp = {
+          years: (tExp[0] === '0' || tExp[0] === undefined) ? '0' : tExp[0],
+          months: (tExp[1] === '0' || tExp[1] === undefined) ? '0' : tExp[1]
+        };
+      }
+
   }
 
 }
