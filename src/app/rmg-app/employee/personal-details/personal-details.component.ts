@@ -8,9 +8,10 @@ import { UtilsService } from '../../../services/utils.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { DateFormatPipe } from '../../../common/pipes/dateFormat.pipe';
 import { DatePipe } from "@angular/common";
+import { ConfirmationService } from 'primeng/primeng';
 
 @Component({
-  selector: 'val-personal-details',
+  selector: 'app-personal-details',
   templateUrl: './personal-details.component.html',
   styleUrls: ['./personal-details.component.scss'],
   providers: [MessageService]
@@ -20,6 +21,7 @@ export class PersonalDetailsComponent implements OnInit {
   msgs: any = [];
   url: any;
 
+  
   public editMode: boolean = false;
   public tabIndex: any = 0;
   public pbarColor: string;
@@ -121,7 +123,8 @@ export class PersonalDetailsComponent implements OnInit {
   }
   constructor(public cdRef: ChangeDetectorRef, private messageService: MessageService, private fb: FormBuilder,
     private dataService: DataService, private storage: Ng2Storage, private utilsService: UtilsService,
-    private activatedRoute: ActivatedRoute, private datePipe: DateFormatPipe, private dPipe: DatePipe) {
+    private activatedRoute: ActivatedRoute, private datePipe: DateFormatPipe, private dPipe: DatePipe,
+    private confirmationService: ConfirmationService) {
     this.activatedRoute.queryParams.subscribe(params => {
       if (params && params.empId) {
         this.employeeId = params.empId;
@@ -301,6 +304,17 @@ export class PersonalDetailsComponent implements OnInit {
   removeImg() {
     this.url = "";
     this.emptyImage = true;
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to remove Image?',
+      accept: () => {
+        const obj = { 'employeeId': this.userData.employeeId };
+        const lastUpdate = this.dPipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss');
+        this.dataService.deleteEmplImage(obj, '5', lastUpdate).subscribe(data => {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Image deleted Successfully!!' });
+          this.getEmployeeDetails();
+        });
+      }
+    });
   }
 
   readUrl(event: any) {

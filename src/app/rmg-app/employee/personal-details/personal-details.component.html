@@ -15,7 +15,7 @@
 									</div>
 									<img [src]="url" width="100" height="100" *ngIf="url">
 									<input type='file' style="visibility:hidden;" #getFile accept="image/*" (click)="getFile.value = null" (change)="readUrl($event)">
-									<div (click)="removeImg()" class="removeImg" *ngIf="!emptyImage">
+									<div (click)="removeImg()" class="removeImg" *ngIf="url && emptyImage">
 										<span class="glyphicon glyphicon-remove"></span>
 									</div>
 								</div>

@@ -37,4 +37,5 @@ export abstract class DataService {
     public abstract getVisaDetails(id) : Observable<any>;
     public abstract getCertificationNamesInstitutes(id) : Observable<any>;
     public abstract deleteResume(obj, value, lastUpdated): Observable<any>;
+    public abstract deleteEmplImage(obj, value, lastUpdated): Observable<any>;
 }

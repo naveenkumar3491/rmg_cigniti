@@ -351,6 +351,15 @@ export class MockDataService extends DataService {
         });
     }
 
+    public deleteEmplImage(obj): Observable<any> {
+        return Observable.create(observer => {
+            setTimeout(() => {
+                observer.next({});
+                observer.complete();
+            }, 1000)
+        });
+    }
+
     public addUpdateEmployee(obj): Observable<any> {
         return Observable.create(observer => {
             setTimeout(() => {
