@@ -23,6 +23,7 @@ export class ExperienceDetailsComponent implements OnChanges {
   };
   public cignitiYears: number;
   public cignitiMonths: number;
+  public cignitiDays: number;
   public model = {};
   private userData = this.storage.getSession('user_data');
   @Output() callBackContactDetails = new EventEmitter();
@@ -45,8 +46,8 @@ export class ExperienceDetailsComponent implements OnChanges {
         dojSplit.add(this.cignitiYears, 'years');
         this.cignitiMonths = todayDtSplit.diff(dojSplit, 'months');
         dojSplit.add(this.cignitiMonths, 'months');
-        const days = todayDtSplit.diff(dojSplit, 'days');
-        this.model['cignitiExperience'] = this.cignitiYears + ' years ' + this.cignitiMonths + ' months ' + days + ' days';
+        this.cignitiDays = todayDtSplit.diff(dojSplit, 'days');
+        this.model['cignitiExperience'] = this.cignitiYears + ' years ' + this.cignitiMonths + ' months ' + this.cignitiDays + ' days';
       }
 
       if (this.personalDetails.totalExperience === '0') {
@@ -149,6 +150,10 @@ validateExperience(){
   }else if(+this.exp.years === +this.cignitiYears){
     if(+this.exp.months < +this.cignitiMonths){
       return false;
+    }else if(+this.exp.months === +this.cignitiMonths){
+      if(+this.cignitiDays > 0){
+        return false;
+      }
     }
   }
   return true;
