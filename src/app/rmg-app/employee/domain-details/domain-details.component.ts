@@ -104,7 +104,7 @@ export class DomainDetailsComponent implements OnChanges {
   callDomainService(type, progressValue) {
     const domainExp = `${this.domainModel.years}.${this.domainModel.months}`;
     const domainObj = {
-      employeeId: this.userData.employeeId,
+      emp_id: this.userData.employeeId,
       domainId: this.domainModel.domain.domainId,
       subDomainId: this.domainModel.subDomain.subDomainId,
       child_domain: this.domainModel.childDomain.map(({ childDomainId }) => childDomainId),

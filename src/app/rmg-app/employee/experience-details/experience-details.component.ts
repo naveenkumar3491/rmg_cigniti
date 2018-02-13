@@ -92,7 +92,7 @@ export class ExperienceDetailsComponent implements OnChanges {
   upload(fileToUpload: any) {
     const input = new FormData();
     input.append('file', fileToUpload);
-    input.append('empId', this.userData.employeeId);
+    input.append('emp_id', this.userData.employeeId);
     input.append('lastUpdate', this.dPipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss'));
     input.append('progressbar', !this.personalDetails.employeeResume ? '40' : '0');
     this.dataService.uploadProfileResume(input).subscribe((data) => {
@@ -107,7 +107,7 @@ export class ExperienceDetailsComponent implements OnChanges {
     this.confirmationService.confirm({
       message: 'Are you sure you want to remove resume?',
       accept: () => {
-        const obj = { 'employeeId': this.userData.employeeId };
+        const obj = { 'emp_id': this.userData.employeeId };
         const lastUpdate = this.dPipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss');
         this.dataService.deleteResume(obj, '40', lastUpdate).subscribe(data => {
           this.callBackContactDetails.emit();
@@ -163,7 +163,7 @@ validateExperience(){
         if (type === 'save') {
           if(this.validateExperience()){
         const paramObj = {
-          empId: this.userData.employeeId,
+          emp_id: this.userData.employeeId,
           personalMailId: this.personalDetails.personalEmailId,
           phoneNo: this.personalDetails.mobile,
           employeeName: this.personalDetails.employeeName,

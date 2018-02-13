@@ -72,7 +72,7 @@ export class BUDetailsComponent implements OnInit {
     //const obj = Object.assign({}, this.buModel);
     if (this.buForm.valid) {
       const obj = { ...this.buForm.value };
-      obj['empId'] = this.personalDetails.emp_id;
+      obj['emp_id'] = this.personalDetails.emp_id;
       obj['employeeName'] = this.personalDetails.employeeName;
 
       this.dataService.addUpdateBuDtls(obj).subscribe((data) => {

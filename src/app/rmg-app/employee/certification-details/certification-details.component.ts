@@ -65,7 +65,7 @@ export class CertificationDetailsComponent implements OnChanges {
 
   onCertificationAdd(type) {
     const certObj = {
-      empId: this.userData.employeeId,
+      emp_id: this.userData.employeeId,
       technology: this.certificationModel.certTech.name,
       certification: this.certificationModel.certName.name,
       boardInstitute: this.certificationModel.certFrom.name,

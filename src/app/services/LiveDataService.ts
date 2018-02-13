@@ -53,7 +53,7 @@ export class LiveDataService extends DataService {
     private readonly domainDataUrl = this.getBaseURI() + 'getDomainDtlsById';
     private readonly deleteResumeUrl = this.getBaseURI() + 'deleteEmplResume';
     private readonly deleteEmplImageUrl = this.getBaseURI() + 'deleteEmplImage';
-    
+    private readonly empDtlsSheetUrl = this.getBaseURI() + 'emplProfileReport';
 
     private getBaseURI() {
         return this.basePath + this.MyTrUrl;
@@ -84,7 +84,7 @@ export class LiveDataService extends DataService {
         //     return response;
         // });
         return Observable.forkJoin([
-            this.http.get(`${this.employeeDetails}?empId=${empId}`).map((res) => {
+            this.http.get(`${this.employeeDetails}?emp_id=${empId}`).map((res) => {
                 return res;
             }),
             this.http.get(`${this.designationMasterUrl}`).map((res) => {
@@ -175,7 +175,7 @@ export class LiveDataService extends DataService {
     }
 
     public getProjectDetails(empId: string): Observable<any> {
-        return this.http.get(`${this.projectDetails}?empId=${empId}`).map((response) => {
+        return this.http.get(`${this.projectDetails}?emp_id=${empId}`).map((response) => {
             return response;
         });
     }
@@ -301,13 +301,13 @@ export class LiveDataService extends DataService {
     }
 
     public getProfessionalDetails(empId: string): Observable<any> {
-        return this.http.get(`${this.skillDetails}?empId=${empId}`).map((response) => {
+        return this.http.get(`${this.skillDetails}?emp_id=${empId}`).map((response) => {
             return response;
         });
     }
 
     public getDomainDetails(empId: string): Observable<any> {
-        return this.http.get(`${this.domainDataUrl}?empId=${empId}`).map((res) => {
+        return this.http.get(`${this.domainDataUrl}?emp_id=${empId}`).map((res) => {
             const items = <any[]>res['details'];
             const domainResultSet = [];
             const check =[];
@@ -421,7 +421,13 @@ export class LiveDataService extends DataService {
     }
 
     public getVisaDetails(id): Observable<any> {
-        return this.http.get(`${this.visaDetails}?empId=${id}`).map((response) => {
+        return this.http.get(`${this.visaDetails}?emp_id=${id}`).map((response) => {
+            return response;
+        });
+    }
+
+    public getAllEmpDetails(): Observable<any> {
+        return this.http.get(`${this.empDtlsSheetUrl}`).map((response) => {
             return response;
         });
     }

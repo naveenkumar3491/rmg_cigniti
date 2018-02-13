@@ -51,7 +51,7 @@ export class PassportDetailsComponent implements OnChanges {
             const fileToUpload = fi.files[0];
             input.append('passposrt_Scan', fileToUpload);
         }
-        input.append('empId', this.userData.employeeId);
+        input.append('emp_id', this.userData.employeeId);
         input.append('passport_no', this.passportModel.passportNumber);
         input.append('passport_Valid_From', this.datePipe.transform(this.passportModel.validFrom, 'dd-MM-yyyy'));
         input.append('passport_Valid_To', this.datePipe.transform(this.passportModel.validTo, 'dd-MM-yyyy'));

@@ -69,7 +69,7 @@ export class VisaDetailsComponent implements OnInit {
 
   onAddVisa(type) {
     let obj = {
-      employeeId: this.employeeId,
+      emp_id: this.employeeId,
       country: this.visaModel.country.name,
       visa: this.visaModel.visa.name,
       visa_type: this.visaModel.visa_type,

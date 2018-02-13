@@ -157,7 +157,7 @@ export class PersonalDetailsComponent implements OnInit {
     let desigObj = this.designationMasterData.find(obj => obj.label === pd.designation);
     let jLObj = this.locationMasterData.find(obj => obj.label === pd.joinginLocation);
     let cLObj = this.locationMasterData.find(obj => obj.label === pd.currentLocation);
-    this.pdForm.patchValue({ empId: pd.emp_id, employeeName: pd.employeeName, emplType: pd.employeementType, reportingManager: pd.reportingManager, rmgSpoc: pd.rmg_spoc, designation: desigObj ? desigObj.value : null, doj: pd.doj, joiningLocation: jLObj ? jLObj.value : null, currentLocation: cLObj ? cLObj.value : null });
+    this.pdForm.patchValue({ emp_id: pd.emp_id, employeeName: pd.employeeName, emplType: pd.employeementType, reportingManager: pd.reportingManager, rmgSpoc: pd.rmg_spoc, designation: desigObj ? desigObj.value : null, doj: pd.doj, joiningLocation: jLObj ? jLObj.value : null, currentLocation: cLObj ? cLObj.value : null });
   }
 
   onPDSave() {
@@ -208,7 +208,7 @@ export class PersonalDetailsComponent implements OnInit {
       this.changeProgressBarColor();
       this.url = this.personalDetails.employeeImage ? `data:image/png;base64,${this.personalDetails.employeeImage}` : null;
       this.pdForm = this.fb.group({
-        empId: ['', [Validators.required]],
+        emp_id: ['', [Validators.required]],
         employeeName: ['', [Validators.required]],
         emplType: ['', [Validators.required]],
         reportingManager: ['', [Validators.required]],
@@ -290,7 +290,7 @@ export class PersonalDetailsComponent implements OnInit {
   upload(fileToUpload: any) {
     let input = new FormData();
     input.append('file', fileToUpload);
-    input.append('empId', this.employeeId);
+    input.append('emp_id', this.employeeId);
     input.append('lastUpdate', this.dPipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss'));
     input.append('progressbar', !this.personalDetails.employeeImage ? '5' : '0');
     this.dataService.uploadProfileImage(input).subscribe((data) => {
@@ -307,7 +307,7 @@ export class PersonalDetailsComponent implements OnInit {
     this.confirmationService.confirm({
       message: 'Are you sure you want to remove Image?',
       accept: () => {
-        const obj = { 'employeeId': this.userData.employeeId };
+        const obj = { 'emp_id': this.userData.employeeId };
         const lastUpdate = this.dPipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss');
         this.dataService.deleteEmplImage(obj, '5', lastUpdate).subscribe(data => {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Image deleted Successfully!!' });

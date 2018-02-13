@@ -288,6 +288,15 @@ export class MockDataService extends DataService {
         });
     }
 
+    public getAllEmpDetails(): Observable<any> {
+        return Observable.create(observer => {
+            setTimeout(() => {
+                observer.next({});
+                observer.complete();
+            }, 1000)
+        });
+    }
+
     public deleteDomain(obj, progressbarValue, lastUpdated): Observable<any> {
         return Observable.create(observer => {
             setTimeout(() => {

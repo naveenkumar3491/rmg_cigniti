@@ -80,7 +80,7 @@ export class ContactDetailsComponent implements OnInit {
       this.formSubmitAttempt = true;
       if (this.contactForm.valid) {
         const paramObj = {
-          empId: this.userData.employeeId,
+          emp_id: this.userData.employeeId,
           personalMailId: this.contactForm.get('pEmailId').value,
           phoneNo: this.contactForm.get('mobile').value,
           alternate_phone_no: this.contactForm.get('alternateMobile').value,

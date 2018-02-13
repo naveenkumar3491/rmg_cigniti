@@ -62,14 +62,14 @@ export class SkillDetailsComponent implements OnChanges {
     let paramObj = {
       ...this.skillModel
     };
-    paramObj.employeeId = this.userData.employeeId;
+    paramObj.emp_id = this.userData.employeeId;
     paramObj.employeeName = this.userData.employeeName;
 
     if (this.skillList.length === 0) {
       progressValue = 20;
     }
     if (type !== 'add') {
-      paramObj['rowid'] = this.editedSkillObject.skill_master_id;
+      paramObj['rowid'] = this.editedSkillObject.rowid;
     }
     this.dataService.addUpdateSkill(paramObj, progressValue, this.dPipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss')).subscribe((data) => {
       if (type === 'add') {
@@ -124,8 +124,8 @@ export class SkillDetailsComponent implements OnChanges {
       progressBarValue = 20;
     }
     const skillObj = {
-      rowid: skill.skill_master_id,
-      employeeId: this.userData.employeeId,
+      rowid: skill.rowid,
+      emp_id: this.userData.employeeId,
       employeeName: this.userData.employeeName
     };
     this.dataService.deleteSkill(skillObj, progressBarValue, this.dPipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss')).subscribe((data) => {
