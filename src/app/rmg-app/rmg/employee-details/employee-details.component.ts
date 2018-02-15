@@ -295,9 +295,15 @@ export class EmployeeDetailsComponent implements OnInit {
         if (data[index] === '') {
           data[index] = null;
         }
-        if (typeof data[index] === 'string' && data[index].indexOf(',') > -1) {
+        if(typeof data[index] === 'string'){
+   if (data[index].indexOf(',') > -1) {
           data[index] = data[index].replace(/[,]/g, "|");
         }
+        if (data[index].indexOf('\n') > -1) {
+          data[index] = data[index].replace(/[\n]/g, "|");
+        }
+        }
+       
         line += data[index];
       }
       this.csvHeaderRow += (this.csvHeaderRow === '' ? line : '\r\n' + line) + ',';
