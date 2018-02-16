@@ -4,6 +4,10 @@
          background-color: #337ab7;
          &:hover{
             background-color: #3873a7;
+            color:#fff;
+         }
+         i{
+             margin-right: 5px;
          }
     }
     .search-spinner{
@@ -13,9 +17,5 @@
             top: 0px;
             left: 0px;
         }
-    }
-
-    .btn:hover{
-        color:#fff;
     }
 }

@@ -232,10 +232,10 @@ export class EmployeeDetailsComponent implements OnInit {
     this.csvHeaderRow = '';
     this.csvBodyRow = '';
     this.csvBodyRow = this.headerColumns.join(',');
-    this.dataService.getAllEmpDetails().subscribe(data => {
-      this.parseJson(data.details);
-      this.disabledBtn = false;
-    })
+    // this.dataService.getAllEmpDetails().subscribe(data => {
+    //   this.parseJson(data.details);
+    //   this.disabledBtn = false;
+    // })
   }
 
   parseJson(data) {
