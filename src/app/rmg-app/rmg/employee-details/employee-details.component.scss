@@ -1,0 +1,9 @@
+.employee-details{
+    .export-csv{
+         float: right;
+         background-color: #337ab7;
+         &:hover{
+            background-color: #3873a7;
+         }
+    }
+}

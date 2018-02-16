@@ -1,6 +1,13 @@
-<button class="btn btn-success" (click)="downloadSheet()">download</button>
 
+<div class="employee-details">
 <p-dataTable [value]="employeeList" scrollable="true" scrollHeight="200px" emptyMessage="No Employees Found">
+  <p-header>
+        <div class="ui-helper-clearfix">
+            <button type="button" pButton icon="fa-file" iconPos="left" label="Export To CSV" (click)="exportCSV()" class="export-csv">
+              
+            </button>
+        </div>
+    </p-header>
   <p-column [sortable]="true" *ngFor="let col of employeeHeader" [field]="col.field" [header]="col.header">
 
     <template let-row="rowData" pTemplate>
@@ -12,3 +19,4 @@
   </p-column>
 
 </p-dataTable>
+</div>

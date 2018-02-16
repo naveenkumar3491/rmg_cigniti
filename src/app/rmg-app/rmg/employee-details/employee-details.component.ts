@@ -224,7 +224,7 @@ export class EmployeeDetailsComponent implements OnInit {
 
   }
 
-  downloadSheet() {
+  exportCSV() {
     this.csvHeaderRow = '';
     this.csvBodyRow = '';
     this.csvBodyRow = this.headerColumns.join(',');
