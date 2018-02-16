@@ -193,7 +193,7 @@ export class DomainDetailsComponent implements OnChanges {
     }
     const domainObj = {
       rowid: domain.rowid,
-      employeeId: this.userData.employeeId
+      emp_id: this.userData.employeeId
     };
     this.dataService.deleteDomain(domainObj, progressBarValue, this.dPipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss')).subscribe((data) => {
       this.callBackDomainDetails.emit();

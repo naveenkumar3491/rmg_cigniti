@@ -1,9 +1,21 @@
 .employee-details{
     .export-csv{
-         float: right;
+         float: left;
          background-color: #337ab7;
          &:hover{
             background-color: #3873a7;
          }
+    }
+    .search-spinner{
+        .fa-li{
+            position: relative;
+            z-index: 3;
+            top: 0px;
+            left: 0px;
+        }
+    }
+
+    .btn:hover{
+        color:#fff;
     }
 }

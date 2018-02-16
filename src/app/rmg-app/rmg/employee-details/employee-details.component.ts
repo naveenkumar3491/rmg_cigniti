@@ -2,12 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from "../../../services/DataService";
 
+
+
 @Component({
   selector: 'app-employee-details',
   templateUrl: './employee-details.component.html',
   styleUrls: ['./employee-details.component.scss']
 })
 export class EmployeeDetailsComponent implements OnInit {
+  public disabledBtn:boolean = false;
   public csvBodyRow = '';
   public csvHeaderRow = '';
   private emptyCount: number;
@@ -225,11 +228,13 @@ export class EmployeeDetailsComponent implements OnInit {
   }
 
   exportCSV() {
+    this.disabledBtn = true;
     this.csvHeaderRow = '';
     this.csvBodyRow = '';
     this.csvBodyRow = this.headerColumns.join(',');
     this.dataService.getAllEmpDetails().subscribe(data => {
       this.parseJson(data.details);
+      this.disabledBtn = false;
     })
   }
 
@@ -248,7 +253,7 @@ export class EmployeeDetailsComponent implements OnInit {
 
     let link = document.createElement("a");
     link.href = uri;
-    link.download = 'naveen.csv';
+    link.download = 'shanker.csv';
 
     document.body.appendChild(link);
     link.click();

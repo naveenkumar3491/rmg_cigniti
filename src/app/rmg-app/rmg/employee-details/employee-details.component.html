@@ -3,9 +3,12 @@
 <p-dataTable [value]="employeeList" scrollable="true" scrollHeight="200px" emptyMessage="No Employees Found">
   <p-header>
         <div class="ui-helper-clearfix">
-            <button type="button" pButton icon="fa-file" iconPos="left" label="Export To CSV" (click)="exportCSV()" class="export-csv">
-              
-            </button>
+          <button class="btn export-csv" icon="fa-file" (click)="exportCSV()" [disabled]="disabledBtn"><i class="fa fa-file-excel"></i>Export To CSV
+            <span class="search-spinner" *ngIf="disabledBtn"><i class="fa-li fa fa-spinner fa-spin"></i></span>
+          </button>
+            <!-- <button type="button" pButton icon="fa-file" iconPos="left" label="Export To CSV" (click)="exportCSV()" [disabled]="disabledBtn" class="export-csv">
+              <span class="search-spinner" *ngIf="disabledBtn"><i class="fa-li fa fa-spinner fa-spin"></i></span>
+            </button> -->
         </div>
     </p-header>
   <p-column [sortable]="true" *ngFor="let col of employeeHeader" [field]="col.field" [header]="col.header">
