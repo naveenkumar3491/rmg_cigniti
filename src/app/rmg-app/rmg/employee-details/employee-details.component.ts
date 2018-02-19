@@ -127,7 +127,7 @@ export class EmployeeDetailsComponent implements OnInit {
         {
           "rowid": 42,
           "emp_id": "E003801",
-          "project_name": "sdfadasdsad",
+          "project_name": "sdfadasdsad, abcd",
           "account_name": "sdfa",
           "allocation_start_date": "17-01-2018",
           "allocation_end_date": "25-01-2018",
@@ -236,6 +236,7 @@ export class EmployeeDetailsComponent implements OnInit {
       this.parseJson(data.details);
       this.disabledBtn = false;
     })
+    //this.parseJson(this.csvBodyData);
   }
 
   parseJson(data) {
@@ -302,7 +303,8 @@ export class EmployeeDetailsComponent implements OnInit {
         }
         if(typeof data[index] === 'string'){
    if (data[index].indexOf(',') > -1) {
-          data[index] = data[index].replace(/[,]/g, "|");
+           data[index] =  "\"" + data[index] + "\"";
+          //data[index] = data[index].replace(/[,]/g, "|");
         }
         if (data[index].indexOf('\n') > -1) {
           data[index] = data[index].replace(/[\n]/g, "|");
@@ -324,6 +326,7 @@ export class EmployeeDetailsComponent implements OnInit {
       }
       if (typeof data[i][attr] === 'string' && data[i][attr].indexOf(',') > -1) {
         data[i][attr] = data[i][attr].replace(/[,]/g, "|");
+        
       }
       out.push(data[i][attr]);
     }
